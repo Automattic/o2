@@ -1,0 +1,137 @@
+@import "../../../css/src/global/o2-tools";
+@import "_post-actions.scss";
+
+/*********************************************************************************************/
+/* the following styles override o2 styles and need to remain until/if we merge post-actions into core o2 */
+
+.o2-post-reply, .o2-scroll-to-comments, .o2-edit.edit-post-link, .o2-follow, .o2-resolve-link, .o2-sticky-link,
+.o2-comment-reply, .o2-comment-edit, .o2-short-link {
+	text-indent: 0;
+	height: auto;
+	width: calc( 100% - 2.0em );
+	font-weight: normal;
+
+	&:after {
+		content: none;
+	}
+}
+
+.o2-comment-reply {
+	padding-left: 0;
+}
+
+.comment-actions {
+	display: none;
+}
+
+/*********************************************************************************************/
+/* the following styles tweak the styles defined in post-actions.scss for specific features */
+
+/*********************************************************************************************/
+/* Reply count */
+
+.o2-reply-count {
+	color: $button-count-text-color;
+	padding-left: 5px;
+}
+
+/*********************************************************************************************/
+/* Follows/subscriptions */
+
+nav.o2-post-footer-actions {
+	.o2-follow.post-comments-subscribed:hover:after {
+		content: none;
+	}
+}
+
+.post-comments-subscribed {
+	nav.o2-post-footer-actions {
+		.o2-follow {
+			color: $gray-0;
+			background-color: $blue-25;
+			border-color: $blue-40;
+
+			&:after {
+				content: none;
+			}
+
+			&:before {
+				content: '\f465';
+				color: $gray-0;
+			}
+
+			&:hover {
+				&:after {
+					content: none;
+				}
+
+				&:before {
+					content: '\f464';
+					color: $gray-0;
+				}
+			}
+		}
+	}
+}
+
+
+
+/*********************************************************************************************/
+/* Posts Likes */
+
+.o2-post {
+	.o2-post-footer-actions > ul {
+		float: left;
+	}
+
+	.sd-like h3.sd-title {
+		display: none;
+	}
+
+	div.jetpack-likes-widget-wrapper {
+		min-height: 0;
+		line-height: 0;
+		height: 27px;
+		width: auto;
+		// We need the overflow and -webkit-overflow-scrolling styles on the
+		// iframe wrapper in order to avoid touch drag scrolling the likes iframe
+		overflow: hidden;
+		-webkit-overflow-scrolling: none;
+	}
+
+	.post-likes-widget-placeholder .loading {
+		padding-top: 12px;
+		display: inline-block;
+	}
+
+	.o2-post-footer-action-likes {
+		padding-top: 7px;
+	}
+}
+
+.o2-post-footer-actions div.sharedaddy, #content .o2-post-footer-actions div.sharedaddy, #main .o2-post-footer-actions div.sharedaddy {
+	clear: none;
+}
+
+/*********************************************************************************************/
+/* Posts Discussion Disclosure / Post Comments Collapsed */
+
+.o2-post-comments-collapsed {
+	/* the following is temporary until the new post-actions ui is universally adopted */
+	/* then this style (and the corresponding style in the core _comments.scss file) should */
+	/* be removed */
+
+	padding-top: 0;
+}
+
+/*********************************************************************************************/
+/* Comment Position Fixes ( move to o2 or breathe as appropriate when launching across the board ) */
+
+.comment-meta,
+.o2-comment-header {
+	position: static !important;
+}
+
+.o2-post-comments {
+	position: relative;
+}

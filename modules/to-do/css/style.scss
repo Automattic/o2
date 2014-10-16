@@ -1,0 +1,201 @@
+@import "../../../css/src/global/o2-tools";
+
+/*********************************************************************************************/
+/* Resolved Posts */
+
+/*
+ * Resolved posts
+ */
+
+.state-unresolved,
+.state-resolved {
+	position: relative;
+
+	&:before {
+		display: block;
+		width: 5px;
+		height: 100%;
+		position: absolute;
+		top:0;
+		left:-5px;
+		content: " ";
+		margin-right: 5px;
+	}
+}
+
+
+nav.o2-post-footer-actions .o2-resolve-wrap ul {
+	border-radius: 3px;
+	border-color: $gray-5;
+	width: 280px;
+	max-height: 160px;
+	overflow-y: scroll;
+	z-index: 1;
+
+	span.audit-log-text {
+		font-size: 11px;
+	}
+
+	li {
+		float: none;
+	}
+}
+
+.o2-resolved-posts-audit-log,
+.controls .o2-resolved-posts-audit-log {
+	border: 0 none;
+	box-shadow: 0 0 1px rgba( $gray-100, 0.13 );
+	margin: 0;
+	top: 0;
+	left: 100%;
+
+
+	.avatar {
+		margin-right: 0;
+	}
+}
+
+.state-unresolved {
+	@include breakpoint( tablet-portrait ) {
+		border-top: 5px $red-50 solid;
+	}
+
+	&:before {
+		background: $red-60;
+	}
+
+	.actions .o2-resolve-link {
+		&:before {
+			color: $red-50;
+		}
+	}
+}
+
+.state-resolved {
+	@include breakpoint( tablet-portrait ) {
+		border-top: 5px $green-50 solid;
+	}
+
+	&:before {
+		background: $green-50;
+	}
+}
+
+.actions .o2-resolve-wrap .o2-resolve-link {
+	border-right: none;
+}
+
+@include breakpoint( 'handset-landscape' ){
+
+	.o2-resolved-posts-audit-log,
+.controls .o2-resolved-posts-audit-log {
+	display: none;
+	background-color: #fff;
+	padding: 3px 10px;
+	position: absolute;
+	right: 0;
+	width: 225px;
+	z-index: 1000;
+	border: 1px solid $gray-25;
+}
+
+}
+
+
+.o2-resolved-posts-audit-log {
+	li {
+		list-style-type: none;
+		color: #777;
+		border-top: none;
+		border-bottom: none;
+		padding: 2px auto;
+
+
+		img {
+			float: left;
+			margin-right: 0;
+			margin-top: 4px;
+		}
+
+		span {
+
+			&.audit-log-text {
+				
+				margin-left: 25px;
+				display: block;
+			}
+
+			&.date-time {
+				font-size: 10px;
+			}
+
+			&:first-child {
+				opacity: 1.0;
+			}
+		}
+	}
+}
+
+
+
+.o2-resolve-wrap {
+	ul {
+		background-color: #fff;
+		padding: 0;
+		position: absolute;
+		right: 0;
+		width: 240px;
+		z-index: 1000;
+		border: 1px solid $gray-25;
+		display: none;
+	}
+
+	ul li {
+		list-style-type: none;
+		color: #333;
+		opacity: 0.7;
+		border: 0;
+		padding: 3px 10px;
+	}
+
+	ul li:first-child {
+		opacity: 1.0;
+	}
+
+	span.audit-log-text {
+		margin-left: 40px;
+		display: block;
+		text-align: left;
+		font-family: $sans;
+	}
+
+	span.audit-log-date {
+		font-size: 10px;
+		font-family: $sans;
+	}
+}
+
+.o2-extend-resolved-posts-unresolved-posts-widget {
+	img {
+		float: left;
+	}
+
+	.inner {
+		margin-left: 42px;
+		font-size: 12px;
+		line-height: 14px;
+	}
+
+	.inner-sub {
+		font-size: 10px;
+	}
+}
+
+.o2-resolve-wrap ul li img.avatar,
+.o2-post .o2-resolve-wrap ul li img.avatar {
+	float: left;
+	margin-right: 0px;
+	margin-top: 3px;
+	width: 32px;
+	height: 32px;
+}

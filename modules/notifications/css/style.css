@@ -1,0 +1,187 @@
+/*THIS FILE IS COMPILED FROM AN .SCSS FILE - DO NOT EDIT DIRECTLY*/
+/* COLORS */
+/* TYPOGRAPHY */
+/* EFFECTS & UTILITIES */
+#o2-dock {
+  position: fixed;
+  bottom: 0;
+  right: 100px;
+  width: 300px;
+  max-height: 400px;
+  z-index: 200;
+  text-align: right;
+}
+@media (max-width: 876px) {
+  #o2-dock {
+    right: 0;
+    width: 100%;
+  }
+  #o2-dock br {
+    content: ' ';
+    display: none;
+  }
+}
+#o2-dock .o2-notification-close {
+  float: right;
+}
+@media (max-width: 876px) {
+  #o2-dock .o2-notification-close {
+    font: normal 32px/1 "Genericons";
+    padding: 6px;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+#o2-dock .o2-dock-count {
+  display: inline-block;
+  opacity: 1;
+  font-weight: bold;
+  padding: 5px 10px 7px 10px;
+  font-size: 16px;
+  color: white;
+  border: 1px rgba(0, 0, 0, 0.1) solid;
+  border-width: 1px 1px 0 1px;
+  cursor: pointer;
+  line-height: 14px;
+  margin-bottom: -2px;
+  background-color: #d47300;
+  min-width: 32px;
+  width: auto;
+  -webkit-transition: all 0.3s cubic-bezier(0, 1.8, 1, 1.8);
+  -moz-transition: all 0.3s cubic-bezier(0, 1.8, 1, 1.8);
+  transition: all 0.3s cubic-bezier(0, 1.8, 1, 1.8);
+}
+@media (max-width: 876px) {
+  #o2-dock .o2-dock-count {
+    height: 38px;
+    padding: 15px 15px 0px;
+  }
+  #o2-dock .o2-dock-count:before {
+    font-size: 32px;
+  }
+}
+#o2-dock .o2-dock-count:before {
+  font-size: 16px;
+  color: #dddddd;
+  padding-right: 5px;
+  color: white;
+  line-height: 12px;
+  position: relative;
+  top: 3px;
+}
+#o2-dock #o2-dock-controls {
+  display: none;
+  margin: 0;
+  padding: 10px;
+  border: 1px rgba(0, 0, 0, 0.1) solid;
+  border-width: 0 1px 0 1px;
+  font-size: 12px;
+  font-family: "Open Sans", sans-serif;
+  background: white;
+  color: #3498db;
+  cursor: pointer;
+  line-height: 12px;
+}
+@media (max-width: 876px) {
+  #o2-dock #o2-dock-controls {
+    padding: 15px;
+  }
+}
+#o2-dock.empty {
+  display: none;
+}
+#o2-dock #o2-items-scroll {
+  overflow: auto;
+  max-height: 350px;
+}
+#o2-dock .o2-dock-items {
+  display: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  background: white;
+  color: rgba(0, 0, 0, 0.3);
+  border: 1px rgba(0, 0, 0, 0.1) solid;
+  border-width: 1px 1px 0 1px;
+}
+#o2-dock .o2-dock-items li {
+  clear: both;
+}
+@media (max-width: 876px) {
+  #o2-dock .o2-dock-items li {
+    position: relative;
+  }
+}
+#o2-dock .o2-dock-items li img {
+  float: left;
+}
+@media (max-width: 876px) {
+  #o2-dock .o2-dock-items li img {
+    margin: 0;
+    max-height: 32px;
+    max-width: 32px;
+  }
+}
+#o2-dock .o2-dock-items li p {
+  margin: 0 10px;
+  float: left;
+  width: 190px;
+}
+@media (max-width: 876px) {
+  #o2-dock .o2-dock-items li p {
+    float: none;
+    margin: 5px 10px 5px 42px;
+    width: auto;
+  }
+}
+#o2-dock .o2-dock-items li.o2-notification {
+  margin: 0;
+  padding: 5px 10px 6px;
+  background: white;
+  color: black;
+  font-family: "Open Sans", sans-serif;
+  left: auto;
+  bottom: auto;
+  width: auto;
+  text-align: left;
+  font-size: 12px;
+}
+#o2-dock .o2-dock-items li.o2-notification a {
+  color: #3498db;
+}
+#o2-dock .o2-dock-items li.o2-notification a:hover {
+  color: #2875a8;
+}
+#o2-dock .o2-dock-items li.o2-notification:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+#o2-flash {
+  position: fixed;
+  bottom: 10px;
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+}
+#o2-flash .o2-flash-items {
+  list-style: none;
+  margin: 0;
+}
+#o2-flash .o2-flash-items li {
+  list-style-type: none;
+}
+#o2-flash .o2-flash-items li.o2-notification {
+  background: #111;
+  border-radius: 5px;
+  border: 2px solid white;
+  color: #eee;
+  font: 14px/18px "Open Sans", sans-serif;
+  padding: 10px;
+  margin: 0;
+  position: relative;
+  left: 30%;
+  text-align: center;
+  width: 40%;
+}

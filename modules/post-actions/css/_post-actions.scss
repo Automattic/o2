@@ -1,0 +1,574 @@
+@import "../../../css/src/global/o2-tools";
+
+$likes-border-color: #ccc;
+$likes-background-color: #f8f8f8;
+$likes-text-color: #777;
+$button-count-text-color: #999;
+$likes-shadow-color: rgba( 0, 0, 0, .08 );
+$likes-icon-color: #2ba1cb;
+$likes-border-hover-color: #999;
+
+*:focus {
+	outline: 0;
+}
+
+/*********************************************************************************************/
+/* POST AND COMMENT DROPDOWNS (SHARED STYLES) */
+
+nav.o2-dropdown-actions {
+
+	.genericon:before {
+		font-family: 'Genericons';
+	}
+
+	/* note:  the button and the ul are absolutely positioned relative to the post/comment */
+
+	button {
+		float: right;
+
+		background: transparent;
+		border: none;
+		box-shadow: none;
+
+		padding: 0;
+		margin: 0;
+
+		line-height: 1;
+		width: 32px;
+		height: 32px;
+		font-size: 32px;
+		font-family: $sans;
+
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: antialiased;
+
+		&:hover {
+			background: $gray-2;
+		}
+
+		&.o2-dropdown-actions-disclosure.genericon {
+			@include rounded( 3px );
+
+			&:before {
+				font-size: 16px !important;
+				height: 32px;
+				width: 32px;
+				line-height: 1;
+				text-align: center;
+				color: $gray-20;
+				position: relative;
+				top: -4px;
+			}
+
+			&:hover {
+				background: $gray-5;
+				&:before {
+					color: $blue-30;
+				}
+			}
+
+			&:focus {
+				outline: 0;
+			}
+
+			span {
+				display: none;
+			}
+		}
+
+		&.o2-dropdown-actions-disclosure.open {
+			background: $gray-5;
+		}
+	}
+
+	ul {
+		@include rounded( 3px );
+		@include box-shadow();
+
+		float: right;
+
+		display: none;
+		margin: 0;
+		margin-top: 32px; /* must match button height above */
+		border: 1px $gray-5 solid;
+		clear: both;
+		z-index: 100;
+
+		li {
+			list-style-type: none;
+			white-space: nowrap;
+			background: $gray-0;
+		}
+
+		li > a, li > span > a {
+			background: transparent;
+			border:0;
+			box-shadow: none;
+			text-align: left;
+			color: $gray-60;
+
+			padding: 0.6em 1.0em 0.6em 1.0em;
+			margin: 0;
+			line-height: 1.5;
+
+			@include breakpoint( handset-landscape ){
+				line-height: 2.5;
+				font-size: 16px;
+			}
+
+			width: calc( 100% - 2.0em );
+			height: auto;
+
+			font-size: 12px;
+			font-family: $sans;
+
+			&:hover {
+				background: $gray-2;
+				color: $blue-30;
+			}
+
+			&.o2-actions-no-icon:before {
+				width: 24px;
+				display: inline-block;
+				content: '';
+			}
+
+			&.o2-actions-border-top {
+				border-top:1px $gray-5 solid;
+
+				@include breakpoint( handset-landscape ) {
+					border-top-color: $gray-20 !important;
+				}
+			}
+
+			&.o2-warning-hover{
+				&:hover{
+					color: $red-50;
+					&:before{
+						color: $red-50;
+					}
+				}
+			}
+
+			&.o2-actions-border-bottom {
+				border-bottom:1px $gray-5 solid;
+
+				@include breakpoint( handset-portrait ) {
+					border-bottom-color: $gray-20 !important;
+				}
+			}
+
+			&.genericon {
+				&:before {
+					display: inline-block;
+					width: 16px;
+					height: 16px;
+
+					font-size: 16px;
+					line-height: 1.25;
+
+					@include breakpoint( handset-landscape ){
+						line-height: 2.0;
+						font-size: 32px;
+						position: relative;
+						top: -12px;
+						left: -10px;
+						padding-right: 12px;
+					}
+
+					font-family: 'Genericons';
+					text-decoration: inherit;
+					font-weight: normal;
+					font-style: normal;
+					vertical-align: top;
+					padding-right: 8px;
+					color: $gray-25;
+				}
+			}
+		} /* li > a */
+	} /* ul */
+}
+
+/*********************************************************************************************/
+/* POST ACTIONS DROPDOWN */
+
+nav.o2-post-actions {
+	button {
+		position: absolute;
+		top: -10px;
+		right: -10px;
+	}
+
+	ul {
+		position: absolute;
+		top: -10px;
+		right: -10px;
+
+		@include breakpoint( handset-portrait ) {
+			left: -50px;
+		}
+	}
+}
+
+/*********************************************************************************************/
+/* COMMENT ACTIONS DROPDOWN */
+
+nav.o2-comment-actions {
+	button {
+		&:before {
+			padding-right: 0;
+		}
+
+		position: absolute;
+		right: 10px;
+
+		.open {
+			display: block;
+		}
+	}
+
+	ul {
+		position: absolute;
+		right: 10px;
+		margin-top: 32px;
+
+		@include breakpoint( handset-portrait ) {
+			left: 10px;
+		}
+	}
+}
+
+/*********************************************************************************************/
+/* POST FOOTER ACTIONS */
+
+footer.entry-meta {
+	margin-left:40px;
+	overflow: hidden;
+	border-top: 1px $gray-20 solid;
+	padding-top: 15px;
+
+	@include breakpoint( handset-landscape ) {
+		margin-left: 0;
+	}
+}
+
+
+#jp-post-flair{
+	padding-top:0px;
+}
+nav.o2-post-footer-actions {
+
+	overflow: hidden;
+
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		clear: both;
+		float: left;
+
+		&.o2-extended-actions {
+			clear: both;
+		}
+
+		&.wpl-avatars {
+			float: left;
+			margin-top: 3px;
+			margin-left: 5px;
+
+			display: flex;
+
+			@include breakpoint( tablet-landscape ) {
+				display: none;
+			}
+
+			li {
+				margin: 0px auto;
+
+				.avatar {
+					@include rounded( 3px );
+					margin-right: 2px;
+				}
+			}
+		}
+
+		li {
+			float: left;
+			margin-bottom: 12px;
+			white-space: nowrap;
+			margin: 7px 7px 7px auto;
+
+			&.o2-likes {
+				margin-right: 0;
+				display: flex;
+				width: auto;
+				min-width: 550px;
+
+				@include breakpoint( tablet-landscape ) {
+					min-width: 0;
+				}
+			}
+
+			button {
+				@include rounded( 2px );
+
+				width: auto;
+				height: auto;
+				padding: 0.4em 0.6em 0.8em 0.6em;
+				line-height: 1;
+
+				display: flex;
+				flex-wrap: nowrap;
+
+				font-size: 14px;
+				border: 1px $gray-25 solid;
+				box-shadow: none;
+
+				color: $blue-10;
+				background: $gray-0;
+				float: left;
+
+				&.genericon {
+					font-size: 14px;
+				}
+
+				&.o2-actions-no-icon {
+					&:before{
+						content: '';
+						padding: 0;
+					}
+
+					@include breakpoint( tablet-portrait ) {
+							font-size: 22px;
+						}
+				}
+
+				&:not( .o2-actions-no-icon ) {
+					span {
+						@include breakpoint( tablet-portrait ){
+							display: none;
+						}
+					}
+				}
+
+				span {
+					&.o2-count {
+						color: $gray-25;
+						display: inline-block;
+						padding-left: 3px;
+
+						@include breakpoint( tablet-portrait ) {
+							font-size: 32px;
+						}
+					}
+				}
+
+				&:before {
+					font-size: 16px;
+					color: $blue-10;
+					padding-right: 8px;
+					padding-left: 2px;
+					top: 2px;
+					position: relative;
+
+					@include breakpoint( tablet-portrait ) {
+						font-size: 32px;
+						padding-right: 2px;
+					}
+				}
+			}
+		}
+
+		li > a, li > span > a {
+			background: transparent;
+			border: 1px $likes-border-color solid;
+			border-radius: 3px;
+
+			box-shadow: none;
+			text-align: left;
+			text-decoration: none;
+
+			color: $gray-60;
+
+			padding: 3px;
+			padding-right: 10px;
+
+			margin: 0;
+			line-height: 1.5;
+			width: calc( 100% - 1.5em );
+			height: auto;
+
+			font-size: 12px;
+			font-family: $sans;
+
+			background-color: $likes-background-color;
+			@include box-shadow( $color: $likes-shadow-color );
+			-webkit-font-smoothing: auto !important;
+			-moz-osx-font-smoothing: auto;
+
+			&:hover {
+				border-color: $likes-border-hover-color;
+				color: $likes-text-color;
+				background-color: $likes-background-color;
+			}
+
+			&.o2-actions-no-icon:before {
+				width: 24px;
+				display: inline-block;
+				content: '';
+			}
+
+			&.o2-actions-border-top {
+				border-top:1px $gray-5 solid;
+
+				@include breakpoint( handset-landscape ) {
+					border-top-color: $gray-20 !important;
+				}
+			}
+
+			&.o2-actions-border-bottom {
+				border-bottom:1px $gray-5 solid;
+
+				@include breakpoint( handset-portrait ) {
+					border-bottom-color: $gray-20 !important;
+				}
+			}
+
+			&.genericon {
+				&:before {
+					display: inline-block;
+					width: 16px;
+					height: 16px;
+
+					font-size: 16px;
+					line-height: 1.25;
+					font-family: 'Genericons';
+					text-decoration: inherit;
+					font-weight: normal;
+					font-style: normal;
+					vertical-align: top;
+					padding-left: 3px;
+					padding-right: 3px;
+					color: $likes-icon-color;
+				}
+			}
+		}
+	}
+}
+
+footer.entry-meta {
+	border-top: none;
+}
+
+/*********************************************************************************************/
+/* COMMENT FOOTER ACTIONS */
+
+div.o2-comment-footer-actions {
+
+	overflow: hidden;
+	padding: 0 0 10px 0;
+
+	@include breakpoint( 'handset-landscape' ){
+
+		padding-bottom: 0px;
+
+	}
+
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 1px;
+
+		li {
+			float: left;
+
+			a {
+				.o2-comment-like {
+					.liked {
+						&:before {
+							color: $orange-25;
+						}
+					}
+				}
+			}
+		}
+
+		li > a {
+			color: $gray-70;
+			opacity: 0.8;
+			font-family: $sans;
+			font-size: 12px;
+			text-decoration: none;
+			color: $gray-70;
+			line-height: 20px;
+			width: auto;
+			height: 20px;
+			vertical-align: top;
+			overflow: visible;
+
+			&:before {
+				font-family: 'Genericons';
+				margin-right: 5px;
+				color: $blue-10;
+				font-size: 16px;
+				line-height: 18px;
+				height: 20px;
+			}
+
+			&:hover {
+				&:before {
+					color: $orange-25;
+				}
+			}
+
+			span {
+				color: $blue-10;
+				line-height: 1;
+				vertical-align: top;
+			}
+
+			&.o2-comment-reply {
+				padding-right: 10px;
+
+				-webkit-font-smoothing: auto;
+				-moz-font-smoothing: auto;
+
+				&:before{
+					-webkit-font-smoothing: antialiased;
+					-moz-font-smoothing: grayscale;
+				}
+			}
+
+			// firefox needs the following in order to align the comment reply action correctly
+			// because the :before is taller than the anchor content - only firefox does this
+			display: inline-flex;
+		}
+
+		/* Lots of styling below to reduce comment like star a bit and clean up alignments */
+
+		p.comment-likes {
+			height: 20px;
+
+			span.comment-like-feedback {
+				padding: 0px 5px 0px 2px;
+				line-height: 20px;
+				-webkit-font-smoothing: auto;
+				-moz-font-smoothing: auto;
+			}
+
+			a.comment-like-link {
+				font-size: 16px;
+				width: 16px;
+				line-height: 18px;
+				height: 20px;
+
+				&:before {
+					font-size: 16px;
+					width: 16px;
+					line-height: 18px;
+					height: 20px;
+				}
+			}
+		}
+	}
+}

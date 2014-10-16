@@ -1,0 +1,198 @@
+@import "../../../css/src/global/o2-tools";
+
+#o2-dock {
+	position: fixed;
+	bottom: 0;
+	right: 100px;
+	width: 300px;
+	max-height: 400px;
+	z-index: 200;
+	text-align:right;
+
+	@include breakpoint( tablet-portrait ) {
+		right: 0;
+		width: 100%;
+
+		br {
+			content: ' ';
+			display: none;
+		}
+	}
+
+	.o2-notification-close {
+		float: right;
+
+		@include breakpoint( tablet-portrait ) {
+			font: normal 32px/1 "Genericons";
+			padding: 6px;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+	}
+
+	.o2-dock-count {
+		display: inline-block;
+		opacity: 1;
+		font-weight:bold;
+		padding: 5px 10px 7px 10px;
+		font-size:16px;
+		color: $gray-0;
+		border: 1px rgba( $gray-100, 0.1 ) solid;
+		border-width: 1px 1px 0 1px;
+		cursor: pointer;
+		line-height: 14px;
+		margin-bottom: -2px;
+		background-color: rgba( $orange-50, 1 );
+		min-width:32px;
+		width: auto;
+
+		@include breakpoint( tablet-portrait ) {
+			height: 38px;
+			padding: 15px 15px 0px;
+
+			&:before {
+				font-size: 32px;
+			}
+		}
+
+		@include transition( all, 0.3s, cubic-bezier(0, 1.8, 1, 1.8) );
+
+		&:before{
+			font-size: 16px;
+			color:$gray-10;
+			padding-right:5px;
+			color: $gray-0;
+			line-height: 12px;
+			position:relative;
+			top:3px;
+		}
+
+	}
+
+	#o2-dock-controls {
+		display: none;
+		margin: 0;
+		padding: 10px;
+		border: 1px rgba( $gray-100, 0.1 ) solid;
+		border-width: 0 1px 0 1px;
+		font-size: 12px;
+		font-family: $sans;
+		background: $gray-0;
+		color: $blue-10;
+		cursor: pointer;
+		line-height: 12px;
+
+		@include breakpoint( tablet-portrait ) {
+			padding: 15px;
+		}
+
+	}
+
+	&.empty {
+		display: none;
+	}
+
+	#o2-items-scroll{
+		overflow: auto;
+		max-height: 350px;
+	}
+
+	.o2-dock-items {
+		display: none;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		list-style: none;
+		background: rgba( $gray-0, 1 );
+			color: rgba( $gray-100, 0.3 );
+		border: 1px rgba( $gray-100, 0.1 ) solid;
+		border-width: 1px 1px 0 1px;
+
+		li {
+			clear:both;
+
+			@include breakpoint( tablet-portrait ) {
+				position: relative;
+			}
+
+			img {
+				float:left;
+
+				@include breakpoint( tablet-portrait ) {
+					margin: 0;
+					max-height: 32px;
+					max-width: 32px;
+				}
+			}
+
+			p {
+				margin:0 10px;
+				float: left;
+				width: 190px;
+
+				@include breakpoint( tablet-portrait ) {
+					float: none;
+					margin: 5px 10px 5px 42px;
+					width: auto;
+				}
+			}
+
+			&.o2-notification {
+				margin: 0;
+				padding: 5px 10px 6px;
+				background: rgba( 255, 255, 255, 1 );
+				color: rgba( 0, 0, 0, 1 );
+				font-family: $sans;
+				left: auto;
+				bottom: auto;
+				width: auto;
+				text-align: left;
+				font-size: 12px;
+
+				a {
+					color: #3498db;
+
+					&:hover {
+						color: #2875a8;
+					}
+				}
+
+				&:hover {
+					background: rgba( 255, 255, 255, .7 );
+				}
+			}
+		}
+	}
+}
+
+#o2-flash {
+	position: fixed;
+	bottom: 10px;
+	overflow: hidden;
+	text-align: center;
+	width: 100%;
+
+	.o2-flash-items {
+		list-style: none;
+		margin: 0;
+
+		li {
+			list-style-type: none;
+		}
+
+		li.o2-notification {
+			background: #111;
+			border-radius: 5px;
+			border: 2px solid #fff;
+			color: #eee;
+			font: 14px/18px 'Open Sans', sans-serif;
+			padding: 10px;
+			margin: 0;
+			position: relative;
+			left: 30%;
+			text-align: center;
+			width: 40%;
+		}
+	}
+}

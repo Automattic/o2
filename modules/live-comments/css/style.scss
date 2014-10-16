@@ -1,0 +1,21 @@
+.o2-live-comments-container {
+	img.o2-live-item-img {
+		float: left;
+	}
+
+	p.o2-live-item-text {
+		margin: 0 0 12px 40px;
+		font-size: 1.0em;
+		line-height: 1.3em;
+		min-height: 32px;
+		overflow: hidden;
+	}
+
+	span.entry-date {
+		font-size: 0.8em;
+	}
+
+	.o2-live-item-clear {
+		clear: both;
+	}
+}

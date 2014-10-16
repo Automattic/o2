@@ -1,0 +1,17 @@
+/*
+GLOBAL PARTIALS
+Global partials provide base HTML styling as well as variables and mixins to be used in the UI partials
+*/
+
+// VARIABLES & MIXINS
+@import "src/global/o2-tools";
+
+/*
+UI PARTIALS
+UI partials provide the higher-level styles required for o2 to function and display properly
+*/
+
+@import "src/ui/icons";
+@import "src/ui/editor";
+@import "src/ui/controls";
+@import "src/ui/messaging";

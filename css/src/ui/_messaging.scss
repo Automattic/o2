@@ -1,0 +1,151 @@
+.o2-new-content {
+	width: 100%;
+}
+
+.o2-extended-more {
+	display: none;
+}
+
+.o2-error {
+	background-color: #fff0f0;
+}
+
+.o2-browser-warning {
+	background-color: #ffff90;
+	color: #000;
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+/*
+ * o2 Notifications
+ */
+
+.o2-notifications {
+	position: fixed;
+	bottom: 10px;
+	overflow: hidden;
+	text-align: center;
+	width: 100%;
+}
+
+.o2-notification {
+	background: #111;
+	background: rgba( 0, 0, 0, 0.75 );
+	color: #eee;
+	font-size: 14px;
+	line-height: 18px;
+	padding: 0;
+	margin: 0;
+	position: relative;
+	left: 30%;
+	text-align: center;
+	width: 40%;
+	border: 0 none;
+	border-radius: 0;
+	box-shadow: 0 0 1px rgba( $gray-0, 0.25 );
+	font-family: inherit;
+
+	a {
+		&:link,
+		&:visited,
+		&:active {
+			color: #eee;
+		}
+
+		&:hover {
+			color: #fff;
+		}
+	}
+
+	table {
+		padding: 10px;
+		margin: 0;
+	}
+
+	table,
+	tr,
+	td {
+		border: none;
+	}
+}
+
+.o2-notification-error {
+	background: #911;
+}
+
+.o2-notification-message {
+	padding: 0px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.o2-notification-icon {
+	text-align: center;
+	vertical-align: middle;
+	width: 80px;
+	-webkit-font-smoothing: antialiased;
+	font: normal 32px/1 'Genericons';
+}
+
+.o2-notification-close {
+	float: right;
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+	font: normal 20px/1 'Genericons';
+
+	a:hover {
+		border-bottom: none;
+		text-decoration: none;
+	}
+}
+
+/*
+ * Help modal
+ */
+#help {
+	background: #000;
+	background: rgba( 0, 0, 0, 0.75 );
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	box-shadow: 0 0 1px rgba( $gray-0, 0.25 );
+	color: $gray-0;
+	display: none;
+	padding: 30px;
+	margin: 0;
+	position: fixed;
+	top: 20%;
+	left: 20%;
+	z-index: 10000;
+	width: 60%;
+
+	dl {
+		margin: 0;
+		padding: 0;
+		font-size: 2em;
+	}
+
+	dd,
+	dt {
+		display: block;
+		float: left;
+		margin: 0;
+		padding: 0;
+	}
+
+	dt {
+		clear: left;
+		color: #3478e3;
+		font-family: courier;
+		padding-right: 5%;
+		text-align: right;
+		width: 25%;
+	}
+
+	dd {
+		width: 70%;
+		font-family: inherit;
+		font-weight: 300;
+	}
+}

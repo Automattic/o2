@@ -1,0 +1,264 @@
+$outerwidth: 1.8rem;
+$innerwidth: $outerwidth/2;
+$blockpadding: $innerwidth $innerwidth * 1.5;
+
+/* COLORS */
+
+$gray-0:	#fff;
+$gray-2:	#fafafa;
+$gray-5:	#f1f1f1;
+$gray-10:	#ddd;
+$gray-12:	#eee;
+$gray-20:	#ccc;
+$gray-25:	#bbb;
+$gray-35:	#aaa;
+$gray-50:	#888;
+$gray-60:	#666;
+$gray-70: 	#555;
+$gray-90:	#222;
+$gray-100:	#000;
+
+$blue-0:	#e4f2fd;
+$blue-10:	#3498db;
+$blue-25:	#2ba1cb;
+$blue-30:	#2875a8;
+$blue-35:	#21759b;
+$blue-40:	#198fbb;
+
+$yellow-0:	#feffc2;
+$orange-25: #ff9a00;
+$orange-50: #d47300;
+
+$red-50:	#F00;
+$red-60:	#e6000a;
+$green-50:	#009632;
+
+
+/* TYPOGRAPHY */
+// Typography definitions (think fonts, font sizes, weights, etc. Variables to be used elsewhere.)
+
+$sans: "Open Sans", sans-serif;
+$mono: Monaco, Consolas, "Courier New", monospace;
+$mono-font: 11px Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", "Courier New", monospace;
+$serif:  "Noto Serif", serif;
+
+/* EFFECTS & UTILITIES */
+
+@mixin gradient( $from, $to ) {
+	background: -webkit-gradient( linear, left top, left bottom, from( $from ), to( $to ) );
+	background: -moz-linear-gradient( top, $from, $to );
+}
+
+@mixin rounded( $radius: 5px ) {
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius;
+	border-radius: $radius;
+	-webkit-background-clip: padding-box;
+}
+
+@mixin round-top( $radius: 5px ) {
+	-webkit-border-top-left-radius: $radius;
+	-webkit-border-top-right-radius: $radius;
+	-moz-border-radius-topleft: $radius;
+	-moz-border-radius-topright: $radius;
+	border-top-left-radius: $radius;
+	border-top-right-radius: $radius;
+	-webkit-background-clip: padding-box;
+}
+
+@mixin round-bottom( $radius: 5px ) {
+	-webkit-border-bottom-left-radius: $radius;
+	-webkit-border-bottom-right-radius: $radius;
+	-moz-border-radius-bottomleft: $radius;
+	-moz-border-radius-bottomright: $radius;
+	border-bottom-left-radius: $radius;
+	border-bottom-right-radius: $radius;
+	-webkit-background-clip: padding-box;
+}
+
+@mixin round-left( $radius: 5px ) {
+	-webkit-border-top-left-radius: $radius;
+	-webkit-border-bottom-left-radius: $radius;
+	-moz-border-radius-topleft: $radius;
+	-moz-border-radius-bottomleft: $radius;
+	border-top-left-radius: $radius;
+	border-bottom-left-radius: $radius;
+	-webkit-background-clip: padding-box;
+}
+
+@mixin round-right( $radius: 5px ) {
+	-webkit-border-bottom-right-radius: $radius;
+	-webkit-border-top-right-radius: $radius;
+	-moz-border-radius-bottomright: $radius;
+	-moz-border-radius-topright: $radius;
+	border-bottom-right-radius: $radius;
+	border-top-right-radius: $radius;
+	-webkit-background-clip: padding-box;
+}
+
+@mixin box-shadow( $xoffset: 0, $yoffset: 1px, $blur: 0, $color: rgba( 0, 0, 0, 0.2 ) ) {
+	box-shadow: $xoffset $yoffset $blur $color;
+	-webkit-box-shadow: $xoffset $yoffset $blur 0 $color;
+}
+
+@mixin inset {
+	-webkit-box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.1 );
+	-moz-box-shadow: 0 1px 0 rgba( 255, 255, 255, 0.1 );
+}
+
+@mixin inset-dark {
+	-webkit-box-shadow: 0 1px 0 rgba( 0, 0, 0, 0.05 );
+	-moz-box-shadow: 0 1px 0 rgba( 0, 0, 0, 0.05 );
+}
+
+@mixin inset-custom( $color ) {
+	-moz-box-shadow: inset 0 1px 0 $color;
+	-webkit-box-shadow: inset 0 1px 0 $color;
+	-o-box-shadow: inset 0 1px 0 $color;
+	-ms-box-shadow: inset 0 1px 0 $color;
+	box-shadow: inset 0 1px 0 $color;
+}
+
+@mixin transition( $property: all, $timing: 0.1s, $easing: ease-in-out ) {
+	-webkit-transition: $property $timing $easing;
+	-moz-transition: $property $timing $easing;
+	transition: $property $timing $easing;
+}
+
+@mixin inner-shadow {
+	-moz-box-shadow: inset 0 0px 3px rgba( 0, 0, 0, .15 );
+	-webkit-box-shadow: inset 0 0px 3px rgba( 0, 0, 0, .15 );
+	-o-box-shadow: inset 0 0px 3px rgba( 0, 0, 0, .15 );
+	-ms-box-shadow: inset 0 0px 3px rgba( 0, 0, 0, .15 );
+	box-shadow: inset 0 0px 3px rgba( 0, 0, 0, .15 );
+}
+
+@mixin arrow-left() {
+	&:after,
+	&:before {
+		right              : 100%;
+		top                : 45%;
+		border             : solid transparent;
+		content            : " ";
+		height             : 0;
+		width              : 0;
+		position           : absolute;
+		pointer-events     : none;
+	}
+
+	&:after {
+		border-color       : rgba( 255, 255, 255, 0 );
+		border-right-color : #fff;
+		border-width       : 8px;
+		margin-top         : -8px;
+	}
+
+	&:before {
+		border-color       : rgba( 51, 51, 51, 0 );
+		border-right-color : $gray;
+		border-width       : 9px;
+		margin-top         : -9px;
+	}
+}
+
+@mixin arrow-right() {
+	&:after,
+	&:before {
+		left              : 100%;
+		top               : 45%;
+		border            : solid transparent;
+		content           : " ";
+		height            : 0;
+		width             : 0;
+		position          : absolute;
+		pointer-events    : none;
+	}
+
+	&:after {
+		border-color      : rgba( 255, 255, 255, 0 );
+		border-left-color : #fff;
+		border-width      : 8px;
+		margin-top        : -8px;
+	}
+
+	&:before {
+		border-color      : rgba( 51, 51, 51, 0 );
+		border-left-color : $gray;
+		border-width      : 9px;
+		margin-top        : -9px;
+	}
+}
+
+@mixin modify-arrow-position( $percent ) {
+	&:before,
+	&:after {
+		top : $percent;
+	}
+}
+
+
+/*
+// REQUIRES SASS 3.3 AND COMPASS 1.0
+
+$breakpoints:(
+  'web':1200px,
+  'tablet-landscape':1024px,
+  'tablet-portrait': 876px,
+  'handset-landscape': 640px,
+  'handset-portrait': 550px
+);
+
+
+@mixin breakpoint($size){
+  @each $breakpoint, $value in $breakpoints {
+   @if $size == $breakpoint {
+     @media (max-width: map-get($breakpoints, $breakpoint)){
+       @content;
+     }
+   }
+  }
+}
+*/
+
+$web: 1200px;
+$tablet-landscape: 1024px;
+$tablet-portrait: 876px;
+$handset-landscape: 640px;
+$handset-portrait: 550px;
+
+
+// OLD SCHOOL LAME VERSION
+
+@mixin breakpoint( $size ) {
+
+  @if ( $size == web ){
+      @media( max-width : $web ) {
+        @content;
+      }
+    }
+
+  @if ( $size == tablet-landscape ){
+      @media( max-width : $tablet-landscape ) {
+        @content;
+      }
+    }
+
+  @if ( $size == tablet-portrait ){
+      @media( max-width : $tablet-portrait ) {
+        @content;
+      }
+    }
+
+  @if ( $size == handset-landscape ){
+      @media( max-width : $handset-landscape ) {
+        @content;
+      }
+    }
+
+  @if ( $size == handset-portrait ){
+      @media( max-width : $handset-portrait ) {
+        @content;
+      }
+    }   
+}
+

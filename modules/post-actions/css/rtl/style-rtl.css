@@ -1,0 +1,680 @@
+/* This file was automatically generated on Aug 22 2014 22:44:14 */
+
+/* COLORS */
+/* TYPOGRAPHY */
+/* EFFECTS & UTILITIES */
+/* COLORS */
+/* TYPOGRAPHY */
+/* EFFECTS & UTILITIES */
+/* line 11, _post-actions.scss */
+*:focus {
+  outline: 0;
+}
+
+/*********************************************************************************************/
+/* POST AND COMMENT DROPDOWNS (SHARED STYLES) */
+/* line 18, _post-actions.scss */
+nav.o2-dropdown-actions {
+  /* note:  the button and the ul are absolutely positioned relative to the post/comment */
+  /* ul */
+}
+/* line 20, _post-actions.scss */
+nav.o2-dropdown-actions .genericon {
+  font-family: 'Genericons';
+}
+/* line 26, _post-actions.scss */
+nav.o2-dropdown-actions button {
+  float: left;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  font-size: 32px;
+  font-family: "Open Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: antialiased;
+}
+/* line 45, _post-actions.scss */
+nav.o2-dropdown-actions button:hover {
+  background: #fafafa;
+}
+/* line 49, _post-actions.scss */
+nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-background-clip: padding-box;
+}
+/* line 52, _post-actions.scss */
+nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon:before {
+  font-size: 16px !important;
+  height: 32px;
+  width: 32px;
+  line-height: 1;
+  text-align: center;
+  color: #cccccc;
+  position: relative;
+  top: -7px;
+}
+/* line 63, _post-actions.scss */
+nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon:hover {
+  background: #f1f1f1;
+}
+/* line 65, _post-actions.scss */
+nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon:hover:before {
+  color: #2875a8;
+}
+/* line 70, _post-actions.scss */
+nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon:focus {
+  outline: 0;
+}
+/* line 74, _post-actions.scss */
+nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon span {
+  display: none;
+}
+/* line 79, _post-actions.scss */
+nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.open {
+  background: #f1f1f1;
+}
+/* line 84, _post-actions.scss */
+nav.o2-dropdown-actions ul {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-background-clip: padding-box;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  float: left;
+  display: none;
+  margin: 0;
+  margin-top: 32px;
+  /* must match button height above */
+  border: 1px #f1f1f1 solid;
+  clear: both;
+  z-index: 100;
+  /* li > a */
+}
+/* line 97, _post-actions.scss */
+nav.o2-dropdown-actions ul li {
+  list-style-type: none;
+  white-space: nowrap;
+  background: white;
+}
+/* line 103, _post-actions.scss */
+nav.o2-dropdown-actions ul li > a, nav.o2-dropdown-actions ul li > span > a {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  text-align: right;
+  color: #666666;
+  padding: 0.6em 1.0em 0.6em 1.0em;
+  margin: 0;
+  line-height: 1.5;
+  width: calc(100% - 2.0em );
+  height: auto;
+  font-size: 12px;
+  font-family: "Open Sans", sans-serif;
+}
+@media (max-width: 640px) {
+  /* line 103, _post-actions.scss */
+  nav.o2-dropdown-actions ul li > a, nav.o2-dropdown-actions ul li > span > a {
+    line-height: 2.5;
+    font-size: 14px;
+  }
+}
+/* line 125, _post-actions.scss */
+nav.o2-dropdown-actions ul li > a:hover, nav.o2-dropdown-actions ul li > span > a:hover {
+  background: #fafafa;
+  color: #2875a8;
+}
+/* line 130, _post-actions.scss */
+nav.o2-dropdown-actions ul li > a.o2-actions-no-icon:before, nav.o2-dropdown-actions ul li > span > a.o2-actions-no-icon:before {
+  width: 24px;
+  display: inline-block;
+  content: '';
+}
+/* line 136, _post-actions.scss */
+nav.o2-dropdown-actions ul li > a.o2-actions-border-top, nav.o2-dropdown-actions ul li > span > a.o2-actions-border-top {
+  border-top: 1px #f1f1f1 solid;
+}
+@media (max-width: 640px) {
+  /* line 136, _post-actions.scss */
+  nav.o2-dropdown-actions ul li > a.o2-actions-border-top, nav.o2-dropdown-actions ul li > span > a.o2-actions-border-top {
+    border-top-color: #cccccc !important;
+  }
+}
+/* line 144, _post-actions.scss */
+nav.o2-dropdown-actions ul li > a.o2-actions-border-bottom, nav.o2-dropdown-actions ul li > span > a.o2-actions-border-bottom {
+  border-bottom: 1px #f1f1f1 solid;
+}
+@media (max-width: 550px) {
+  /* line 144, _post-actions.scss */
+  nav.o2-dropdown-actions ul li > a.o2-actions-border-bottom, nav.o2-dropdown-actions ul li > span > a.o2-actions-border-bottom {
+    border-bottom-color: #cccccc !important;
+  }
+}
+/* line 153, _post-actions.scss */
+nav.o2-dropdown-actions ul li > a.genericon:before, nav.o2-dropdown-actions ul li > span > a.genericon:before {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  line-height: 1.25;
+  font-family: 'Genericons';
+  text-decoration: inherit;
+  font-weight: normal;
+  font-style: normal;
+  vertical-align: top;
+  padding-left: 8px;
+  color: #bbbbbb;
+}
+@media (max-width: 640px) {
+  /* line 153, _post-actions.scss */
+  nav.o2-dropdown-actions ul li > a.genericon:before, nav.o2-dropdown-actions ul li > span > a.genericon:before {
+    line-height: 2.0;
+  }
+}
+
+/*********************************************************************************************/
+/* POST ACTIONS DROPDOWN */
+/* line 182, _post-actions.scss */
+nav.o2-post-actions button {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+}
+/* line 188, _post-actions.scss */
+nav.o2-post-actions ul {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+}
+@media (max-width: 550px) {
+  /* line 188, _post-actions.scss */
+  nav.o2-post-actions ul {
+    right: -50px;
+  }
+}
+
+/*********************************************************************************************/
+/* COMMENT ACTIONS DROPDOWN */
+/* line 203, _post-actions.scss */
+nav.o2-comment-actions button {
+  position: absolute;
+  left: 10px;
+}
+/* line 204, _post-actions.scss */
+nav.o2-comment-actions button:before {
+  padding-left: 0;
+}
+/* line 211, _post-actions.scss */
+nav.o2-comment-actions button .open {
+  display: block;
+}
+/* line 216, _post-actions.scss */
+nav.o2-comment-actions ul {
+  position: absolute;
+  left: 10px;
+  margin-top: 22px;
+}
+@media (max-width: 550px) {
+  /* line 216, _post-actions.scss */
+  nav.o2-comment-actions ul {
+    right: 10px;
+  }
+}
+
+/*********************************************************************************************/
+/* POST FOOTER ACTIONS */
+/* line 230, _post-actions.scss */
+footer.entry-meta {
+  margin-right: 40px;
+  overflow: hidden;
+  border-top: 1px #cccccc solid;
+  padding-top: 15px;
+}
+@media (max-width: 640px) {
+  /* line 230, _post-actions.scss */
+  footer.entry-meta {
+    margin-right: 0;
+  }
+}
+
+/* line 242, _post-actions.scss */
+#jp-post-flair {
+  padding-top: 0px;
+}
+
+/* line 245, _post-actions.scss */
+nav.o2-post-footer-actions {
+  overflow: hidden;
+}
+/* line 249, _post-actions.scss */
+nav.o2-post-footer-actions ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  clear: both;
+  float: right;
+}
+/* line 256, _post-actions.scss */
+nav.o2-post-footer-actions ul.o2-extended-actions {
+  clear: both;
+}
+/* line 260, _post-actions.scss */
+nav.o2-post-footer-actions ul.wpl-avatars {
+  float: right;
+  margin-top: 3px;
+  margin-right: 5px;
+  display: flex;
+}
+@media (max-width: 1024px) {
+  /* line 260, _post-actions.scss */
+  nav.o2-post-footer-actions ul.wpl-avatars {
+    display: none;
+  }
+}
+/* line 271, _post-actions.scss */
+nav.o2-post-footer-actions ul.wpl-avatars li {
+  margin: 0px auto;
+}
+/* line 274, _post-actions.scss */
+nav.o2-post-footer-actions ul.wpl-avatars li .avatar {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-background-clip: padding-box;
+  margin-left: 2px;
+}
+/* line 281, _post-actions.scss */
+nav.o2-post-footer-actions ul li {
+  float: right;
+  margin-bottom: 12px;
+  white-space: nowrap;
+  margin: 7px auto 7px 7px;
+}
+/* line 287, _post-actions.scss */
+nav.o2-post-footer-actions ul li.o2-likes {
+  margin-left: 0;
+  display: flex;
+  width: auto;
+  min-width: 550px;
+}
+@media (max-width: 1024px) {
+  /* line 287, _post-actions.scss */
+  nav.o2-post-footer-actions ul li.o2-likes {
+    min-width: 0;
+  }
+}
+/* line 298, _post-actions.scss */
+nav.o2-post-footer-actions ul li button {
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-background-clip: padding-box;
+  width: auto;
+  height: auto;
+  padding: 0.4em 0.6em 0.8em 0.6em;
+  line-height: 1;
+  display: flex;
+  flex-wrap: nowrap;
+  font-size: 14px;
+  border: 1px #bbbbbb solid;
+  box-shadow: none;
+  color: #3498db;
+  background: white;
+  float: right;
+}
+/* line 317, _post-actions.scss */
+nav.o2-post-footer-actions ul li button.genericon {
+  font-size: 14px;
+}
+/* line 322, _post-actions.scss */
+nav.o2-post-footer-actions ul li button.o2-actions-no-icon:before {
+  content: '';
+  padding: 0;
+}
+@media (max-width: 876px) {
+  /* line 321, _post-actions.scss */
+  nav.o2-post-footer-actions ul li button.o2-actions-no-icon {
+    font-size: 22px;
+  }
+}
+@media (max-width: 876px) {
+  /* line 333, _post-actions.scss */
+  nav.o2-post-footer-actions ul li button:not(.o2-actions-no-icon) span {
+    display: none;
+  }
+}
+/* line 341, _post-actions.scss */
+nav.o2-post-footer-actions ul li button span.o2-count {
+  color: #bbbbbb;
+  display: inline-block;
+  padding-right: 3px;
+}
+@media (max-width: 876px) {
+  /* line 341, _post-actions.scss */
+  nav.o2-post-footer-actions ul li button span.o2-count {
+    font-size: 32px;
+  }
+}
+/* line 352, _post-actions.scss */
+nav.o2-post-footer-actions ul li button:before {
+  font-size: 16px;
+  color: #3498db;
+  padding-left: 8px;
+  padding-right: 2px;
+  top: 2px;
+  position: relative;
+}
+@media (max-width: 876px) {
+  /* line 352, _post-actions.scss */
+  nav.o2-post-footer-actions ul li button:before {
+    font-size: 32px;
+    padding-left: 2px;
+  }
+}
+/* line 368, _post-actions.scss */
+nav.o2-post-footer-actions ul li > a, nav.o2-post-footer-actions ul li > span > a {
+  background: transparent;
+  border: 1px #cccccc solid;
+  border-radius: 3px;
+  box-shadow: none;
+  text-align: right;
+  text-decoration: none;
+  color: #666666;
+  padding: 3px;
+  padding-left: 10px;
+  margin: 0;
+  line-height: 1.5;
+  width: calc(100% - 1.5em );
+  height: auto;
+  font-size: 12px;
+  font-family: "Open Sans", sans-serif;
+  background-color: #f8f8f8;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  -webkit-font-smoothing: auto !important;
+  -moz-osx-font-smoothing: auto;
+}
+/* line 395, _post-actions.scss */
+nav.o2-post-footer-actions ul li > a:hover, nav.o2-post-footer-actions ul li > span > a:hover {
+  border-color: #999999;
+  color: #777777;
+  background-color: #f8f8f8;
+}
+/* line 401, _post-actions.scss */
+nav.o2-post-footer-actions ul li > a.o2-actions-no-icon:before, nav.o2-post-footer-actions ul li > span > a.o2-actions-no-icon:before {
+  width: 24px;
+  display: inline-block;
+  content: '';
+}
+/* line 407, _post-actions.scss */
+nav.o2-post-footer-actions ul li > a.o2-actions-border-top, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-top {
+  border-top: 1px #f1f1f1 solid;
+}
+@media (max-width: 640px) {
+  /* line 407, _post-actions.scss */
+  nav.o2-post-footer-actions ul li > a.o2-actions-border-top, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-top {
+    border-top-color: #cccccc !important;
+  }
+}
+/* line 415, _post-actions.scss */
+nav.o2-post-footer-actions ul li > a.o2-actions-border-bottom, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-bottom {
+  border-bottom: 1px #f1f1f1 solid;
+}
+@media (max-width: 550px) {
+  /* line 415, _post-actions.scss */
+  nav.o2-post-footer-actions ul li > a.o2-actions-border-bottom, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-bottom {
+    border-bottom-color: #cccccc !important;
+  }
+}
+/* line 424, _post-actions.scss */
+nav.o2-post-footer-actions ul li > a.genericon:before, nav.o2-post-footer-actions ul li > span > a.genericon:before {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  line-height: 1.25;
+  font-family: 'Genericons';
+  text-decoration: inherit;
+  font-weight: normal;
+  font-style: normal;
+  vertical-align: top;
+  padding-right: 3px;
+  padding-left: 3px;
+  color: #2ba1cb;
+}
+
+/* line 445, _post-actions.scss */
+footer.entry-meta {
+  border-top: none;
+}
+
+/*********************************************************************************************/
+/* COMMENT FOOTER ACTIONS */
+/* line 452, _post-actions.scss */
+div.o2-comment-footer-actions {
+  overflow: hidden;
+  padding: 0 0 10px 0;
+}
+@media (max-width: 640px) {
+  /* line 452, _post-actions.scss */
+  div.o2-comment-footer-actions {
+    padding-bottom: 0px;
+  }
+}
+/* line 463, _post-actions.scss */
+div.o2-comment-footer-actions ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 1px;
+  /* Lots of styling below to reduce comment like star a bit and clean up alignments */
+}
+/* line 468, _post-actions.scss */
+div.o2-comment-footer-actions ul li {
+  float: right;
+}
+/* line 474, _post-actions.scss */
+div.o2-comment-footer-actions ul li a .o2-comment-like .liked:before {
+  color: #ff9a00;
+}
+/* line 482, _post-actions.scss */
+div.o2-comment-footer-actions ul li > a {
+  color: #555555;
+  opacity: 0.8;
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  text-decoration: none;
+  color: #555555;
+  line-height: 20px;
+  width: auto;
+  height: 20px;
+  vertical-align: top;
+  overflow: visible;
+  display: inline-flex;
+}
+/* line 495, _post-actions.scss */
+div.o2-comment-footer-actions ul li > a:before {
+  font-family: 'Genericons';
+  margin-left: 5px;
+  color: #3498db;
+  font-size: 16px;
+  line-height: 18px;
+  height: 20px;
+}
+/* line 505, _post-actions.scss */
+div.o2-comment-footer-actions ul li > a:hover:before {
+  color: #ff9a00;
+}
+/* line 510, _post-actions.scss */
+div.o2-comment-footer-actions ul li > a span {
+  color: #3498db;
+  line-height: 1;
+  vertical-align: top;
+}
+/* line 516, _post-actions.scss */
+div.o2-comment-footer-actions ul li > a.o2-comment-reply {
+  padding-left: 10px;
+  -webkit-font-smoothing: auto;
+  -moz-font-smoothing: auto;
+}
+/* line 522, _post-actions.scss */
+div.o2-comment-footer-actions ul li > a.o2-comment-reply:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: grayscale;
+}
+/* line 535, _post-actions.scss */
+div.o2-comment-footer-actions ul p.comment-likes {
+  height: 20px;
+}
+/* line 538, _post-actions.scss */
+div.o2-comment-footer-actions ul p.comment-likes span.comment-like-feedback {
+  padding: 0px 2px 0px 5px;
+  line-height: 20px;
+  -webkit-font-smoothing: auto;
+  -moz-font-smoothing: auto;
+}
+/* line 545, _post-actions.scss */
+div.o2-comment-footer-actions ul p.comment-likes a.comment-like-link {
+  font-size: 16px;
+  width: 16px;
+  line-height: 18px;
+  height: 20px;
+}
+/* line 551, _post-actions.scss */
+div.o2-comment-footer-actions ul p.comment-likes a.comment-like-link:before {
+  font-size: 16px;
+  width: 16px;
+  line-height: 18px;
+  height: 20px;
+}
+
+/*********************************************************************************************/
+/* the following styles override o2 styles and need to remain until/if we merge post-actions into core o2 */
+/* line 8, style.scss */
+.o2-post-reply, .o2-scroll-to-comments, .o2-edit.edit-post-link, .o2-follow, .o2-resolve-link, .o2-sticky-link,
+.o2-comment-reply, .o2-comment-edit, .o2-short-link {
+  text-indent: 0;
+  height: auto;
+  width: calc(100% - 2.0em );
+  font-weight: normal;
+}
+/* line 14, style.scss */
+.o2-post-reply:after, .o2-scroll-to-comments:after, .o2-edit.edit-post-link:after, .o2-follow:after, .o2-resolve-link:after, .o2-sticky-link:after,
+.o2-comment-reply:after, .o2-comment-edit:after, .o2-short-link:after {
+  content: none;
+}
+
+/* line 19, style.scss */
+.o2-comment-reply {
+  padding-right: 0;
+}
+
+/* line 23, style.scss */
+.comment-actions {
+  display: none;
+}
+
+/*********************************************************************************************/
+/* the following styles tweak the styles defined in post-actions.scss for specific features */
+/*********************************************************************************************/
+/* Reply count */
+/* line 33, style.scss */
+.o2-reply-count {
+  color: #999999;
+  padding-right: 5px;
+}
+
+/*********************************************************************************************/
+/* Follows/subscriptions */
+/* line 42, style.scss */
+nav.o2-post-footer-actions .o2-follow.post-comments-subscribed:hover:after {
+  content: none;
+}
+
+/* line 49, style.scss */
+.post-comments-subscribed nav.o2-post-footer-actions .o2-follow {
+  color: white;
+  background-color: #2ba1cb;
+  border-color: #198fbb;
+}
+/* line 54, style.scss */
+.post-comments-subscribed nav.o2-post-footer-actions .o2-follow:after {
+  content: none;
+}
+/* line 58, style.scss */
+.post-comments-subscribed nav.o2-post-footer-actions .o2-follow:before {
+  content: '\f465';
+  color: white;
+}
+/* line 64, style.scss */
+.post-comments-subscribed nav.o2-post-footer-actions .o2-follow:hover:after {
+  content: none;
+}
+/* line 68, style.scss */
+.post-comments-subscribed nav.o2-post-footer-actions .o2-follow:hover:before {
+  content: '\f464';
+  color: white;
+}
+
+/*********************************************************************************************/
+/* Posts Likes */
+/* line 83, style.scss */
+.o2-post .o2-post-footer-actions > ul {
+  float: right;
+}
+/* line 87, style.scss */
+.o2-post .sd-like h3.sd-title {
+  display: none;
+}
+/* line 91, style.scss */
+.o2-post div.jetpack-likes-widget-wrapper {
+  min-height: 0;
+  line-height: 0;
+  height: 27px;
+  width: auto;
+  overflow: hidden;
+  -webkit-overflow-scrolling: none;
+}
+/* line 102, style.scss */
+.o2-post .post-likes-widget-placeholder .loading {
+  padding-top: 12px;
+  display: inline-block;
+}
+/* line 107, style.scss */
+.o2-post .o2-post-footer-action-likes {
+  padding-top: 7px;
+}
+
+/* line 112, style.scss */
+.o2-post-footer-actions div.sharedaddy, #content .o2-post-footer-actions div.sharedaddy, #main .o2-post-footer-actions div.sharedaddy {
+  clear: none;
+}
+
+/*********************************************************************************************/
+/* Posts Discussion Disclosure / Post Comments Collapsed */
+/* line 119, style.scss */
+.o2-post-comments-collapsed {
+  /* the following is temporary until the new post-actions ui is universally adopted */
+  /* then this style (and the corresponding style in the core _comments.scss file) should */
+  /* be removed */
+  padding-top: 0;
+}
+
+/*********************************************************************************************/
+/* Comment Position Fixes ( move to o2 or breathe as appropriate when launching across the board ) */
+/* line 131, style.scss */
+.comment-meta,
+.o2-comment-header {
+  position: static !important;
+}
+
+/* line 135, style.scss */
+.o2-post-comments {
+  position: relative;
+}

@@ -1,0 +1,168 @@
+li.o2-filter-widget-item {
+	padding: 0px !important;
+
+	a {
+		display: block;
+		padding: 5px;
+
+		&.o2-filter-widget-selected {
+			background: $gray-5;
+			color: $gray-90;
+
+			&:before {
+				color: $gray-90;
+			}
+		}
+
+		&:hover {
+			color: $gray-90;
+			background: $gray-2;
+
+			&:before {
+				color: $gray-90;
+			}
+		}
+
+		&:before {
+			-webkit-font-smoothing: antialiased;
+			font: normal 16px/1 'Genericons';
+			display: inline-block;
+			color: $gray-20;
+			@include transition();
+			padding-right: 5px;
+			position: relative;
+			top: 3px;
+		}
+	}
+
+	&#o2-filter-recent-updates a:before { content: '\f409'; }
+	&#o2-filter-recent-comments a:before { content: '\f108'; }
+	&#o2-filter-my-mentions a:before { content: '\f300'; }
+	&#o2-filter-unresolved-posts a:before { content: '\f468'; }
+	&#o2-filter-resolved-posts a:before { content: '\f418'; }
+	&#o2-filter-no-replies a:before { content: '\f404'; }
+	&#o2-filter-my-posts a:before { content: '\f304'; }
+}
+
+.o2-permalink,
+.o2-post-reply,
+.o2-scroll-to-comments,
+.o2-edit.edit-post-link,
+.o2-follow,
+.o2-short-link,
+.o2-resolve-link,
+.o2-sticky-link {
+	&:after {
+		-webkit-font-smoothing: antialiased;
+		font: normal 16px/1 'Genericons';
+		display: inline-block;
+		height: 20px;
+		width: 32px;
+		color: $gray-20;
+		@include transition();
+		padding-right: 8px;
+		padding-left: 8px;
+		opacity: 0.4;
+	}
+
+	display: inline-block;
+	text-indent: -9999px;
+	height: 32px;
+	width: 32px;
+	overflow: hidden;
+}
+
+.o2-post:hover,
+.o2-comment:hover {
+	.o2-actions a:after {
+		opacity: 1;
+	}
+}
+
+.o2-actions.entry-actions {
+	position: relative;
+	padding-top: 5px;
+}
+
+.o2-permalink:after { content: '\f107'; }
+.o2-post-reply:after { content: '\f466'; }
+.o2-edit.edit-post-link:after { content: '\f411'; }
+.o2-follow:after { content: '\f463'; }
+.o2-short-link:after { content: '\f107'; }
+.o2-scroll-to-comments { display: none; }
+.o2-scroll-to-comments:after { content: '\f300'; }
+.o2-sticky-link:after { content: '\f308'; }
+.o2-resolve-link:after { content: '\f468'; }
+
+.post-comments-subscribed .o2-follow:after { content: '\f465'; color: $gray-60; }
+.post-comments-subscribed .o2-follow:hover:after { content: '\f464'; color: $gray-60; }
+.sticky .o2-sticky-link:after { color: $gray-60; }
+.state-unresolved .o2-resolve-link:after { color: $red-60; }
+.state-resolved .o2-resolve-link:after { color: $green-50; }
+
+.o2-post .entry-header span.entry-actions {
+	.genericon-edit,
+	.genericon-reply,
+	.genericon-subscribe,
+	.genericon-unsubscribe,
+	.genericon-subscribed,
+	.genericon-pinned,
+	.genericon-flag {
+		&:before {
+			content: none;
+		}
+	}
+}
+
+.o2-comment-edit,
+.o2-comment-reply {
+	width: 20px;
+	height: 20px;
+	padding-left: 0.4em;
+	text-indent: -9999px;
+	display: inline-block;
+	overflow: hidden;
+	position: relative;
+
+	&:after {
+		content: '\f103';
+		-webkit-font-smoothing: antialiased;
+		font: normal 16px/1 'Genericons';
+		display: inline-block;
+		height: 20px;
+		width: 20px;
+		color: $gray-20;
+		@include transition();
+		position: absolute;
+		left: 0;
+		text-indent: 0px;
+		top: 0;
+	}
+}
+
+.o2-comment-reply:after { content: '\f466'; }
+.o2-comment-edit:after { content: '\f411'; }
+
+.comment-actions {
+	position: relative;
+	top: -10px;
+}
+
+article.sticky .o2-sticky-link:after {
+	color: $orange-50;
+}
+
+.state-unresolved .o2-resolve-link {
+}
+
+.o2-scroll-to-comments {
+	@include breakpoint( 'handset' ) {
+		display: inline-block;
+	}
+}
+
+.o2-editor-format{
+	@include breakpoint( 'tablet-portrait' ){
+		display: none;
+	}
+}

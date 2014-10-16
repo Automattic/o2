@@ -1,0 +1,6 @@
+@import "../../../css/src/global/o2-tools";
+
+.sticky .o2-post{
+	border: 2px $orange-50 solid;
+	background: lighten( $yellow-0, 7% );
+}

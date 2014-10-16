@@ -1,0 +1,19 @@
+/* This file was automatically generated on Aug 22 2014 22:44:14 */
+
+/*THIS FILE IS COMPILED FROM AN .SCSS FILE - DO NOT EDIT DIRECTLY*/
+.o2-live-comments-container img.o2-live-item-img {
+  float: right;
+}
+.o2-live-comments-container p.o2-live-item-text {
+  margin: 0 40px 12px 0;
+  font-size: 1.0em;
+  line-height: 1.3em;
+  min-height: 32px;
+  overflow: hidden;
+}
+.o2-live-comments-container span.entry-date {
+  font-size: 0.8em;
+}
+.o2-live-comments-container .o2-live-item-clear {
+  clear: both;
+}

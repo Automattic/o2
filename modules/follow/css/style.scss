@@ -1,0 +1,17 @@
+@import "../../../css/src/global/o2-tools";
+
+
+.post-subscription-form {
+	float: right;
+	padding-right: 1em;
+	font-size: 0.9em;
+	font-family: $sans;
+
+	@include breakpoint( handset-landscape ) {
+		float: none;
+	}
+
+	small {
+		margin-left: 0.3em;
+	}
+}

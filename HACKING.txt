@@ -1,0 +1,54 @@
+# o2 -- Oxygen for your teams
+
+A technical breakdown of how o2 is structured/put together for those interested in hacking on it.
+
+## Goal: o2 aims to be a synchronous-ish collaboration platform for teams who are working together.
+
+## Glossary
+* Post/Page/Comment/Theme/ - Per WordPress nomenclature
+* Model/View/Collection - Per Backbone.js nomenclature
+* Module - A Plugin (per WordPress) for o2
+* Editor - The simplified content editor that appears to users viewing an o2-powered WP site
+* Front-side Post Box - The Editor instance that appears at the top of the homepage of an o2-powered WP site
+* List View - any list-style display of multiple Posts (e.g. the homepage, tag listing, archives)
+
+## Main Features
+* Creating and editing Posts and Comments from the frontend
+* Inline threaded comments for each Post on List Views
+* "Live" updating Posts and Comments, including edits thereto (via polling)
+
+## Design Decisions
+* The main focus of o2 is internal collaboration amongst authenticated users
+* Polling is good enough. While we're interested in supporting websockets, given the above, polling periodically for new content is sufficient
+* One of our early goals was that o2 would encapsulate the desired functionality and provide a base visual experience, allowing Themes to wrap that experience and customize it as they see fit
+* o2 attempts to move the bulk of functionality to the frontend (Javascript) while still "inheriting" or deferring to WordPress where possible/sensible. So if there is a WP-core provided piece of functionality, we use that where possible, then expose it via JS.
+* Modules should be self-contained, and disabling a module should ideally not break another module.
+* In an attempt to provide better compatibility with existing themes, o2 appends its data to the_content and then bootstraps itself from that data.
+* All of the front-end code for o2 is powered by Backbone.js
+
+## Code Organization
+* /o2.php is the core file that loads and sets everything up. It also builds the global o2 JS object that contains options and configuration for the front-end app.
+* /css/ contains both the compiled CSS (*.css) and source (*.scss) Sass files for styling the core of o2.
+* /inc/ is the core PHP/server-side components of o2
+* /inc/tpl/ contains all of the default (based on _s) templates used for core UI
+* /js/ contains the bulk of the front-end/JS/Backbone code for o2 and its core components
+* /js/app/main.js is the mainline set up/bootstrap of the front-end application. Also contains "app-level" methods for adding posts/comments to the application.
+* /js/utils/ contains a lot of "support" type code that provides bits and pieces of functionality used across the application
+* /modules/ contains discrete units of functionality for o2. Each one contains a "load.php" file which is automatically loaded and should handle setting up that module
+
+## Core Logic
+* A PageMeta Model maintains information about the current page/view
+* Within the main application container (#content by default), o2 creates all of its views to manage things
+* The main container/set up is controlled by /js/app/main.js
+* /js/views/app-header.js goes at the top
+* /js/views/new-post.js sets up the Front-side Post Box
+* /js/views/posts.js goes next, which displays a Collection of Post Models/Views
+ * Each /js/views/post.js instance represents a single Post Model, and its (optional) Comments Collection/Views
+ * Each comment is repsented by a Comment Model/View pair (/js/models/comment.js and /js/views/comment.js)
+* /js/views/app-footer.js closes things out
+
+## Modules
+There are a number of core modules provided, which will give you an idea on how you could write your own. In addition to "normal" WordPress plugin approaches (actions and filters, mostly), you will also need to integrate things on the front end. We're using Cocktail.js to help mix functionality in with the core JS code.
+
+## Development/Build
+* Run 'compass watch' in the root of o2 to rebuild Sass files into CSS

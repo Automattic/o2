@@ -1,0 +1,90 @@
+@import "../../../css/src/global/o2-tools";
+
+ul.o2-tasks {
+	margin-left: 0;
+	padding-left: 0;
+
+	ul {
+		margin-left: 25px;
+	}
+
+	.ui-sortable-dropzone {
+		height: 1.5em;
+		list-style-type: none;
+		line-height: 1.2em;
+		background: $gray-5;
+		border: dashed 1px darken( $gray-5, 15% );
+	}
+
+	.o2-task-completed .o2-task-item-text {
+		text-decoration: line-through;
+	}
+
+	li.o2-task-item {
+		list-style: none;
+		padding-left: 1.8em;
+		text-indent: -1.8em;
+		margin-bottom: 0.5em;
+
+		input[type="checkbox"] {
+			margin-right: 0.6em;
+		}
+
+		.o2-task-item-text {
+			cursor: move;
+		}
+
+		.o2-task-item-input {
+			margin: 5px 0;
+			width: 85%;
+		}
+
+		.o2-task-tools {
+			display: none;
+			padding-bottom: 0.25em;
+			padding-left: 1.0em;
+			font-family: "Open Sans", "sans-serif";
+			font-size: 11px;
+
+			.genericon {
+				vertical-align: text-bottom;
+				font-size: 150%;
+			}
+
+			.o2-task-tool-char {
+				font-weight: bold;
+				font-size: 150%;
+			}
+
+			a {
+				text-decoration: none;
+				padding: 0.25em 0.75em 0.5em 0.75em;
+
+				&:before {
+					-webkit-font-smoothing: antialiased;
+					font: normal 16px/1 "Genericons";
+					width: 16px;
+					height: 20px;
+					margin-right: 5px;
+					position: relative;
+					top: 3px;
+				}
+			}
+		}
+	}
+
+	li.o2-current-task-item {
+		background: $gray-5;
+
+		div.o2-task-tools {
+			display: block;
+		}
+	}
+}
+
+@media only screen
+and ( max-width : 876px ) {
+	.o2-tasks {
+		margin-left: 10px;
+	}
+}

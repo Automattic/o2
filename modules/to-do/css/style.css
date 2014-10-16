@@ -1,0 +1,192 @@
+/* COLORS */
+/* TYPOGRAPHY */
+/* EFFECTS & UTILITIES */
+/*********************************************************************************************/
+/* Resolved Posts */
+/*
+ * Resolved posts
+ */
+/* line 11, style.scss */
+.state-unresolved,
+.state-resolved {
+  position: relative;
+}
+/* line 14, style.scss */
+.state-unresolved:before,
+.state-resolved:before {
+  display: block;
+  width: 5px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: -5px;
+  content: " ";
+  margin-right: 5px;
+}
+
+/* line 27, style.scss */
+nav.o2-post-footer-actions .o2-resolve-wrap ul {
+  border-radius: 3px;
+  border-color: #f1f1f1;
+  width: 280px;
+  max-height: 160px;
+  overflow-y: scroll;
+  z-index: 1;
+}
+/* line 35, style.scss */
+nav.o2-post-footer-actions .o2-resolve-wrap ul span.audit-log-text {
+  font-size: 11px;
+}
+/* line 39, style.scss */
+nav.o2-post-footer-actions .o2-resolve-wrap ul li {
+  float: none;
+}
+
+/* line 45, style.scss */
+.o2-resolved-posts-audit-log,
+.controls .o2-resolved-posts-audit-log {
+  border: 0 none;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.13);
+  margin: 0;
+  top: 0;
+  left: 100%;
+}
+/* line 53, style.scss */
+.o2-resolved-posts-audit-log .avatar,
+.controls .o2-resolved-posts-audit-log .avatar {
+  margin-right: 0;
+}
+
+@media (max-width: 876px) {
+  /* line 58, style.scss */
+  .state-unresolved {
+    border-top: 5px red solid;
+  }
+}
+/* line 63, style.scss */
+.state-unresolved:before {
+  background: #e6000a;
+}
+/* line 68, style.scss */
+.state-unresolved .actions .o2-resolve-link:before {
+  color: red;
+}
+
+@media (max-width: 876px) {
+  /* line 74, style.scss */
+  .state-resolved {
+    border-top: 5px #009632 solid;
+  }
+}
+/* line 79, style.scss */
+.state-resolved:before {
+  background: #009632;
+}
+
+/* line 84, style.scss */
+.actions .o2-resolve-wrap .o2-resolve-link {
+  border-right: none;
+}
+
+@media (max-width: 640px) {
+  /* line 91, style.scss */
+  .o2-resolved-posts-audit-log,
+  .controls .o2-resolved-posts-audit-log {
+    display: none;
+    background-color: #fff;
+    padding: 3px 10px;
+    position: absolute;
+    right: 0;
+    width: 225px;
+    z-index: 1000;
+    border: 1px solid #bbbbbb;
+  }
+}
+/* line 106, style.scss */
+.o2-resolved-posts-audit-log li {
+  list-style-type: none;
+  color: #777;
+  border-top: none;
+  border-bottom: none;
+  padding: 2px auto;
+}
+/* line 114, style.scss */
+.o2-resolved-posts-audit-log li img {
+  float: left;
+  margin-right: 0;
+  margin-top: 4px;
+}
+/* line 122, style.scss */
+.o2-resolved-posts-audit-log li span.audit-log-text {
+  margin-left: 25px;
+  display: block;
+}
+/* line 128, style.scss */
+.o2-resolved-posts-audit-log li span.date-time {
+  font-size: 10px;
+}
+/* line 132, style.scss */
+.o2-resolved-posts-audit-log li span:first-child {
+  opacity: 1.0;
+}
+
+/* line 142, style.scss */
+.o2-resolve-wrap ul {
+  background-color: #fff;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  width: 240px;
+  z-index: 1000;
+  border: 1px solid #bbbbbb;
+  display: none;
+}
+/* line 153, style.scss */
+.o2-resolve-wrap ul li {
+  list-style-type: none;
+  color: #333;
+  opacity: 0.7;
+  border: 0;
+  padding: 3px 10px;
+}
+/* line 161, style.scss */
+.o2-resolve-wrap ul li:first-child {
+  opacity: 1.0;
+}
+/* line 165, style.scss */
+.o2-resolve-wrap span.audit-log-text {
+  margin-left: 40px;
+  display: block;
+  text-align: left;
+  font-family: "Open Sans", sans-serif;
+}
+/* line 172, style.scss */
+.o2-resolve-wrap span.audit-log-date {
+  font-size: 10px;
+  font-family: "Open Sans", sans-serif;
+}
+
+/* line 179, style.scss */
+.o2-extend-resolved-posts-unresolved-posts-widget img {
+  float: left;
+}
+/* line 183, style.scss */
+.o2-extend-resolved-posts-unresolved-posts-widget .inner {
+  margin-left: 42px;
+  font-size: 12px;
+  line-height: 14px;
+}
+/* line 189, style.scss */
+.o2-extend-resolved-posts-unresolved-posts-widget .inner-sub {
+  font-size: 10px;
+}
+
+/* line 195, style.scss */
+.o2-resolve-wrap ul li img.avatar,
+.o2-post .o2-resolve-wrap ul li img.avatar {
+  float: left;
+  margin-right: 0px;
+  margin-top: 3px;
+  width: 32px;
+  height: 32px;
+}
