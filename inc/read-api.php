@@ -108,6 +108,9 @@ class o2_Read_API extends o2_API_Base {
 
 				if ( is_array( $initial_scripts ) ) {
 					global $wp_scripts;
+					if ( ! ( $wp_scripts instanceof WP_Scripts ) ) {
+						$wp_scripts = new WP_Scripts();
+					}
 
 					// Identify new scripts needed by the polled posts
 					$polled_scripts = array_diff( $wp_scripts->done, $initial_scripts );
