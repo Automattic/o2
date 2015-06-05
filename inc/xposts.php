@@ -1,5 +1,7 @@
 <?php
 
+if ( class_exists( 'o2_Terms_In_Comments' ) ) :
+
 class o2_Xposts extends o2_Terms_In_Comments {
 
 	/**
@@ -44,8 +46,10 @@ class o2_Xposts extends o2_Terms_In_Comments {
 	* @return array Site Information.
 	*/
 	public function site_suggestions() {
-		if ( ! empty( $this->blog_suggestions ) )
-			return $this->blog_suggestions;
+		if ( ! empty( $this->blog_suggestions[ get_current_blog_id() ] ) )
+			return $this->blog_suggestions[ get_current_blog_id() ];
+
+		$this->blog_suggestions[ get_current_blog_id() ] = array();
 
 	 	// @todo convert to MS-compatible, using the subdomain OR the path, depending on the configuration of the site
 	 	// @todo move blavatar stuff into wpcom.php filter
@@ -102,28 +106,40 @@ class o2_Xposts extends o2_Terms_In_Comments {
 			restore_current_blog();
 
 			// This is OK to include in our suggestions list
-			$this->blog_suggestions[ $_id ] = $blog;
+			$this->blog_suggestions[ get_current_blog_id() ][ $_id ] = $blog;
 
 			// Cache a list of subdomains, based on full blog list, for matching purposes
-			$this->subdomains[] = $blog['subdomain'];
+			$this->subdomains[ get_current_blog_id() ][] = $blog['subdomain'];
 		}
 
-		return $this->blog_suggestions;
+		return $this->blog_suggestions[ get_current_blog_id() ];
 	}
 
 	// Until WP 3.8 is widespread, this is a quick, easy, nasty way of avoiding xposts in navigation.
 	// See http://core.trac.wordpress.org/ticket/17807#comment:49
 	function get_adjacent_post_where( $where ) {
+		if ( ! parent::should_process_terms() ) {
+			return $where;
+		}
+
 		return $where . " AND ( p.post_title NOT LIKE 'x-post%' AND p.post_content NOT LIKE 'x-post%' AND p.post_content NOT LIKE 'x-comment%' )";
 	}
 
 	function xpost_link_post( $content ) {
+		if ( ! parent::should_process_terms() ) {
+			return $content;
+		}
+
 		global $post;
 		$subdomains = get_post_meta( $post->ID, '_xposts_term_meta' );
 		return $this->xpost_links( $content, $subdomains );
 	}
 
 	function xpost_link_comment( $content ) {
+		if ( ! parent::should_process_terms() ) {
+			return $content;
+		}
+
 		global $comment;
 		$subdomains = get_comment_meta( $comment->comment_ID, '_xposts_term_meta' );
 		return $this->xpost_links( $content, $subdomains );
@@ -160,7 +176,7 @@ class o2_Xposts extends o2_Terms_In_Comments {
 	function get_details_from_subdomain( $subdomain ) {
 		$this->site_suggestions();
 		$site = false;
-		foreach ( $this->blog_suggestions as $_blog_id => $blog ) {
+		foreach ( $this->blog_suggestions[ get_current_blog_id() ] as $_blog_id => $blog ) {
 			if ( $subdomain === $blog['subdomain'] ) {
 				$site = $blog;
 				break;
@@ -192,6 +208,10 @@ class o2_Xposts extends o2_Terms_In_Comments {
 	}
 
 	function find_xposts( $content ) {
+		if ( ! parent::should_process_terms() ) {
+			return array();
+		}
+
 		if ( ! preg_match_all( o2_Xposts::XPOSTS_REGEX, $content, $matches ) )
 			return array();
 
@@ -200,23 +220,34 @@ class o2_Xposts extends o2_Terms_In_Comments {
 	}
 
 	function filter_xposts( $xposts ) {
+		if ( ! parent::should_process_terms() ) {
+			return $xposts;
+		}
+
 		$this->site_suggestions();
-		return array_intersect( $xposts, $this->subdomains );
+		return array_intersect( $xposts, $this->subdomains[ get_current_blog_id() ] );
 	}
 
 	/**
 	* Makes the sites available as a global JSON encoded array so we can use it with the autocomplete scripts.
 	*/
-	public function inline_js() { ?>
+	public function inline_js() {
+		if ( ! parent::should_process_terms() ) {
+			return;
+		}
+		?>
 		<script type="text/javascript">
 			// <![CDATA[
 			var xpostData = [];
 			<?php if ( is_user_logged_in() ) : ?>
 			jQuery( document ).ready( function() {
-				jQuery.getScript( './?get-xpost-data', function() {
-					// Wire up any visible editors with +xposts immediately
-					if ( 'undefined' !== typeof jQuery.fn.xposts ) {
-						jQuery( '.o2-editor-text' ).xposts( xpostData );
+				jQuery.get( './?get-xpost-data', function( response ) {
+					if ( 'undefined' !== typeof response.data ) {
+						xpostData = JSON.parse( response.data );
+						// Wire up any visible editors with +xposts immediately
+						if ( jQuery.isFunction( jQuery.fn.xposts ) ) {
+							jQuery( '.o2-editor-text' ).xposts( xpostData );
+						}
 					}
 				} );
 			} );
@@ -226,17 +257,18 @@ class o2_Xposts extends o2_Terms_In_Comments {
 	}
 
 	public function get_data() {
+		if ( ! parent::should_process_terms() ) {
+			return;
+		}
+
 		if ( isset( $_GET['get-xpost-data'] ) ) {
 			if ( is_user_logged_in() ) {
-				$this->output_js_var();
+				$response = json_encode( array_values( $this->site_suggestions() ) );
+				wp_send_json_success( $response );
 			} else {
 				die( 0 );
 			}
 		}
-	}
-
-	public function output_js_var() {
-		die( 'var xpostData = ' . str_replace( '\/', '/', json_encode( array_values( $this->site_suggestions() ) ) ) . ';' );
 	}
 
 	/**
@@ -363,13 +395,13 @@ class o2_Xposts extends o2_Terms_In_Comments {
 	 * @return int $new_id
 	 */
 	function create_post( $_blog_id, $post, $tags = array(), $post_parent_id = 0 ) {
-		global $current_blog;
+		$this_blog = get_blog_details( get_current_blog_id() );
 
 		$new_id = null;
 
 		// @todo Make this more wp.com-agnostic
-		$origin_subdomain = str_replace( '.wordpress.com', '', $current_blog->domain );
-		$origin_blog_id   = $current_blog->blog_id;
+		$origin_subdomain = str_replace( '.wordpress.com', '', $this_blog->domain );
+		$origin_blog_id   = $this_blog->blog_id;
 		$target_details   = get_blog_details( $_blog_id );
 		$target_subdomain = str_replace( '.wordpress.com', '', $target_details->domain );
 
@@ -402,8 +434,8 @@ class o2_Xposts extends o2_Terms_In_Comments {
 		$post_long_content = strip_shortcodes( $post_long_content );
 
 		$origin_link = sprintf( '<a href="%1$s" title="%2$s">%3$s</a>',
-			trailingslashit( esc_url( $current_blog->siteurl ) ),
-			esc_attr( $current_blog->blogname ),
+			trailingslashit( esc_url( $this_blog->siteurl ) ),
+			esc_attr( $this_blog->blogname ),
 			"&#43;$origin_subdomain" // Avoid triggering display re-filters for xposts
 		);
 
@@ -437,7 +469,7 @@ class o2_Xposts extends o2_Terms_In_Comments {
 			update_comment_meta( $new_id, 'xcomment_original_permalink', $x_permalink );
 		} else {
 			// Create new xpost
-			if ( !current_user_can( 'edit_posts' ) )
+			if ( ! current_user_can( 'edit_posts' ) )
 				return;
 
 			$args = array(
@@ -483,8 +515,12 @@ class o2_Xposts extends o2_Terms_In_Comments {
 	 * @return void
 	 */
 	function redirect_permalink( $query ) {
+		if ( ! parent::should_process_terms() ) {
+			return;
+		}
+
 		$post_id = get_the_ID();
-		if( is_single() && $link = get_post_meta( $post_id, '_xpost_original_permalink', true ) ) {
+		if ( is_single() && $link = get_post_meta( $post_id, '_xpost_original_permalink', true ) ) {
 			wp_redirect( $link );
 			exit;
 		}
@@ -510,3 +546,5 @@ class o2_Xposts extends o2_Terms_In_Comments {
 		return $true;
 	}
 }
+
+endif; // class_exists

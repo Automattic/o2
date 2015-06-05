@@ -1,5 +1,7 @@
 <?php
 
+if ( class_exists( 'o2_Terms_In_Comments' ) ) :
+
 class o2_Tags extends o2_Terms_In_Comments {
 
 	/**
@@ -340,3 +342,5 @@ class o2_Tags extends o2_Terms_In_Comments {
 		die( json_encode( $tags ) );
 	}
 }
+
+endif; // class_exists

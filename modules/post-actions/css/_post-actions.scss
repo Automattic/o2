@@ -450,6 +450,8 @@ nav.o2-post-footer-actions {
 					padding-left: 3px;
 					padding-right: 3px;
 					color: $likes-icon-color;
+					-webkit-font-smoothing: antialiased !important;
+					-moz-osx-font-smoothing: antialiased;
 				}
 			}
 		}

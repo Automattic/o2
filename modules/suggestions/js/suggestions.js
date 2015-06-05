@@ -5,7 +5,7 @@ o2.Suggestions = ( function( $ ) {
     if ( 'undefined' != typeof jetpackMentionsData && jetpackMentionsData.length ) {
       $editor.mentions( jetpackMentionsData );
     }
-    if ( xpostData && xpostData.length ) {
+    if ( 'undefined' != typeof xpostData && xpostData.length ) {
       $editor.xposts( xpostData );
     }
     $editor.hashtags();

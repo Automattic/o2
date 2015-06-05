@@ -21,6 +21,7 @@ o2.Views.Comment = ( function( $, Backbone ) {
 				isEditing: false,
 				ignoreEdit: false,
 				isSaving: false,
+				isTrashedAction: false,
 				avatarSize: 32,
 				currentUser: {
 					userLogin: '',
@@ -81,7 +82,8 @@ o2.Views.Comment = ( function( $, Backbone ) {
 			'touchend .o2-comment-untrash' : 'onUntrash',
 			'click    .o2-comment-cancel'  : 'onCancel',
 			'click    .o2-comment-save'    : 'onSave',
-			'keydown'                      : 'onKeyDown'
+			'keydown'                      : 'onKeyDown',
+			'blur     .o2-comment-email'   : 'onBlurCommentorEmail'
 		},
 
 		onIgnoreEditAction: function( setting ) {
@@ -121,16 +123,16 @@ o2.Views.Comment = ( function( $, Backbone ) {
 			event.stopImmediatePropagation();
 
 			this.options.isSaving = true;
+			this.options.isTrashedAction = true;
 
 			o2.Events.dispatcher.trigger( 'notify-app.o2', { saveInProgress: true } );
 
 			var updates = {
-				isTrashed: true,
+				isTrashed:      true,
 				trashedSession: true
 			};
 
 			this.model.save( updates, { success: this.onSaveSuccess,error: this.onSaveError } );
-
 		},
 
 		onUntrash: function( event ) {
@@ -138,6 +140,7 @@ o2.Views.Comment = ( function( $, Backbone ) {
 			event.stopImmediatePropagation();
 
 			this.options.isSaving = true;
+			this.options.isTrashedAction = true;
 
 			o2.Events.dispatcher.trigger( 'notify-app.o2', { saveInProgress: true } );
 
@@ -148,10 +151,9 @@ o2.Views.Comment = ( function( $, Backbone ) {
 			};
 
 			/*
-			 * Attempt to untrash the comment. In the case that the comment was already undeleted,
+			 * Attempt to untrash the comment. In the case that the comment was already deleted,
 			 * remove the comment and show an error message to user.
 			 */
-
 			var commentView = this,
 				postView = this.parent;
 
@@ -160,6 +162,7 @@ o2.Views.Comment = ( function( $, Backbone ) {
 				{
 					success: this.onSaveSuccess,
 					error: function( model, xhr ) {
+						commentView.model.unset( 'trashedSession', { silent: true } );
 						postView.model.comments.remove( model );
 						postView.updateCommentVisibility();
 						commentView.onSaveError( model, xhr );
@@ -266,6 +269,7 @@ o2.Views.Comment = ( function( $, Backbone ) {
 			this.options.isEditing = false;
 			this.options.isSaving = false;
 			this.render();
+			this.options.isTrashedAction = false;
 
 			// Update saved model container
 			var container = $( '#respond' );
@@ -308,6 +312,25 @@ o2.Views.Comment = ( function( $, Backbone ) {
 			o2.Events.doAction( 'post-comment-save.o2' );
 		},
 
+		onBlurCommentorEmail: function( event ) {
+			event.preventDefault();
+			event.stopImmediatePropagation();
+
+			if ( 'undefined' !== typeof Gravatar ) {
+				var eventTarget = $( event.target );
+				var emailAddress = $.trim( eventTarget.val().toLowerCase() );
+
+				if ( 0 === emailAddress.length ) {
+					emailAddress = 'unknown@gravatar.com';
+				}
+
+				// Fetch the gravatar
+				var gravatarBase = ( 'https:' === location.protocol ? 'https://secure' : 'http://www' ) + '.gravatar.com/';
+				var gravatarSrc = gravatarBase + 'avatar/' + Gravatar.md5( emailAddress ) + '?s=32&d=' + encodeURIComponent( o2.options.defaultAvatar );
+				this.$el.find( 'img.avatar' ).attr( 'src', gravatarSrc );
+			}
+		},
+
 		render: function() {
 			var template;
 			// unsaved models should not get a reply button, nor an edit button
@@ -322,8 +345,17 @@ o2.Views.Comment = ( function( $, Backbone ) {
 			var created = ( 'undefined' === typeof this.model.get( 'commentCreated' ) ) ? ( $.now() / 1000 ) : this.model.get( 'commentCreated' );
 
 			var cssClasses = this.model.get( 'cssClasses' );
-			if ( 'undefined' !== typeof cssClasses ) {
-				this.$el.css( 'class',  cssClasses );
+			if ( ! _.isUndefined( cssClasses ) ) {
+				this.$el.attr( 'class', cssClasses );
+			}
+
+			if ( this.options.isTrashedAction ) {
+				var isTrashed = this.model.get( 'isTrashed' );
+				if ( !_.isUndefined( isTrashed ) && isTrashed ) {
+					this.$el.addClass( 'o2-trashed' );
+				} else {
+					this.$el.removeClass( 'o2-trashed' );
+				}
 			}
 
 			this.$el.attr( 'id', domID );

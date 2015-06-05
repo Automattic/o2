@@ -12,12 +12,12 @@ o2.Collections.Comments = ( function( $, Backbone ) {
 		model: o2.Models.Comment,
 
 		comparator: function( m1, m2 ) {
-			var comment1Date = m1.get( 'unixtime' );
+			var comment1Date = m1.get( 'commentCreated' );
 			if ( 'undefined' === typeof comment1Date ) {
 				return 1;
 			}
 
-			var comment2Date = m2.get( 'unixtime' );
+			var comment2Date = m2.get( 'commentCreated' );
 			if ( 'undefined' === typeof comment2Date ) {
 				return -1;
 			}

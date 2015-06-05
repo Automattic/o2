@@ -1,7 +1,5 @@
 <?php
 
-// @todo refactor to support jetpack the_content filtering in addition to wpcom post_flair filtering
-
 class o2_Post_Actions {
 	function __construct() {
 		add_action( 'init', array( $this, 'init' ) );
@@ -21,10 +19,16 @@ class o2_Post_Actions {
 		// Hook in our override
 		add_filter( 'o2_filter_post_action_html', array( $this, 'filter_post_action_html' ), 11, 2 );
 
-		// Add our content before and after post likes (which adds at priority 30)
-		// so that we bracket it
-		add_filter( 'post_flair', array( $this, 'before_post_likes' ), 28 );
-		add_filter( 'post_flair', array( $this, 'after_post_likes' ), 32 );
+		if ( function_exists( 'wpl_is_enabled_sitewide' ) ) {
+			// Add our content before and after post likes (which adds at priority 30)
+			// so that we bracket it
+			add_filter( 'post_flair', array( $this, 'before_post_likes' ), 28 );
+			add_filter( 'post_flair', array( $this, 'after_post_likes' ), 32 );
+		} else {
+			// Add our content at the bottom of the post (e.g. on sites not using likes)
+			add_filter( 'the_content', array( $this, 'before_post_likes' ), 28 );
+			add_filter( 'the_content', array( $this, 'after_post_likes' ), 32 );
+		}
 
 		// Add a special hover state for following
 		add_filter( 'o2_post_action_states', array( $this, 'add_stop_following' ), 10, 2 );
@@ -167,7 +171,7 @@ class o2_Post_Actions {
 		}
 
 		if ( 'trashed_dropdown' === $location ) {
-			$actions[] = "<a class='o2-comment-untrash genericon' href='#' >" . esc_html__( 'Untrash', 'o2' ) . "</a>";
+			$actions[] = "<a class='o2-comment-untrash genericon genericon-refresh' href='#' >" . esc_html__( 'Untrash', 'o2' ) . "</a>";
 		}
 
 		return $actions;

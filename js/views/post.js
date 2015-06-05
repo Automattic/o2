@@ -721,7 +721,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 
 						if ( childCreated < insertCommentCreated ) {
 							beforeView = $( this );
-						} else if ( childCreated > insertCommentCreated ) {
+						} else if ( childCreated >= insertCommentCreated ) {
 							afterView = $( this );
 						}
 					});

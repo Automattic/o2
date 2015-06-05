@@ -210,14 +210,16 @@ o2Editor = {
 
 		o2Editor.editors[ cacheKey ] = $editor;
 
-		// make sure resize is set to none before the autoResize is applied
-		// so that autoResize doesn't set the resize attribute to horizontal
-		$editor.css( 'resize', 'none' );
+		if ( 'function' === typeof $editor.autoResize ) {
+			// make sure resize is set to none before the autoResize is applied
+			// so that autoResize doesn't set the resize attribute to horizontal
+			$editor.css( 'resize', 'none' );
 
-		$editor.autoResize( { extraSpace: 100 } );
-		setTimeout( function() {
-			$editor.trigger( 'resize.autosize' );
-		}, 10 )
+			$editor.autoResize( { extraSpace: 100 } );
+			setTimeout( function() {
+				$editor.trigger( 'resize.autosize' );
+			}, 10 );
+		}
 		o2.Events.doAction( 'post-editor-create.o2', $editor );
 	},
 

@@ -16,7 +16,18 @@ class o2_Terms_In_Comments {
 		add_action( 'wp_insert_post',       array( &$this, 'update_post'    ), 10, 2 );
 	}
 
+	/**
+	 * @return boolean true if we should process TiC on this site
+	 */
+	function should_process_terms() {
+		return apply_filters( 'o2_should_process_terms', '__return_true' );
+	}
+
 	function update_comment( $comment_id ) {
+		if ( ! $this->should_process_terms() ) {
+			return;
+		}
+
 		$comment = get_comment( $comment_id );
 
 		delete_comment_meta( $comment_id, $this->meta_key );
@@ -40,6 +51,10 @@ class o2_Terms_In_Comments {
 	function update_comment_terms( $comment_id, $comment ) {}
 
 	function update_post( $post_id, $post ) {
+		if ( ! $this->should_process_terms() ) {
+			return;
+		}
+
 		delete_post_meta( $post_id, $this->meta_key );
 
 		$terms = $this->update_post_terms( $post_id, $post );
@@ -140,6 +155,3 @@ class o2_Terms_In_Comments {
 		return $meta;
 	}
 }
-
-
-?>

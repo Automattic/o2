@@ -68,6 +68,7 @@ o2Keyboard = {
 		$doc.on( 'keydown', null, '/', this.search );
 		$doc.on( 'keydown', null, 'e', this.edit );
 		$doc.on( 'keydown', null, 'r', this.reply );
+		$doc.on( 'keydown', null, 'o', this.toggleComments );
 		$doc.on( 'keydown', null, 'esc', this.cancel );
 		$doc.on( 'keydown', '.o2-editor-text', 'esc', this.cancel );
 
@@ -139,58 +140,79 @@ o2Keyboard = {
 	reply: function( e ) {
 		o2Keyboard.closeReplies();
 
-		if ( o2Keyboard.page.isPage || o2Keyboard.page.isSingle ) {
-			$( '.o2-posts > ' + o2Keyboard.threadContainer ).find( 'a.o2-post-reply:first' ).click();
+		if ( window.getSelection().toString().length ) {
+			var target = $( window.getSelection().baseNode.parentNode );
+
+			// First, check if there is a comment parent. If so, assume we're replying to that comment.
+			// Else, we're replying to the post.
+			var commentParent = target.closest( '.o2-comment' );
+			if ( commentParent.length ) {
+				commentParent.find( 'a.o2-comment-reply:first' ).click();
+			} else {
+				target.closest( '.o2-post' ).find( 'a.o2-post-reply:first' ).click();
+			}
 		} else {
+			if ( o2Keyboard.page.isPage || o2Keyboard.page.isSingle ) {
+				$( '.o2-posts > ' + o2Keyboard.threadContainer ).find( 'a.o2-post-reply:first' ).click();
+			} else {
 
-			//Let's create a grid of points in the top half of the viewport.
-			var viewPortWidth  = $( window ).width(),
-				viewPortHeight = $( window ).height(),
-				xCoords = _.map( [ .2 , .4, .6, .8 ], function( num, key ){ return num * viewPortWidth; } ),
-				yCoords = _.map( [ 0, .1, .2, .3, .4 ], function( num, key ){ return num * viewPortHeight; } );
+				//Let's create a grid of points in the top half of the viewport.
+				var viewPortWidth  = $( window ).width(),
+					viewPortHeight = $( window ).height(),
+					xCoords = _.map( [ .2 , .4, .6, .8 ], function( num, key ){ return num * viewPortWidth; } ),
+					yCoords = _.map( [ 0, .1, .2, .3, .4 ], function( num, key ){ return num * viewPortHeight; } );
 
-			/*
-			 * For each coordiante pair (x,y), get element at point,
-			 * traverse up to find a post, and add post ID to elems.
-			 */
-			var elems = [];
-			_.each( yCoords, function( y ){
-				_.each( xCoords, function( x ){
-					var element = $( document.elementFromPoint( x, y ) ),
-						closest = element.closest( o2Keyboard.threadContainer + '.post' );
+				/*
+				 * For each coordiante pair (x,y), get element at point,
+				 * traverse up to find a post, and add post ID to elems.
+				 */
+				var elems = [];
+				_.each( yCoords, function( y ){
+					_.each( xCoords, function( x ){
+						var element = $( document.elementFromPoint( x, y ) ),
+							closest = element.closest( o2Keyboard.threadContainer + '.post' );
 
-					if ( closest.length > 0 ) {
-						elems.push( closest.attr( 'id' ) );
-					}
-				});
-			});
-
-			// Find most frequent (mode) post ID in elems array.
-			// Thanks Matthew Flaschen - http://stackoverflow.com/a/1053865
-			if ( elems.length > 0 ) {
-				var modeMap = {};
-
-				var maxEl = elems[0],
-					maxCount = 1;
-
-				_.each( elems, function( el ){
-					if ( modeMap[ el ] == null ) {
-						modeMap[ el ] = 1;
-					} else {
-						modeMap[ el ]++;
-					}
-
-					if ( modeMap[ el ] > maxCount ) {
-						maxEl = el;
-						maxCount = modeMap[ el ];
-					}
+						if ( closest.length > 0 ) {
+							elems.push( closest.attr( 'id' ) );
+						}
+					});
 				});
 
-				$( '.o2-posts #' + maxEl ).find( 'a.o2-post-reply:first' ).click();
+				// Find most frequent (mode) post ID in elems array.
+				// Thanks Matthew Flaschen - http://stackoverflow.com/a/1053865
+				if ( elems.length > 0 ) {
+					var modeMap = {};
+
+					var maxEl = elems[0],
+						maxCount = 1;
+
+					_.each( elems, function( el ){
+						if ( modeMap[ el ] == null ) {
+							modeMap[ el ] = 1;
+						} else {
+							modeMap[ el ]++;
+						}
+
+						if ( modeMap[ el ] > maxCount ) {
+							maxEl = el;
+							maxCount = modeMap[ el ];
+						}
+					});
+
+					$( '.o2-posts #' + maxEl ).find( 'a.o2-post-reply:first' ).click();
+				}
 			}
 		}
 
 		e.preventDefault();
+	},
+
+	toggleComments: function( e ) {
+		var commentToggle = $( '.o2-toggle-comments' );
+		if ( commentToggle.length ) {
+			commentToggle.click();
+			e.preventDefault();
+		}
 	},
 
 	getElementTop: function( element ) {

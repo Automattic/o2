@@ -1,9 +1,12 @@
 <header class="o2-comment-header comment">
-	<# if ( data.isTrashed && data.trashedSession ) { #>
-		{{{ data.commentTrashedActions }}}
-	<# } else { #>
-		{{{ data.commentDropdownActions }}}
+	<# if ( ! data.isSaving ) { #>
+		<# if ( data.isTrashed && data.trashedSession ) { #>
+			{{{ data.commentTrashedActions }}}
+		<# } else { #>
+			{{{ data.commentDropdownActions }}}
+		<# } #>
 	<# } #>
+
 	<# if ( o2.options.showAvatars && data.author.avatar ) { #>
 	<img src="{{ data.author.avatar }}" width="{{ data.avatarSize }}" height="{{ data.avatarSize }}" class="avatar {{ data.author.modelClass }}" />
 	<# } #>
@@ -56,6 +59,7 @@
 		{{{ data.commentFooterActions }}}
 	<# } #>
 </div>
-<# if ( data.isNew || data.isSaving ) { #>
+
+<# if ( data.isNew || ( data.isSaving && ! data.isTrashedAction ) ) { #>
 	<div class="o2-save-spinner"></div>
 <# } #>

@@ -141,8 +141,7 @@ o2.Polling = ( function( $, Backbone ) {
 									htmlAdded += data[m].contentFiltered;
 								}
 							} else {
-
-								if ( data[m].isTrashed && ! o2.App.commentHasChildren( data[m] ) ) {
+								if ( data[m].isTrashed && ! data[m].hasChildren ) {
                                     o2.App.removeComment( data[m] );
 								} else {
 									o2.App.addComment( data[m] );

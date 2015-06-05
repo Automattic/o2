@@ -459,42 +459,44 @@ nav.o2-post-footer-actions ul li > a.genericon:before, nav.o2-post-footer-action
   padding-left: 3px;
   padding-right: 3px;
   color: #2ba1cb;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: antialiased;
 }
 
-/* line 459, _post-actions.scss */
+/* line 461, _post-actions.scss */
 footer.entry-meta {
   border-top: none;
 }
 
 /*********************************************************************************************/
 /* COMMENT FOOTER ACTIONS */
-/* line 466, _post-actions.scss */
+/* line 468, _post-actions.scss */
 div.o2-comment-footer-actions {
   overflow: hidden;
   padding: 0 0 10px 0;
 }
 @media (max-width: 640px) {
-  /* line 466, _post-actions.scss */
+  /* line 468, _post-actions.scss */
   div.o2-comment-footer-actions {
     padding-bottom: 0px;
   }
 }
-/* line 477, _post-actions.scss */
+/* line 479, _post-actions.scss */
 div.o2-comment-footer-actions ul {
   list-style-type: none;
   margin: 0;
   padding: 1px;
   /* Lots of styling below to reduce comment like star a bit and clean up alignments */
 }
-/* line 482, _post-actions.scss */
+/* line 484, _post-actions.scss */
 div.o2-comment-footer-actions ul li {
   float: left;
 }
-/* line 488, _post-actions.scss */
+/* line 490, _post-actions.scss */
 div.o2-comment-footer-actions ul li a .o2-comment-like .liked:before {
   color: #ff9a00;
 }
-/* line 496, _post-actions.scss */
+/* line 498, _post-actions.scss */
 div.o2-comment-footer-actions ul li > a {
   color: #555555;
   opacity: 0.8;
@@ -509,7 +511,7 @@ div.o2-comment-footer-actions ul li > a {
   overflow: visible;
   display: inline-flex;
 }
-/* line 509, _post-actions.scss */
+/* line 511, _post-actions.scss */
 div.o2-comment-footer-actions ul li > a:before {
   font-family: 'Genericons';
   margin-right: 5px;
@@ -518,46 +520,46 @@ div.o2-comment-footer-actions ul li > a:before {
   line-height: 18px;
   height: 20px;
 }
-/* line 519, _post-actions.scss */
+/* line 521, _post-actions.scss */
 div.o2-comment-footer-actions ul li > a:hover:before {
   color: #ff9a00;
 }
-/* line 524, _post-actions.scss */
+/* line 526, _post-actions.scss */
 div.o2-comment-footer-actions ul li > a span {
   color: #3498db;
   line-height: 1;
   vertical-align: top;
 }
-/* line 530, _post-actions.scss */
+/* line 532, _post-actions.scss */
 div.o2-comment-footer-actions ul li > a.o2-comment-reply {
   padding-right: 10px;
   -webkit-font-smoothing: auto;
   -moz-font-smoothing: auto;
 }
-/* line 536, _post-actions.scss */
+/* line 538, _post-actions.scss */
 div.o2-comment-footer-actions ul li > a.o2-comment-reply:before {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: grayscale;
 }
-/* line 549, _post-actions.scss */
+/* line 551, _post-actions.scss */
 div.o2-comment-footer-actions ul p.comment-likes {
   height: 20px;
 }
-/* line 552, _post-actions.scss */
+/* line 554, _post-actions.scss */
 div.o2-comment-footer-actions ul p.comment-likes span.comment-like-feedback {
   padding: 0px 5px 0px 2px;
   line-height: 20px;
   -webkit-font-smoothing: auto;
   -moz-font-smoothing: auto;
 }
-/* line 559, _post-actions.scss */
+/* line 561, _post-actions.scss */
 div.o2-comment-footer-actions ul p.comment-likes a.comment-like-link {
   font-size: 16px;
   width: 16px;
   line-height: 18px;
   height: 20px;
 }
-/* line 565, _post-actions.scss */
+/* line 567, _post-actions.scss */
 div.o2-comment-footer-actions ul p.comment-likes a.comment-like-link:before {
   font-size: 16px;
   width: 16px;

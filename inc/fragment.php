@@ -362,7 +362,8 @@ class o2_Fragment {
 				'commentTrashedActions'    => o2_get_comment_actions( 'trashed_dropdown', $comment, $comment_depth ),
 				'mentions'                 => $mentions,
 				'mentionContext'           => $mention_context,
-				'commentCreated'           => $comment_created
+				'commentCreated'           => $comment_created,
+				'hasChildren'              => (bool) get_comment_meta( $comment_ID, 'o2_comment_has_children', true )
 		);
 
 		// Get author properties (and bootstrap the rest of the model)

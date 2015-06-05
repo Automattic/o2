@@ -317,7 +317,7 @@ if ( ! function_exists( 'o2_get_comment_actions' ) ) {
 		}
 		$html .= "</ul>";
 
-		if ( 'dropdown' === $location ) {
+		if ( 'dropdown' === $location || 'trashed_dropdown' === $location ) {
 			$html .= "</nav>";
 		} else if ( 'footer' === $location ) {
 			$html .= "</div>";

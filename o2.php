@@ -47,9 +47,19 @@ class o2 {
 		require __DIR__ . '/inc/widget-helper.php';
 
 		// Terms in Comments powers the next group of files (must be loaded first)
-		require __DIR__ . '/inc/terms-in-comments.php';
-		require __DIR__ . '/inc/tags.php';
-		require __DIR__ . '/inc/xposts.php';
+		// @todo: Remove mention here once fully refactored. Wrapping in conditionals
+		// in case these were already loaded in mu-plugins/inline-terms.php
+		if ( ! class_exists( 'o2_Terms_In_Comments' ) ) {
+			require __DIR__ . '/inc/terms-in-comments.php';
+		}
+		if ( ! class_exists( 'o2_Xposts' ) ) {
+			require __DIR__ . '/inc/xposts.php';
+			$this->xposts = new o2_Xposts();
+		}
+		if ( ! class_exists( 'o2_Tags' ) ) {
+			require __DIR__ . '/inc/tags.php';
+			$this->tags = new o2_Tags();
+		}
 
 		// Conditionaly load WPCOM-specifics
 		if ( defined( 'IS_WPCOM' ) && IS_WPCOM ) {
@@ -66,8 +76,6 @@ class o2 {
 
 		$this->editor               = new o2_Editor();
 		$this->keyboard             = new o2_Keyboard();
-		$this->tags                 = new o2_Tags();
-		$this->xposts               = new o2_Xposts();
 		$this->templates            = new o2_Templates();
 		$this->search               = new o2_Search();
 		$this->post_list_creator    = new o2_Post_List_Creator;
@@ -134,6 +142,9 @@ class o2 {
 		add_action( 'wp_insert_comment', array( $this, 'insert_comment_actions' ), 10, 2 );
 		add_action( 'untrashed_comment', array( 'o2_Fragment', 'bump_comment_modified_time' ) );
 		add_action( 'trashed_comment',   array( 'o2_Fragment', 'bump_comment_modified_time' ) );
+		add_action( 'trash_comment',     array( $this, 'remove_trashed_parents' ) );
+		add_action( 'trash_comment',     array( $this, 'maybe_set_comment_has_children' ) );
+		add_action( 'untrash_comment',   array( $this, 'add_trashed_parents' ) );
 
 		// After everything else has done its init, we need to run some first-load stuff
 		add_action( 'init', array( $this, 'first_load' ), 100 );
@@ -531,6 +542,8 @@ class o2 {
 		// Get pre-existing o2_options, merge with $settings
 		$_settings = get_option( 'o2_options', $settings );
 		$settings  = self::settings_merge( $settings, $settings, $_settings );
+
+		$settings = apply_filters( 'o2_get_settings', $settings );
 
 		update_option( 'o2_options', $settings );
 
@@ -1142,8 +1155,7 @@ class o2 {
 	 * @param $comment_ID
 	 */
 	public function delete_comment_override( $comment_ID ) {
-		$children = get_comments( array( 'parent' => $comment_ID ) );
-
+		$children = get_comments( array( 'status' => 'approve', 'parent' => $comment_ID ) );
 		if ( ! empty( $children ) ) {
 			$old_comment    = get_comment( $comment_ID );
 			$comment_to_add = $old_comment;
@@ -1154,7 +1166,6 @@ class o2 {
 
 			$new_comment_id = wp_insert_comment( (array) $comment_to_add );
 			$comment_created = get_comment_meta( $comment_ID, 'o2_comment_created', true );
-
 			if ( empty ( $comment_created ) ) {
 				$comment = get_comment( $comment_ID );
 				$comment_created = strtotime( $comment->comment_date_gmt );
@@ -1188,6 +1199,88 @@ class o2 {
 	 */
 	public function insert_comment_actions( $comment_ID, $comment ) {
 		update_comment_meta( $comment_ID, 'o2_comment_created', current_time( 'timestamp', true ) );
+	}
+
+	/**
+	 * Returns true if comment has approved child.
+	 *
+	 * @param $comment_ID
+	 *
+	 * @return bool
+	 */
+	public function has_approved_child( $comment_ID ) {
+		$children = get_comments( array( 'status' => 'approve', 'parent' => $comment_ID ) );
+
+		return ! empty( $children );
+	}
+
+	/**
+	 * When un-trashing a comment, traverse through this comment's parents and
+	 * add o2_comment_has_children flag where needed.
+	 *
+	 * @param $comment_ID
+	 * @param bool $comment
+	 */
+	public function add_trashed_parents( $comment_ID, $comment = false ) {
+		$comment = ! empty( $comment ) ? $comment : get_comment( $comment_ID );
+		if (  0 < $comment->comment_parent ) {
+			$parent = get_comment( $comment->comment_parent );
+			if ( 'trash' == $parent->comment_approved ) {
+				$this->add_trashed_parents( $parent->comment_ID, $parent );
+				update_comment_meta( $parent->comment_ID, 'o2_comment_has_children', true );
+				o2_Fragment::bump_comment_modified_time( $parent->comment_ID );
+			}
+		}
+	}
+
+	/**
+	 * If this comment has no approved siblings, then go ahead and delete its parent as well.
+	 *
+	 * @param $comment_ID
+	 * @param bool|object $comment
+	 */
+	public function remove_trashed_parents( $comment_ID, $comment = false ) {
+		$child_count = 0;
+		$has_approved_children = false;
+
+		if ( empty( $comment ) ) {
+
+			// If $comment isn't set, then assume we haven't recursed and setup vars.
+			$child_count = 1;
+			$comment = get_comment( $comment_ID );
+			$has_approved_children = $this->has_approved_child( $comment_ID );
+		}
+
+		if ( ! $has_approved_children && 0 < $comment->comment_parent ) {
+			$parent = get_comment( $comment->comment_parent );
+			if ( 'trash' == $parent->comment_approved ) {
+				$children = get_comments(
+					array(
+						'count' => true,
+						'parent' => $parent->comment_ID
+					)
+				);
+				if ( $child_count == $children ) {
+					delete_comment_meta( $parent->comment_ID, 'o2_comment_has_children', true );
+					o2_Fragment::bump_comment_modified_time( $parent->comment_ID );
+					$this->remove_trashed_parents( $parent->comment_ID, $parent );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Add has_children flag to deleted comments so that we can query for only trashed comments
+	 * that have children in o2_Fragent:get_fragment_from_post() for bootstrapping.
+	 *
+	 * @param $comment_ID
+	 */
+	public function maybe_set_comment_has_children( $comment_ID ) {
+		$children = get_comments( array( 'parent' => $comment_ID ) );
+
+		if ( ! empty( $children ) ) {
+			update_comment_meta( $comment_ID, 'o2_comment_has_children', true );
+		}
 	}
 
 	public function ajax_get_o2_userdata() {

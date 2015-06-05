@@ -332,18 +332,6 @@ class o2_Write_API extends o2_API_Base {
 			if ( false == $comment_status ) {
 				self::die_failure( 'comment_already_deleted', __( 'Comment has already been deleted by another session.', 'o2' ) );
 			} else if ( 'trash' != $comment_status && $message->isTrashed ) {
-
-				/*
-				 * Add has_children flag so that we can query for only trashed comments
-				 * that have children in o2_Fragent:get_fragment_from_post() for bootstrapping.
-				 */
-
-				$children = get_comments( array( 'parent' => $message->id ) );
-
-				if ( ! empty( $children ) ) {
-					update_comment_meta( $message->id, 'o2_comment_has_children', true );
-				}
-
 				if ( ! wp_trash_comment( $message->id ) ) {
 					self::die_failure( 'trash_comment_failed', __( 'Trashing that comment failed.', 'o2' ) );
 				}

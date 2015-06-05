@@ -318,6 +318,7 @@ o2.Routers.App = ( function( $, Backbone ) {
 			// note:  it is possible that the thread isn't on this page
 			// and if so, this is a no-op
 			var post = this.posts.get( comment.postID );
+
 			if ( post ) {
 				// Can't do a modified timestamp check on comments (yet) because they don't have one
 				// @todo Figure out a way (commentmeta?) to track modified time.
@@ -327,20 +328,18 @@ o2.Routers.App = ( function( $, Backbone ) {
 				 * Else, add the comment like normal.
 				 */
 
-				var prevDeleted     = parseInt( comment.prevDeleted, 10),
+				var prevDeleted     = parseInt( comment.prevDeleted, 10 ),
 					commentToRemove = post.comments.get( prevDeleted );
 
-				if ( 'undefined' !== typeof commentToRemove ) {
+				if ( ! _.isUndefined( commentToRemove ) ) {
 
-					if ( 'undefined' !== commentToRemove ) {
-						commentToRemove.set( comment );
+					commentToRemove.set( comment );
 
-						var childModels = this.getChildModels( post, comment.id );
+					var childModels = this.getChildModels( post, comment.id );
 
-						_.each( childModels, function(model){
-							model.set( { parentID: comment.id } );
-						});
-					}
+					_.each( childModels, function( model ) {
+						model.set( { parentID: comment.id } );
+					});
 				} else {
 					var incomingComment = new o2.Models.Comment( comment );
 					post.comments.add( incomingComment, { merge: true } );
@@ -351,18 +350,39 @@ o2.Routers.App = ( function( $, Backbone ) {
 			o2.Events.dispatcher.trigger( 'data-received.o2', { type: 'comment', data: comment } );
 		},
 
-		commentHasChildren: function( comment ) {
-			var post = this.posts.get( comment.postID );
+		childHasTrashedSessionOrApproved: function( comment ) {
+			var post = this.posts.get( comment.get( 'postID' ) );
 
 			if ( post ) {
-				var children =  post.comments.where( { parentID: comment.id } );
+				var children = this.getChildModels( post, comment.get( 'id' ) );
 
-				if ( children.length > 0 ) {
+				// Searches children until finding approved or trashed session, then returns that element.
+				var found = _.find( children, function( child ) {
+					return ( child.get( 'approved' ) || child.has( 'trashedSession' ) );
+				});
+
+				if ( ! _.isUndefined( found ) ) {
 					return true;
 				}
 			}
 
 			return false;
+		},
+
+		cleanUpTrashedParents: function( post, comment ) {
+			// First, let's check to make sure that no children are approved and/or in trashedSession state
+			if ( ! this.childHasTrashedSessionOrApproved( post, comment ) && 0 < comment.get( 'parentID' ) ) {
+				var parent = post.comments.get( comment.get( 'parentID' ) );
+				if ( ! _.isUndefined( parent ) && parent.get( 'isTrashed' ) && ! parent.has( 'trashedSession' ) ) {
+					var children = post.comments.where( { parentID: parent.get( 'id' ), approved: true } );
+
+					// If the passed in comment has no approved siblings, then remove comment
+					if ( 0 == children.length ) {
+						this.removeComment( parent.toJSON() );
+						this.cleanUpTrashedParents( post, parent );
+					}
+				}
+			}
 		},
 
 		getChildModels: function( post, commentID ) {
@@ -379,16 +399,18 @@ o2.Routers.App = ( function( $, Backbone ) {
 		},
 
 		removeComment: function( comment ) {
-			// As in addComment above, find the thread that's handling the post this comment belongs to.
-			var post = this.posts.get( comment.postID),
-				commentToRemove;
+			var post = this.posts.get( comment.postID );
 
 			if ( post ) {
-				commentToRemove = post.comments.get( comment.id );
+				var commentToRemove = post.comments.get( comment.id );
 
-				if ( 'undefined' != typeof commentToRemove && 'undefined' == typeof commentToRemove.get( 'trashedSession' ) ) {
-					post.comments.remove( commentToRemove );
-					o2.Events.dispatcher.trigger( 'comment-deleted.o2', { type: 'comment', data: comment } );
+				// If both post and commentToRemove are set
+				if ( ! _.isUndefined( commentToRemove ) ) {
+					if ( ! commentToRemove.has( 'trashedSession' ) && ! this.childHasTrashedSessionOrApproved( commentToRemove ) ) {
+						post.comments.remove( commentToRemove );
+						o2.Events.dispatcher.trigger( 'comment-deleted.o2', { type: 'comment', data: comment } );
+						this.cleanUpTrashedParents( post, commentToRemove );
+					}
 				}
 			}
 		},
