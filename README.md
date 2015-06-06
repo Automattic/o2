@@ -15,3 +15,29 @@ This plugin uses Genericons.  You should install and activate
 the Genericon'd plugin, available at
 https://wordpress.org/plugins/genericond/
 
+This plugin's editor can insert code shortcodes.  To get
+those to render as code blocks, you should install and activate
+the SyntaxHighlighter Evolved plugin, available at
+https://wordpress.org/plugins/syntaxhighlighter/
+
+Installation
+============
+
+Upgrade to at least WordPress 4.2
+
+Install the p2-breathe theme into wp-content/themes/p2-breathe
+
+Activate the theme.
+
+Install and activate the Genericon'd plugin.
+
+Install and activate the SyntaxHighlighter Evolved plugin
+
+Install this plugin into wp-content/plugins/o2
+
+Activate this plugin
+
+Caveats
+=======
+
+Multisite self-hosted installs have not yet been tested and may not work.
