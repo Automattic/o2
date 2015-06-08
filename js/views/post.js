@@ -181,7 +181,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 				var trashString = ( 'page' == o2.options.viewType ) ? 'pageBeingTrashed' : 'postBeingTrashed';
 
 				o2.Notifications.add( {
-					text: o2.strings.trashString,
+					text: o2.strings[ trashString ],
 					url: false,
 					type: 'postBeingTrashed',
 					sticky: false,
@@ -208,7 +208,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 						var redirectedHomeString = ( 'page' == o2.options.viewType ) ? 'redirectedHomePageTrashed' : 'redirectedHomePostTrashed';
 
 						o2.Notifications.add( {
-							text: o2.strings.redirectedHomeString,
+							text: o2.strings[ redirectedHomeString ],
 							url: false,
 							type: 'redirectedHome',
 							sticky: false,
