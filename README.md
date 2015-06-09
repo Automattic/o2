@@ -6,7 +6,7 @@ The o2 Plugin for WordPress - blogging at the speed of thought
 Dependencies
 ============
 
-This plugin requires WordPress 4.2 or higher
+This plugin requires WordPress 4.2 or higher, and PHP 5.3.6 or higher (due to a specific XML-parsing feature in use).
 
 This plugin works with the p2-breathe theme, available at
 https://wpcom-themes.svn.automattic.com/p2-breathe
