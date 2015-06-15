@@ -11,7 +11,7 @@ This plugin requires WordPress 4.2 or higher, and PHP 5.3.6 or higher (due to a 
 This plugin works with the p2-breathe theme, available at
 https://wpcom-themes.svn.automattic.com/p2-breathe
 
-This plugin uses Genericons.  You should install and activate
+This plugin uses Genericons. If you're using [Jetpack](http://jetpack.me/), then you should already have them available. If you're not using Jetpack, you should install and activate
 the Genericon'd plugin, available at
 https://wordpress.org/plugins/genericond/
 
