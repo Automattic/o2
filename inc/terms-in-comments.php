@@ -7,7 +7,7 @@ class o2_Terms_In_Comments {
 	var $taxonomy;
 	var $meta_key;
 
-	function o2_Terms_In_Comments( $taxonomy, $meta_key = false ) {
+	function __construct( $taxonomy, $meta_key = false ) {
 		$this->taxonomy = $taxonomy;
 		$this->meta_key = empty( $meta_key ) ? "_{$taxonomy}_term_meta" : $meta_key;
 
