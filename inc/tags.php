@@ -293,15 +293,32 @@ class o2_Tags extends o2_Terms_In_Comments {
 	function gather_all_tags( $post ) {
 		$tags = array();
 
-		// If we're on wp-admin, then tags are POSTed
-		if ( !empty( $_POST['tax_input']['post_tag'] ) ) {
-			$post_tags = explode( ',', $_POST['tax_input']['post_tag'] );
-			$tags = array_merge( $tags, $post_tags );
+		// If we're on wp-admin, then tags are POSTed.
+		if ( ! empty( $_POST['tax_input']['post_tag'] ) ) {
+			if ( is_array( $_POST['tax_input']['post_tag'] ) ) {
+				$post_tags = $_POST['tax_input']['post_tag'];
+			} else {
+				$post_tags = preg_split( '/\s*,\s*/', $_POST['tax_input']['post_tag'] );
+			}
+			foreach ( $post_tags as $tag ) {
+				if ( is_int( $tag ) ) {
+					/*
+					 * Deal with edit_post() which converts taxonomy input to term IDs to avoid ambiguity.
+					 * See https://core.trac.wordpress.org/changeset/31359
+					 */
+					$term = get_term( $tag, 'post_tag' );
+					if ( ! empty( $term ) && ! is_wp_error( $term ) ) {
+						$tags[] = $term->slug;
+					}
+				} else {
+					$tags[] = trim( $tag );
+				}
+			}
 		}
 
 		// Extract inline tags from the post_content
 		$inline_tags = o2_Tags::find_tags( $post->post_content, true );
-		if ( !empty( $inline_tags ) ) {
+		if ( ! empty( $inline_tags ) ) {
 			$tags = array_merge( $tags, $inline_tags );
 		}
 
