@@ -474,6 +474,9 @@ class o2_Read_API extends o2_API_Base {
 					$content = "<h1>{$message->titleRaw}</h1>";
 				}
 
+				add_filter( 'o2_should_process_terms', '__return_false' );
+				add_filter( 'o2_process_the_content', '__return_false' );
+
 				$content .= trim( apply_filters( 'the_content', $message->contentRaw ) );
 
 				break;
