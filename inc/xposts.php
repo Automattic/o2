@@ -402,6 +402,7 @@ class o2_Xposts extends o2_Terms_In_Comments {
 		// @todo Make this more wp.com-agnostic
 		$origin_subdomain = str_replace( '.wordpress.com', '', $this_blog->domain );
 		$origin_blog_id   = $this_blog->blog_id;
+		$origin_post_id   = null;
 		$target_details   = get_blog_details( $_blog_id );
 		$target_subdomain = str_replace( '.wordpress.com', '', $target_details->domain );
 
@@ -413,12 +414,14 @@ class o2_Xposts extends o2_Terms_In_Comments {
 			// It's really a comment
 			$comment     = $post;
 			$post        = get_post( $post->comment_post_ID );
+			$origin_post_id = $post->ID;
 			$x_permalink = get_comment_link( $comment->comment_ID );
 			$format      = __( 'X-comment from %1$s: Comment on %2$s' );
 			$author      = $comment->user_id;
 		} else {
 			// It's a post
 			$format      = __( 'X-post from %1$s: %2$s' );
+			$origin_post_id = $post->ID;
 			$x_permalink = get_permalink( $post->ID );
 			$author      = $post->post_author;
 		}
@@ -462,8 +465,11 @@ class o2_Xposts extends o2_Terms_In_Comments {
 
 			$new_id = wp_insert_comment( $args );
 
-			// Prevent senting x-post *back* to origin when this comment is edited
+			// Prevent sending x-post *back* to origin when this comment is edited
 			update_comment_meta( $new_id, 'xcomment-' . $origin_blog_id, $new_id );
+
+			// link back to the origin
+			update_comment_meta( $new_id, 'xcomment_origin', $origin_blog_id . ':' . $origin_post_id );
 
 			// Log the original comment permalink for filtering permalinks later
 			update_comment_meta( $new_id, 'xcomment_original_permalink', $x_permalink );
@@ -486,8 +492,11 @@ class o2_Xposts extends o2_Terms_In_Comments {
 			$new_id = wp_insert_post( $args );
 			do_action( 'xpost_notify_after', $args );
 
-			// Prevent senting x-post *back* to origin when this post is edited
+			// Prevent sending x-post *back* to origin when this post is edited
 			update_post_meta( $new_id, 'xpost-' . $origin_blog_id, $new_id );
+
+			// link back to the origin
+			update_post_meta( $new_id, 'xpost_origin', $origin_blog_id . ':' . $origin_post_id );
 
 			// Log the original post permalink so we can redirect to it
 			update_post_meta( $new_id, '_xpost_original_permalink', $x_permalink );
