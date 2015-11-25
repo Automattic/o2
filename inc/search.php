@@ -32,12 +32,18 @@ class o2_Search {
 		$search = array( "comment_post_ID = $wpdb->posts.ID AND comment_approved = '1'" );
 
 		foreach ( (array) $q['search_terms'] as $term ) {
-			$term     = esc_sql( like_escape( $term ) );
-			$search[] = "( comment_content LIKE '{$n}{$term}{$n}' )";
+			$term     = $n . $wpdb->esc_like( $term ) . $n;
+			$search[] = $wpdb->prepare( "( comment_content LIKE %s )", $term );
 		}
 
 		$search = " OR ( " . implode( " AND ", $search ) . " )";
-		$where = preg_replace( "/\bor\b/i", "$search OR", $where, 1 );
+		// $where = preg_replace( "/\bor\b/i", "$search OR", $where, 1 );
+		$where = preg_replace_callback( "/\bor\b/i",
+			function( $matches ) use ( $search ) {
+				return "$search OR";
+			},
+			$where
+		);
 		$where = str_replace(')) AND ((', ')) OR ((', $where);
 
 		return $where;
