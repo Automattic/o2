@@ -1047,11 +1047,11 @@ class o2 {
 		// Has P2 been run on this blog before?  If so, let's start with
 		// its widgets (except for p2_ widgets)
 		$p2_mods = get_option( 'theme_mods_pub/p2' );
-		if ( FALSE === $p2_mods ) {
+		if ( false === $p2_mods ) {
 			$p2_mods = get_option( 'theme_mods_p2' );
 		}
 
-		if ( FALSE !== $p2_mods ) {
+		if ( false !== $p2_mods ) {
 			$p2_sidebar_widgets = array();
 			if ( isset( $p2_mods['sidebars_widgets']['data']['sidebar-1'] ) ) {
 				$p2_sidebar_widgets = $p2_mods['sidebars_widgets']['data']['sidebar-1'];
@@ -1069,7 +1069,6 @@ class o2 {
 		$search_added     = $widget_helper->has_widget( 'search', 'sidebar-1' );
 		$filter_added     = $widget_helper->has_widget( 'o2-filter-widget', 'sidebar-1' );
 		$activity_added   = $widget_helper->has_widget( 'o2-live-comments', 'sidebar-1' );
-		$fieldguide_added = $widget_helper->has_widget( 'text', 'sidebar-1', array( 'title' => __( 'Welcome to o2', 'o2' ) ) );
 
 		// Add the Search widget
 		if ( ! $search_added ) {
@@ -1078,20 +1077,6 @@ class o2 {
 				true, /* true: multiwidget, false: not */
 				array(
 					'title' => __( 'Search', 'o2' ) /* widget settings */
-				),
-				'sidebar-1' /* widget area to add to, empty for default */
-			);
-		}
-
-		// Add the Text widget
-		if ( ! $fieldguide_added ) {
-			$link = '<a href="http://geto2.com/field-guide/">' . __( 'Field Guide', 'o2' ) . '</a>';
-			$widget_helper->add_new_widget(
-				'text', /* widget base ID from widget class def */
-				true,   /* true: multiwidget, false: not */
-				array(
-					'title' => __( 'Welcome to o2', 'o2' ), /* widget settings */
-					'text'  => sprintf( __( 'Looking for answers? Check out the %s.', 'o2' ), $link ),
 				),
 				'sidebar-1' /* widget area to add to, empty for default */
 			);
