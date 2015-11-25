@@ -615,7 +615,7 @@ class o2 {
 		$defaults = self::get_defaults();
 
 		$wp_customize->add_section( 'o2_options', array(
-			'title'         => __( 'o2', 'o2' ),
+			'title'         => __( 'Theme Options', 'o2' ),
 			'priority'      => 35,
 		) );
 
@@ -625,7 +625,7 @@ class o2 {
 		) );
 
 		$wp_customize->add_control( 'o2_options[front_side_post_prompt]', array(
-			'label'         => __( 'Front Side Post Prompt: Use {name} for user\'s name', 'o2' ),
+			'label'         => __( 'Front-end Post Prompt: Use {name} for user\'s name', 'o2' ),
 			'section'       => 'o2_options',
 			'priority'      => 1,
 		) );
