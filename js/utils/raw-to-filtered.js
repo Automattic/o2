@@ -17,6 +17,9 @@ o2.Utilities.rawToFiltered = function( raw ) {
 	} );
 	filtered = filtered.replace( /<blockquote>/g, '<blockquote><p>' );
 	filtered = filtered.replace( /<\/blockquote>/g, '</p></blockquote>' );
+	filtered = filtered.replace( /<[^>]*(onerror\s*=*\s*[^>]*)/gi, function( i, match ) {
+		return ''; // remove all onerror attributes from tags
+	} );
 	filtered = filtered.replace( /BRABCXYZ/g, '<br />' );
 	return filtered;
 };

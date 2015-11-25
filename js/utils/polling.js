@@ -32,6 +32,11 @@ o2.Polling = ( function( $, Backbone ) {
 				},
 				data: data,
 				success: function( response, status ) {
+					if ( response.success && response.data ) {
+						response = response.data;
+					} else {
+						return;
+					}
 
 					o2.Events.doAction( 'poll-response.o2', response );
 
