@@ -346,12 +346,13 @@ class o2_Tags extends o2_Terms_In_Comments {
 			$term = $term[count( $term ) - 1];
 		}
 		$term = trim( $term );
-		if ( strlen( $term ) < 2 )
-			die( json_encode( array() ) ); // require 2 chars for matching
+		if ( strlen( $term ) < 2 ) {
+			wp_send_json_success( array() ); // require 2 chars for matching
+		}
 
 		$tags = array();
-		$like = "'%" . like_escape( $term ) . "%'";
-		$results = $wpdb->get_results( "SELECT name, slug, count FROM $wpdb->term_taxonomy AS tt INNER JOIN $wpdb->terms AS t ON tt.term_id = t.term_id WHERE tt.taxonomy = 'post_tag' AND ( t.name LIKE ( {$like} ) OR t.slug LIKE ( {$like} ) ) ORDER BY count DESC" );
+		$like = "%" . $wpdb->esc_like( $term ) . "%";
+		$results = $wpdb->get_results( $wpdb->prepare( "SELECT name, slug, count FROM $wpdb->term_taxonomy AS tt INNER JOIN $wpdb->terms AS t ON tt.term_id = t.term_id WHERE tt.taxonomy = 'post_tag' AND ( t.name LIKE ( %s ) OR t.slug LIKE ( %s ) ) ORDER BY count DESC", $like, $like ) );
 
 		foreach ( (array) $results as $result ) {
 			// translators: 'tag name (count)'
@@ -368,7 +369,7 @@ class o2_Tags extends o2_Terms_In_Comments {
 			);
 		}
 
-		die( json_encode( $tags ) );
+		wp_send_json_success( $tags );
 	}
 }
 
