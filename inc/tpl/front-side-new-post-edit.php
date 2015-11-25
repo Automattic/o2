@@ -1,6 +1,6 @@
 <div class="entry-content">
 	<div class="o2-editor">
-		<textarea title="" placeholder="{{{ data.postPrompt }}}" class="o2-editor">{{ data.contentRaw }}</textarea>
+		<textarea title="" placeholder="{{ data.postPrompt }}" class="o2-editor">{{ data.contentRaw }}</textarea>
 		<div class="o2-editor-footer">
 			<ul>
 				<li class="selected"><a href="#" class="o2-editor-edit-button genericon-edit">{{ data.strings.edit }}</a></li>
