@@ -80,7 +80,7 @@ class o2_Write_API extends o2_API_Base {
 			// Load existing post
 			$post = get_post( $message->postID );
 			if ( ! $post ) {
-				self::die_failure( 'post_not_found', __( 'Post not found', 'o2' ) );
+				self::die_failure( 'post_not_found', __( 'Post not found.', 'o2' ) );
 			}
 
 			// Allow plugins to hook in
