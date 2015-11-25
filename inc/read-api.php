@@ -224,7 +224,7 @@ class o2_Read_API extends o2_API_Base {
 			}
 		}
 
-		die( json_encode( $response ) );
+		wp_send_json_success( $response );
 	}
 
 	/**
@@ -449,16 +449,13 @@ class o2_Read_API extends o2_API_Base {
 	 * Generates a preview version of a post or comment being created/edited
 	 */
 	public static function preview() {
-		$response = array(
-			'data' => '<p>' . __( 'Nothing to preview.', 'o2' ) . '</p>',
-		);
+		$response = '<p>' . __( 'Nothing to preview.', 'o2' ) . '</p>';
 
-		$content = '';
-
+		if ( ! empty( $_REQUEST['data'] ) ) {
 		switch ( $_REQUEST['type'] ) {
 			case 'comment':
-				$content = apply_filters( 'o2_preview_comment', wp_unslash( $_REQUEST['data'] ) );
-				$content = trim( apply_filters( 'comment_text', $content ) );
+					$response = apply_filters( 'o2_preview_comment', wp_unslash( $_REQUEST['data'] ) );
+					$response = trim( apply_filters( 'comment_text', $response ) );
 
 				break;
 			case 'post':
@@ -470,21 +467,18 @@ class o2_Read_API extends o2_API_Base {
 
 				$message->contentRaw = apply_filters( 'o2_preview_post', $message->contentRaw );
 
-				if ( ! empty( $message->titleRaw ) ) {
-					$content = "<h1>{$message->titleRaw}</h1>";
-				}
+					$response = trim( apply_filters( 'the_content', $message->contentRaw ) );
 
-				$content .= trim( apply_filters( 'the_content', $message->contentRaw ) );
+				if ( ! empty( $message->titleRaw ) ) {
+						$response = "<h1>{$message->titleRaw}</h1>" . $response;
+				}
 
 				break;
 			default:
 				// This page left intentionally blank
 		}
-
-		if ( ! empty( $content ) ) {
-			$response['data'] = $content;
 		}
 
-		die( json_encode( $response ) );
+		self::die_success( $response );
 	}
 }
