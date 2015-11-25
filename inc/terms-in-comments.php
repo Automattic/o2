@@ -73,18 +73,18 @@ class o2_Terms_In_Comments {
 	 * @param object $post
 	 * @return array The post terms.
 	 */
-	function update_post_terms( $comment_id, $comment ) {}
+	function update_post_terms( $post_id, $post ) {}
 
 	function update_terms( $post_id ) {
 		// if this is an xpost, don't bother updating post terms
 		// (because doing so will strip tags we want to keep)
 		$xpost = get_post_meta( $post_id, '_xpost_original_permalink', true );
-		if ( ! empty( $xpost ) ) {
+		if ( ! empty( $xpost ) || '_xposts_term_meta' === $this->meta_key ) {
 			return;
 		}
 
 		$comment_meta = $this->get_comment_meta( array( 'post_id' => $post_id ) );
-		$post_meta    = get_post_meta( $post_id, $this->meta_key );
+		$post_meta    = wp_get_post_terms( $post_id, $this->taxonomy, array( 'fields' => 'names' ) );
 		$terms        = array_unique( array_merge( (array) $post_meta, (array) $comment_meta ) );
 
 		wp_set_object_terms( $post_id, $terms, $this->taxonomy );
