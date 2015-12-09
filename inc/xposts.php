@@ -412,18 +412,18 @@ class o2_Xposts extends o2_Terms_In_Comments {
 
 		if ( isset( $post->comment_ID ) ) {
 			// It's really a comment
-			$comment     = $post;
-			$post        = get_post( $post->comment_post_ID );
+			$comment        = $post;
+			$post           = get_post( $post->comment_post_ID );
 			$origin_post_id = $post->ID;
-			$x_permalink = get_comment_link( $comment->comment_ID );
-			$format      = __( 'X-comment from %1$s: Comment on %2$s' );
-			$author      = $comment->user_id;
+			$x_permalink    = get_comment_link( $comment->comment_ID );
+			$format         = __( 'X-comment from %1$s: Comment on %2$s' );
+			$author         = $comment->user_id;
 		} else {
 			// It's a post
-			$format      = __( 'X-post from %1$s: %2$s' );
+			$format         = __( 'X-post from %1$s: %2$s' );
 			$origin_post_id = $post->ID;
-			$x_permalink = get_permalink( $post->ID );
-			$author      = $post->post_author;
+			$x_permalink    = get_permalink( $post->ID );
+			$author         = $post->post_author;
 		}
 
 		$post_title = wp_kses( $post->post_title, array() ); // Used as anchor text for display back to original post

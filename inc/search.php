@@ -44,7 +44,7 @@ class o2_Search {
 			},
 			$where
 		);
-		$where = str_replace(')) AND ((', ')) OR ((', $where);
+		$where = str_replace( ')) AND ((', ')) OR ((', $where );
 
 		return $where;
 	}

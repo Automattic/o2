@@ -452,34 +452,34 @@ class o2_Read_API extends o2_API_Base {
 		$response = '<p>' . __( 'Nothing to preview.', 'o2' ) . '</p>';
 
 		if ( ! empty( $_REQUEST['data'] ) ) {
-		switch ( $_REQUEST['type'] ) {
-			case 'comment':
-				$response = apply_filters( 'o2_preview_comment', wp_unslash( $_REQUEST['data'] ) );
-				$response = trim( apply_filters( 'comment_text', $response ) );
+			switch ( $_REQUEST['type'] ) {
+				case 'comment':
+					$response = apply_filters( 'o2_preview_comment', wp_unslash( $_REQUEST['data'] ) );
+					$response = trim( apply_filters( 'comment_text', $response ) );
 
-				break;
-			case 'post':
-				$message = new stdClass;
-				$message->titleRaw = '';
-				$message->contentRaw = wp_unslash( $_REQUEST['data'] );
+					break;
+				case 'post':
+					$message = new stdClass;
+					$message->titleRaw = '';
+					$message->contentRaw = wp_unslash( $_REQUEST['data'] );
 
-				$message = o2_Write_API::generate_title( $message );
+					$message = o2_Write_API::generate_title( $message );
 
-				add_filter( 'o2_should_process_terms', '__return_false' );
-				add_filter( 'o2_process_the_content', '__return_false' );
+					add_filter( 'o2_should_process_terms', '__return_false' );
+					add_filter( 'o2_process_the_content', '__return_false' );
 
-				$message->contentRaw = apply_filters( 'o2_preview_post', $message->contentRaw );
+					$message->contentRaw = apply_filters( 'o2_preview_post', $message->contentRaw );
 
-				$response = trim( apply_filters( 'the_content', $message->contentRaw ) );
+					$response = trim( apply_filters( 'the_content', $message->contentRaw ) );
 
-				if ( ! empty( $message->titleRaw ) ) {
-					$response = "<h1>{$message->titleRaw}</h1>" . $response;
-				}
+					if ( ! empty( $message->titleRaw ) ) {
+						$response = "<h1>{$message->titleRaw}</h1>" . $response;
+					}
 
-				break;
-			default:
-				// This page left intentionally blank
-		}
+					break;
+				default:
+					// This page left intentionally blank
+			}
 		}
 
 		self::die_success( $response );
