@@ -75,6 +75,11 @@ class o2_Post_Actions {
 
 	function before_post_likes( $content ) {
 		global $post;
+
+		if ( ! apply_filters( 'o2_process_the_content', '__return_true' ) ) {
+			return $content;
+		}
+
 		$actions = apply_filters( 'o2_filter_post_actions', array(), $post->ID );
 
 		$content .= "<nav class='o2-post-footer-actions'>";
@@ -93,6 +98,11 @@ class o2_Post_Actions {
 
 	function after_post_likes( $content ) {
 		global $post;
+
+		if ( ! apply_filters( 'o2_process_the_content', '__return_true' ) ) {
+			return $content;
+		}
+
 		$actions = apply_filters( 'o2_filter_post_actions', array(), $post->ID );
 
 		$content .= "</div>";
