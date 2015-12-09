@@ -37,7 +37,7 @@ class o2_Xposts extends o2_Terms_In_Comments {
 		// Don't let xposts participate in resolved/unresolved
 		add_filter( 'o2_resolved_posts_maybe_mark_new_as_unresolved', array( $this, 'o2rpx_dont_mark_xposts' ), 10, 2 );
 
-		parent::o2_Terms_In_Comments( 'xposts' );
+		parent::__construct( 'xposts' );
 	}
 
 	/**
