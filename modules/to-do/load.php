@@ -87,7 +87,10 @@ class o2_ToDos extends o2_API_Base {
 	 */
 	public static function get_first_state_slug() {
 		global $o2_post_action_states;
-		return array_shift( array_keys( $o2_post_action_states[ self::post_actions_key ] ) );
+
+		$keys = array_keys( $o2_post_action_states[ self::post_actions_key ] );
+
+		return array_shift( $keys );
 	}
 
 	/**
@@ -97,7 +100,10 @@ class o2_ToDos extends o2_API_Base {
 	 */
 	public static function get_last_state_slug() {
 		global $o2_post_action_states;
-		return array_pop( array_keys( $o2_post_action_states[ self::post_actions_key ] ) );
+
+		$keys = array_keys( $o2_post_action_states[ self::post_actions_key ] );
+
+		return array_pop( $keys );
 	}
 
 	/**
