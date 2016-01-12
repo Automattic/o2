@@ -19,9 +19,8 @@ class o2_ToDos extends o2_API_Base {
 	const post_actions_key = 'resolvedposts';
 
 	function __construct() {
-
 		// Taxonomy
-		self::register_taxonomy();
+		add_action( 'init', array( $this, 'register_taxonomy' ) );
 
 		// Scripts and styles
 		if ( ! is_admin() ) {
@@ -29,7 +28,6 @@ class o2_ToDos extends o2_API_Base {
 		}
 
 		// Actions
-		add_action( 'init', array( $this, 'register_query_var' ) );
 		add_action( 'o2_templates', array( $this, 'get_templates' ) );
 		add_action( 'o2_callback_o2_resolved_posts', array( $this, 'callback' ) );
 		add_action( 'init', array( $this, 'register_post_action_states' ) );
@@ -281,14 +279,6 @@ class o2_ToDos extends o2_API_Base {
 
 	function is_unresolved_filter_active() {
 		return ( is_archive() && isset( $_GET['resolved'] ) && $_GET['resolved'] == 'unresolved' );
-	}
-
-	/**
-	 * Register the query var
-	 */
-	function register_query_var() {
-		global $wp;
-		$wp->add_query_var( 'resolved' );
 	}
 
 	/**
