@@ -103,7 +103,7 @@ class o2_Filter_Widget extends WP_Widget {
 
 	function widget( $args, $instance ) {
 		extract( $args, EXTR_SKIP );
-		$title = $instance['title'];
+		$title = ( isset( $instance['title'] ) ) ? $instance['title'] : '';
 		$title = apply_filters( 'widget_title', $title );
 
 		if ( 0 < count( $this->filters ) ) {
