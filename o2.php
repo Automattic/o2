@@ -361,6 +361,7 @@ class o2 {
 				'userMustBeLoggedInToComment'          => ( "1" === get_option( 'comment_registration' ) ),
 				'requireUserNameAndEmailIfNotLoggedIn' => ( "1" === get_option( 'require_name_email' ) ),
 				'viewType'                             => $view_type,
+				'isPreview'                            => is_preview(),
 				'showExtended'                         => strip_tags( wp_kses_no_null( trim( __( 'Show full post', 'o2' ) ) ) ),
 				'hideExtended'                         => strip_tags( wp_kses_no_null( trim( __( 'Hide extended post', 'o2' ) ) ) ),
 				'searchQuery'                          => get_search_query(),

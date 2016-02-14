@@ -75,6 +75,7 @@ o2.Routers.App = ( function( $, Backbone ) {
 				isPage: 'page' == o2.options.viewType ? true : false,
 				is404: '404' == o2.options.viewType ? true : false,
 				isSearch: 'search' == o2.options.viewType ? true : false,
+				isPreview: true == o2.options.isPreview ? true : false,
 				havePosts: o2.options.havePosts
 			} );
 

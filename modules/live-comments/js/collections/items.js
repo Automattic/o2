@@ -23,8 +23,10 @@ o2.Collections.LiveCommentsItems = ( function( $, Backbone ) {
 			if ( 'undefined' != typeof foundItem ) {
 				foundItem.set( itemHash );
 			} else {
-				this.add( new o2.Models.LiveCommentsItem( itemHash ) );
-			}
+				if ( ! o2.options.isPreview ) {
+					this.add( new o2.Models.LiveCommentsItem( itemHash ) );
+				}
+			}	
 		}
 	} );
 } )( jQuery, Backbone );
