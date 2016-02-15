@@ -472,6 +472,7 @@ class o2_Fragment {
 			'displayName' => $user_data->display_name,
 			'firstName' => $user_data->user_firstname,
 			'lastName' => $user_data->user_lastname,
+			'localAvatar' => self::get_local_avatar_url( $user_data->ID ),
 			'url' => get_author_posts_url( $user_data->ID ),
 			'urlTitle' => sprintf( __( 'Posts by %1$s (%2$s)', 'o2' ), $user_data->display_name, '@' . $user_data->user_nicename ),
 			'hash' => md5( strtolower( trim( $user_data->user_email ) ) ),
@@ -484,6 +485,40 @@ class o2_Fragment {
 		$bootstrap_model = self::to_utf8( $bootstrap_model );
 
 		return $bootstrap_model;
+	}
+
+	/**
+	 * This function is used to get the source attribute for a local avatar. That can be overriden in get_avatar().
+	 *
+	 * @TODO This function needs work to handle more edge cases and implementations of local avatars ( currently will only work with functions hooked into get_avatar() ).
+	 * @see filter get_avatar in wp-includes/
+	 *
+	 * @param  mixed $user_id (Required) Accepts a user_id, gravatar md5 hash, user email, WP_User object, WP_Post object, or WP_Comment object.
+	 * @return string|boolean $source Returns the source attribute of the avatar. Or false if not a local avatar.
+	 */
+	public static function get_local_avatar_url( $user_id ) {
+		// 48 seems to be the default size used in o2.
+		$avatar = get_avatar( $user_id, 48 );
+
+		// Create a domdocument.
+		$dom = new DOMDocument();
+		$dom->loadHTML( $avatar );
+
+		// Find the image.
+		$img = $dom->getElementsByTagName( 'img' );
+		$img = $img->item( 0 );
+
+		if ( $img->hasAttribute( 'src' ) ) {
+			// Get avatar's source attribute.
+			$source = $img->getAttribute( 'src' );
+			// If it is a gravatar return false so that backbone can use the hardcoded https:// version in the users collection.
+			if ( false !== strpos( $source, 'gravatar.com' ) ) {
+				return false;
+			}
+		} else {
+			return false;
+		}
+		return $source;
 	}
 
 	/**
