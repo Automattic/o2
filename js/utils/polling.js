@@ -25,7 +25,7 @@ o2.Polling = ( function( $, Backbone ) {
 
 			o2.options.currentRequest = Date.now();
 			$.ajax( {
-                method: 'POST',
+				method: 'POST',
 				dataType:  'json',
 				url:       o2.options.readURL + '&method=poll',
 				xhrFields: {
