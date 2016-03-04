@@ -104,7 +104,11 @@ class o2_Read_API extends o2_API_Base {
 			if ( isset( $_REQUEST['scripts'] ) ) {
 
 				// Parse and sanitize the script handles already output
-				$initial_scripts = isset( $_REQUEST['scripts'] ) && is_array( $_REQUEST['scripts'] ) ? array_map( 'sanitize_text_field', $_REQUEST['scripts'] ) : false;
+				if ( ! is_array( $_REQUEST['scripts'] ) ) {
+					$_REQUEST['scripts'] = explode( ',', $_REQUEST['scripts'] );
+				}
+				
+				$initial_scripts = is_array( $_REQUEST['scripts'] ) ? array_map( 'sanitize_text_field', $_REQUEST['scripts'] ) : null;
 
 				if ( is_array( $initial_scripts ) ) {
 					global $wp_scripts;
@@ -167,8 +171,13 @@ class o2_Read_API extends o2_API_Base {
 			// Attach styles
 			if ( isset( $_REQUEST['styles'] ) ) {
 
+				// Parse and sanitize the script handles already output
+				if ( ! is_array( $_REQUEST['styles'] ) ) {
+					$_REQUEST['styles'] = explode( ',', $_REQUEST['styles'] );
+				}
+	
 				// Parse and sanitize the style handles already output
-				$initial_styles = isset( $_REQUEST['styles'] ) && is_array( $_REQUEST['styles'] ) ? array_map( 'sanitize_text_field', $_REQUEST['styles'] ) : false;
+				$initial_styles = is_array( $_REQUEST['styles'] ) ? array_map( 'sanitize_text_field', $_REQUEST['styles'] ) : null;
 
 				if ( is_array( $initial_styles ) ) {
 					global $wp_styles;

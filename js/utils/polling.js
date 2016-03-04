@@ -16,8 +16,8 @@ o2.Polling = ( function( $, Backbone ) {
 				queryVars: o2.options.queryVars,
 				since: o2.options.loadTime,
 				rando: Math.random(),
-				scripts: o2.options.scripts,
-				styles: o2.options.styles,
+				scripts: o2.options.scripts.join(),
+				styles: o2.options.styles.join(),
 				postId: o2.options.postId
 			};
 
