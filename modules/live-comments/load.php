@@ -71,10 +71,10 @@ class o2_Live_Comments_Widget extends WP_Widget {
 
 	function widget( $args, $instance ) {
 		extract( $args, EXTR_SKIP );
-		$title = $instance['title'];
+		$title = isset( $instance['title'] ) ? $instance['title'] : '';
 		$title = apply_filters( 'widget_title', $title );
-		$kind = $instance['kind'];
-		$number = $instance['number'];
+		$kind = isset( $instance['kind'] ) ? $instance['kind'] : 'both';
+		$number = isset( $instance['number'] ) ? $instance['number'] : 10;
 
 		echo $before_widget;
 
