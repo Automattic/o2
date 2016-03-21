@@ -37,7 +37,7 @@ o2.Collections.Users = ( function( $, Backbone ) {
 					user = new o2.Models.User( {
 						userLogin   : object.userLogin,
 						displayName : object.userLogin,
-						modelClass  : 'o2-incomplete-' + object.userLogin
+						modelClass  : 'o2-incomplete-' + CSS.escape(object.userLogin)
 					} );
 
 					// add it to the collection
@@ -116,7 +116,7 @@ o2.Collections.Users = ( function( $, Backbone ) {
 			var user = this.getUserFor( { userLogin: userLogin } );
 
 			// update img src's and a href's with .o2-incomplete-{userLogin}
-			var selectorClass = 'o2-incomplete-' + userLogin;
+			var selectorClass = 'o2-incomplete-' + CSS.escape(userLogin);
 
 			$( 'a.' + selectorClass ).each( function() {
 				$( this ).attr( 'href', user.url ).removeClass( selectorClass );
@@ -138,4 +138,3 @@ o2.Collections.Users = ( function( $, Backbone ) {
 
 	} );
 } )( jQuery, Backbone );
-

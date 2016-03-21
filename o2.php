@@ -171,6 +171,7 @@ class o2 {
 
 		// Utils
 		wp_enqueue_script( 'o2-compare-times',        plugins_url( 'o2/js/utils/compare-times.js' ), array( 'jquery' ) );
+		wp_enqueue_script( 'o2-cssescape',            plugins_url( 'o2/js/utils/cssescape.js' ), array( 'backbone', 'jquery' ) );
 		wp_enqueue_script( 'o2-events',               plugins_url( 'o2/js/utils/events.js' ), array( 'backbone', 'jquery' ) );
 		wp_enqueue_script( 'o2-highlight-on-inview',  plugins_url( 'o2/js/utils/highlight-on-inview.js' ), array( 'jquery' ) );
 		wp_enqueue_script( 'o2-highlight',            plugins_url( 'o2/js/utils/jquery.highlight.js' ), array( 'jquery' ) );
@@ -239,6 +240,7 @@ class o2 {
 				'o2-collections-posts',
 				'o2-collections-users',
 				'o2-compare-times',
+				'o2-cssescape',
 				'o2-events',
 				'o2-highlight',
 				'o2-highlight-on-inview',
