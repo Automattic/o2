@@ -26,6 +26,7 @@ License: GNU General Public License v2 or later
  */
 
 define( 'O2__PLUGIN_LOADED', true );
+define( 'O2__FILE__', __FILE__ );
 
 class o2 {
 	private $editor;
@@ -170,49 +171,49 @@ class o2 {
 		global $wp_locale;
 
 		// Utils
-		wp_enqueue_script( 'o2-compare-times',        plugins_url( 'o2/js/utils/compare-times.js' ), array( 'jquery' ) );
-		wp_enqueue_script( 'o2-events',               plugins_url( 'o2/js/utils/events.js' ), array( 'backbone', 'jquery' ) );
-		wp_enqueue_script( 'o2-highlight-on-inview',  plugins_url( 'o2/js/utils/highlight-on-inview.js' ), array( 'jquery' ) );
-		wp_enqueue_script( 'o2-highlight',            plugins_url( 'o2/js/utils/jquery.highlight.js' ), array( 'jquery' ) );
-		wp_enqueue_script( 'o2-is-valid-email',       plugins_url( 'o2/js/utils/is-valid-email.js' ), array( 'jquery' ) );
-		wp_enqueue_script( 'o2-moment',               plugins_url( 'o2/js/utils/moment.js' ), array( 'jquery' ) );
-		wp_enqueue_script( 'o2-raw-to-filtered',      plugins_url( 'o2/js/utils/raw-to-filtered.js' ), array( 'jquery' ) );
-		wp_enqueue_script( 'o2-plugin-caret',         plugins_url( 'o2/js/utils/caret.js' ), array( 'jquery' ) );
-		wp_enqueue_script( 'o2-plugin-placeholder',   plugins_url( 'o2/js/utils/jquery.placeholder.js' ), array( 'jquery' ) );
-		wp_enqueue_script( 'o2-page-visibility',      plugins_url( 'o2/js/utils/page-visibility.js' ), array( 'jquery' ) );
-		wp_enqueue_script( 'o2-timestamp',            plugins_url( 'o2/js/utils/timestamp.js' ), array( 'jquery', 'o2-moment' ) );
-		wp_enqueue_script( 'o2-polling',              plugins_url( 'o2/js/utils/polling.js' ), array( 'backbone', 'jquery', 'o2-events' ) );
-		wp_enqueue_script( 'o2-query',                plugins_url( 'o2/js/utils/query.js' ), array( 'backbone', 'jquery' ) );
-		wp_enqueue_script( 'o2-template',             plugins_url( 'o2/js/utils/template.js' ), array( 'backbone', 'jquery', 'wp-util' ) );
-		wp_enqueue_script( 'o2-enquire',              plugins_url( 'o2/js/utils/enquire.js' ) );
+		wp_enqueue_script( 'o2-compare-times',        plugins_url( 'js/utils/compare-times.js', O2__FILE__ ),       array( 'jquery' ) );
+		wp_enqueue_script( 'o2-events',               plugins_url( 'js/utils/events.js', O2__FILE__ ),              array( 'backbone', 'jquery' ) );
+		wp_enqueue_script( 'o2-highlight-on-inview',  plugins_url( 'js/utils/highlight-on-inview.js', O2__FILE__ ), array( 'jquery' ) );
+		wp_enqueue_script( 'o2-highlight',            plugins_url( 'js/utils/jquery.highlight.js', O2__FILE__ ),    array( 'jquery' ) );
+		wp_enqueue_script( 'o2-is-valid-email',       plugins_url( 'js/utils/is-valid-email.js', O2__FILE__ ),      array( 'jquery' ) );
+		wp_enqueue_script( 'o2-moment',               plugins_url( 'js/utils/moment.js', O2__FILE__ ),              array( 'jquery' ) );
+		wp_enqueue_script( 'o2-raw-to-filtered',      plugins_url( 'js/utils/raw-to-filtered.js', O2__FILE__ ),     array( 'jquery' ) );
+		wp_enqueue_script( 'o2-plugin-caret',         plugins_url( 'js/utils/caret.js', O2__FILE__ ),               array( 'jquery' ) );
+		wp_enqueue_script( 'o2-plugin-placeholder',   plugins_url( 'js/utils/jquery.placeholder.js', O2__FILE__ ),  array( 'jquery' ) );
+		wp_enqueue_script( 'o2-page-visibility',      plugins_url( 'js/utils/page-visibility.js', O2__FILE__ ),     array( 'jquery' ) );
+		wp_enqueue_script( 'o2-timestamp',            plugins_url( 'js/utils/timestamp.js', O2__FILE__ ),           array( 'jquery', 'o2-moment' ) );
+		wp_enqueue_script( 'o2-polling',              plugins_url( 'js/utils/polling.js', O2__FILE__ ),             array( 'backbone', 'jquery', 'o2-events' ) );
+		wp_enqueue_script( 'o2-query',                plugins_url( 'js/utils/query.js', O2__FILE__ ),               array( 'backbone', 'jquery' ) );
+		wp_enqueue_script( 'o2-template',             plugins_url( 'js/utils/template.js', O2__FILE__ ),            array( 'backbone', 'jquery', 'wp-util' ) );
+		wp_enqueue_script( 'o2-enquire',              plugins_url( 'js/utils/enquire.js', O2__FILE__ ) );
 
 		// Models
-		wp_enqueue_script( 'o2-models-base',          plugins_url( 'o2/js/models/base.js' ), array( 'backbone', 'jquery', 'o2-highlight', 'o2-events' ) );
-		wp_enqueue_script( 'o2-models-post',          plugins_url( 'o2/js/models/post.js' ), array( 'o2-models-base', 'backbone', 'jquery' ) );
-		wp_enqueue_script( 'o2-models-comment',       plugins_url( 'o2/js/models/comment.js' ), array( 'o2-models-base', 'backbone', 'jquery' ) );
-		wp_enqueue_script( 'o2-models-page-meta',     plugins_url( 'o2/js/models/page-meta.js' ), array( 'backbone', 'jquery' ) );
-		wp_enqueue_script( 'o2-models-user',          plugins_url( 'o2/js/models/user.js' ), array( 'backbone', 'jquery' ) );
-		wp_enqueue_script( 'o2-models-search-meta',   plugins_url( 'o2/js/models/search-meta.js' ), array( 'backbone', 'jquery' ) );
+		wp_enqueue_script( 'o2-models-base',          plugins_url( 'js/models/base.js', O2__FILE__ ),        array( 'backbone', 'jquery', 'o2-highlight', 'o2-events' ) );
+		wp_enqueue_script( 'o2-models-post',          plugins_url( 'js/models/post.js', O2__FILE__ ),        array( 'o2-models-base', 'backbone', 'jquery' ) );
+		wp_enqueue_script( 'o2-models-comment',       plugins_url( 'js/models/comment.js', O2__FILE__ ),     array( 'o2-models-base', 'backbone', 'jquery' ) );
+		wp_enqueue_script( 'o2-models-page-meta',     plugins_url( 'js/models/page-meta.js', O2__FILE__ ),   array( 'backbone', 'jquery' ) );
+		wp_enqueue_script( 'o2-models-user',          plugins_url( 'js/models/user.js', O2__FILE__ ),        array( 'backbone', 'jquery' ) );
+		wp_enqueue_script( 'o2-models-search-meta',   plugins_url( 'js/models/search-meta.js', O2__FILE__ ), array( 'backbone', 'jquery' ) );
 
 		// Collections
-		wp_enqueue_script( 'o2-collections-comments', plugins_url( 'o2/js/collections/comments.js' ), array( 'o2-models-comment', 'o2-compare-times' ) );
-		wp_enqueue_script( 'o2-collections-posts',    plugins_url( 'o2/js/collections/posts.js' ), array( 'o2-models-post', 'o2-compare-times' ) );
-		wp_enqueue_script( 'o2-collections-users',    plugins_url( 'o2/js/collections/users.js' ), array( 'o2-models-user', 'underscore' ) );
+		wp_enqueue_script( 'o2-collections-comments', plugins_url( 'js/collections/comments.js', O2__FILE__ ), array( 'o2-models-comment', 'o2-compare-times' ) );
+		wp_enqueue_script( 'o2-collections-posts',    plugins_url( 'js/collections/posts.js', O2__FILE__ ),    array( 'o2-models-post', 'o2-compare-times' ) );
+		wp_enqueue_script( 'o2-collections-users',    plugins_url( 'js/collections/users.js', O2__FILE__ ),    array( 'o2-models-user', 'underscore' ) );
 
 		// Views
-		wp_enqueue_script( 'o2-views-app-header',     plugins_url( 'o2/js/views/app-header.js' ), array( 'o2-models-page-meta', 'o2-events', 'utils', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-views-comment',        plugins_url( 'o2/js/views/comment.js' ), array( 'o2-models-comment', 'o2-editor', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-views-new-post',       plugins_url( 'o2/js/views/new-post.js' ), array( 'o2-models-post', 'o2-editor', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-views-post',           plugins_url( 'o2/js/views/post.js' ), array( 'o2-models-post', 'o2-collections-comments', 'o2-editor', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-views-no-posts-post',  plugins_url( 'o2/js/views/no-posts-post.js' ), array( 'backbone', 'jquery', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-views-posts',          plugins_url( 'o2/js/views/posts.js' ), array( 'o2-collections-posts', 'jquery-color', 'o2-notifications', 'o2-views-no-posts-post', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-views-app-footer',     plugins_url( 'o2/js/views/app-footer.js' ), array( 'o2-models-page-meta', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-views-search-form',    plugins_url( 'o2/js/views/search-form.js' ), array( 'o2-models-search-meta', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-views-app-header',     plugins_url( 'js/views/app-header.js', O2__FILE__ ),    array( 'o2-models-page-meta', 'o2-events', 'utils', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-views-comment',        plugins_url( 'js/views/comment.js', O2__FILE__ ),       array( 'o2-models-comment', 'o2-editor', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-views-new-post',       plugins_url( 'js/views/new-post.js', O2__FILE__ ),      array( 'o2-models-post', 'o2-editor', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-views-post',           plugins_url( 'js/views/post.js', O2__FILE__ ),          array( 'o2-models-post', 'o2-collections-comments', 'o2-editor', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-views-no-posts-post',  plugins_url( 'js/views/no-posts-post.js', O2__FILE__ ), array( 'backbone', 'jquery', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-views-posts',          plugins_url( 'js/views/posts.js', O2__FILE__ ),         array( 'o2-collections-posts', 'jquery-color', 'o2-notifications', 'o2-views-no-posts-post', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-views-app-footer',     plugins_url( 'js/views/app-footer.js', O2__FILE__ ),    array( 'o2-models-page-meta', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-views-search-form',    plugins_url( 'js/views/search-form.js', O2__FILE__ ),   array( 'o2-models-search-meta', 'wp-backbone' ) );
 
 		// Core application
 		wp_enqueue_script(
 			'o2-app',
-			plugins_url( 'o2/js/app/main.js' ),
+			plugins_url( 'js/app/main.js', O2__FILE__ ),
 			array(
 				'o2-collections-users',
 				'o2-events',
@@ -232,7 +233,7 @@ class o2 {
 		// Extend o2 by writing modules. Use o2-cocktail to load everything else first.
 		wp_enqueue_script(
 			'o2-cocktail',
-			plugins_url( 'o2/js/utils/cocktail.js' ),
+			plugins_url( 'js/utils/cocktail.js', O2__FILE__ ),
 			array(
 				'o2-app',
 				'o2-collections-comments',
@@ -972,7 +973,7 @@ class o2 {
 	function admin_enqueue_scripts( $hook ) {
 		// Settings > Discussion
 		if ( 'options-discussion.php' == $hook ) {
-			$script_url = plugins_url( 'o2/js/admin/discussion-settings.js' );
+			$script_url = plugins_url( 'js/admin/discussion-settings.js', O2__FILE__ );
 			wp_enqueue_script( 'o2-admin-discussion', $script_url, array( 'jquery' ) );
 		}
 	}

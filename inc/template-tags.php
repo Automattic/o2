@@ -103,7 +103,7 @@ if ( !function_exists( 'o2_post_action_states_in_footer' ) ) {
 
 if ( !function_exists( 'o2_post_actions_scripts' ) ) {
 	function o2_post_actions_scripts() {
-		wp_enqueue_script( 'jquery-actionstate', plugins_url( 'o2/js/utils/post-action-states.js' ), array( 'jquery' ) );
+		wp_enqueue_script( 'jquery-actionstate', plugins_url( 'js/utils/post-action-states.js', O2__FILE__ ), array( 'jquery' ) );
 	}
 
 	add_action( 'wp_enqueue_scripts', 'o2_post_actions_scripts' );

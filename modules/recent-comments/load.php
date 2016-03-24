@@ -24,7 +24,7 @@ class o2_Recent_Comments {
 	}
 
 	function enqueue_scripts() {
-		wp_enqueue_script( 'o2-extend-recent-comments-collections-posts', plugins_url( 'o2/modules/recent-comments/js/collections/posts.js' ), array( 'o2-cocktail' ) );
+		wp_enqueue_script( 'o2-extend-recent-comments-collections-posts', plugins_url( 'modules/recent-comments/js/collections/posts.js', , O2__FILE__ ), array( 'o2-cocktail' ) );
 	}
 
 	public function register_query_var() {

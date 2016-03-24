@@ -60,11 +60,11 @@ class o2_ToDos extends o2_API_Base {
 	}
 
 	function enqueue_scripts() {
-		wp_enqueue_style( 'o2-extend-to-do', plugins_url( 'o2/modules/to-do/css/style.css' ) );
-		wp_enqueue_script( 'o2-extend-to-do-models-audit-log', plugins_url( 'o2/modules/to-do/js/models/audit-log.js' ), array( 'o2-models-base' ) );
-		wp_enqueue_script( 'o2-extend-to-do-collections-audit-logs', plugins_url( 'o2/modules/to-do/js/collections/audit-logs.js' ), array( 'o2-extend-to-do-models-audit-log' ) );
-		wp_enqueue_script( 'o2-extend-to-do-views-audit-log', plugins_url( 'o2/modules/to-do/js/views/audit-log.js' ), array( 'o2-extend-to-do-models-audit-log', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-extend-to-do-views-extend-post', plugins_url( 'o2/modules/to-do/js/views/extend-post.js' ), array( 'o2-cocktail', 'o2-extend-to-do-views-audit-log', 'o2-notifications' ) );
+		wp_enqueue_style( 'o2-extend-to-do', plugins_url( 'modules/to-do/css/style.css', O2__FILE__ ) );
+		wp_enqueue_script( 'o2-extend-to-do-models-audit-log', plugins_url( 'modules/to-do/js/models/audit-log.js', O2__FILE__ ), array( 'o2-models-base' ) );
+		wp_enqueue_script( 'o2-extend-to-do-collections-audit-logs', plugins_url( 'modules/to-do/js/collections/audit-logs.js', O2__FILE__ ), array( 'o2-extend-to-do-models-audit-log' ) );
+		wp_enqueue_script( 'o2-extend-to-do-views-audit-log', plugins_url( 'modules/to-do/js/views/audit-log.js', O2__FILE__ ), array( 'o2-extend-to-do-models-audit-log', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-extend-to-do-views-extend-post', plugins_url( 'modules/to-do/js/views/extend-post.js', O2__FILE__ ), array( 'o2-cocktail', 'o2-extend-to-do-views-audit-log', 'o2-notifications' ) );
 	}
 
 	/**

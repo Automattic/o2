@@ -8,7 +8,7 @@ class o2_Offline {
 	}
 
 	function enqueue_scripts() {
-		wp_enqueue_script( 'o2-offline', plugins_url( 'o2/modules/offline/js/offline.js' ), array( 'jquery' ) );
+		wp_enqueue_script( 'o2-offline', plugins_url( 'modules/offline/js/offline.js', O2__FILE__ ), array( 'jquery' ) );
 	}
 
 	function get_options( $options ) {
