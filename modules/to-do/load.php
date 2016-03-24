@@ -33,7 +33,7 @@ class o2_ToDos extends o2_API_Base {
 		add_action( 'init', array( $this, 'register_post_action_states' ) );
 
 		// Widgets
-		include( __DIR__ . '/inc/class-to-do-widget.php' );
+		include( dirname( __FILE__ ) . '/inc/class-to-do-widget.php' );
 		add_action( 'widgets_init', array( $this, 'widgets_init' ) );
 
 		// Filters

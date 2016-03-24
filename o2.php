@@ -27,6 +27,7 @@ License: GNU General Public License v2 or later
 
 define( 'O2__PLUGIN_LOADED', true );
 define( 'O2__FILE__', __FILE__ );
+define( 'O2__DIR__', dirname( O2__FILE__ ) );
 
 class o2 {
 	private $editor;
@@ -34,41 +35,41 @@ class o2 {
 	 * Initializes the plugin by setting localization, filters, and administration functions.
 	 */
 	function __construct() {
-		require __DIR__ . '/inc/fragment.php';
-		require __DIR__ . '/inc/api-base.php';
-		require __DIR__ . '/inc/read-api.php';
-		require __DIR__ . '/inc/write-api.php';
-		require __DIR__ . '/inc/nopriv-write-api.php';
-		require __DIR__ . '/inc/templates.php';
-		require __DIR__ . '/inc/template-tags.php';
-		require __DIR__ . '/inc/editor.php';
-		require __DIR__ . '/inc/keyboard.php';
-		require __DIR__ . '/inc/text-helpers.php';
-		require __DIR__ . '/inc/search.php';
-		require __DIR__ . '/inc/widget-helper.php';
+		require O2__DIR__ . '/inc/fragment.php';
+		require O2__DIR__ . '/inc/api-base.php';
+		require O2__DIR__ . '/inc/read-api.php';
+		require O2__DIR__ . '/inc/write-api.php';
+		require O2__DIR__ . '/inc/nopriv-write-api.php';
+		require O2__DIR__ . '/inc/templates.php';
+		require O2__DIR__ . '/inc/template-tags.php';
+		require O2__DIR__ . '/inc/editor.php';
+		require O2__DIR__ . '/inc/keyboard.php';
+		require O2__DIR__ . '/inc/text-helpers.php';
+		require O2__DIR__ . '/inc/search.php';
+		require O2__DIR__ . '/inc/widget-helper.php';
 
 		// Terms in Comments powers the next group of files (must be loaded first)
 		// @todo: Remove mention here once fully refactored. Wrapping in conditionals
 		// in case these were already loaded in mu-plugins/inline-terms.php
 		if ( ! class_exists( 'o2_Terms_In_Comments' ) ) {
-			require __DIR__ . '/inc/terms-in-comments.php';
+			require O2__DIR__ . '/inc/terms-in-comments.php';
 		}
 		if ( ! class_exists( 'o2_Xposts' ) ) {
-			require __DIR__ . '/inc/xposts.php';
+			require O2__DIR__ . '/inc/xposts.php';
 			$this->xposts = new o2_Xposts();
 		}
 		if ( ! class_exists( 'o2_Tags' ) ) {
-			require __DIR__ . '/inc/tags.php';
+			require O2__DIR__ . '/inc/tags.php';
 			$this->tags = new o2_Tags();
 		}
 
 		// Conditionaly load WPCOM-specifics
 		if ( defined( 'IS_WPCOM' ) && IS_WPCOM ) {
-			require __DIR__ . '/inc/wpcom.php';
+			require O2__DIR__ . '/inc/wpcom.php';
 		}
 
 		// Autoload o2 modules -- must have a load.php file to be loaded
-		foreach ( glob( dirname( __FILE__ ) . '/modules/*/load.php' ) as $module ) {
+		foreach ( glob( O2__DIR__ . '/modules/*/load.php' ) as $module ) {
 			require $module;
 		}
 
