@@ -165,7 +165,7 @@ class o2 {
 	}
 
 	public function register_plugin_styles() {
-		wp_enqueue_style( 'o2-plugin-styles', plugins_url( 'css/style.css', __FILE__ ), array( 'genericons' ) );
+		wp_enqueue_style( 'o2-plugin-styles', plugins_url( 'css/style.css', O2__FILE__ ), array( 'genericons' ) );
 	}
 
 	public function register_plugin_scripts() {
@@ -1363,4 +1363,4 @@ function o2_plugin_activation_hook() {
 		update_option( 'wp_mobile_disable', true );
 	}
 }
-register_activation_hook( __FILE__, 'o2_plugin_activation_hook' );
+register_activation_hook( O2__FILE__, 'o2_plugin_activation_hook' );
