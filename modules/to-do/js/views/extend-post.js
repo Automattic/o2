@@ -1,4 +1,3 @@
-/* global Cocktail */
 var ResolvedPostExtendsPost = ( function( $ ) {
 	return {
 		initialize: function() {

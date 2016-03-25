@@ -22,6 +22,7 @@
 		"jQuery": false,
 		"JSON": false,
 		"wp": false,
+		"Cocktail": false,
 		"o2": true
 	}
 }
