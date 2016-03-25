@@ -61,14 +61,14 @@ function o2_time_shortcode( $attr, $content = null ) {
 }
 
 function o2_time_converter_script() {
-	$timestrings = array(
-		'months' => array( __( 'January' ), __( 'February' ), __( 'March' ), __( 'April' ), __( 'May' ), __( 'June' ), __( 'July' ), __( 'August' ), __( 'September' ), __( 'October' ), __( 'November' ), __( 'December' ) ),
-		'days'   => array( __( 'Sunday' ),__( 'Monday' ), __( 'Tuesday' ), __( 'Wednesday' ), __( 'Thursday' ), __( 'Friday' ), __( 'Saturday' ) ),
-	);
+	global $wp_locale; // These are strings that Core has already translated.
 ?>
 	<script type="text/javascript">
 	( function( $ ) {
-		var ts = <?php echo json_encode( $timestrings ); ?>;
+		var ts = <?php echo json_encode( array(
+			'months' => array_values( $wp_locale->month ),
+			'days'   => array_values( $wp_locale->weekday ),
+		) ); ?>;
 
 		var o2_parse_date = function ( text ) {
 			var m = /^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\+00:00$/.exec( text );
