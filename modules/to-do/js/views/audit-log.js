@@ -2,7 +2,7 @@ var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.AuditLog = ( function( $, Backbone ) {
+o2.Views.AuditLog = ( function( $ ) {
 	return wp.Backbone.View.extend( {
 		model: o2.Models.AuditLog,
 
@@ -30,4 +30,4 @@ o2.Views.AuditLog = ( function( $, Backbone ) {
 			return this;
 		}
 	} );
-} )( jQuery, Backbone );
+} )( jQuery );

@@ -2,7 +2,7 @@ var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.ToDosWidget = ( function( $, Backbone ) {
+o2.Views.ToDosWidget = ( function( $ ) {
 	return wp.Backbone.View.extend( {
 		model: o2.Models.ToDosWidget,
 
@@ -57,8 +57,9 @@ o2.Views.ToDosWidget = ( function( $, Backbone ) {
 			e.preventDefault();
 			var p = this.model.get( 'currentPage' );
 			p--;
-			if ( p < 1 )
+			if ( p < 1 ) {
 				p = 1;
+			}
 			this.model.set( 'currentPage', p );
 		},
 
@@ -67,8 +68,9 @@ o2.Views.ToDosWidget = ( function( $, Backbone ) {
 			var p = this.model.get( 'currentPage' );
 			var lastPage = Math.ceil( this.model.get( 'foundPosts' ) / this.model.get( 'postsPerPage' ) );
 			p++;
-			if ( p > lastPage )
+			if ( p > lastPage ) {
 				p = lastPage;
+			}
 			this.model.set( 'currentPage', p );
 		},
 
@@ -111,4 +113,4 @@ o2.Views.ToDosWidget = ( function( $, Backbone ) {
 			this.render();
 		}
 	} );
-} )( jQuery, Backbone );
+} )( jQuery );

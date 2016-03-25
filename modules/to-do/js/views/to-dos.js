@@ -2,7 +2,7 @@ var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.ToDos = ( function( $, Backbone ) {
+o2.Views.ToDos = ( function() {
 	return wp.Backbone.View.extend( {
 		model: o2.Models.ToDosWidget,
 
@@ -31,13 +31,15 @@ o2.Views.ToDos = ( function( $, Backbone ) {
 			var mine = _.toArray( this.model.get( 'collection' ).where( { state: this.model.get( 'state' ) } ) );
 
 			// Reverse array if descending
-			if ( 'DESC' === order )
+			if ( 'DESC' === order ) {
 				mine.reverse();
+			}
  
 			var start = ( currentPage - 1 ) * postsPerPage;
 			var end = start + postsPerPage - 1;
-			if ( end > ( foundPosts - 1 ) )
+			if ( end > ( foundPosts - 1 ) ) {
 				end = foundPosts - 1;
+			}
 			for ( var i = start; i <= end; i++ ) {
 				if ( i in mine ) {
 					var toDoView = new o2.Views.ToDo( {
@@ -51,4 +53,4 @@ o2.Views.ToDos = ( function( $, Backbone ) {
 			return this;
 		}
 	} );
-} )( jQuery, Backbone );
+} )();

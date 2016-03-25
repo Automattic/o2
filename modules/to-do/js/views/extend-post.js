@@ -1,13 +1,15 @@
-var ResolvedPostExtendsPost = ( function( $, Backbone ) {
+/* global Cocktail */
+var ResolvedPostExtendsPost = ( function( $ ) {
 	return {
 		initialize: function() {
 			_.bindAll( this, 'onResolvedPostsSuccess', 'onResolvedPostsError' );
 
 			var postMeta = this.model.get( 'postMeta' );
-			if ( 'undefined' != typeof postMeta.resolvedPostsAuditLogs )
+			if ( 'undefined' !== typeof postMeta.resolvedPostsAuditLogs ) {
 				this.model.auditLogs = new o2.Collections.AuditLogs( postMeta.resolvedPostsAuditLogs );
-			else
+			} else {
 				this.model.auditLogs = new o2.Collections.AuditLogs();
+			}
 
 			this.listenTo( this.model, 'o2-post-rendered', this.onRenderPostView );
 			this.listenTo( this.model, 'o2-post-rendered', this.addAllAuditLogViews );
@@ -146,7 +148,7 @@ var ResolvedPostExtendsPost = ( function( $, Backbone ) {
 
 		getPostModelCurrentState: function() {
 			var postMeta = this.model.get( 'postMeta' );
-			var currentState = postMeta['resolvedPostsPostState'];
+			var currentState = postMeta.resolvedPostsPostState;
 			if ( 'undefined' === typeof currentState ) {
 				currentState = 'normal';
 			}
@@ -155,10 +157,10 @@ var ResolvedPostExtendsPost = ( function( $, Backbone ) {
 
 		setPostModelState: function( slug ) {
 			var postMeta = this.model.get( 'postMeta' );
-			postMeta['resolvedPostsPostState'] = slug;
+			postMeta.resolvedPostsPostState = slug;
 			this.model.set( { postMeta: postMeta } );
 		}
 	};
-} )( jQuery, Backbone );
+} )( jQuery );
 
 Cocktail.mixin( o2.Views.Post, ResolvedPostExtendsPost );
