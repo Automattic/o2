@@ -2,7 +2,7 @@ var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.Flash = ( function( $, Backbone ) {
+o2.Views.Flash = ( function() {
 	return wp.Backbone.View.extend( {
 		collection: o2.Collections.Notifications,
 
@@ -20,9 +20,9 @@ o2.Views.Flash = ( function( $, Backbone ) {
 			} );
 
 			this.$el.append( itemsView.render().el );
-			this.subviews['itemsView'] = itemsView;
+			this.subviews.itemsView = itemsView;
 
 			return this;
 		}
 	} );
-} )( jQuery, Backbone );
+} )();

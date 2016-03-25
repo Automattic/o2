@@ -2,7 +2,7 @@ var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.DockItems = ( function( $, Backbone ) {
+o2.Views.DockItems = ( function() {
 	return wp.Backbone.View.extend( {
 		collection: o2.Collections.Notifications,
 
@@ -37,4 +37,4 @@ o2.Views.DockItems = ( function( $, Backbone ) {
 			return this;
 		}
 	} );
-} )( jQuery, Backbone );
+} )();
