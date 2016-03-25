@@ -1,16 +1,17 @@
-var StickyPostExtendsPost = ( function( $, Backbone ) {
+var StickyPostExtendsPost = ( function( $ ) {
 	return {
-		initialize: function( options ) {
+		initialize: function() {
 			this.listenTo( this.model, 'update-sticky-error', this.updateStickyError );
 			this.listenTo( this.model, 'o2-post-rendered',    this.stickyPostView );
 
-			if ( this.model.isSticky() && 'home' === o2.options.viewType )
+			if ( this.model.isSticky() && 'home' === o2.options.viewType ) {
 				this.options.showComments = false;
+			}
 		},
 
 		events: {
 			'click a.o2-sticky-link':     'onClickStickyPost',
-			'touchend a.o2-sticky-link':  'onClickStickyPost',
+			'touchend a.o2-sticky-link':  'onClickStickyPost'
 		},
 
 		onClickStickyPost: function( event ) {
@@ -39,20 +40,21 @@ var StickyPostExtendsPost = ( function( $, Backbone ) {
 			} );
 		},
 
-		onStickySaveSuccess: function( model, response, options ) {
+		onStickySaveSuccess: function() {
 			// @todo move the view if the save was successful
 		},
 
-		onStickySaveError: function( model, xhr, options ) {
+		onStickySaveError: function( model, xhr ) {
 			model.trigger( 'update-sticky-error', xhr );
 		},
 
 		getStickyText: function( sticky ) {
 			var stickyText;
-			if ( sticky )
+			if ( sticky ) {
 				stickyText = o2.options.stickyPosts.sticky;
-			else
+			} else {
 				stickyText = o2.options.stickyPosts.unsticky;
+			}
 			return stickyText;
 		},
 
@@ -83,6 +85,6 @@ var StickyPostExtendsPost = ( function( $, Backbone ) {
 			} );
 		}
 	};
-} )( jQuery, Backbone );
+} )( jQuery );
 
 Cocktail.mixin( o2.Views.Post, StickyPostExtendsPost );
