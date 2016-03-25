@@ -6,7 +6,7 @@ var o2 = o2 || {};
 
 o2.Models = o2.Models || {};
 
-o2.Models.Comment = ( function( Backbone ) {
+o2.Models.Comment = ( function() {
 	return o2.Models.Base.extend( {
 		defaults: function() {
 			return {
@@ -25,4 +25,4 @@ o2.Models.Comment = ( function( Backbone ) {
 			};
 		}
 	} );
-} )( Backbone );
+} )();
