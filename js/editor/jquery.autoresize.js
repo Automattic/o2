@@ -4,6 +4,7 @@
 	(c) 2014 Jack Moore - http://www.jacklmoore.com/autosize
 	Originally altered by mdawaffe.
 	Current version altered by pento.
+	JSHint'd by georgestephanis.
 	license: http://www.opensource.org/licenses/mit-license.php
 */
 (function ($) {
@@ -126,7 +127,7 @@
 				var styles = {};
 
 				mirrored = ta;
-				mirror.className = options.className + " " + ta.className;
+				mirror.className = options.className + ' ' + ta.className;
 				maxHeight = parseInt($ta.css('maxHeight'), 10);
 
 				// mirror is a duplicate textarea located off-screen that
@@ -147,7 +148,7 @@
 				if (window.chrome) {
 					var width = ta.style.width;
 					ta.style.width = '0px';
-					var ignore = ta.offsetWidth;
+					var ignore = ta.offsetWidth; // jshint ignore:line
 					ta.style.width = width;
 				}
 			}
@@ -167,7 +168,7 @@
 					// If the textarea is empty, copy the placeholder text into 
 					// the mirror control and use that for sizing so that we 
 					// don't end up with placeholder getting trimmed.
-					mirror.value = ($ta.attr("placeholder") || '') + options.append;
+					mirror.value = ($ta.attr('placeholder') || '') + options.append;
 				} else {
 					mirror.value = ta.value + options.append;
 				}
