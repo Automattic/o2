@@ -13,7 +13,7 @@ class o2_Offline {
 
 	function get_options( $options ) {
 		$localizations = array(
-			'connectionLostPrompt' => __( 'The connection to the server has been interrupted. Please reconnect.' )
+			'connectionLostPrompt' => __( 'The connection to the server has been interrupted. Please reconnect.', 'o2' )
 		);
 		$localizations = array_merge( $options['strings'], $localizations );
 		$options['strings'] = $localizations;

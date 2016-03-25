@@ -358,7 +358,7 @@ class o2_Tags extends o2_Terms_In_Comments {
 			// translators: 'tag name (count)'
 			$label = sprintf( __( '%1$s (%2$s)', 'o2' ), $result->name, $result->count );
 
-			$count_posts = sprintf( _n( '1 post', '%s posts', $result->count ), number_format_i18n( $result->count ) );
+			$count_posts = sprintf( _n( '1 post', '%s posts', $result->count, 'o2' ), number_format_i18n( $result->count ) );
 
 			$tags[] = array(
 				'label'       => $label, // @todo remove

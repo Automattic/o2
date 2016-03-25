@@ -416,11 +416,11 @@ class o2_Xposts extends o2_Terms_In_Comments {
 			$post           = get_post( $post->comment_post_ID );
 			$origin_post_id = $post->ID;
 			$x_permalink    = get_comment_link( $comment->comment_ID );
-			$format         = __( 'X-comment from %1$s: Comment on %2$s' );
+			$format         = __( 'X-comment from %1$s: Comment on %2$s', 'o2' );
 			$author         = $comment->user_id;
 		} else {
 			// It's a post
-			$format         = __( 'X-post from %1$s: %2$s' );
+			$format         = __( 'X-post from %1$s: %2$s', 'o2' );
 			$origin_post_id = $post->ID;
 			$x_permalink    = get_permalink( $post->ID );
 			$author         = $post->post_author;
