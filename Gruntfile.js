@@ -12,7 +12,15 @@ module.exports = function(grunt) {
 				options: grunt.file.readJSON('.jshintrc'),
 				src: [
 					'js/**/*.js',
-					'modules/**/*.js'
+					'modules/**/*.js',
+					// External libraries:
+					'!js/utils/caret.js',
+					'!js/utils/cocktail.js',
+					'!js/utils/enquire.js',
+					'!js/utils/jquery.highlight.js',
+					'!js/utils/jquery.hotkeys.js',
+					'!js/utils/jquery.placeholder.js',
+					'!js/utils/moment.js'
 				]
 			},
 			makepot: {
