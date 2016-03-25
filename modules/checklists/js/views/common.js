@@ -185,7 +185,6 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 
 		onCancelTaskEdit: function( event ) {
 			var containingItem = $( event.target ).parents( 'li' ).first();
-			var itemText = containingItem.data( 'item-text' );
 			containingItem.find( '.o2-task-item-input' ).remove();
 			containingItem.find( '.o2-task-item-text' ).show();
 			containingItem.removeClass( 'o2-current-task-item' );
@@ -366,8 +365,6 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 			this.checkListResumeUpdates();
 
 			var draggedItem = ui.item;
-			var draggedItemHash = draggedItem.data( 'item-hash' );
-			var draggedItemHashInstance = draggedItem.data( 'hash-instance' );
 
 			// OK, we know which item was dragged - find it, and then find the prev (or next) item
 			var prevItem = ui.item.prev();
