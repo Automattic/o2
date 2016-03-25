@@ -1,4 +1,4 @@
-var StickyPostsExtendsCollectionsPosts = ( function( $, Backbone ) {
+var StickyPostsExtendsCollectionsPosts = ( function() {
 	return {
 		actions: {
 			initRecentComments: {
@@ -21,6 +21,6 @@ var StickyPostsExtendsCollectionsPosts = ( function( $, Backbone ) {
 			}
 		}
 	};
-} )( jQuery, Backbone );
+} )();
 
 Cocktail.mixin( o2.Collections.Posts, StickyPostsExtendsCollectionsPosts );
