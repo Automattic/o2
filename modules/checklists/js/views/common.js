@@ -3,8 +3,8 @@
  * instead of using event delegation in order to keep the view management code (ignore edit
  * actions) and model update code simple
  */
-
-var ChecklistsExtendsCommon = ( function( $, Backbone ) {
+/* global enquire, console */
+var ChecklistsExtendsCommon = ( function( $ ) {
 	return {
 		events: {
 			'click .o2-task-item-text': 'onClickTaskText',
@@ -16,7 +16,7 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 			'keydown .o2-task-item-input': 'onKeyPressTask'
 		},
 
-		initialize: function( options ) {
+		initialize: function() {
 			this.options.bp550Match = false;
 			this.options.ignoreBlur = false;
 			this.options.previousSaveInProgress = false;
@@ -27,7 +27,7 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 
 			_.bindAll( this, 'onChecklistRequestSuccess', 'onChecklistRequestError', 'onTaskDragStart', 'onTaskDragStop', 'onChecklist550Match', 'onChecklist550Unmatch', 'onBlurTaskEdit', 'updateTaskControls' );
 
-			if ( 'undefined' != typeof enquire ) {
+			if ( 'undefined' !== typeof enquire ) {
 				enquire.register( 'screen and ( max-width : 550px )', {
 					match: this.onChecklist550Match,
 					unmatch: this.onChecklist550Unmatch
@@ -36,17 +36,17 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 		},
 
 		remove: function() {
-			if ( 'undefined' != typeof enquire ) {
+			if ( 'undefined' !== typeof enquire ) {
 				enquire.unregister( 'screen and ( max-width : 550px )' );
 			}
 		},
 
-		onChecklist550Match: function( event ) {
+		onChecklist550Match: function() {
 			this.options.bp550Match = true;
 			this.updateTaskControls();
 		},
 
-		onChecklist550Unmatch: function( event ) {
+		onChecklist550Unmatch: function() {
 			this.options.bp550Match = false;
 			this.updateTaskControls();
 		},
@@ -54,7 +54,7 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 		onClickTaskText: function( event ) {
 			event.stopPropagation();
 			// if the user clicked on a link in a task item span, let link takes priority
-			if ( "a" == event.target.tagName.toLowerCase() ) {
+			if ( 'a' === event.target.tagName.toLowerCase() ) {
 				return;
 			}
 
@@ -104,7 +104,7 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 			newTaskItem.addClass( 'o2-task-new' );
 			newTaskItem.data( 'item-text', '' );
 			newTaskItem.removeClass( 'o2-task-completed' ); // in case we're cloning a completed task
-			newTaskItem.find( 'input:checkbox' ).attr( "checked", false );
+			newTaskItem.find( 'input:checkbox' ).attr( 'checked', false );
 			containingItem.find( '.o2-task-tools' ).hide();
 			containingItem.removeClass( 'o2-current-task-item' );
 			containingItem.after( newTaskItem );
@@ -135,7 +135,7 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 
 			// hide the existing text
 			// replace it with an input
-			containingItem.find( '.o2-task-item-text' ).hide().after( "<input type='text' class='o2-task-item-input' value=''/>");
+			containingItem.find( '.o2-task-item-text' ).hide().after( '<input type="text" class="o2-task-item-input" value=""/>' );
 			var textInput = containingItem.find( '.o2-task-item-input' );
 			textInput.val( itemText );
 			textInput.focus();
@@ -145,11 +145,11 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 		},
 
 		onKeyPressTask: function( event ) {
-			if ( 13 == event.keyCode ) {
+			if ( 13 === event.keyCode ) {
 				event.preventDefault();
 				event.stopPropagation();
 				this.onSaveTask( event );
-			} else if ( 27 == event.keyCode ) {
+			} else if ( 27 === event.keyCode ) {
 				event.preventDefault();
 				event.stopPropagation();
 				this.onCancelTaskEdit( event );
@@ -178,7 +178,7 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 
 		onBlurTaskEdit: function( event ) {
 			event.stopPropagation();
-			if ( false == this.options.ignoreTaskBlur ) {
+			if ( false === this.options.ignoreTaskBlur ) {
 				this.onCancelTaskEdit( event );
 			}
 		},
@@ -199,7 +199,7 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 			event.preventDefault();
 			event.stopPropagation();
 			var containingItem = $( event.target ).parents( 'li' ).first();
-			if ( confirm( o2.strings.deleteChecklistItem ) ) {
+			if ( window.confirm( o2.strings.deleteChecklistItem ) ) {
 				this.sendChecklistRequest( containingItem, 'delete', 0, 0 );
 				containingItem.hide();
 			}
@@ -251,7 +251,7 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 			if ( 'undefined' === typeof response.success || ! response.success ) {
 				var errorText = o2.strings.checklistError;
 				if ( 'undefined' !== typeof response.data && 'undefined' !== typeof response.data.errorText ) {
-					errorText += ": " + response.data.errorText;
+					errorText += ': ' + response.data.errorText;
 				}
 
 				o2.Notifications.add( {
@@ -263,12 +263,12 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 				return;
 			}
 
-			if ( 'undefined' != typeof response.data.type && 'undefined' != typeof response.data.id &&
-				'undefined' != typeof response.data.contentRaw && 'undefined' != typeof response.data.contentFiltered ) {
+			if ( 'undefined' !== typeof response.data.type && 'undefined' !== typeof response.data.id &&
+				'undefined' !== typeof response.data.contentRaw && 'undefined' !== typeof response.data.contentFiltered ) {
 
 				// if this response isn't to the latest request, don't bother updating the model - we
 				// don't want to update it just to have another checklist response update it again
-				if ( ( 'undefined' == typeof jqXHR.checklistRequestCount ) || ( jqXHR.checklistRequestCount == this.options.checklistRequestCount ) ) {
+				if ( ( 'undefined' === typeof jqXHR.checklistRequestCount ) || ( jqXHR.checklistRequestCount === this.options.checklistRequestCount ) ) {
 					this.model.set( {
 						contentRaw: response.data.contentRaw,
 						contentFiltered: response.data.contentFiltered
@@ -277,7 +277,7 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 			} else {
 				o2.Notifications.add( {
 					type: 'error',
-					text: o2.strings.checklistError + ": " + 'A malformed response was received',
+					text: o2.strings.checklistError + ': ' + 'A malformed response was received',
 					sticky: true
 				} );
 				console.error( 'error: response = ', response );
@@ -288,13 +288,13 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 			var errorText = o2.strings.checklistError;
 
 			if ( 'undefined' !== typeof textStatus && null != textStatus && textStatus.length ) {
-				errorText += ": " + textStatus;
+				errorText += ': ' + textStatus;
 			} 
 
 			if ( 'undefined' !== typeof errorThrown && null != errorThrown ) {
-				errorText += ": " + errorThrown;
+				errorText += ': ' + errorThrown;
 			} else {
-				errorText += ": " + o2.strings.unknownChecklistError;
+				errorText += ': ' + o2.strings.unknownChecklistError;
 			}
 
 			o2.Notifications.add( {
@@ -307,24 +307,24 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 			this.trigger( 'ignoreEditAction', false ); // re-enable edit action on this view
 		},
 
-		updateTaskControls: function( event ) {
+		updateTaskControls: function() {
 			// If there are no checklists at all, bail early
-			if ( 0 == this.$el.find( '.o2-tasks' ).length ) {
+			if ( 0 === this.$el.find( '.o2-tasks' ).length ) {
 				return;
 			}
 
 			var _this = this;
 
 			// Now, let's go through each list in this post
-			this.$el.find( '.o2-tasks-form' ).each( function( index ) {
+			this.$el.find( '.o2-tasks-form' ).each( function() {
 				var isNestedList = false;
 				var containingForm = $( this );
 
 				// Enable all checkboxes
-				containingForm.find( '.o2-task-item' ).find( 'input:checkbox' ).prop( "disabled", false );
+				containingForm.find( '.o2-task-item' ).find( 'input:checkbox' ).prop( 'disabled', false );
 
 				// Remove delete task from parents and disable parents with unchecked children
-				containingForm.find( '.o2-task-item' ).each( function( index ) {
+				containingForm.find( '.o2-task-item' ).each( function() {
 					var taskItem = $( this );
 					var childList = taskItem.children( '.o2-tasks' );
 					if ( 0 < childList.length ) {
@@ -333,7 +333,7 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 						taskItem.find( '.o2-delete-task' ).remove();
 						// disable the parent's checkbox if any child is unchecked
 						if ( childList.find( 'input:checkbox:not(:checked)' ).length ) {
-							taskItem.children( 'input' ).prop( "disabled", "disabled" );
+							taskItem.children( 'input' ).prop( 'disabled', 'disabled' );
 						}
 					}
 				} );
@@ -343,13 +343,13 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 					// setup sortable
 					// use a longer delay on tiny devices to avoid accidental sort triggering when dragging the display
 					var sortableDelayMilliseconds = ( _this.options.bp550Match ) ? 2000 : 500;
-					containingForm.find( '.o2-tasks' ).each( function( index ) {
+					containingForm.find( '.o2-tasks' ).each( function() {
 						var myList = $( this );
 						myList.sortable( {
 							placeholder: 'ui-sortable-dropzone',
 							start: _this.onTaskDragStart,
 							stop: _this.onTaskDragStop,
-							items: "> li.o2-task-sortable",
+							items: '> li.o2-task-sortable',
 							delay: sortableDelayMilliseconds
 						} );
 					} );
@@ -357,7 +357,7 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 			} );
 		},
 
-		onTaskDragStart: function( event, ui ) {
+		onTaskDragStart: function() {
 			this.checkListSuspendUpdates();
 		},
 
@@ -378,7 +378,7 @@ var ChecklistsExtendsCommon = ( function( $, Backbone ) {
 			}
 		}
 	};
-} )( jQuery, Backbone );
+} )( jQuery );
 
 Cocktail.mixin( o2.Views.Comment, ChecklistsExtendsCommon );
 Cocktail.mixin( o2.Views.Post, ChecklistsExtendsCommon );
