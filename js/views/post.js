@@ -764,8 +764,6 @@ o2.Views.Post = ( function( $, Backbone ) {
 		},
 
 		renderCommentDisclosure: function() {
-			var uniqueCommentors = [], comment, content = '', totalUniqueCommentors = 0;
-
 			var disclosure = this.$el.find( '.o2-display-comments-toggle' );
 
 			// If there are no comments, or it's an xpost, then hide and bail
