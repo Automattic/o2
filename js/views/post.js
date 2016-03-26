@@ -1,3 +1,4 @@
+/* global o2Editor */
 /*
  * A Post View is where we actually put the goodies on the page.
  * The Post View renders 1) the Post and 2) its Comments collection
@@ -10,7 +11,7 @@ var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.Post = ( function( $, Backbone ) {
+o2.Views.Post = ( function( $ ) {
 	return wp.Backbone.View.extend( {
 		tagName: function() {
 			if ( 'undefined' !== typeof( o2.options.threadContainer ) ) {
@@ -106,15 +107,15 @@ o2.Views.Post = ( function( $, Backbone ) {
 			'touchend .o2-scroll-to-comments':   'onScrollToComments',
 			'touchend .o2-cancel':               'onCancel',
 			'touchend .o2-save':                 'onSave',
-			'touchend .o2-new-comment-cancel':   'onNewCommentCancel',
+			'touchend .o2-new-comment-cancel':   'onNewCommentCancel'
 		},
 
 		// keep track of whether a drag is in progress
-		onTouchStart: function( event ) {
+		onTouchStart: function() {
 			this.options.isDragging = false;
 		},
 
-		onTouchMove: function( event ) {
+		onTouchMove: function() {
 			this.options.isDragging = true;
 		},
 
@@ -169,7 +170,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 
 			var postId = parseInt( o2.options.postId, 10 );
 
-			if ( 0 == postId ) {
+			if ( 0 === postId ) {
 
 				// If currently on a list view, slide the post up then proceed with the destroy.
 				this.$el.slideUp( this.destroyViewModel( this, postId ) );
@@ -178,7 +179,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 				// Check if there is a postTrashedFailed notification and remove if so
 				o2.Notifications.notifications.findFirstAndDestroy( 'postTrashedFailed' );
 
-				var trashString = ( 'page' == o2.options.viewType ) ? 'pageBeingTrashed' : 'postBeingTrashed';
+				var trashString = ( 'page' === o2.options.viewType ) ? 'pageBeingTrashed' : 'postBeingTrashed';
 
 				o2.Notifications.add( {
 					text: o2.strings[ trashString ],
@@ -197,15 +198,15 @@ o2.Views.Post = ( function( $, Backbone ) {
 
 			view.model.destroy({
 				wait: true,
-				success: function( model, response ) {
+				success: function() {
 
 					// If on a single post/page view, then redirect to home.
-					if ( 0 != postId ) {
+					if ( 0 !== postId ) {
 
 						// Check if there is a postBeingTrashed notification and remove if so
 						o2.Notifications.notifications.findFirstAndDestroy( 'postBeingTrashed' );
 
-						var redirectedHomeString = ( 'page' == o2.options.viewType ) ? 'redirectedHomePageTrashed' : 'redirectedHomePostTrashed';
+						var redirectedHomeString = ( 'page' === o2.options.viewType ) ? 'redirectedHomePageTrashed' : 'redirectedHomePostTrashed';
 
 						o2.Notifications.add( {
 							text: o2.strings[ redirectedHomeString ],
@@ -219,15 +220,13 @@ o2.Views.Post = ( function( $, Backbone ) {
 						window.location.href = o2.options.searchURL;
 					}
 				},
-				error: function( model, response ) {
+				error: function() {
 
 					// Remove any actions menus that are currently open.
 					view.closeOpenDisclosures();
 
 					// Check if there is a postBeingTrashed notification and remove if so
 					o2.Notifications.notifications.findFirstAndDestroy( 'postBeingTrashed' );
-
-					var trashFailedString = ( 'page' == o2.options.viewType ) ? 'pageTrashedFailed' : 'postTrashedFailed';
 
 					// If the destroy failed, show the post again.
 					view.$el.slideDown();
@@ -296,8 +295,6 @@ o2.Views.Post = ( function( $, Backbone ) {
 				// note:  we did the above to make it easier to highlight
 				// bad fields in the view
 
-				var $editor = this.$el.find( '.o2-editor-text' );
-
 				this.options.isEditing = false;
 				this.options.isSaving = true;
 				this.renderPost();
@@ -306,7 +303,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 			}
 		},
 
-		onSaveSuccess: function( model, resp ) {
+		onSaveSuccess: function( model ) {
 			o2.Events.dispatcher.trigger( 'notify-app.o2', { saveInProgress: false } );
 			this.options.isEditing = false;
 			this.options.isSaving = false;
@@ -317,7 +314,6 @@ o2.Views.Post = ( function( $, Backbone ) {
 
 		onSaveError: function( model, xhr ) {
 			o2.Events.dispatcher.trigger( 'notify-app.o2', { saveInProgress: false } );
-			var responseText = '';
 			var errorText = '';
 
 			try {
@@ -346,7 +342,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 			event.preventDefault();
 
 			// get the current view format and switch to the opposite
-			if ( 'standard' == this.options.viewFormat ) {
+			if ( 'standard' === this.options.viewFormat ) {
 				this.options.viewFormat = 'aside';
 			} else {
 				this.options.viewFormat = 'standard';
@@ -361,7 +357,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 
 			formatControl.removeClass( 'o2-editor-format-standard' ).removeClass( 'o2-editor-format-aside' ).removeClass( 'o2-editor-format-status' );
 
-			if ( 'aside' == this.options.viewFormat ) {
+			if ( 'aside' === this.options.viewFormat ) {
 				formatControl.addClass( 'o2-editor-format-aside' );
 				titleEditWrapper.hide();
 				titleWrapper.hide();
@@ -375,11 +371,13 @@ o2.Views.Post = ( function( $, Backbone ) {
 		openReply: function ( args ) {
 			var newComment, editor;
 
-			if ( ! this.model.get( 'commentsOpen' ) )
+			if ( ! this.model.get( 'commentsOpen' ) ) {
 				return;
+			}
 
-			if ( this.options.userMustBeLoggedInToComment && ! this.options.currentUser.userLogin.length )
+			if ( this.options.userMustBeLoggedInToComment && ! this.options.currentUser.userLogin.length ) {
 				return;
+			}
 
 			if ( this.model.get( 'id' ) === args.postID ) { // only if the message is for us
 				// If we weren't showing comments on this post, force them open.
@@ -391,12 +389,12 @@ o2.Views.Post = ( function( $, Backbone ) {
 				o2.Events.dispatcher.trigger( 'cancel-edits.o2' );
 
 				// Set a comment parent ID of 0 if none given in the args
-				if ( "undefined" == typeof args.parentCommentID ) {
+				if ( 'undefined' === typeof args.parentCommentID ) {
 					args.parentCommentID = 0;
 				}
 
 				// Set a parent comment depth of 0 if none given in the args
-				if ( "undefined" == typeof args.parentDepth ) {
+				if ( 'undefined' === typeof args.parentDepth ) {
 					args.parentDepth = 0;
 				}
 
@@ -406,7 +404,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 					'contentRaw': '',
 					'postID':     this.model.get( 'id' ),
 					'type':       'comment',
-					'userLogin':  this.options.currentUser.userLogin,
+					'userLogin':  this.options.currentUser.userLogin
 				} );
 
 				// Add directly to the comments collection of our post
@@ -471,7 +469,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 			this.options = _.extend( this.options, options );
 
 			// Update visibility if showComments was included
-			if ( "undefined" !== typeof( options.showComments ) ) {
+			if ( 'undefined' !== typeof( options.showComments ) ) {
 				this.updateCommentVisibility();
 			}
 		},
@@ -536,6 +534,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 		 * might be editing when the post gets edited by someone else)
 		 */
 		renderPost: function() {
+			var template;
 			if ( this.model.get( 'is_xpost' ) ) {
 				template = o2.Utilities.Template( 'xpost' );
 			} else {
@@ -579,7 +578,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 
 			this.renderCommentDisclosure();
 
-			if ( 'page' == o2.options.viewType ) {
+			if ( 'page' === o2.options.viewType ) {
 				$( '.o2-app-page-title' ).html( jsonifiedModel.titleFiltered );
 			}
 
@@ -605,7 +604,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 			var commentUserLogin = comment.get( 'userLogin' );
 			var commentNoprivUserName = comment.get( 'noprivUserName' );
 
-			if ( this.options.currentUser.userLogin != commentUserLogin ) {
+			if ( this.options.currentUser.userLogin !== commentUserLogin ) {
 				var commentUserModel = o2.UserCache.getUserFor( comment.attributes, 32 );
 
 				var text = '';
@@ -685,7 +684,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 				// set the containerToAddTo to the __immediate__ child div of  .2-child-comments
 				containerToAddTo = parentCommentContainer.children( '.o2-child-comments' );
 				if ( ! containerToAddTo.length ) {
-					parentCommentContainer.append( "<div class='o2-child-comments'></div>" );
+					parentCommentContainer.append( '<div class="o2-child-comments"></div>' );
 					containerToAddTo = parentCommentContainer.children( '.o2-child-comments' );
 				}
 			}
@@ -703,9 +702,9 @@ o2.Views.Post = ( function( $, Backbone ) {
 			 * children of container to find correct position using comment created date.
 			 *
 			 */
-			if ( 0 == indexOf ) {
+			if ( 0 === indexOf ) {
 				containerToAddTo.prepend( commentView.render().el );
-			} else if ( 'new' == commentID ) {
+			} else if ( 'new' === commentID ) {
 				containerToAddTo.append( commentView.render().el );
 			} else {
 				var containerChildren = containerToAddTo.children( '.o2-comment' ),
@@ -716,7 +715,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 					containerToAddTo.append( commentView.render().el );
 				} else {
 
-					containerChildren.each( function( index, element ){
+					containerChildren.each( function(){
 						var childCreated = $( this ).data( 'created' );
 
 						if ( childCreated < insertCommentCreated ) {
@@ -737,7 +736,7 @@ o2.Views.Post = ( function( $, Backbone ) {
 			// Only highlight if the comment added has an ID
 			// and comment is not being reflowed after another comment has been deleted.
 			if ( ! comment.isNew() ) {
-				if ( ! comment.has( 'reflow' ) && false === !! comment.get( 'prevDeleted' ) ) {
+				if ( ! comment.has( 'reflow' ) && ! comment.get( 'prevDeleted' ) ) {
 					if ( this.options.highlightOnAdd ) {
 						commentView.$el.one( 'inview', o2.Utilities.HighlightOnInview );
 					}
@@ -822,4 +821,4 @@ o2.Views.Post = ( function( $, Backbone ) {
 			this.renderCommentDisclosure();
 		}
 	} );
-} )( jQuery, Backbone );
+} )( jQuery );
