@@ -12,7 +12,7 @@ class o2_Basic_Timers {
 
 	function register_scripts() {
 		if ( isset( $_REQUEST['timer'] ) ) {
-			wp_enqueue_script( 'o2-timer', plugins_url( 'o2/modules/performance/js/timer.js' ), array() );
+			wp_enqueue_script( 'o2-timer', plugins_url( 'modules/performance/js/timer.js', O2__FILE__ ), array() );
 		}
 	}
 

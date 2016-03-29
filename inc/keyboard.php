@@ -7,8 +7,8 @@ class o2_Keyboard {
 	}
 
 	public function register_scripts() {
-		wp_register_script( 'o2-hotkeys', plugins_url( 'o2/js/utils/jquery.hotkeys.js' ), array( 'jquery' ) );
-		wp_enqueue_script( 'o2-keyboard', plugins_url( 'o2/js/utils/keyboard.js' ), array( 'jquery' ) );
+		wp_register_script( 'o2-hotkeys', plugins_url( 'js/utils/jquery.hotkeys.js', O2__FILE__ ), array( 'jquery' ) );
+		wp_enqueue_script( 'o2-keyboard', plugins_url( 'js/utils/keyboard.js', O2__FILE__ ), array( 'jquery' ) );
 	}
 
 	public function help_link( $controls ) {

@@ -30,14 +30,14 @@ class o2_ToDos_Widget extends WP_Widget {
 	}
 
 	function enqueue_scripts() {
-		wp_enqueue_script( 'o2-extend-to-do-models-to-do', plugins_url( 'o2/modules/to-do/js/models/to-do.js' ), array( 'o2-models-base' ) );
-		wp_enqueue_script( 'o2-extend-to-do-collections-to-dos', plugins_url( 'o2/modules/to-do/js/collections/to-dos.js' ), array( 'o2-extend-to-do-models-to-do' ) );
-		wp_enqueue_script( 'o2-extend-to-do-views-to-do', plugins_url( 'o2/modules/to-do/js/views/to-do.js' ), array( 'o2-extend-to-do-models-to-do', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-extend-to-do-views-pagination', plugins_url( 'o2/modules/to-do/js/views/pagination.js' ), array( 'jquery', 'backbone', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-extend-to-do-views-to-dos', plugins_url( 'o2/modules/to-do/js/views/to-dos.js' ), array( 'o2-extend-to-do-collections-to-dos', 'o2-extend-to-do-views-to-do', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-extend-to-do-models-widget', plugins_url( 'o2/modules/to-do/js/models/widget.js' ), array( 'o2-extend-to-do-collections-to-dos' ) );
-		wp_enqueue_script( 'o2-extend-to-do-views-widget', plugins_url( 'o2/modules/to-do/js/views/widget.js' ), array( 'o2-extend-to-do-views-to-dos', 'o2-extend-to-do-views-pagination', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-extend-to-do-app', plugins_url( 'o2/modules/to-do/js/app/main.js' ), array( 'o2-extend-to-do-views-widget', 'o2-app' ) );
+		wp_enqueue_script( 'o2-extend-to-do-models-to-do', plugins_url( 'modules/to-do/js/models/to-do.js', O2__FILE__ ), array( 'o2-models-base' ) );
+		wp_enqueue_script( 'o2-extend-to-do-collections-to-dos', plugins_url( 'modules/to-do/js/collections/to-dos.js', O2__FILE__ ), array( 'o2-extend-to-do-models-to-do' ) );
+		wp_enqueue_script( 'o2-extend-to-do-views-to-do', plugins_url( 'modules/to-do/js/views/to-do.js', O2__FILE__ ), array( 'o2-extend-to-do-models-to-do', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-extend-to-do-views-pagination', plugins_url( 'modules/to-do/js/views/pagination.js', O2__FILE__ ), array( 'jquery', 'backbone', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-extend-to-do-views-to-dos', plugins_url( 'modules/to-do/js/views/to-dos.js', O2__FILE__ ), array( 'o2-extend-to-do-collections-to-dos', 'o2-extend-to-do-views-to-do', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-extend-to-do-models-widget', plugins_url( 'modules/to-do/js/models/widget.js', O2__FILE__ ), array( 'o2-extend-to-do-collections-to-dos' ) );
+		wp_enqueue_script( 'o2-extend-to-do-views-widget', plugins_url( 'modules/to-do/js/views/widget.js', O2__FILE__ ), array( 'o2-extend-to-do-views-to-dos', 'o2-extend-to-do-views-pagination', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-extend-to-do-app', plugins_url( 'modules/to-do/js/app/main.js', O2__FILE__ ), array( 'o2-extend-to-do-views-widget', 'o2-app' ) );
 	}
 
 	/**

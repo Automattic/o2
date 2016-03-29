@@ -17,7 +17,7 @@ class o2_Suggestions {
 	}
 
 	static function enqueue_scripts() {
-		wp_enqueue_script( 'o2-suggestions', plugins_url( 'js/suggestions.js', __FILE__ ), array( 'jquery' ) );
+		wp_enqueue_script( 'o2-suggestions', plugins_url( 'modules/suggestions/js/suggestions.js', O2__FILE__ ), array( 'jquery' ) );
 	}
 }
 

@@ -7,12 +7,12 @@ class o2_Editor {
 	}
 
 	public function register_scripts() {
-		wp_enqueue_script( 'o2-jquery-hotkeys', plugins_url( 'o2/js/utils/jquery.hotkeys.js' ), array( 'jquery' ) );
+		wp_enqueue_script( 'o2-jquery-hotkeys', plugins_url( 'js/utils/jquery.hotkeys.js', O2__FILE__ ), array( 'jquery' ) );
 		// @todo Copy autoresize into position as part of the .org build process
 		if ( !defined( 'IS_WPCOM' ) || !IS_WPCOM ) {
-			wp_enqueue_script( 'jquery.autoresize', plugins_url( 'o2/js/editor/jquery.autoresize.js' ), array( 'jquery' ) );
+			wp_enqueue_script( 'jquery.autoresize', plugins_url( 'js/editor/jquery.autoresize.js', O2__FILE__ ), array( 'jquery' ) );
 		}
-		wp_enqueue_script( 'o2-editor', plugins_url( 'o2/js/editor/editor.js' ), array( 'jquery', 'o2-jquery-hotkeys', 'jquery.autoresize', 'o2-plugin-caret', 'o2-events' ) );
+		wp_enqueue_script( 'o2-editor', plugins_url( 'js/editor/editor.js', O2__FILE__ ), array( 'jquery', 'o2-jquery-hotkeys', 'jquery.autoresize', 'o2-plugin-caret', 'o2-events' ) );
 	}
 
 	function wp_footer() {

@@ -35,13 +35,13 @@ class o2_Post_Actions {
 	}
 
 	function enqueue_styles() {
-		wp_enqueue_style( 'post-actions-styles', plugins_url( 'o2/modules/post-actions/css/style.css' ) );
+		wp_enqueue_style( 'post-actions-styles', plugins_url( 'modules/post-actions/css/style.css', O2__FILE__ ) );
 	}
 
 	function enqueue_scripts() {
-		wp_enqueue_script( 'o2-extend-post-actions', plugins_url( 'o2/modules/post-actions/js/script.js' ), array( 'jquery', 'o2-cocktail', 'o2-views-post' ) );
-		wp_enqueue_script( 'o2-extend-comment-actions-views-comment', plugins_url( 'o2/modules/post-actions/js/views/extend-comment.js' ), array( 'jquery', 'o2-cocktail', 'o2-views-comment' ) );
-		wp_enqueue_script( 'o2-extend-post-actions-views-post', plugins_url( 'o2/modules/post-actions/js/views/extend-post.js' ), array( 'jquery', 'o2-cocktail', 'o2-views-post', 'o2-extend-post-actions' ) );
+		wp_enqueue_script( 'o2-extend-post-actions', plugins_url( 'modules/post-actions/js/script.js', O2__FILE__ ), array( 'jquery', 'o2-cocktail', 'o2-views-post' ) );
+		wp_enqueue_script( 'o2-extend-comment-actions-views-comment', plugins_url( 'modules/post-actions/js/views/extend-comment.js', O2__FILE__ ), array( 'jquery', 'o2-cocktail', 'o2-views-comment' ) );
+		wp_enqueue_script( 'o2-extend-post-actions-views-post', plugins_url( 'modules/post-actions/js/views/extend-post.js', O2__FILE__ ), array( 'jquery', 'o2-cocktail', 'o2-views-post', 'o2-extend-post-actions' ) );
 	}
 
 	function before_post_actions( $html ) {
