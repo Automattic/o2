@@ -216,17 +216,13 @@ o2.Routers.App = ( function( $, Backbone ) {
 			// actually scroll to it too.
 			// See http://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-refresh
 			if ( window.location.hash ) {
-				function scrollWindowToLocationHash() {
-					var fragment = $( window.location.hash );
+				// Scroll to the fragment identifer
+				setTimeout( function () {
+					var fragment = $( document.body).find( window.location.hash );
 					if ( fragment.length ) {
 						var scrollY = fragment.offset().top - 30;
 						window.scrollTo( 0, scrollY );
 					}
-				}
-
-				// Scroll to the fragment identifer
-				setTimeout( function () {
-					scrollWindowToLocationHash();
 				}, 1500 );
 			}
 
