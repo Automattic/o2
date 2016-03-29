@@ -2,11 +2,12 @@
  * Views.Comment renders a Models.Comment
  */
 
+/* global o2Editor, Gravatar */
 var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.Comment = ( function( $, Backbone ) {
+o2.Views.Comment = ( function( $ ) {
 	return wp.Backbone.View.extend( {
 		model: o2.Models.Fragment,
 
@@ -252,14 +253,14 @@ o2.Views.Comment = ( function( $, Backbone ) {
 			}
 		},
 
-		onSaveSuccess: function( model, resp ) {
+		onSaveSuccess: function( model ) {
 
 			/*
 			 * If the comment was deleted, let's find the comments collection this comment
 			 * is a part of, and remove the comment model.
 			 */
 
-			if ( true == this.model.get( 'isDeleted' )  ) {
+			if ( this.model.get( 'isDeleted' ) ) {
 				this.parent.model.comments.remove( model );
 				this.parent.updateCommentVisibility();
 			}
@@ -282,7 +283,6 @@ o2.Views.Comment = ( function( $, Backbone ) {
 		onSaveError: function( model, xhr ) {
 			o2.Events.dispatcher.trigger( 'notify-app.o2', { saveInProgress: false } );
 
-			var responseText = '';
 			var errorText = '';
 			try {
 				// See if the XHR responseText is actually a JSONified object
@@ -367,7 +367,7 @@ o2.Views.Comment = ( function( $, Backbone ) {
 
 			var someoneElsesComment = false;
 			if ( this.options.currentUser.userLogin.length && this.options.isEditing ) {
-				someoneElsesComment = ( this.options.currentUser.userLogin != this.model.get( 'userLogin' ) );
+				someoneElsesComment = ( this.options.currentUser.userLogin !== this.model.get( 'userLogin' ) );
 			}
 
 			// JSONify the model, add view options, and selected attributes
@@ -382,7 +382,7 @@ o2.Views.Comment = ( function( $, Backbone ) {
 
 			// If this is a new (not persisted to the server) comment, use a temporary id of new
 			// to avoid emitting "#comment-undefined" into the DOM as its id
-			if ( 'undefined' == typeof jsonifiedModel.id ) {
+			if ( 'undefined' === typeof jsonifiedModel.id ) {
 				jsonifiedModel.id = 'new';
 			}
 
@@ -431,13 +431,13 @@ o2.Views.Comment = ( function( $, Backbone ) {
 			 * a permanently deleted comment, then just remove without animation.
 			 */
 			var isReply  = ! this.model.has( 'id' );
-            if ( isReply ) {
-                this.$el.remove();
-            } else {
-                this.$el.slideUp( function(){
-                    $(this).remove();
-                });
-            }
+			if ( isReply ) {
+				this.$el.remove();
+			} else {
+				this.$el.slideUp( function(){
+					$(this).remove();
+				});
+			}
 
 			// Delete the subview reference in the post parent
 			if ( ! isReply ) {
@@ -447,4 +447,4 @@ o2.Views.Comment = ( function( $, Backbone ) {
 			this.unbind();
 		}
 	} );
-} )( jQuery, Backbone );
+} )( jQuery );
