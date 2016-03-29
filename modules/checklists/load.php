@@ -552,5 +552,6 @@ class o2_Comment_List_Creator extends o2_List_Creator {
 		// as we wp_kses_post the content in our own filter - parse_lists_in_comment - which runs earlier
 		// otherwise wp_kses_post will remove our <form> and <input> elements
 		remove_filter( 'comment_text', 'wp_kses_post', 10 );
+		remove_filter( 'comment_text', 'wpcom_filter_long_comments_on_display', 100 );
 	}
 }
