@@ -73,8 +73,8 @@ o2.Events = {
 	},
 
 	_removeCallback: function( type, hook, callback, priority ) {
-		var r = this._getHook( type, hook );
-		filtered = [];
+		var r = this._getHook( type, hook),
+			filtered = [];
 		r.forEach( function( e ) {
 			if ( e.callback.toString() === callback.toString() && e.priority === priority ) {
 				// Do nothing.
@@ -89,15 +89,15 @@ o2.Events = {
 		o2.Events[ type ][ hook ] = r;
 	},
 
-	addAction: function( hook, callback ) {
+	addAction: function( /* hook, callback */ ) {
 	},
 
 	currentAction: function() {
 		return this._getCurrentHook( 'actions' );
 	},
 
-	doAction: function( hook, args ) {
-		if ( 'string' == typeof hook ) {
+	doAction: function( hook /*, args */ ) {
+		if ( 'string' === typeof hook ) {
 			var args = Array.prototype.slice.call( arguments, 1 );
 			this.currentActions.push( hook );
 			o2.$appContainer.trigger( hook, args );
@@ -115,10 +115,10 @@ o2.Events = {
 		return true;
 	},
 
-	removeAction: function( hook, callback ) {
+	removeAction: function( /* hook, callback */ ) {
 	},
 
-	removeAllActions: function( hook ) {
+	removeAllActions: function( /* hook */ ) {
 	},
 
 	addFilter: function( hook, callback, currentObject, priority, args ) {
@@ -155,12 +155,12 @@ o2.Events = {
 		}
 	},
 
-	removeAllFilters: function( hook, priority ) {
+	removeAllFilters: function( /* hook, priority */ ) {
 	},
 
 	addEvent: function( hook, args ) {
-		priority = +new Date;
-		maxPriority = 0;
+		var priority = +new Date(),
+			maxPriority = 0;
 		var events = this._getHook( 'events', hook );
 		$.each( events, function( i, e ) {
 			if ( e.priority > maxPriority ) {
@@ -189,7 +189,7 @@ o2.Events = {
 	removeEvent: function( hook, priority ) {
 		this._removeCallback( 'events', hook, function() { return; }, priority );
 	}
-}
+};
 
 } )( jQuery );
 
