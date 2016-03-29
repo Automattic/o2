@@ -1,11 +1,11 @@
-var CommentActionsExtendsComment = ( function( $, Backbone ) {
+var CommentActionsExtendsComment = ( function() {
 	return {
 		events: {
 			'mouseenter': 'onHoverComment',
-			'mouseleave': 'onLeaveComment',
+			'mouseleave': 'onLeaveComment'
 		},
 
-		initialize: function( options ) {
+		initialize: function() {
 			this.listenTo( this.model, 'o2-comment-rendered', this.onCommentRender );
 		},
 
@@ -13,16 +13,16 @@ var CommentActionsExtendsComment = ( function( $, Backbone ) {
 		/* we need to do some fancy stuff to get the comment actions disclosure to appear on the */
 		/* correct comment on hover */
 
-		onHoverComment: function( event ) {
+		onHoverComment: function() {
 			this.$el.addClass( 'hovered' );
 		},
 
-		onLeaveComment: function( event ) {
+		onLeaveComment: function() {
 			this.$el.removeClass( 'hovered' );
 		},
 
 		/* Hide the comment dropdown disclosure until the comment gets hovered */
-		onCommentRender: function( event ) {
+		onCommentRender: function() {
 			var isTouch = false;
 			if ( 'undefined' !== typeof o2.options.isMobileOrTablet ) {
 				isTouch = o2.options.isMobileOrTablet;
@@ -34,6 +34,6 @@ var CommentActionsExtendsComment = ( function( $, Backbone ) {
 			}
 		}
 	};
-} )( jQuery, Backbone );
+} )();
 
 Cocktail.mixin( o2.Views.Comment, CommentActionsExtendsComment );

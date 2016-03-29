@@ -37,7 +37,7 @@ o2Keyboard = {
 				e.stopPropagation();
 			});
 
-			$doc.click( function( e ) {
+			$doc.click( function() {
 				$( '#help' ).hide();
 			});
 
@@ -52,7 +52,7 @@ o2Keyboard = {
 			 * and then set a flag and timeout to prevent closing atwho suggestions and reply
 			 * boxes based on one esc keypress.
 			*/
-			$doc.on( 'hidden.atwho', function( event, flag, query ) {
+			$doc.on( 'hidden.atwho', function() {
 				o2Keyboard.atWhoFlag = true;
 
 				setTimeout( function(){
@@ -77,8 +77,8 @@ o2Keyboard = {
 		o2.$appContainer.on( 'post-comment-save.o2', this.updateLastPosted );
 	},
 
-	jumpTo: function( y, speed ) {
-		var speed = ( 'undefined' === typeof speed ) ? 600 : speed;
+	jumpTo: function( y, argSpeed ) {
+		var speed = ( 'undefined' === typeof argSpeed ) ? 600 : argSpeed;
 		$( 'html, body' ).animate( { scrollTop: y }, speed );
 	},
 
@@ -120,7 +120,7 @@ o2Keyboard = {
 				var type = o2Keyboard.lastPosted.get( 'type' ),
 					id   = o2Keyboard.lastPosted.get( 'id' );
 
-				if ( 'post' == type ) {
+				if ( 'post' === type ) {
 					editMe = $( '#post-' + id );
 					editMe.find( 'a.edit-post-link:first').click();
 				} else {
@@ -159,8 +159,8 @@ o2Keyboard = {
 				//Let's create a grid of points in the top half of the viewport.
 				var viewPortWidth  = $( window ).width(),
 					viewPortHeight = $( window ).height(),
-					xCoords = _.map( [ .2 , .4, .6, .8 ], function( num, key ){ return num * viewPortWidth; } ),
-					yCoords = _.map( [ 0, .1, .2, .3, .4 ], function( num, key ){ return num * viewPortHeight; } );
+					xCoords = _.map( [    0.2, 0.4, 0.6, 0.8 ], function( num ){ return num * viewPortWidth; } ),
+					yCoords = _.map( [ 0, 0.1, 0.2, 0.3, 0.4 ], function( num ){ return num * viewPortHeight; } );
 
 				/*
 				 * For each coordiante pair (x,y), get element at point,

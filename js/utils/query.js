@@ -16,7 +16,7 @@ o2.Query = ( function( $ ) {
 					withCredentials: true
 				},
 				data: e.data,
-				success: function( response, status ) {
+				success: function( response ) {
 
 					// Raise a targeted event with the data
 					e.target.trigger( e.data.callback, response.data );

@@ -1,8 +1,9 @@
+/* global enquire */
 var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.NoPostsPost = ( function( $, Backbone ) {
+o2.Views.NoPostsPost = ( function() {
 	return wp.Backbone.View.extend( {
 		tagName: 'article',
 
@@ -18,9 +19,9 @@ o2.Views.NoPostsPost = ( function( $, Backbone ) {
 			this.options = this.defaults();
 			this.options = _.extend( this.options, options );
 
-			if ( 'undefined' != typeof enquire ) {
+			if ( 'undefined' !== typeof enquire ) {
 				_.bindAll( this, 'onScreenNarrowed', 'onScreenWidened' );
-				enquire.register( "screen and (max-width:640px)", {
+				enquire.register( 'screen and (max-width:640px)', {
 					match:  this.onScreenNarrowed,
 					unmatch: this.onScreenWidened
 				} );
@@ -45,4 +46,4 @@ o2.Views.NoPostsPost = ( function( $, Backbone ) {
 			return this;
 		}
 	} );
-} )( jQuery, Backbone );
+} )();

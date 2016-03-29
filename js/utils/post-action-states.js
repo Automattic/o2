@@ -40,11 +40,12 @@ o2.PostActionStates = ( function( $ ) {
 				var newStateData = this.getStateData( action, newState );
 				var target = $( element );
 				var post = target.closest( o2.options.threadContainer );
+				var i;
 
 				// Remove classes from post for the old state
-				for ( var i = 0; i < oldStateData.classes.length; i++ ) {
+				for ( i = 0; i < oldStateData.classes.length; i++ ) {
 					post.removeClass( oldStateData.classes[i] );
-				};
+				}
 
 				// Remove genericon classes from the target for the old state
 				if ( 'undefined' !== typeof oldStateData.genericon ) {
@@ -52,9 +53,9 @@ o2.PostActionStates = ( function( $ ) {
 				}
 
 				// Add classes to the post for the new state
-				for ( var i = 0; i < newStateData.classes.length; i++ ) {
+				for ( i = 0; i < newStateData.classes.length; i++ ) {
 					post.addClass( newStateData.classes[i] );
-				};
+				}
 
 				// Add genericon classes to the target for the new state
 				if ( 'undefined' !== typeof newStateData.genericon ) {

@@ -2,7 +2,7 @@ var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.AppFooter = ( function( $, Backbone ) {
+o2.Views.AppFooter = ( function() {
 	return wp.Backbone.View.extend({
 		tagName: 'footer', // @todo this at least needs to be filterable, if not just a wrapper around the full template block
 
@@ -20,4 +20,4 @@ o2.Views.AppFooter = ( function( $, Backbone ) {
 			return this;
 		}
 	} );
-} )( jQuery, Backbone );
+} )();

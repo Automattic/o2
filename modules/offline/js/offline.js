@@ -3,9 +3,9 @@ var o2 = o2 || {};
 o2.Offline = {
 	windowUnloading: false,
 
-	init: function( options ) {
+	init: function() {
 
-		jQuery( document ).ajaxError( function( event, jqxhr, settings, exception ) {
+		jQuery( document ).ajaxError( function( event, jqxhr, settings ) {
 			if ( settings.url.indexOf( 'action=o2_read' ) !== -1 ) {
 				// We add a somewhat long delay since the error handler may fire
 				// before a window unload that caused it.  This gives us
@@ -41,7 +41,7 @@ o2.Offline = {
 		var firstWithLostType = o2.Notifications.notifications.findFirst( 'connectionlost' );
 
 		// If there is no connectionlost notification, add one
-		if ( 'undefined' == typeof firstWithLostType ) {
+		if ( 'undefined' === typeof firstWithLostType ) {
 			o2.Notifications.add( {
 				text: o2.strings.connectionLostPrompt,
 				url: false,
@@ -56,7 +56,7 @@ o2.Offline = {
 	onConnectionUp: function() {
 		var firstWithLostType = o2.Notifications.notifications.findFirst( 'connectionlost' );
 
-		if ( 'undefined' != typeof firstWithLostType ) {
+		if ( 'undefined' !== typeof firstWithLostType ) {
 			firstWithLostType.destroy();
 		}
 	},

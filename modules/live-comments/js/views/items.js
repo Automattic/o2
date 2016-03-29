@@ -2,7 +2,7 @@ var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.LiveCommentsWidgetItemsView = ( function( $, Backbone ) {
+o2.Views.LiveCommentsWidgetItemsView = ( function( $ ) {
 	return wp.Backbone.View.extend( {
 		collection: o2.Collections.LiveCommentsItems,
 
@@ -11,11 +11,11 @@ o2.Views.LiveCommentsWidgetItemsView = ( function( $, Backbone ) {
 				kind: 'comment',
 				count: 10,
 				lastItemTime : 0
-			}
+			};
 		},
 
 		events: {
-			'click a': 'onClick',
+			'click a': 'onClick'
 		},
 
 		initialize: function( options ) {
@@ -63,7 +63,7 @@ o2.Views.LiveCommentsWidgetItemsView = ( function( $, Backbone ) {
 
 		addOne: function( item ) {
 			// is the item what we're supposed to be displaying? (comments, posts, or either)
-			if ( "both" == this.options.kind || item.get( 'type' ) == this.options.kind ) {
+			if ( 'both' === this.options.kind || item.get( 'type' ) === this.options.kind ) {
 
 				// is it newer than anything we've seen so far?
 				var itemTime = item.get( 'unixtime' );
@@ -90,4 +90,4 @@ o2.Views.LiveCommentsWidgetItemsView = ( function( $, Backbone ) {
 			this.collection.forEach( this.addOne, this );
 		}
 	} );
-} )( jQuery, Backbone );
+} )( jQuery );

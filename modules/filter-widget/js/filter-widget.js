@@ -12,7 +12,7 @@ var o2 = o2 || {};
 		o2FilterWidgetList.click( function( event ) {
 			event.preventDefault();
 
-			if ( 'undefined' != typeof o2.Events.doAction ) {
+			if ( 'undefined' !== typeof o2.Events.doAction ) {
 				o2.Events.doAction( 'filter-posts.o2', {
 					'action' : $( event.target ).data( 'key' ),
 					'url'    : $( event.target ).data( 'url' )
@@ -24,7 +24,7 @@ var o2 = o2 || {};
 		o2FilterWidgetSelect.on( 'change', function() {
 			var selectedOption = $( '.o2-filter-widget-select' ).find( ':selected' );
 
-			if ( 'undefined' != typeof o2.Events.doAction ) {
+			if ( 'undefined' !== typeof o2.Events.doAction ) {
 				o2.Events.doAction( 'filter-posts.o2', {
 					'action' : selectedOption.data( 'key' ),
 					'url'    : selectedOption.data( 'url' )

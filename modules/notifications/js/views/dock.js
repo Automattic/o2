@@ -2,7 +2,7 @@ var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.Dock = ( function( $, Backbone ) {
+o2.Views.Dock = ( function( $ ) {
 	return wp.Backbone.View.extend( {
 		collection: o2.Collections.Notifications,
 
@@ -28,7 +28,7 @@ o2.Views.Dock = ( function( $, Backbone ) {
 			'click #o2-dock-controls': 'clearDock'
 		},
 
-		toggleDock: function( event ) {
+		toggleDock: function() {
 			var list = $( '.o2-dock-items' );
 			var controls = $( '#o2-dock-controls' );
 
@@ -49,7 +49,7 @@ o2.Views.Dock = ( function( $, Backbone ) {
 			}
 		},
 
-		clearDock: function( event ) {
+		clearDock: function() {
 			_.each( this.collection.where( { type: 'notice' } ), function( model ) {
 				model.destroy();
 			}, this );
@@ -74,20 +74,20 @@ o2.Views.Dock = ( function( $, Backbone ) {
 			} );
 
 			this.$el.append( itemsView.render().el );
-			this.subviews['itemsView'] = itemsView;
+			this.subviews.itemsView = itemsView;
 
-			this.subviews['itemsView'].$el.wrap( "<div id='o2-items-scroll'></div>" );
+			this.subviews.itemsView.$el.wrap( '<div id="o2-items-scroll"></div>' );
 
 			var countView = new o2.Views.DockCount( {
 				collection: this.collection
 			} );
 
 			this.$el.prepend( countView.render().el );
-			this.subviews['countView'] = countView;
+			this.subviews.countView = countView;
 
-			this.$el.append( "<div id='o2-dock-controls'>" + o2.strings.clearNotifications + "</div>" ); 
+			this.$el.append( '<div id="o2-dock-controls">' + o2.strings.clearNotifications + '</div>' );
 
 			return this;
 		}
 	} );
-} )( jQuery, Backbone );
+} )( jQuery );

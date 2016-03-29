@@ -1,16 +1,17 @@
+/* global jetpackMentionsData, xpostData */
 var o2 = o2 || {};
 
-o2.Suggestions = ( function( $ ) {
+o2.Suggestions = ( function() {
   return function( $editor ) {
-    if ( 'undefined' != typeof jetpackMentionsData && jetpackMentionsData.length ) {
+    if ( 'undefined' !== typeof jetpackMentionsData && jetpackMentionsData.length ) {
       $editor.mentions( jetpackMentionsData );
     }
-    if ( 'undefined' != typeof xpostData && xpostData.length ) {
+    if ( 'undefined' !== typeof xpostData && xpostData.length ) {
       $editor.xposts( xpostData );
     }
     $editor.hashtags();
   };
-} )( jQuery );
+} )();
 
 jQuery( document ).on( 'mentionsData.jetpack', function( event, mentions ) {
   // Global event, triggered when we first get data back from the suggest endpoint

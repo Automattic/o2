@@ -2,7 +2,7 @@ var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.Pagination = ( function( $, Backbone ) {
+o2.Views.Pagination = ( function() {
 	return wp.Backbone.View.extend( {
 		options: function() {
 			return {
@@ -28,19 +28,22 @@ o2.Views.Pagination = ( function( $, Backbone ) {
 					pages[ currentPage ] = currentPage;
 
 					for ( var i = 1; i <= this.options.padding; i++ ) {
-						if ( currentPage - i > 0 )
+						if ( currentPage - i > 0 ) {
 							pages[ currentPage - i ] = currentPage - i;
+						}
 
-						if ( currentPage + i <= totalPages )
+						if ( currentPage + i <= totalPages ) {
 							pages[ currentPage + i ] = currentPage + i;
+						}
 					}
 				}
 
 				var firstView = ( currentPage - 1 ) * postsPerPage + 1;
 				var lastView = currentPage * postsPerPage;
-				if ( lastView >= foundPosts )
+				if ( lastView >= foundPosts ) {
 					lastView = foundPosts;
-				var rangeInView = ( firstView == lastView ) ? lastView : firstView + ' &ndash; ' + lastView;
+				}
+				var rangeInView = ( firstView === lastView ) ? lastView : firstView + ' &ndash; ' + lastView;
 
 				var data = {
 					currentPage: currentPage,
@@ -62,4 +65,4 @@ o2.Views.Pagination = ( function( $, Backbone ) {
 			return this;
 		}
 	} );
-} )( jQuery, Backbone );
+} )();

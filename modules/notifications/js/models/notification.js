@@ -25,9 +25,10 @@ o2.Models.Notification = ( function( $, Backbone ) {
 			};
 		},
 
-		initialize: function( options ) {
-			if ( this.isError() && '' === this.get( 'text' ) )
+		initialize: function() {
+			if ( this.isError() && '' === this.get( 'text' ) ) {
 				this.set( 'text', o2.strings.defaultError );
+			}
 
 			// @todo This needs to be attached to the relevant model if possible; if the origin model is destroyed,
 			//       the notification will point at something that doesn't exist
