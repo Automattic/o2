@@ -48,8 +48,8 @@ var FollowExtendsPost = ( function() {
 		},
 
 		saveFollowSuccess: function( model, response, xhr ) {
-			// '1' is the only true success response
-			if ( '1' !== response ) {
+			// `1` is the only true success response
+			if ( 1 !== response ) {
 				this.saveFollowError( model, xhr );
 				return;
 			}
