@@ -2,7 +2,7 @@ var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.SearchForm = ( function( $, Backbone ) {
+o2.Views.SearchForm = ( function() {
 	return wp.Backbone.View.extend( {
 		tagName: 'article',
 
@@ -20,4 +20,4 @@ o2.Views.SearchForm = ( function( $, Backbone ) {
 			return this;
 		}
 	} );
-} )( jQuery, Backbone );
+} )();

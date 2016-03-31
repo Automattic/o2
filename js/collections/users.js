@@ -30,9 +30,9 @@ o2.Collections.Users = ( function( $, Backbone ) {
 			// construct from userLogin if present
 			var user;
 
-			if ( 'undefined' != typeof object.userLogin && object.userLogin && object.userLogin.length ) {
+			if ( 'undefined' !== typeof object.userLogin && object.userLogin && object.userLogin.length ) {
 				user = this.findWhere( { userLogin: object.userLogin } );
-				if ( 'undefined' == typeof user ) {
+				if ( 'undefined' === typeof user ) {
 					// we don't have it, create an new one with some temporary values
 					user = new o2.Models.User( {
 						userLogin   : object.userLogin,
@@ -59,7 +59,7 @@ o2.Collections.Users = ( function( $, Backbone ) {
 					displayName : object.noprivUserName,
 					url         : object.noprivUserURL,
 					urlTitle    : object.noprivUserName,
-					hash        : object.noprivUserHash,
+					hash        : object.noprivUserHash
 				} );
 			}
 
@@ -70,8 +70,9 @@ o2.Collections.Users = ( function( $, Backbone ) {
 				userAttributes.avatar = userAttributes.localAvatar;
 				userAttributes.avatarSize = avatarSize;
 			} else {
+				// Add the avatar info
 				var defaultAvatar = ( 'undefined' !== typeof o2.options.defaultAvatar ) ? o2.options.defaultAvatar : 'identicon';
-				userAttributes.avatar = "https://gravatar.com/avatar/" + userAttributes.hash + '?d=' + defaultAvatar;
+				userAttributes.avatar = 'https://gravatar.com/avatar/' + userAttributes.hash + '?d=' + defaultAvatar;
 				userAttributes.avatarSize = avatarSize;
 			}
 
@@ -91,14 +92,14 @@ o2.Collections.Users = ( function( $, Backbone ) {
 				},
 				success: this.userDataCallback
 			} );
-			userLoginRequestQueue = [];
+			this.userLoginRequestQueue = [];
 		},
 
 		addOrUpdate: function( user ) {
 			// Since it is possible this userLogin has already been added, and with a different ID,
 			// we need to check for it before we simply add it
 			var foundUser = this.findWhere( { userLogin: user.userLogin } );
-			if ( 'undefined' == typeof foundUser ) {
+			if ( 'undefined' === typeof foundUser ) {
 				this.add( user );
 			} else {
 				foundUser.set( user );
@@ -108,7 +109,7 @@ o2.Collections.Users = ( function( $, Backbone ) {
 			this.updateIncompletes( user.userLogin );
 		},
 
-		userDataCallback: function( data, textStatus, jqXHR ) {
+		userDataCallback: function( data ) {
 			var that = this;
 			_.each( data.data, function( datum ) {
 				that.addOrUpdate( datum );
@@ -130,7 +131,7 @@ o2.Collections.Users = ( function( $, Backbone ) {
 				// update the text to the displayName -- we use filter to be careful not
 				// to damage children that might be parented by the a
 				$( this ).contents().filter( function() {
-					if ( this.nodeType == Node.TEXT_NODE ) {
+					if ( this.nodeType === Node.TEXT_NODE ) {
 						this.nodeValue = this.nodeValue.replace( user.userLogin, user.displayName );
 					}
 				} );

@@ -18,12 +18,12 @@ o2.Routers.LiveComments = ( function( $, Backbone ) {
 			var masterCollection = new o2.Collections.LiveCommentsItems( liveBootstrap );
 
 			// for each widget in the DOM
-			$( '.o2-live-comments-container').each( function( index ) {
+			$( '.o2-live-comments-container').each( function() {
 				// read its data attributes to know what we are hooking up
 				var itemKind = $( this ).data( 'o2-live-comments-kind' );
 				var itemCount = $( this ).data( 'o2-live-comments-count' );
 
-				var foo = new o2.Views.LiveCommentsWidgetItemsView( {
+				new o2.Views.LiveCommentsWidgetItemsView( {
 					el: $( this ),
 					collection: masterCollection,
 					kind: itemKind,
@@ -43,20 +43,20 @@ o2.Routers.LiveComments = ( function( $, Backbone ) {
 				unixtime:  data.data.unixtime,
 				userLogin: data.data.userLogin,
 				permalink: data.data.permalink,
-				type:      data.type,
+				type:      data.type
 			};
 
 			// We accept posts and comments and nothing else
-			if ( "post" == data.type ) {
+			if ( 'post' === data.type ) {
 				itemHash.title      = data.data.titleRaw;
-				itemHash.domRef     = "#post-" + data.data.postID;
+				itemHash.domRef     = '#post-' + data.data.postID;
 				itemHash.externalID = data.data.postID;
 
 				this.masterCollection.addOrUpdateItem( itemHash );
 			}
-			else if ( "comment" == data.type ) {
+			else if ( 'comment' === data.type ) {
 				itemHash.title      = data.data.postTitleRaw;
-				itemHash.domRef     = "#comment-" + data.data.id;
+				itemHash.domRef     = '#comment-' + data.data.id;
 				itemHash.externalID = data.data.id;
 
 				this.masterCollection.addOrUpdateItem( itemHash );
@@ -65,6 +65,6 @@ o2.Routers.LiveComments = ( function( $, Backbone ) {
 	} );
 } )( jQuery, Backbone );
 
-jQuery( document ).on( 'preload.o2', function( event, data ) {
+jQuery( document ).on( 'preload.o2', function() {
 	o2.LiveComments = new o2.Routers.LiveComments();
 } );

@@ -1,3 +1,4 @@
+/* global enquire, console */
 /*
  * o2.Views.Posts - A view that contains all the posts, iterating over a Posts Collection
  */
@@ -5,7 +6,7 @@ var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.Posts = ( function( $, Backbone ) {
+o2.Views.Posts = ( function( $ ) {
 	return wp.Backbone.View.extend( {
 		collection: o2.Collections.Posts,
 
@@ -43,9 +44,9 @@ o2.Views.Posts = ( function( $, Backbone ) {
 			o2.Events.dispatcher.bind( 'update-posts-view-options.o2', this.updateOptions, this );
 
 			// If enquire is loaded (for responsive layouts), register some more listeners
-			if ( 'undefined' != typeof enquire ) {
+			if ( 'undefined' !== typeof enquire ) {
 				_.bindAll( this, 'onScreenNarrowed', 'onScreenWidened' );
-				enquire.register( "screen and (max-width:550px)", {
+				enquire.register( 'screen and (max-width:550px)', {
 					match:  this.onScreenNarrowed,
 					unmatch: this.onScreenWidened
 				} );
@@ -62,14 +63,14 @@ o2.Views.Posts = ( function( $, Backbone ) {
 				var commentID = false;
 
 				// Figure out if the dom ref is for a post or a comment
-				if ( '#comment-' == domRef.substr( 0, 9 ) ) {
+				if ( '#comment-' === domRef.substr( 0, 9 ) ) {
 					commentID = parseInt( domRef.substr( 9 ), 10 );
 					this.collection.forEach( function( post ) {
 						if ( post.comments.get( commentID ) ) {
 							postID = post.get( 'postID' );
 						}
 					} );
-				} else if ( '#post-' == domRef.substr( 0, 6 ) ) {
+				} else if ( '#post-' === domRef.substr( 0, 6 ) ) {
 					postID = parseInt( domRef.substr( 6 ), 10 );
 				} else {
 					console.error( 'bad domRef in scrollTo, domRef=', domRef );
@@ -158,11 +159,9 @@ o2.Views.Posts = ( function( $, Backbone ) {
 				postView.$el.one( 'inview', o2.Utilities.HighlightOnInview );
 			}
 
-			if (
-				post.get( 'unixtimeModified' ) <= post.get( 'unixtime' ) // New post (allow for timestamp diffs)
-			&&
-				this.options.currentUser.userLogin != post.get( 'userLogin' ) // Not mine
-			) {
+			if ( post.get( 'unixtimeModified' ) <= post.get( 'unixtime' ) && /* New post (allow for timestamp diffs) */
+				this.options.currentUser.userLogin !== post.get( 'userLogin' ) /* Not mine */ )
+			{
 				var postAuthorModel = o2.UserCache.getUserFor( post.attributes, 32 );
 
 				var text = '';
@@ -232,4 +231,4 @@ o2.Views.Posts = ( function( $, Backbone ) {
 		}
 
 	} );
-} )( jQuery, Backbone );
+} )( jQuery );

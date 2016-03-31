@@ -1,3 +1,4 @@
+/* global moment, o2Keyboard, o2Editor */
 /*
  * o2 is oxygen for your company
  */
@@ -70,23 +71,26 @@ o2.Routers.App = ( function( $, Backbone ) {
 
 			// Create a pageMeta model
 			this.pageMeta = new o2.Models.PageMeta( {
-				pageTitle: o2.options.pageTitle,
-				isSingle: 'single' == o2.options.viewType ? true : false,
-				isPage: 'page' == o2.options.viewType ? true : false,
-				is404: '404' == o2.options.viewType ? true : false,
-				isSearch: 'search' == o2.options.viewType ? true : false,
-				havePosts: o2.options.havePosts
+				pageTitle : o2.options.pageTitle,
+				isSingle  : 'single' === o2.options.viewType  ? true : false,
+				isPage    : 'page'   === o2.options.viewType  ? true : false,
+				is404     : '404'    === o2.options.viewType  ? true : false,
+				isSearch  : 'search' === o2.options.viewType  ? true : false,
+				isPreview : true     === o2.options.isPreview ? true : false,
+				havePosts : o2.options.havePosts
 			} );
 
 			// Check for bootstrap data and set it up if found
 			if ( 'undefined' !== typeof options.data ) {
 				_.each( options.data, function( datum ) {
-					if ( 'post' == datum.type ) {
+					if ( 'post' === datum.type ) {
 						this.addPost( datum );
-					} else if ( 'comment' == datum.type ) {
+					} else if ( 'comment' === datum.type ) {
 						this.addComment( datum );
 					} else {
-						console.log( 'unrecognized data type in bootstrap - ignoring', datum.type );
+						if ( window.console ) {
+							window.console.log( 'unrecognized data type in bootstrap - ignoring', datum.type );
+						}
 					}
 				}, this );
 			}
@@ -114,18 +118,18 @@ o2.Routers.App = ( function( $, Backbone ) {
 
 			// Display the thread(s)
 			this.postsView = new o2.Views.Posts( {
-				collection: this.posts,
-				postTemplate: 'post-view',
-				noPostsPostTemplate: 'no-posts-post-view',
-				showNavigation: 'single' == o2.options.viewType ? true : false,
-				highlightOnAdd: false,
-				showTitles: 'page' == o2.options.viewType ? false : true, // if a page, never show title in thread - show in header
+				collection          : this.posts,
+				postTemplate        : 'post-view',
+				noPostsPostTemplate : 'no-posts-post-view',
+				showNavigation      : 'single' === o2.options.viewType ? true : false,
+				highlightOnAdd      : false,
+				showTitles          : 'page' === o2.options.viewType ? false : true, // if a page, never show title in thread - show in header
 				userMustBeLoggedInToComment: o2.options.userMustBeLoggedInToComment,
 				requireUserNameAndEmailIfNotLoggedIn: o2.options.requireUserNameAndEmailIfNotLoggedIn,
-				loginURL: o2.options.loginURL,
-				currentUser: o2.currentUser,
-				showComments: o2.options.showCommentsInitially,
-				threadCommentsDepth: o2.options.threadCommentsDepth
+				loginURL            : o2.options.loginURL,
+				currentUser         : o2.currentUser,
+				showComments        : o2.options.showCommentsInitially,
+				threadCommentsDepth : o2.options.threadCommentsDepth
 			} );
 
 			o2.Events.doAction( 'pre-postsView-render.o2' );
@@ -133,14 +137,14 @@ o2.Routers.App = ( function( $, Backbone ) {
 			o2.Events.doAction( 'post-postsView-render.o2' );
 
 			// If we're on the blog home page, and we have no posts, say as much
-			if ( 'home' == o2.options.viewType && 0 === this.posts.length ) {
+			if ( 'home' === o2.options.viewType && 0 === this.posts.length ) {
 				this.postsView.addNoPostsPost();
 			}
 
 			// Inject the search form as appropriate
-			if ( '404' == o2.options.viewType || ( 'search' == o2.options.viewType && ! this.posts.length ) ) {
+			if ( '404' === o2.options.viewType || ( 'search' === o2.options.viewType && ! this.posts.length ) ) {
 				var invitation = '';
-				if ( '404' == o2.options.viewType ) {
+				if ( '404' === o2.options.viewType ) {
 					invitation = o2.strings.pageNotFound;
 				} else {
 					invitation = o2.strings.searchFailed;
@@ -185,8 +189,8 @@ o2.Routers.App = ( function( $, Backbone ) {
 			// If a comment ID is in the hash, and we're allowed to comment
 			// to it, then automatically open a reply to that comment
 			var locationHash = Backbone.history.location.hash;
-			if ( locationHash.substring(0, 9) == '#comment-' ) {
-				var commentID = locationHash.split( "-" )[1],
+			if ( locationHash.substring(0, 9) === '#comment-' ) {
+				var commentID = locationHash.split( '-' )[1],
 					post = this.posts.get( openReplyPostID ),
 					comment = post.comments.get( commentID );
 
@@ -195,7 +199,7 @@ o2.Routers.App = ( function( $, Backbone ) {
 				}
 			} else if ( replytocom ) {
 				o2.Events.dispatcher.trigger( 'open-reply.o2', { postID: openReplyPostID, parentCommentID: replytocom[1] } );
-			} else if ( ( 'single' == o2.options.viewType ) || ( 'page' == o2.options.viewType ) ) {
+			} else if ( ( 'single' === o2.options.viewType ) || ( 'page' === o2.options.viewType ) ) {
 				// If we don't have a comment ID, automatically open a reply on single posts or pages
 				o2.Events.dispatcher.trigger( 'open-reply.o2', { postID: openReplyPostID, parentCommentID: 0, focus: false } );
 			}
@@ -207,22 +211,18 @@ o2.Routers.App = ( function( $, Backbone ) {
 			// Open default notifications collection
 			o2.Notifications.open();
 
-			// If a hash (fragment identier) was provided, 1) set a trigger to scroll
+			// If a hash (fragment identifier) was provided, 1) set a trigger to scroll
 			// back to it on unload so browsers don't cache unusual positions and 2)
 			// actually scroll to it too.
 			// See http://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-refresh
 			if ( window.location.hash ) {
-				function scrollWindowToLocationHash() {
-					var fragment = $( window.location.hash );
+				// Scroll to the fragment identifer
+				setTimeout( function () {
+					var fragment = $( document.body ).find( window.location.hash );
 					if ( fragment.length ) {
 						var scrollY = fragment.offset().top - 30;
 						window.scrollTo( 0, scrollY );
 					}
-				}
-
-				// Scroll to the fragment identifer
-				setTimeout( function () {
-					scrollWindowToLocationHash();
 				}, 1500 );
 			}
 
@@ -264,7 +264,7 @@ o2.Routers.App = ( function( $, Backbone ) {
 			// We do a manual check to avoid re-rendering things we already
 			// have locally, which we probably created/edited ourselves
 			var foundPost = this.posts.get( incomingPost );
-			if ( 'undefined' != typeof foundPost && foundPost.get( 'unixtimeModified' ) === incomingPost.get( 'unixtimeModified' ) ) {
+			if ( 'undefined' !== typeof foundPost && foundPost.get( 'unixtimeModified' ) === incomingPost.get( 'unixtimeModified' ) ) {
 				foundPost.set( post, { silent: true } );
 			} else {
 				this.posts.add( incomingPost, { merge: true } );
@@ -272,7 +272,7 @@ o2.Routers.App = ( function( $, Backbone ) {
 
 			// If we are on a page ( is_page() ) then grab the title of the singular
 			// "post" and set it into the pagemeta model to update our page title
-			if ( 'page' == o2.options.viewType ) {
+			if ( 'page' === o2.options.viewType ) {
 				this.pageMeta.set( 'pageTitle', incomingPost.get( 'titleFiltered' ) );
 			}
 
@@ -284,12 +284,10 @@ o2.Routers.App = ( function( $, Backbone ) {
 			var postToRemove = this.posts.findWhere( { id: post.id } );
 
 			// Remove the post from the posts collection if found.
-			if ( 'undefined' != typeof postToRemove ) {
+			if ( 'undefined' !== typeof postToRemove ) {
 
 				// Redirect to home if currently on a single view.
-				if ( 0 != parseInt( o2.options.postId, 10 ) ) {
-
-					var redirectedHomeString = ( 'page' == o2.options.viewType ) ? 'redirectedHomePageTrashed' : 'redirectedHomePostTrashed';
+				if ( 0 !== parseInt( o2.options.postId, 10 ) ) {
 
 					o2.Notifications.add( {
 						text: o2.strings.redirectedHomeString,
@@ -377,7 +375,7 @@ o2.Routers.App = ( function( $, Backbone ) {
 					var children = post.comments.where( { parentID: parent.get( 'id' ), approved: true } );
 
 					// If the passed in comment has no approved siblings, then remove comment
-					if ( 0 == children.length ) {
+					if ( 0 === children.length ) {
 						this.removeComment( parent.toJSON() );
 						this.cleanUpTrashedParents( post, parent );
 					}
@@ -438,7 +436,7 @@ o2.Routers.App = ( function( $, Backbone ) {
 				o2.$appContainer.removeClass( 'current-user-' + o2.currentUser.nicename );
 
 				// If there is no relogin notification, add one
-				if ( 'undefined' == typeof firstWithReloginType ) {
+				if ( 'undefined' === typeof firstWithReloginType ) {
 					o2.Notifications.add( {
 						text: o2.strings.reloginPrompt,
 						url: o2.options.loginWithRedirectURL,
@@ -452,7 +450,7 @@ o2.Routers.App = ( function( $, Backbone ) {
 				o2.$appContainer.addClass( 'current-user-' + o2.currentUser.nicename );
 
 				// Remove any relogin notifications
-				if ( 'undefined' != typeof firstWithReloginType ) {
+				if ( 'undefined' !== typeof firstWithReloginType ) {
 					firstWithReloginType.destroy();
 				}
 
@@ -467,7 +465,7 @@ o2.Routers.App = ( function( $, Backbone ) {
 				// Automatically get rid of this message in a few seconds
 				setTimeout( function() {
 					var firstWithReloginType = o2.Notifications.notifications.findFirst( 'relogin' );
-					if ( 'undefined' != typeof firstWithReloginType ) {
+					if ( 'undefined' !== typeof firstWithReloginType ) {
 						firstWithReloginType.destroy();
 					}
 				}, 3000 );
@@ -478,7 +476,7 @@ o2.Routers.App = ( function( $, Backbone ) {
 			// This event is triggered by the popup window completing login successfully
 			// Let's remove any login notification
 			var firstWithReloginType = o2.Notifications.notifications.findFirst( 'relogin' );
-			if ( 'undefined' != typeof firstWithReloginType ) {
+			if ( 'undefined' !== typeof firstWithReloginType ) {
 				firstWithReloginType.destroy();
 			}
 		},
@@ -524,7 +522,9 @@ o2.Routers.App = ( function( $, Backbone ) {
 				post = $.parseJSON( me.text() );
 			} catch ( e ) {
 				post = false;
-				console.log( '$.parseJSON failure: ' + me.text() );
+				if ( window.console ) {
+					window.console.log( '$.parseJSON failure: ' + me.text() );
+				}
 			}
 			if ( false !== post ) {
 				o2.App.addPost( post );
@@ -542,17 +542,18 @@ o2.Routers.App = ( function( $, Backbone ) {
 	 * Check for unfinished business before allowing navigation
 	 */
 	$( window ).bind( 'beforeunload', function () {
-		if ( 'undefined' != typeof o2.App ) {
+		if ( 'undefined' !== typeof o2.App ) {
 			var navigateWarning = o2.App.okToNavigate();
-			if ( navigateWarning.length > 0 )
+			if ( navigateWarning.length > 0 ) {
 				return navigateWarning;
+			}
 		}
 	} );
 
 	/*
 	 * Increment time since every 2 minutes
 	 */
-	var timestampInterval = setInterval( function() {
+	setInterval( function() {
 		$( '.o2-timestamp' ).each( function() {
 			o2.Utilities.timestamp( $( this ) );
 		} );
@@ -565,14 +566,18 @@ o2.Routers.App = ( function( $, Backbone ) {
  * all the elements from the document)
  */
 
+/* jshint ignore:start */
+
 o2.originalWrite = document.write;
 
 document.write = function() {
 	if ( 'undefined' !== typeof jQuery && jQuery.isReady ) {
 		if ( 'undefined' !== typeof console && console.warn ) {
-			console.warn( "document.write called after page load and ignored" );
+			console.warn( 'document.write called after page load and ignored' );
 		}
 	} else {
 		return Function.prototype.apply.call( o2.originalWrite, document, arguments );
 	}
 };
+
+/* jshint ignore:end */

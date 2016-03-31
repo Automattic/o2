@@ -56,25 +56,25 @@ class o2_Live_Comments_Widget extends WP_Widget {
 	}
 
 	function register_widget_scripts() {
-		wp_enqueue_script( 'o2-live-comments-models-item',  plugins_url( 'o2/modules/live-comments/js/models/item.js' ), array( 'backbone', 'jquery' ) );
-		wp_enqueue_script( 'o2-live-comments-collections-items',  plugins_url( 'o2/modules/live-comments/js/collections/items.js' ), array( 'o2-live-comments-models-item', 'o2-compare-times' ) );
-		wp_enqueue_script( 'o2-live-comments-views-item',  plugins_url( 'o2/modules/live-comments/js/views/item.js' ), array( 'o2-live-comments-models-item', 'o2-template', 'o2-timestamp', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-live-comments-views-items', plugins_url( 'o2/modules/live-comments/js/views/items.js' ), array( 'o2-live-comments-collections-items', 'o2-live-comments-views-item', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-live-comments-models-item',  plugins_url( 'modules/live-comments/js/models/item.js', O2__FILE__ ), array( 'backbone', 'jquery' ) );
+		wp_enqueue_script( 'o2-live-comments-collections-items',  plugins_url( 'modules/live-comments/js/collections/items.js', O2__FILE__ ), array( 'o2-live-comments-models-item', 'o2-compare-times' ) );
+		wp_enqueue_script( 'o2-live-comments-views-item',  plugins_url( 'modules/live-comments/js/views/item.js', O2__FILE__ ), array( 'o2-live-comments-models-item', 'o2-template', 'o2-timestamp', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-live-comments-views-items', plugins_url( 'modules/live-comments/js/views/items.js', O2__FILE__ ), array( 'o2-live-comments-collections-items', 'o2-live-comments-views-item', 'wp-backbone' ) );
 
 		// Widget "App"
-		wp_enqueue_script( 'o2-live-comments', plugins_url( 'o2/modules/live-comments/js/live-comments-widget.js' ), array( 'o2-live-comments-views-items', 'o2-events' ) );
+		wp_enqueue_script( 'o2-live-comments', plugins_url( 'modules/live-comments/js/live-comments-widget.js', O2__FILE__ ), array( 'o2-live-comments-views-items', 'o2-events' ) );
 	}
 
 	function register_widget_styles() {
-		wp_enqueue_style( 'o2-live-comments-styles', plugins_url( 'o2/modules/live-comments/css/style.css' ) );
+		wp_enqueue_style( 'o2-live-comments-styles', plugins_url( 'modules/live-comments/css/style.css', O2__FILE__ ) );
 	}
 
 	function widget( $args, $instance ) {
 		extract( $args, EXTR_SKIP );
-		$title = $instance['title'];
+		$title = isset( $instance['title'] ) ? $instance['title'] : '';
 		$title = apply_filters( 'widget_title', $title );
-		$kind = $instance['kind'];
-		$number = $instance['number'];
+		$kind = isset( $instance['kind'] ) ? $instance['kind'] : 'both';
+		$number = isset( $instance['number'] ) ? $instance['number'] : 10;
 
 		echo $before_widget;
 

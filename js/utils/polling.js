@@ -1,6 +1,6 @@
 var o2 = o2 || {};
 
-o2.Polling = ( function( $, Backbone ) {
+o2.Polling = ( function( $ ) {
 	/*
 	 * Methods used to control polling are all contained within this object.
 	 * @todo Add websocket support
@@ -16,8 +16,8 @@ o2.Polling = ( function( $, Backbone ) {
 				queryVars: o2.options.queryVars,
 				since: o2.options.loadTime,
 				rando: Math.random(),
-				scripts: o2.options.scripts,
-				styles: o2.options.styles,
+				scripts: o2.options.scripts.join(),
+				styles: o2.options.styles.join(),
 				postId: o2.options.postId
 			};
 
@@ -25,13 +25,14 @@ o2.Polling = ( function( $, Backbone ) {
 
 			o2.options.currentRequest = Date.now();
 			$.ajax( {
+				method: 'POST',
 				dataType:  'json',
 				url:       o2.options.readURL + '&method=poll',
 				xhrFields: {
 					withCredentials: true
 				},
 				data: data,
-				success: function( response, status ) {
+				success: function( response ) {
 					if ( response.success && response.data ) {
 						response = response.data;
 					} else {
@@ -41,17 +42,17 @@ o2.Polling = ( function( $, Backbone ) {
 					o2.Events.doAction( 'poll-response.o2', response );
 
 					// Update our nonce
-					if ( 'undefined' != typeof response.newNonce ) {
+					if ( 'undefined' !== typeof response.newNonce ) {
 						o2.options.nonce = response.newNonce;
 					}
 
 					// Update our logged in state
-					if ( 'undefined' == typeof o2.lastKnownLoggedInState ) {
-						o2.lastKnownLoggedInState = ( o2.currentUser.userLogin.length != 0 );
+					if ( 'undefined' === typeof o2.lastKnownLoggedInState ) {
+						o2.lastKnownLoggedInState = ( o2.currentUser.userLogin.length !== 0 );
 					}
-					if ( 'undefined' != typeof response.loggedIn ) {
+					if ( 'undefined' !== typeof response.loggedIn ) {
 						// If we were logged in at first, update the app on our current condition
-						if ( o2.lastKnownLoggedInState != response.loggedIn ) {
+						if ( o2.lastKnownLoggedInState !== response.loggedIn ) {
 							o2.App.onLoggedInStateChange( response.loggedIn );
 						}
 
@@ -59,7 +60,7 @@ o2.Polling = ( function( $, Backbone ) {
 					}
 
 					// Consume the data
-					if ( 'undefined' != typeof response.data && response.data.length ) {
+					if ( 'undefined' !== typeof response.data && response.data.length ) {
 						// Next poll starts from now, since we got current data
 						o2.options.loadTime = o2.options.currentRequest;
 						// Add polled data to cache
@@ -70,7 +71,7 @@ o2.Polling = ( function( $, Backbone ) {
 					}
 
 					// Process scripts and styles
-					if ( 'undefined' != typeof response.scripts && response.scripts.length ) {
+					if ( 'undefined' !== typeof response.scripts && response.scripts.length ) {
 
 						$( response.scripts ).each( function() {
 							o2.options.scripts.push( this.handle );
@@ -78,7 +79,7 @@ o2.Polling = ( function( $, Backbone ) {
 							// Output extra data, if present
 							if ( this.extra_data ) {
 								var data = document.createElement( 'script' ),
-									dataContent = document.createTextNode( "//<![CDATA[ \n" + this.extra_data + "\n//]]>" );
+									dataContent = document.createTextNode( '//<![CDATA[ \n' + this.extra_data + '\n//]]>' );
 
 								data.type = 'text/javascript';
 								data.appendChild( dataContent );
@@ -95,10 +96,11 @@ o2.Polling = ( function( $, Backbone ) {
 						} );
 					}
 
-					if ( 'undefined' != typeof response.styles && response.styles.length ) {
+					if ( 'undefined' !== typeof response.styles && response.styles.length ) {
 						$( response.styles ).each( function() {
-							if ( 'undefined' == typeof this.src )
+							if ( 'undefined' === typeof this.src ) {
 								return;
+							}
 
 							o2.options.styles.push( this.handle );
 
@@ -111,8 +113,9 @@ o2.Polling = ( function( $, Backbone ) {
 							// @todo Handle IE conditionals
 
 							// Append link tag if necessary
-							if ( style )
-								document.getElementsByTagName( 'head' )[0].appendChild( style );
+							if ( style ) {
+								document.getElementsByTagName('head')[0].appendChild(style);
+							}
 						} );
 					}
 
@@ -136,9 +139,9 @@ o2.Polling = ( function( $, Backbone ) {
 						var htmlAdded = '';
 
 						// Add it to the collection (auto-model enabled)
-						for ( m = 0, dl = data.length; m < dl; m++ ) {
+						for ( var m = 0, dl = data.length; m < dl; m++ ) {
 							// ask the app to add (or update) the item
-							if ( 'post' == data[m].type ) {
+							if ( 'post' === data[m].type ) {
 								if ( data[m].isTrashed ) {
 									o2.App.removePost( data[m] );
 								} else {
@@ -162,7 +165,7 @@ o2.Polling = ( function( $, Backbone ) {
 					o2.Events.doAction( 'poll-response-processed.o2' );
 					o2.options.poller = setTimeout( o2.Polling.poll, o2.options.pollingInterval );
 				},
-				error: function( jqXHR, textStatus, errorThrown ) {
+				error: function() {
 					o2.options.poller = setTimeout( o2.Polling.poll, o2.options.pollingInterval );
 				}
 			} );
@@ -172,10 +175,11 @@ o2.Polling = ( function( $, Backbone ) {
 		 * Turn on polling, which will happen according to the pollingInterval
 		 */
 		start: function( period ) {
-			if ( undefined === period )
+			if ( undefined === period ) {
 				period = o2.options.pollingInterval;
-			else
+			} else {
 				o2.options.pollingInterval = period; // Change default to last used
+			}
 
 			o2.Events.doAction( 'poll-start.o2' );
 
@@ -192,4 +196,4 @@ o2.Polling = ( function( $, Backbone ) {
 			o2.Polling.cache = [];
 		}
 	};
-} )( jQuery, Backbone );
+} )( jQuery );

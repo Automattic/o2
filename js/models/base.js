@@ -1,3 +1,4 @@
+/* global console */
 var o2 = o2 || {};
 
 o2.Models = o2.Models || {};
@@ -41,7 +42,7 @@ o2.Models.Base = ( function( Backbone ) {
 			);
 
 			// Write requests go to a different URL, and use POST
-			if ( 'read' != method ) {
+			if ( 'read' !== method ) {
 				params.type = 'POST';
 				params.url  = o2.options.writeURL;
 			}
@@ -55,7 +56,7 @@ o2.Models.Base = ( function( Backbone ) {
 			switch ( method ) {
 			case 'read':
 				// Read from either Websockets or via Polling endpoint
-				console.log( "Not Implemented" );
+				console.log( 'Not Implemented' );
 				break;
 
 			case 'create':
@@ -76,7 +77,7 @@ o2.Models.Base = ( function( Backbone ) {
 
 			case 'patch':
 				// POST back to AJAX endpoint to patch post
-				patch = options.attrs;
+				var patch = options.attrs;
 
 				// Add essential model properties to passed attrs
 				patch.postID = attribs.id;
@@ -145,8 +146,9 @@ o2.Models.Base = ( function( Backbone ) {
 		 * success+data in an object.
 		 */
 		parse: function( resp ) {
-			if ( 'object' === typeof resp && 'data' in resp )
+			if ( 'object' === typeof resp && 'data' in resp ) {
 				return resp.data;
+			}
 			return resp;
 		}
 	} );

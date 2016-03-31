@@ -44,9 +44,9 @@ o2.Routers.ToDos = ( function( $, Backbone ) {
 	} );
 } )( jQuery, Backbone );
 
-( function( $ ) {
+( function() {
 	o2.startToDos = function( bootstrap ) {
 		o2.ToDos = o2.ToDos || new o2.Routers.ToDos( bootstrap );
 		return o2.ToDos;
 	};
-} )( jQuery );
+} )();

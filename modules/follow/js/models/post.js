@@ -1,31 +1,32 @@
-var FollowExtendsPostModel = ( function( $, Backbone ) {
+var FollowExtendsPostModel = ( function() {
 	return {
 		isFollowing: function() {
 			var postMeta = this.get( 'postMeta' );
-			return ( true === postMeta['isFollowing'] );
+			return ( true === postMeta.isFollowing );
 		},
 
 		changeFollow: function() {
-			if ( this.isFollowing() )
+			if ( this.isFollowing() ) {
 				this.unfollow();
-			else
+			} else {
 				this.follow();
+			}
 		},
 
 		follow: function() {
 			var postMeta = this.get( 'postMeta' );
-			postMeta['isFollowing'] = true;
+			postMeta.isFollowing = true;
 			this.set( { postMeta: postMeta } );
 			this.trigger( 'change-follow' );
 		},
 
 		unfollow: function() {
 			var postMeta = this.get( 'postMeta' );
-			postMeta['isFollowing'] = false;
+			postMeta.isFollowing = false;
 			this.set( { postMeta: postMeta } );
 			this.trigger( 'change-follow' );
 		}
 	};
-} )( jQuery, Backbone );
+} )();
 
 Cocktail.mixin( o2.Models.Post, FollowExtendsPostModel );

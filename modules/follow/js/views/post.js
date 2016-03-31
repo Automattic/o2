@@ -1,4 +1,4 @@
-var FollowExtendsPost = ( function( $, Backbone ) {
+var FollowExtendsPost = ( function() {
 	return {
 		initialize: function() {
 			this.listenTo( this.model, 'o2-post-rendered',  this.updateFollowView );
@@ -11,7 +11,7 @@ var FollowExtendsPost = ( function( $, Backbone ) {
 		events: {
 			'click a.o2-follow':      'updateFollow',
 			'mouseleave a.o2-follow': 'updateFollowView',
-			'touchend a.o2-follow':   'updateFollow',
+			'touchend a.o2-follow':   'updateFollow'
 		},
 
 		updateFollow: function( event ) {
@@ -48,8 +48,8 @@ var FollowExtendsPost = ( function( $, Backbone ) {
 		},
 
 		saveFollowSuccess: function( model, response, xhr ) {
-			// '1' is the only true success response
-			if ( '1' != response ) {
+			// `1` is the only true success response
+			if ( 1 !== response ) {
 				this.saveFollowError( model, xhr );
 				return;
 			}
@@ -59,7 +59,7 @@ var FollowExtendsPost = ( function( $, Backbone ) {
 			this.updateFollowView();
 		},
 
-		saveFollowError: function( model, xhr, options ) {
+		saveFollowError: function( model, xhr ) {
 			// Revert the view changes
 			o2.Events.dispatcher.trigger( 'notify-app.o2', { saveInProgress: false } );
 			this.model.changeFollow();
@@ -74,8 +74,9 @@ var FollowExtendsPost = ( function( $, Backbone ) {
 
 		updateFollowView: function() {
 			var link = this.$( '.o2-follow' );
-			if ( ! link.length )
+			if ( ! link.length ) {
 				return;
+			}
 
 			var newState = this.model.isFollowing() ? 'subscribed' : 'normal';
 			o2.PostActionStates.setState( link, newState );
@@ -90,12 +91,12 @@ var FollowExtendsPost = ( function( $, Backbone ) {
 			}
 
 			if ( o2.options.followingAllComments ) {
-				nextText = o2.strings.followingAll;
+				var nextText = o2.strings.followingAll;
 				link.text( nextText );
 				link.attr( 'title', nextText );
 			}
 		}
 	};
-} )( jQuery, Backbone );
+} )();
 
 Cocktail.mixin( o2.Views.Post, FollowExtendsPost );

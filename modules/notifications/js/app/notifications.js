@@ -5,7 +5,7 @@ o2.Routers = o2.Routers || {};
 o2.Routers.Notifications = ( function( $, Backbone ) {
 	return Backbone.Router.extend( {
 
-		initialize: function( options ) {
+		initialize: function() {
 
 			// Acquire bootstrap data if available
 			var bootstrap = [];
@@ -38,8 +38,9 @@ o2.Routers.Notifications = ( function( $, Backbone ) {
 		},
 
 		add: function( options, collection ) {
-			if ( 'undefined' == typeof collection )
+			if ( 'undefined' === typeof collection ) {
 				collection = o2.Notifications.notifications;
+			}
 
 			if ( collection.isOpen() ) {
 				// if the collection already contains an item that points to this URL, don't add another
@@ -56,14 +57,16 @@ o2.Routers.Notifications = ( function( $, Backbone ) {
 		},
 
 		close: function( collection ) {
-			if ( 'undefined' == typeof collection )
+			if ( 'undefined' === typeof collection ) {
 				collection = o2.Notifications.notifications;
+			}
 			collection.closeNotifications();
 		},
 
 		open: function( collection ) {
-			if ( 'undefined' == typeof collection )
+			if ( 'undefined' === typeof collection ) {
 				collection = o2.Notifications.notifications;
+			}
 			collection.openNotifications();
 		}
 	} );

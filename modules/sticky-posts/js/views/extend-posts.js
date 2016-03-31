@@ -1,6 +1,6 @@
-var StickyPostsExtendsViewsPosts = ( function( $, Backbone ) {
+var StickyPostsExtendsViewsPosts = ( function( $ ) {
 	return {
-		initialize: function( options ) {
+		initialize: function() {
 			this.listenTo( this.collection, 'change-sticky', this.changedSticky );
 		},
 
@@ -12,6 +12,6 @@ var StickyPostsExtendsViewsPosts = ( function( $, Backbone ) {
 			}
 		}
 	};
-} )( jQuery, Backbone );
+} )( jQuery );
 
 Cocktail.mixin( o2.Views.Posts, StickyPostsExtendsViewsPosts );

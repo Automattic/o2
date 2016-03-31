@@ -1,3 +1,4 @@
+/* global moment */
 var o2 = o2 || {};
 
 o2.Utilities = o2.Utilities || {};
@@ -5,7 +6,7 @@ o2.Utilities = o2.Utilities || {};
 o2.Utilities.phpToMoment = function( s ) {
 	var m = '';
 	var lookBehind = '';
-	for ( i = 0; i < s.length; i++ ) {
+	for ( var i = 0; i < s.length; i++ ) {
 		switch ( s.charAt( i ) ) {
 			case 'd': // Day of the month with leading zeroes
 				m += 'DD';
@@ -20,8 +21,9 @@ o2.Utilities.phpToMoment = function( s ) {
 				m += 'E';
 				break;
 			case 'S': // English ordinal suffix for the day of the month (usually used with 'j')
-				if ( lookBehind === 'j' )
+				if ( lookBehind === 'j' ) {
 					m += 'Do';
+				}
 				break;
 			case 'w': // Numeric representation of the day of the week
 				m += 'd';
@@ -111,30 +113,33 @@ o2.Utilities.phpToMoment = function( s ) {
 				break;
 
 			default:
-				if ( lookBehind === 'j' && s.charAt( i ) !== 'S' )
+				if ( lookBehind === 'j' && s.charAt( i ) !== 'S' ) {
 					m += 'D[' + s.charAt( i ) + ']';
-				else
+				} else {
 					m += '[' + s.charAt( i ) + ']';
+				}
 		}
 		lookBehind = s.charAt( i );
 	}
 
 	return m;
-}
+};
 
 o2.Utilities.removeTimestamp = function( e ) {
 	e.removeAttr( 'data-unixtime' ).removeClass( 'o2-timestamp' );
-}
+};
 
 o2.Utilities.timestamp = function( e ) {
 	var then = e.data( 'unixtime' );
 	var now = Math.round( +new Date() / 1000 );
 
-	if ( undefined === then )
+	if ( undefined === then ) {
 		return;
+	}
 
-	if ( then < 0 )
+	if ( then < 0 ) {
 		then = now;
+	}
 
 	// Load Moment.js language
 	moment.lang( 'en', o2.options.i18nMoment );
@@ -151,11 +156,11 @@ o2.Utilities.timestamp = function( e ) {
 	if ( e.attr( 'title' ) === undefined ) {
 
 		// Force a timezone offset if not included in timestampFormat
+		var timeZoned = time;
 		if ( ( o2.options.dateFormat.indexOf( 'Z' ) < 0 && o2.options.timeFormat.indexOf( 'Z' ) < 0 ) &&
-				( o2.options.dateFormat.indexOf( 'ZZ' ) < 0 && o2.options.timeFormat.indexOf( 'ZZ' ) < 0 ) )
+				( o2.options.dateFormat.indexOf( 'ZZ' ) < 0 && o2.options.timeFormat.indexOf( 'ZZ' ) < 0 ) ) {
 			timeZoned = time + ' (' + moment( dateThen ).format( 'Z' ) + ')';
-		else
-			timeZoned = time;
+		}
 
 		var timestampFormat = o2.options.timestampFormat.replace( '%1$s', timeZoned ).replace( '%2$s', date );
 
@@ -164,7 +169,6 @@ o2.Utilities.timestamp = function( e ) {
 
 	// Set the relative time since of the timestamp
 	var timeSince = now - then;
-	var absTimeSince = Math.abs( timeSince );
 
 	// Comparison variables for today and yesterday
 	var day = dateThen.getDate();
@@ -172,13 +176,14 @@ o2.Utilities.timestamp = function( e ) {
 	var yesterday = dateYesterday.getDate();
 
 	// Handle compact time formats
-	var compact = compactAllowed = false;
-	if ( window.innerWidth < 600 )
+	var compact = false;
+	if ( window.innerWidth < 600 ) {
 		compact = true;
-	if ( e.data( 'compactAllowed' ) === true )
+	}
+	var compactAllowed = false;
+	if ( e.data( 'compactAllowed' ) === true ) {
 		compactAllowed = true;
-
-	var t = '';
+	}
 
 	// Compact versus long-form
 	if ( compact && compactAllowed ) {
@@ -214,11 +219,11 @@ o2.Utilities.timestamp = function( e ) {
 			e.text( o2.options.compactFormat.seconds.replace( '%s', timeSince ) );
 
 		// Display a relative time today
-		} else if ( timeSince < 60 * 60 * 24 && day == today ) {
+		} else if ( timeSince < 60 * 60 * 24 && day === today ) {
 			e.text( moment( dateThen ).fromNow() );
 
 		// Display a time yesterday
-		} else if ( timeSince < 60 * 60 * 24 * 3 && day == yesterday ) {
+		} else if ( timeSince < 60 * 60 * 24 * 3 && day === yesterday ) {
 			e.text( o2.options.yesterdayFormat.replace( '%s', time ) );
 
 		// Just display a time

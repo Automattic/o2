@@ -94,11 +94,11 @@ class o2_Filter_Widget extends WP_Widget {
 
 	function register_widget_scripts() {
 		// Widget Script
-		wp_enqueue_script( 'o2-filter-widget', plugins_url( 'o2/modules/filter-widget/js/filter-widget.js' ), array( 'jquery' ) );
+		wp_enqueue_script( 'o2-filter-widget', plugins_url( 'modules/filter-widget/js/filter-widget.js', O2__FILE__ ), array( 'jquery' ) );
 	}
 
 	function register_widget_styles() {
-		wp_enqueue_style( 'o2-filter-widget-styles', plugins_url( 'o2/modules/filter-widget/css/style.css' ) );
+		wp_enqueue_style( 'o2-filter-widget-styles', plugins_url( 'modules/filter-widget/css/style.css', O2__FILE__ ) );
 	}
 
 	function widget( $args, $instance ) {

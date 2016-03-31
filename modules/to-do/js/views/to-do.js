@@ -2,7 +2,7 @@ var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.ToDo = ( function( $, Backbone ) {
+o2.Views.ToDo = ( function( $ ) {
 	return wp.Backbone.View.extend( {
 		model: o2.Models.ToDo,
 
@@ -27,4 +27,4 @@ o2.Views.ToDo = ( function( $, Backbone ) {
 			return this;
 		}
 	} );
-} )( jQuery, Backbone );
+} )( jQuery );
