@@ -11,7 +11,7 @@ o2.PerformanceMonitor = {
 		var endMasterElapsed = o2.Timing.timer( 'master', 'end master perfmon' );
 		o2.PerformanceMonitor.sendMeasurements( [ { kind: 'timer', key: 'end-master-perfmon', value: endMasterElapsed } ] );
 
-		_o2.addEventListener( 'post-postsView-render.o2', function( e ) {
+		_o2.addEventListener( 'post-postsView-render.o2', function() {
 			var renderElapsed = o2.Timing.timer( 'master', 'postsView rendered' );
 			// note that we could send more than one measurement back here
 			o2.PerformanceMonitor.sendMeasurements( [ { kind: 'timer', key: 'posts-view-rendered', value: renderElapsed } ] );

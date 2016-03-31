@@ -1,8 +1,9 @@
+/* global o2Editor */
 var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.FrontSidePost = ( function( $, Backbone ) {
+o2.Views.FrontSidePost = ( function( $ ) {
 	return wp.Backbone.View.extend( {
 		model: o2.Models.Post,
 
@@ -30,7 +31,7 @@ o2.Views.FrontSidePost = ( function( $, Backbone ) {
 		},
 
 		tagName: function() {
-			if ( 'undefined' != typeof o2.options.threadContainer ) {
+			if ( 'undefined' !== typeof o2.options.threadContainer ) {
 				return o2.options.threadContainer;
 			}
 			return 'article';
@@ -53,7 +54,7 @@ o2.Views.FrontSidePost = ( function( $, Backbone ) {
 			}
 
 			// if command+return were pressed, consume the event and save the form
-			if ( event.metaKey && ! event.ctrlKey && ( 13 == event.keyCode ) ) {
+			if ( event.metaKey && ! event.ctrlKey && ( 13 === event.keyCode ) ) {
 				this.onSave( event );
 			}
 		},
@@ -77,7 +78,7 @@ o2.Views.FrontSidePost = ( function( $, Backbone ) {
 
 			// If no title has been set, see if one is going to be auto-generated
 			if ( ! titleRaw && o2Editor.firstLineIsProbablyATitle( contentRaw ) ) {
-				title = contentRaw.split( "\n" )[0];
+				title = contentRaw.split( '\n' )[0];
 				previewContentRaw = previewContentRaw.replace( title, '' ).trim();
 			}
 
@@ -133,7 +134,7 @@ o2.Views.FrontSidePost = ( function( $, Backbone ) {
 			this.model.trigger( 'change', this.model ); // kicks off a re-render
 		},
 
-		onSaveSuccess: function( model, resp ) {
+		onSaveSuccess: function( model ) {
 			o2.Events.dispatcher.trigger( 'notify-app.o2', { saveInProgress: false } );
 
 			o2.$body.trigger( 'pd-script-load' ).trigger( 'post-load', { 'html' : '' } );
@@ -172,7 +173,7 @@ o2.Views.FrontSidePost = ( function( $, Backbone ) {
 		onFormat: function( event ) {
 			event.preventDefault();
 			// get the current view format and switch to the opposite
-			if ( 'standard' == this.options.viewFormat ) {
+			if ( 'standard' === this.options.viewFormat ) {
 				this.options.viewFormat = 'aside';
 			} else {
 				this.options.viewFormat = 'standard';
@@ -190,9 +191,9 @@ o2.Views.FrontSidePost = ( function( $, Backbone ) {
 			var text = editor.val();
 			var title;
 
-			if ( 'standard' == this.options.viewFormat ) {
+			if ( 'standard' === this.options.viewFormat ) {
 				if ( o2Editor.firstLineIsProbablyATitle( text ) ) {
-					title = text.split( "\n" )[0];
+					title = text.split( '\n' )[0];
 					this.$el.find( '.o2-editor-title' ).val( title );
 
 					text = text.replace( title, '' ).trim();
@@ -211,7 +212,7 @@ o2.Views.FrontSidePost = ( function( $, Backbone ) {
 				title = this.$el.find( '.o2-editor-title' ).val();
 				if ( title ) {
 					this.$el.find( '.o2-editor-title' ).val( ' ' );
-					text = title + "\n\n" + text;
+					text = title + '\n\n' + text;
 					editor.val( text );
 				}
 				if ( o2Editor.firstLineIsProbablyATitle( text ) ) {
@@ -243,8 +244,8 @@ o2.Views.FrontSidePost = ( function( $, Backbone ) {
 
 			// If we are on a tag archive page, add the tag automatically to an empty editor
 			if ( ( 'archive' === o2.options.viewType ) && ( 'undefined' !== typeof o2.options.queryVars.tag ) ) {
-				if ( 0 == jsonifiedModel.contentRaw.length ) {
-					jsonifiedModel.contentRaw = "#" + o2.options.queryVars.tag;
+				if ( 0 === jsonifiedModel.contentRaw.length ) {
+					jsonifiedModel.contentRaw = '#' + o2.options.queryVars.tag;
 				}
 			}
 
@@ -264,4 +265,4 @@ o2.Views.FrontSidePost = ( function( $, Backbone ) {
 			return this;
 		}
 	} );
-} )( jQuery, Backbone );
+} )( jQuery );

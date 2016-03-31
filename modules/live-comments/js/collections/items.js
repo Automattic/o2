@@ -17,14 +17,16 @@ o2.Collections.LiveCommentsItems = ( function( $, Backbone ) {
 			// backbone model ID, so we have to use the type and the externalID here
 
 			var foundItem = _.find( this.models, function( item ) {
-				return ( ( item.type == itemHash.type ) && ( item.externalID == itemHash.externalID ) );
+				return ( ( item.type === itemHash.type ) && ( item.externalID === itemHash.externalID ) );
 			} );
 
-			if ( 'undefined' != typeof foundItem ) {
+			if ( 'undefined' !== typeof foundItem ) {
 				foundItem.set( itemHash );
 			} else {
-				this.add( new o2.Models.LiveCommentsItem( itemHash ) );
-			}
+				if ( ! o2.options.isPreview ) {
+					this.add( new o2.Models.LiveCommentsItem( itemHash ) );
+				}
+			}	
 		}
 	} );
 } )( jQuery, Backbone );

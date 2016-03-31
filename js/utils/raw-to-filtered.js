@@ -17,7 +17,7 @@ o2.Utilities.rawToFiltered = function( raw ) {
 	} );
 	filtered = filtered.replace( /<blockquote>/g, '<blockquote><p>' );
 	filtered = filtered.replace( /<\/blockquote>/g, '</p></blockquote>' );
-	filtered = filtered.replace( /<[^>]*(onerror\s*=*\s*[^>]*)/gi, function( i, match ) {
+	filtered = filtered.replace( /<[^>]*(onerror\s*=*\s*[^>]*)/gi, function() {
 		return ''; // remove all onerror attributes from tags
 	} );
 	filtered = filtered.replace( /BRABCXYZ/g, '<br />' );
@@ -29,4 +29,4 @@ o2.Utilities.htmlSpecialChars = function( str ) {
 		.replace( /&/g, '&amp;' )
 		.replace( /</g, '&lt;' )
 		.replace( />/g, '&gt;' );
-}
+};

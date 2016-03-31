@@ -1,4 +1,4 @@
-var PostActionsExtendsPost = ( function( $, Backbone ) {
+var PostActionsExtendsPost = ( function( $ ) {
 	return {
 		events: {
 			'click .o2-dropdown-actions-disclosure': 'onClickDropdown',
@@ -9,7 +9,7 @@ var PostActionsExtendsPost = ( function( $, Backbone ) {
 			'mouseleave .o2-comment': 'updateCommentDisclosures'
 		},
 
-		initialize: function( options ) {
+		initialize: function() {
 			this.listenTo( this.model.comments, 'add', this.updateFooterReplyButtonCount );
 			this.listenTo( this.model.comments, 'remove', this.updateFooterReplyButtonCount );
 			this.listenTo( this.model, 'o2-post-rendered', this.updateFooterReplyButtonCount );
@@ -80,7 +80,7 @@ var PostActionsExtendsPost = ( function( $, Backbone ) {
 			}
 		},
 
-		updateFooterReplyButtonCount: function( comment ) {
+		updateFooterReplyButtonCount: function() {
 			var footerReplyButton = this.$el.find( '.o2-post-reply' );
 			if ( footerReplyButton.length ) {
 				footerReplyButton.find( '.o2-reply-count' ).remove();
@@ -136,6 +136,6 @@ var PostActionsExtendsPost = ( function( $, Backbone ) {
 			}
 		}
 	};
-} )( jQuery, Backbone );
+} )( jQuery );
 
 Cocktail.mixin( o2.Views.Post, PostActionsExtendsPost );

@@ -1,4 +1,4 @@
-var FollowExtendsComment = ( function( $, Backbone ) {
+var FollowExtendsComment = ( function() {
 	return {
 		initialize: function() {
 			setTimeout( function( that ) {
@@ -24,6 +24,6 @@ var FollowExtendsComment = ( function( $, Backbone ) {
 			this.parent.model.trigger( 'update-follow' );
 		}
 	};
-} )( jQuery, Backbone );
+} )();
 
 Cocktail.mixin( o2.Views.Comment, FollowExtendsComment );

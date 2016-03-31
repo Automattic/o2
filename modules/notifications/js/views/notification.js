@@ -2,7 +2,7 @@ var o2 = o2 || {};
 
 o2.Views = o2.Views || {};
 
-o2.Views.Notification = ( function( $, Backbone ) {
+o2.Views.Notification = ( function( $ ) {
 	return wp.Backbone.View.extend( {
 		model: o2.Models.Notification,
 
@@ -65,4 +65,4 @@ o2.Views.Notification = ( function( $, Backbone ) {
 			this.$el.remove();
 		}
 	} );
-} )( jQuery, Backbone );
+} )( jQuery );

@@ -10,14 +10,14 @@ o2.Collections.Notifications = ( function( $, Backbone ) {
 
 		findFirst: function( type ) {
 			return _.find( this.models, function( notification ) {
-				return ( type == notification.get( 'type') );
+				return ( type === notification.get( 'type') );
 			} );
 		},
 
 		findFirstAndDestroy: function ( type ) {
 			var first = this.findFirst( type );
 
-			if ( 'undefined' != typeof first ) {
+			if ( 'undefined' !== typeof first ) {
 				first.destroy();
 			}
 		},

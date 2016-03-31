@@ -23,16 +23,16 @@ class o2_Notifications extends o2_API_Base {
 	}
 
 	function enqueue_scripts() {
-		wp_enqueue_style( 'o2-notifications', plugins_url( 'o2/modules/notifications/css/style.css' ) );
-		wp_enqueue_script( 'o2-notifications-models-notification', plugins_url( 'o2/modules/notifications/js/models/notification.js' ), array( 'o2-models-base', 'o2-timestamp' ) );
-		wp_enqueue_script( 'o2-notifications-collections-notifications', plugins_url( 'o2/modules/notifications/js/collections/notifications.js' ), array( 'o2-notifications-models-notification' ) );
-		wp_enqueue_script( 'o2-notifications-views-notification', plugins_url( 'o2/modules/notifications/js/views/notification.js' ), array( 'o2-notifications-models-notification', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-notifications-views-dock-items', plugins_url( 'o2/modules/notifications/js/views/dock-items.js' ), array( 'o2-notifications-collections-notifications', 'o2-notifications-views-notification', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-notifications-views-dock-count', plugins_url( 'o2/modules/notifications/js/views/dock-count.js' ), array( 'o2-notifications-collections-notifications', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-notifications-views-dock', plugins_url( 'o2/modules/notifications/js/views/dock.js' ), array( 'o2-notifications-views-dock-items', 'o2-notifications-views-dock-count', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-notifications-views-flash-items', plugins_url( 'o2/modules/notifications/js/views/flash-items.js' ), array( 'o2-notifications-collections-notifications', 'o2-notifications-views-notification' ) );
-		wp_enqueue_script( 'o2-notifications-views-flash', plugins_url( 'o2/modules/notifications/js/views/flash.js' ), array( 'o2-notifications-views-notification', 'wp-backbone' ) );
-		wp_enqueue_script( 'o2-notifications', plugins_url( 'o2/modules/notifications/js/app/notifications.js' ), array( 'o2-notifications-views-dock', 'o2-notifications-views-flash' ) );
+		wp_enqueue_style( 'o2-notifications', plugins_url( 'modules/notifications/css/style.css', O2__FILE__ ) );
+		wp_enqueue_script( 'o2-notifications-models-notification', plugins_url( 'modules/notifications/js/models/notification.js', O2__FILE__ ), array( 'o2-models-base', 'o2-timestamp' ) );
+		wp_enqueue_script( 'o2-notifications-collections-notifications', plugins_url( 'modules/notifications/js/collections/notifications.js', O2__FILE__ ), array( 'o2-notifications-models-notification' ) );
+		wp_enqueue_script( 'o2-notifications-views-notification', plugins_url( 'modules/notifications/js/views/notification.js', O2__FILE__ ), array( 'o2-notifications-models-notification', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-notifications-views-dock-items', plugins_url( 'modules/notifications/js/views/dock-items.js', O2__FILE__ ), array( 'o2-notifications-collections-notifications', 'o2-notifications-views-notification', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-notifications-views-dock-count', plugins_url( 'modules/notifications/js/views/dock-count.js', O2__FILE__ ), array( 'o2-notifications-collections-notifications', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-notifications-views-dock', plugins_url( 'modules/notifications/js/views/dock.js', O2__FILE__ ), array( 'o2-notifications-views-dock-items', 'o2-notifications-views-dock-count', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-notifications-views-flash-items', plugins_url( 'modules/notifications/js/views/flash-items.js', O2__FILE__ ), array( 'o2-notifications-collections-notifications', 'o2-notifications-views-notification' ) );
+		wp_enqueue_script( 'o2-notifications-views-flash', plugins_url( 'modules/notifications/js/views/flash.js', O2__FILE__ ), array( 'o2-notifications-views-notification', 'wp-backbone' ) );
+		wp_enqueue_script( 'o2-notifications', plugins_url( 'modules/notifications/js/app/notifications.js', O2__FILE__ ), array( 'o2-notifications-views-dock', 'o2-notifications-views-flash' ) );
 	}
 
 	/**

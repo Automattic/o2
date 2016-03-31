@@ -1,4 +1,5 @@
-/*jshint multistr: true */
+/* jshint multistr: true */
+/* global enquire, Caret */
 var o2Editor;
 
 ( function( $ ) {
@@ -58,10 +59,10 @@ o2Editor = {
 		$doc.on( 'scroll', _.debounce( this.toggleMobileEditorIconVisibility, 250 ) );
 
 		// Atwho event handlers to prevent duplicate tab behavior
-		$doc.on( 'shown.atwho', function( e ) {
+		$doc.on( 'shown.atwho', function() {
 			o2Editor.autocompleting = true;
 		});
-		$doc.on( 'hidden.atwho', function( e ) {
+		$doc.on( 'hidden.atwho', function() {
 			setTimeout( function() {
 				o2Editor.autocompleting = false;
 			}, 50 ); // Need a delay to let the hiding actually happen
@@ -84,7 +85,7 @@ o2Editor = {
 				} );
 			} );
 
-			if ( 'undefined' != typeof enquire ) {
+			if ( 'undefined' !== typeof enquire ) {
 				// On small enough screens, remove the editor once publishing finishes
 				enquire.register( 'screen and ( max-width : 640px )', {
 					match: function() {
@@ -103,8 +104,9 @@ o2Editor = {
 	},
 
 	hideEditor: function() {
-		if ( o2.App.pageMeta.get( 'isSingle' ) || o2.App.pageMeta.get( 'isPage' ) )
+		if ( o2.App.pageMeta.get( 'isSingle' ) || o2.App.pageMeta.get( 'isPage' ) ) {
 			return;
+		}
 
 		$( '#o2-expand-editor' ).fadeIn( 'fast' ); // Show button
 		$( '.o2-app-new-post' ).hide(); // Hide editor
@@ -114,9 +116,9 @@ o2Editor = {
 	},
 
 	toggleMobileEditorIconVisibility: function() {
-		$editorIcon = $( '#o2-expand-editor' );
+		var $editorIcon = $( '#o2-expand-editor' );
 
-		if ( $editorIcon.css( 'display') == 'block' ) {
+		if ( $editorIcon.css( 'display' ) === 'block' ) {
 			$editorIcon.addClass( 'hidden' );
 		}
 
@@ -193,7 +195,6 @@ o2Editor = {
 			commentID = 'new';
 		}
 
-		var editor = $editor.last().get( 0 );
 		$editor.data( 'post_id', postID );
 		$editor.data( 'comment_id', commentID );
 
@@ -510,7 +511,7 @@ o2Editor = {
 				withCredentials: true
 			},
 			data: data,
-			success: function( response, status ) {
+			success: function( response ) {
 				$preview.html( response.data );
 				$preview.css( 'height', 'auto' );
 			}
@@ -606,7 +607,7 @@ o2Editor = {
 				break;
 
 			case 'code':
-				if ( 0 === caret.start || "\n" === editor.value.slice( caret.start - 1, caret.start ) ) {
+				if ( 0 === caret.start || '\n' === editor.value.slice( caret.start - 1, caret.start ) ) {
 					// Start of a line, so we probably want the [code] shortcodes
 					newEvent.data = {
 						text:   '[code]' + selected + '[/code]',
@@ -707,7 +708,7 @@ o2Editor = {
 		}
 
 		var lines = text.split('\n');
-		if ( ! lines || 1 === lines.length && "" === lines[0] ) {
+		if ( ! lines || 1 === lines.length && '' === lines[0] ) {
 			return false;
 		}
 
@@ -766,7 +767,7 @@ o2Editor = {
 			postID = 'new';
 		}
 
-		if ( 'undefined' == typeof commentID || null === commentID ) {
+		if ( 'undefined' === typeof commentID || null === commentID ) {
 			commentID = 0;
 		}
 
@@ -785,8 +786,8 @@ o2Editor = {
 	/*
 	 * When the scroll position of the document changes, keep visible editors' toolbars in the viewport
 	 */
-	onDocumentScrollStopped: function( event ) {
-		if ( ( "undefined" !== typeof o2 ) && ( "undefined" !== typeof o2.options ) && ( "undefined" !== typeof o2.options.isMobileOrTablet ) && o2.options.isMobileOrTablet ) {
+	onDocumentScrollStopped: function() {
+		if ( ( 'undefined' !== typeof o2 ) && ( 'undefined' !== typeof o2.options ) && ( 'undefined' !== typeof o2.options.isMobileOrTablet ) && o2.options.isMobileOrTablet ) {
 			// no scrolling toolbar on mobile or tablets please
 			return;
 		}
@@ -857,7 +858,7 @@ o2Editor = {
 
 	isAllowedMimeType: function( mimeType ) {
 		for ( var key in o2.options.mimeTypes ) {
-			if ( o2.options.mimeTypes[ key ] == mimeType ) {
+			if ( o2.options.mimeTypes[ key ] === mimeType ) {
 				return true;
 			}
 		}
@@ -872,7 +873,6 @@ o2Editor = {
 	uploadFiles: function( event, files, uploadProgress ) {
 		var	formData = new FormData(),
 			inProgress = true,
-			progressPercent,
 			timedProgress;
 
 		// progress bar funciton
@@ -908,14 +908,14 @@ o2Editor = {
 				var errorMessage = '';
 				// If this is the only file we're attempting to upload, send a shorter message
 				if ( 1 === files.length ) {
-					if ( 0 == filetype.length ) {
+					if ( 0 === filetype.length ) {
 						errorMessage = o2.strings.unrecognizedFileType;
 					} else {
 						errorMessage = o2.strings.fileTypeNotSupported;
 						errorMessage = errorMessage.replace( '%1$s', filetype );
 					}
 				} else { // include the filename in the error message since multiple files were selected
-					if ( 0 == filetype.length ) {
+					if ( 0 === filetype.length ) {
 						errorMessage = o2.strings.filenameNotUploadedNoType;
 						errorMessage = errorMessage.replace( '%1$s', filename );
 					} else {

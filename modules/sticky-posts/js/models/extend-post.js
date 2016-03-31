@@ -1,6 +1,6 @@
-var StickyPostExtendsPostModel = ( function( $, Backbone ) {
+var StickyPostExtendsPostModel = ( function() {
 	return {
-		initialize: function( options ) {
+		initialize: function() {
 			this.on( 'change', this.checkSticky, this );
 		},
 
@@ -12,32 +12,34 @@ var StickyPostExtendsPostModel = ( function( $, Backbone ) {
 
 		isSticky: function() {
 			var postMeta = this.get( 'postMeta' );
-			if ( 'undefined' == typeof postMeta['isSticky'] )
+			if ( 'undefined' === typeof postMeta.isSticky ) {
 				return false;
-			return postMeta['isSticky'];
+			}
+			return postMeta.isSticky;
 		},
 
 		changeSticky: function() {
-			if ( this.isSticky() )
+			if ( this.isSticky() ) {
 				this.unstick();
-			else
+			} else {
 				this.stick();
+			}
 		},
 
 		stick: function() {
 			var postMeta = this.get( 'postMeta' );
-			postMeta['isSticky'] = true;
+			postMeta.isSticky = true;
 			this.set( { postMeta: postMeta } );
 			this.trigger( 'change-sticky', this, { scroll: true } );
 		},
 
 		unstick: function() {
 			var postMeta = this.get( 'postMeta' );
-			postMeta['isSticky'] = false;
+			postMeta.isSticky = false;
 			this.set( { postMeta: postMeta } );
 			this.trigger( 'change-sticky', this, { scroll: false } );
 		}
 	};
-} )( jQuery, Backbone );
+} )();
 
 Cocktail.mixin( o2.Models.Post, StickyPostExtendsPostModel );

@@ -16,8 +16,8 @@ class o2_Performance_Monitor {
 			return;
 		}
 
-		wp_enqueue_script( 'o2-timer', plugins_url( 'o2/modules/performance/js/timer.js' ), array() );
-		wp_enqueue_script( 'o2-perfmon', plugins_url( 'o2/modules/performance/js/perfmon.js' ), array( 'o2-timer', 'jquery' ) );
+		wp_enqueue_script( 'o2-timer', plugins_url( 'modules/performance/js/timer.js', O2__FILE__ ), array() );
+		wp_enqueue_script( 'o2-perfmon', plugins_url( 'modules/performance/js/perfmon.js', O2__FILE__ ), array( 'o2-timer', 'jquery' ) );
 	}
 
 	function wp_ajax_o2_perfmon() {
@@ -60,4 +60,3 @@ class o2_Performance_Monitor {
 <?php
 	}
 }
-
