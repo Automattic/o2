@@ -225,7 +225,7 @@ class o2_Xposts extends o2_Terms_In_Comments {
 		}
 
 		$this->site_suggestions();
-		return array_intersect( $xposts, $this->subdomains[ get_current_blog_id() ] );
+		return array_intersect( $xposts, (array) $this->subdomains[ get_current_blog_id() ] );
 	}
 
 	/**
