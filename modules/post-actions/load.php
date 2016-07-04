@@ -86,7 +86,7 @@ class o2_Post_Actions {
 
 		$content .= "<ul class='o2-post-footer-action-row'>";
 		foreach ( (array) $actions as $action ) {
-			if ( in_array( $action[ 'action' ], array( 'reply', 'follow' ) ) ) {
+			if ( in_array( $action[ 'action' ], array( 'reply', 'login-to-reply', 'follow' ) ) ) {
 				$content .= "<li class='o2-post-footer-action'>" . o2_default_post_action_html( '', $action ) . "</li>";
 			}
 		}
@@ -149,16 +149,16 @@ class o2_Post_Actions {
 				$ok_to_reply = false;
 			}
 
-			if ( get_option( 'comment_registration' ) && ! is_user_logged_in() ) {
-				$ok_to_reply = false;
-			}
-
 			if ( $comment_depth >= $max_depth ) {
 				$ok_to_reply = false;
 			}
 
 			if ( $ok_to_reply ) {
-				$actions[] = "<a class='o2-comment-reply genericon genericon-reply' href='#' >" . esc_html__( 'Reply', 'o2' ) . "</a>";
+				if ( get_option( 'comment_registration' ) && is_user_logged_in() ) {
+					$actions[] = "<a class='o2-comment-reply genericon genericon-reply' href='#' >" . esc_html__( 'Reply', 'o2' ) . "</a>";
+				} else {
+					$actions[] = "<a class='genericon genericon-reply' href='" . wp_login_url( get_comment_link( $comment ) ) . "' >" . esc_html__( 'Login to Reply', 'o2' ) . "</a>";
+				}
 			}
 
 			// @todo if comment likes post actions gets accepted, this will need to go in wpcom
