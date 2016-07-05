@@ -51,4 +51,5 @@ A technical breakdown of how o2 is structured/put together for those interested 
 There are a number of core modules provided, which will give you an idea on how you could write your own. In addition to "normal" WordPress plugin approaches (actions and filters, mostly), you will also need to integrate things on the front end. We're using Cocktail.js to help mix functionality in with the core JS code.
 
 ## Development/Build
-* Run 'compass watch' in the root of o2 to rebuild Sass files into CSS
+* Run 'npm install' to initially setup the development environment
+* Run 'grunt sass' in the root of o2 to rebuild Sass files into CSS

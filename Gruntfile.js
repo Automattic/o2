@@ -23,6 +23,16 @@ module.exports = function(grunt) {
 					'!js/utils/moment.js'
 				]
 			},
+			sass: {
+				options: {
+					'outputStyle': 'expanded'
+				},
+				dist: {
+					files: {
+						'css/style.css': 'css/style.scss'
+					}
+				}
+			},
 			makepot: {
 				o2: {
 					options: {
@@ -55,10 +65,12 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-phplint');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-wp-i18n');
 
 	grunt.registerTask('default', [
 		'phplint',
-		'jshint'
+		'jshint',
+		'sass'
 	]);
 };

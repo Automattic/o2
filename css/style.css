@@ -1,4 +1,3 @@
-/*THIS FILE IS COMPILED FROM AN .SCSS FILE - DO NOT EDIT DIRECTLY*/
 /*
 GLOBAL PARTIALS
 Global partials provide base HTML styling as well as variables and mixins to be used in the UI partials
@@ -7,35 +6,63 @@ Global partials provide base HTML styling as well as variables and mixins to be 
 /* TYPOGRAPHY */
 /* EFFECTS & UTILITIES */
 /*
+// REQUIRES SASS 3.3 AND COMPASS 1.0
+
+$breakpoints:(
+  'web':1200px,
+  'tablet-landscape':1024px,
+  'tablet-portrait': 876px,
+  'handset-landscape': 640px,
+  'handset-portrait': 550px
+);
+
+
+@mixin breakpoint($size){
+  @each $breakpoint, $value in $breakpoints {
+   @if $size == $breakpoint {
+     @media (max-width: map-get($breakpoints, $breakpoint)){
+       @content;
+     }
+   }
+  }
+}
+*/
+/*
 UI PARTIALS
 UI partials provide the higher-level styles required for o2 to function and display properly
 */
 li.o2-filter-widget-item {
   padding: 0px !important;
 }
+
 li.o2-filter-widget-item a {
   display: block;
   padding: 5px;
 }
+
 li.o2-filter-widget-item a.o2-filter-widget-selected {
   background: #f1f1f1;
-  color: #222222;
+  color: #222;
 }
+
 li.o2-filter-widget-item a.o2-filter-widget-selected:before {
-  color: #222222;
+  color: #222;
 }
+
 li.o2-filter-widget-item a:hover {
-  color: #222222;
+  color: #222;
   background: #fafafa;
 }
+
 li.o2-filter-widget-item a:hover:before {
-  color: #222222;
+  color: #222;
 }
+
 li.o2-filter-widget-item a:before {
   -webkit-font-smoothing: antialiased;
-  font: normal 16px/1 "Genericons";
+  font: normal 16px/1 'Genericons';
   display: inline-block;
-  color: #cccccc;
+  color: #ccc;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
@@ -43,24 +70,31 @@ li.o2-filter-widget-item a:before {
   position: relative;
   top: 3px;
 }
+
 li.o2-filter-widget-item#o2-filter-recent-updates a:before {
   content: '\f409';
 }
+
 li.o2-filter-widget-item#o2-filter-recent-comments a:before {
   content: '\f108';
 }
+
 li.o2-filter-widget-item#o2-filter-my-mentions a:before {
   content: '\f300';
 }
+
 li.o2-filter-widget-item#o2-filter-unresolved-posts a:before {
   content: '\f468';
 }
+
 li.o2-filter-widget-item#o2-filter-resolved-posts a:before {
   content: '\f418';
 }
+
 li.o2-filter-widget-item#o2-filter-no-replies a:before {
   content: '\f404';
 }
+
 li.o2-filter-widget-item#o2-filter-my-posts a:before {
   content: '\f304';
 }
@@ -79,6 +113,7 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
   width: 32px;
   overflow: hidden;
 }
+
 .o2-permalink:after,
 .o2-post-reply:after,
 .o2-scroll-to-comments:after,
@@ -88,11 +123,11 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
 .o2-resolve-link:after,
 .o2-sticky-link:after {
   -webkit-font-smoothing: antialiased;
-  font: normal 16px/1 "Genericons";
+  font: normal 16px/1 'Genericons';
   display: inline-block;
   height: 20px;
   width: 32px;
-  color: #cccccc;
+  color: #ccc;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
@@ -149,16 +184,16 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
 
 .post-comments-subscribed .o2-follow:after {
   content: '\f465';
-  color: #666666;
+  color: #666;
 }
 
 .post-comments-subscribed .o2-follow:hover:after {
   content: '\f464';
-  color: #666666;
+  color: #666;
 }
 
 .sticky .o2-sticky-link:after {
-  color: #666666;
+  color: #666;
 }
 
 .state-unresolved .o2-resolve-link:after {
@@ -189,15 +224,16 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
   overflow: hidden;
   position: relative;
 }
+
 .o2-comment-edit:after,
 .o2-comment-reply:after {
   content: '\f103';
   -webkit-font-smoothing: antialiased;
-  font: normal 16px/1 "Genericons";
+  font: normal 16px/1 'Genericons';
   display: inline-block;
   height: 20px;
   width: 20px;
-  color: #cccccc;
+  color: #ccc;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
@@ -234,22 +270,27 @@ article.sticky .o2-sticky-link:after {
 .o2-editor {
   padding: 0;
 }
+
 @media (max-width: 640px) {
   .o2-editor {
     margin-left: 0 !important;
   }
 }
+
 .o2-editor .o2-editor-wrapper {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
 }
+
 @media (max-width: 640px) {
   .o2-editor .o2-editor-wrapper {
-    border: 1px solid #dddddd;
+    border: 1px solid #ddd;
   }
 }
+
 .o2-editor .markdown-mark {
   display: none;
 }
+
 .o2-editor .o2-editor-text {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -262,26 +303,32 @@ article.sticky .o2-sticky-link:after {
   clear: both;
   display: block;
 }
+
 .o2-editor .o2-editor-text:focus {
   outline: none;
 }
+
 .o2-editor .o2-editor-text.autocomplete-loading {
-  background: white url("../img/o2-spinner.gif") no-repeat right 15px bottom 15px/16px;
+  background: #fff url("../img/o2-spinner.gif") no-repeat right 15px bottom 15px/16px;
 }
+
 .o2-editor .o2-editor-title-wrapper {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
   padding: 0.8em;
   background: #fff;
 }
+
 .o2-editor .o2-editor-title {
   border: 0;
   width: 100%;
   font-size: 22px !important;
   padding: 0 0 0 3px;
 }
+
 .o2-editor .o2-editor-title:focus {
   outline: none;
 }
+
 .o2-editor .o2-editor-toolbar-button {
   display: inline-block;
   float: none;
@@ -289,9 +336,11 @@ article.sticky .o2-sticky-link:after {
   border: 0;
   padding: inherit 10px;
 }
+
 .o2-editor .o2-editor-toolbar-button:first-of-type {
   padding-left: 20px;
 }
+
 .o2-editor .o2-editor-text {
   border: 0;
   font-size: 1.1em;
@@ -300,52 +349,61 @@ article.sticky .o2-sticky-link:after {
   padding: 0.4em 0.8em;
   min-height: 1em;
   width: 100%;
-  color: black;
+  color: #000;
 }
+
 .o2-editor .o2-editor-signin {
   margin: 0.1em 0 0;
   overflow: hidden;
   padding: 0.8em 0;
 }
+
 .o2-editor .o2-editor-signin p {
   font-size: 12px;
   color: #999;
 }
+
 .o2-editor .o2-editor-signin input {
   width: 98%;
   margin: 0 0 0.5em 0;
   font-size: 12px;
 }
+
 .o2-editor .o2-editor-preview {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   display: none;
   padding: 0 0.8em;
-  border: 1px solid white;
+  border: 1px solid #fff;
   width: 100%;
   min-height: 171px;
   background: #fff;
 }
+
 .o2-editor .o2-app-controls {
   font-size: 0.5em;
   line-height: 2;
 }
+
 .o2-editor .o2-editor-footer {
   min-height: 4em;
   background: transparent;
   font-size: 1em;
 }
+
 .o2-editor .o2-editor-footer > a {
   float: right;
   display: block;
   margin: 0.8em 0 0.8em 0.4em;
 }
+
 @media (max-width: 640px) {
   .o2-editor .o2-editor-footer > a.o2-comment-save, .o2-editor .o2-editor-footer > a.o2-save {
     clear: both;
   }
 }
+
 .o2-editor .o2-editor-footer ul {
   list-style-type: none;
   float: left;
@@ -353,13 +411,15 @@ article.sticky .o2-sticky-link:after {
   padding: 0;
   margin-top: -1px;
 }
+
 .o2-editor .o2-editor-footer ul li {
   float: left;
-  border-top: 1px #dddddd solid;
+  border-top: 1px #ddd solid;
 }
+
 .o2-editor .o2-editor-footer ul li:first-of-type {
-  border-top: 1px white solid;
-  border-left: 1px #dddddd solid;
+  border-top: 1px #fff solid;
+  border-left: 1px #ddd solid;
   -webkit-border-bottom-left-radius: 3px;
   -webkit-border-bottom-right-radius: 3px;
   -moz-border-radius-bottomleft: 3px;
@@ -368,13 +428,16 @@ article.sticky .o2-sticky-link:after {
   border-bottom-right-radius: 3px;
   -webkit-background-clip: padding-box;
 }
+
 .o2-editor .o2-editor-footer ul li.selected {
-  border-top: 1px white solid;
+  border-top: 1px #fff solid;
 }
+
 .o2-editor .o2-editor-footer ul li.selected a {
-  border-top: 1px white solid;
-  background: white;
+  border-top: 1px #fff solid;
+  background: #fff;
 }
+
 .o2-editor .o2-editor-footer ul li a {
   float: none;
   display: block;
@@ -382,7 +445,7 @@ article.sticky .o2-sticky-link:after {
   padding: 0.25em 1.2em 0.5em 1.2em;
   background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#f1f1f1));
   background: -moz-linear-gradient(top, #fafafa, #f1f1f1);
-  border: 1px #dddddd solid;
+  border: 1px #ddd solid;
   border-top: 1px #f1f1f1 solid;
   vertical-align: middle;
   -webkit-border-bottom-left-radius: 3px;
@@ -396,12 +459,14 @@ article.sticky .o2-sticky-link:after {
   font-size: 11px;
   border-left: 0px;
 }
+
 .o2-editor .o2-editor-footer ul li a span {
   display: none;
 }
+
 .o2-editor .o2-editor-footer ul li a:before {
   -webkit-font-smoothing: antialiased;
-  font: normal 16px/1 "Genericons";
+  font: normal 16px/1 'Genericons';
   width: 16px;
   height: 20px;
   margin-right: 5px;
@@ -419,6 +484,7 @@ article.sticky .o2-sticky-link:after {
   padding-right: 10px;
   margin-top: 13px;
 }
+
 @media (max-width: 640px) {
   .o2-post-form-options {
     float: none;
@@ -446,8 +512,9 @@ article.sticky .o2-sticky-link:after {
   position: relative;
   top: 0;
 }
+
 .o2-editor-toolbar.floated {
-  box-shadow: 0px 0px 4px 0px #888888;
+  box-shadow: 0px 0px 4px 0px #888;
 }
 
 .o2-editor-toolbar-button-dropdown {
@@ -462,6 +529,7 @@ article.sticky .o2-sticky-link:after {
   background: transparent;
   box-shadow: none !important;
 }
+
 @media (max-width: 876px) {
   .o2-editor-toolbar-button {
     width: 50px;
@@ -485,7 +553,7 @@ article.sticky .o2-sticky-link:after {
   padding: 0.5em 1.2em;
   background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#f1f1f1));
   background: -moz-linear-gradient(top, #fafafa, #f1f1f1);
-  border: 1px #dddddd solid;
+  border: 1px #ddd solid;
   vertical-align: middle;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -493,29 +561,32 @@ article.sticky .o2-sticky-link:after {
   -webkit-background-clip: padding-box;
   font-family: "Open Sans", sans-serif;
 }
+
 .o2-save.primary,
 .o2-cancel.primary,
 .o2-comment-save.primary,
 .o2-comment-cancel.primary,
 .o2-new-comment-cancel.primary {
-  border-color: #bbbbbb;
-  background: -webkit-gradient(linear, left top, left bottom, from(white), to(#f1f1f1));
-  background: -moz-linear-gradient(top, white, #f1f1f1);
+  border-color: #bbb;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f1f1f1));
+  background: -moz-linear-gradient(top, #fff, #f1f1f1);
   font-weight: bold;
 }
+
 .o2-save.primary:hover,
 .o2-cancel.primary:hover,
 .o2-comment-save.primary:hover,
 .o2-comment-cancel.primary:hover,
 .o2-new-comment-cancel.primary:hover {
-  border-color: #888888;
+  border-color: #888;
 }
+
 .o2-save:hover,
 .o2-cancel:hover,
 .o2-comment-save:hover,
 .o2-comment-cancel:hover,
 .o2-new-comment-cancel:hover {
-  border-color: #bbbbbb;
+  border-color: #bbb;
 }
 
 .o2-save:focus,
@@ -560,7 +631,7 @@ article.sticky .o2-sticky-link:after {
 .o2-comment-cancel:focus,
 .o2-new-comment-cancel:hover,
 .o2-new-comment-cancel:focus {
-  color: black;
+  color: #000;
 }
 
 .o2-editor-toolbar-button:focus,
@@ -588,10 +659,11 @@ article.sticky .o2-sticky-link:after {
 }
 
 #respond .o2-editor-footer ul li:first-of-type {
-  border-left: 1px #dddddd solid;
+  border-left: 1px #ddd solid;
 }
+
 #respond .o2-editor .o2-editor-wrapper {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
 }
 
 .o2-comment .o2-editor {
@@ -601,19 +673,24 @@ article.sticky .o2-sticky-link:after {
   margin: 0.8em 0 1.2em 65px;
   padding: 0;
 }
+
 .o2-comment .o2-editor .o2-editor-footer ul li:first-of-type {
-  border-left: 1px #dddddd solid;
+  border-left: 1px #ddd solid;
 }
+
 .o2-comment .o2-logged-out-editor {
   clear: none;
 }
+
 .o2-comment .o2-editor-toolbar {
   background: #fafafa;
 }
+
 .o2-comment .o2-actions {
   right: 0;
   position: absolute;
 }
+
 .o2-comment:empty {
   border-top: none 0;
   display: none;
@@ -639,12 +716,14 @@ article.sticky .o2-sticky-link:after {
   right: 5px;
   top: 3px;
 }
+
 .o2-editor-format:hover,
 .o2-editor-format-standard:hover,
 .o2-editor-format-aside:hover,
 .o2-editor-format-status:hover {
   opacity: 1;
 }
+
 .o2-editor-format:before,
 .o2-editor-format-standard:before,
 .o2-editor-format-aside:before,
@@ -679,8 +758,9 @@ article.sticky .o2-sticky-link:after {
  * Drag and drop uploading
  */
 .o2 .o2-editor-wrapper.dragging {
-  outline: 3px dashed #028db9;
+  outline: 3px dashed #028DB9;
 }
+
 .o2 .o2-editor-wrapper.dragging .o2-editor-toolbar {
   background: #fafafa !important;
 }
@@ -721,15 +801,17 @@ article.sticky .o2-sticky-link:after {
     margin-bottom: 0.5em;
   }
 }
+
 .o2-app-new-post .o2-editor {
   border: none 0;
 }
+
 .o2-app-new-post .o2-save {
   float: right;
 }
 
 .o2-child-comments .o2-editor-wrapper {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
 }
 
 .o2-editor-toolbar {
@@ -748,10 +830,12 @@ article.sticky .o2-sticky-link:after {
   margin: 0;
   padding: 0;
 }
+
 .o2-app-new-post .entry-header {
   padding: 0.8em 0.8em 0 0.8em;
   background: #fff;
 }
+
 .o2-app-new-post h2 {
   font-size: 1.25em;
   margin-bottom: 0.4em;
@@ -797,8 +881,8 @@ article.sticky .o2-sticky-link:after {
     width: 44px;
     height: 44px;
     padding: 4px 1px 1px 4px;
-    border: solid 2px white;
-    box-shadow: 0 0 1em black;
+    border: solid 2px #fff;
+    box-shadow: 0 0 1em #000;
     opacity: 1;
     -webkit-appearance: preserve-3d;
     -webkit-transition: all 0.25s ease-out;
@@ -819,6 +903,7 @@ article.sticky .o2-sticky-link:after {
     margin: -1px 0 0 -1px;
   }
 }
+
 .o2-new-content {
   width: 100%;
 }
@@ -866,16 +951,20 @@ article.sticky .o2-sticky-link:after {
   box-shadow: 0 0 1px rgba(255, 255, 255, 0.25);
   font-family: inherit;
 }
+
 .o2-notification a:link, .o2-notification a:visited, .o2-notification a:active {
   color: #eee;
 }
+
 .o2-notification a:hover {
   color: #fff;
 }
+
 .o2-notification table {
   padding: 10px;
   margin: 0;
 }
+
 .o2-notification table,
 .o2-notification tr,
 .o2-notification td {
@@ -897,15 +986,16 @@ article.sticky .o2-sticky-link:after {
   vertical-align: middle;
   width: 80px;
   -webkit-font-smoothing: antialiased;
-  font: normal 32px/1 "Genericons";
+  font: normal 32px/1 'Genericons';
 }
 
 .o2-notification-close {
   float: right;
   vertical-align: top;
   -webkit-font-smoothing: antialiased;
-  font: normal 20px/1 "Genericons";
+  font: normal 20px/1 'Genericons';
 }
+
 .o2-notification-close a:hover {
   border-bottom: none;
   text-decoration: none;
@@ -921,7 +1011,7 @@ article.sticky .o2-sticky-link:after {
   -moz-border-radius: 0;
   border-radius: 0;
   box-shadow: 0 0 1px rgba(255, 255, 255, 0.25);
-  color: white;
+  color: #fff;
   display: none;
   padding: 30px;
   margin: 0;
@@ -931,11 +1021,13 @@ article.sticky .o2-sticky-link:after {
   z-index: 10000;
   width: 60%;
 }
+
 #help dl {
   margin: 0;
   padding: 0;
   font-size: 2em;
 }
+
 #help dd,
 #help dt {
   display: block;
@@ -943,6 +1035,7 @@ article.sticky .o2-sticky-link:after {
   margin: 0;
   padding: 0;
 }
+
 #help dt {
   clear: left;
   color: #3478e3;
@@ -951,6 +1044,7 @@ article.sticky .o2-sticky-link:after {
   text-align: right;
   width: 25%;
 }
+
 #help dd {
   width: 70%;
   font-family: inherit;
