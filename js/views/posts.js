@@ -212,18 +212,8 @@ o2.Views.Posts = ( function( $ ) {
 				});
 			}
 
-			var postID = model.get( 'id' ),
-				view   = this.subviews[ postID ];
-
-			if ( ! _.isUndefined( view ) ) {
-
-				// Delete all subviews as well.
-				_.each( view.subviews, function( subview ){
-					delete subview;
-				});
-
-				delete view;
-			}
+			var postID = model.get( 'id' );
+			delete this.subviews[ postID ];
 		},
 
 		removeNoPostsPost: function() {
