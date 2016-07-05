@@ -3,10 +3,10 @@
 		<# if ( data.showTitle && data.pageTitle != '' ) { #>
 			{{{ data.pageTitle }}}
 		<# } #>
-		<span class="o2-app-controls">
-			{{{ data.appControls.join( ' | ' ) }}}
-		</span>
 	</h2>
+	<span class="o2-app-controls">
+		{{{ data.appControls.join( ' | ' ) }}}
+	</span>
 <# } else { #>
 	<# if ( data.showTitle && data.pageTitle != '' ) { #>
 		<h2 class="o2-app-page-title">

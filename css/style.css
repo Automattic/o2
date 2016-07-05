@@ -855,6 +855,7 @@ article.sticky .o2-sticky-link:after {
   line-height: 1.8em;
   text-align: right;
   float: right;
+  margin-top: -2em;
 }
 
 /*
