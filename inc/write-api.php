@@ -116,7 +116,7 @@ class o2_Write_API extends o2_API_Base {
 
 			o2_Write_API::update_orphan_attachments( $post );
 
-			do_action( 'o2_writeapi_post_updated', $id );
+			do_action( 'o2_writeapi_post_updated', $id, $message );
 
 			// Send back updated Fragment
 			self::die_success( o2_Fragment::get_fragment( $post ) );
@@ -193,7 +193,7 @@ class o2_Write_API extends o2_API_Base {
 
 			o2_Write_API::update_orphan_attachments( $post );
 
-			do_action( 'o2_writeapi_post_created', $id );
+			do_action( 'o2_writeapi_post_created', $id, $message );
 
 			// Send back updated Message in standard form
 			self::die_success( o2_Fragment::get_fragment( $post ) );
@@ -335,12 +335,12 @@ class o2_Write_API extends o2_API_Base {
 				if ( ! wp_trash_comment( $message->id ) ) {
 					self::die_failure( 'trash_comment_failed', __( 'Trashing that comment failed.', 'o2' ) );
 				}
-				do_action( 'o2_writeapi_comment_trashed', $message->id );
+				do_action( 'o2_writeapi_comment_trashed', $message->id, $message );
 			} else if ( 'trash' == $comment_status && ! $message->isTrashed ) {
 				if ( ! wp_untrash_comment( $message->id ) ) {
 					self::die_failure( 'untrash_comment_failed', __( 'Untrashing that comment failed.', 'o2' ) );
 				}
-				do_action( 'o2_writeapi_comment_untrashed', $message->id );
+				do_action( 'o2_writeapi_comment_untrashed', $message->id, $message );
 			} else {
 				// Load comment data, merge in new stuff, then save again
 				$comment = get_comment( $message->id );
@@ -350,7 +350,7 @@ class o2_Write_API extends o2_API_Base {
 				// Modifying trash status is bumped in o2:bump_trashed_comment based on trash actions.
 				o2_Fragment::bump_comment_modified_time( $message->id );
 
-				do_action( 'o2_writeapi_comment_updated', $message->id );
+				do_action( 'o2_writeapi_comment_updated', $message->id, $message );
 			}
 
 			// Reload the full, clean object and output it
@@ -386,7 +386,9 @@ class o2_Write_API extends o2_API_Base {
 	 * then the comment was posted successfully, so just output it and die.
 	 */
 	public static function comment_success( $comment ) {
-		do_action( 'o2_writeapi_comment_created', $comment->comment_ID );
+		$message = json_decode( stripslashes( $_REQUEST['message'] ) );
+
+		do_action( 'o2_writeapi_comment_created', $comment->comment_ID , $message );
 		self::die_success( o2_Fragment::get_fragment( $comment ) );
 	}
 
