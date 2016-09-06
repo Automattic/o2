@@ -132,19 +132,19 @@ if ( !function_exists( 'o2_get_default_post_actions' ) ) {
 
 		// Reply
 		if ( comments_open( $post_ID ) && ! post_password_required( $post_ID ) ) {
-			if ( get_option( 'comment_registration' ) && is_user_logged_in() ) {
+			if ( get_option( 'comment_registration' ) && ! is_user_logged_in() ) {
 				$actions[20] = array(
-					'action' => 'reply',
-					'href' => get_permalink( $post_ID ) . '#respond',
-					'classes' => array( 'o2-post-reply', 'o2-reply' ),
+					'action' => 'login-to-reply',
+					'href' => wp_login_url( get_permalink( $post_ID ) . '#respond' ),
+					'classes' => array(),
 					'rel' => false,
 					'initialState' => 'default'
 				);
 			} else {
 				$actions[20] = array(
-					'action' => 'login-to-reply',
-					'href' => wp_login_url( get_permalink( $post_ID ) . '#respond' ),
-					'classes' => array(),
+					'action' => 'reply',
+					'href' => get_permalink( $post_ID ) . '#respond',
+					'classes' => array( 'o2-post-reply', 'o2-reply' ),
 					'rel' => false,
 					'initialState' => 'default'
 				);
