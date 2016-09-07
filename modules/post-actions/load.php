@@ -154,10 +154,10 @@ class o2_Post_Actions {
 			}
 
 			if ( $ok_to_reply ) {
-				if ( get_option( 'comment_registration' ) && is_user_logged_in() ) {
-					$actions[] = "<a class='o2-comment-reply genericon genericon-reply' href='#' >" . esc_html__( 'Reply', 'o2' ) . "</a>";
-				} else {
+				if ( get_option( 'comment_registration' ) && ! is_user_logged_in() ) {
 					$actions[] = "<a class='genericon genericon-reply' href='" . wp_login_url( get_comment_link( $comment ) ) . "' >" . esc_html__( 'Login to Reply', 'o2' ) . "</a>";
+				} else {
+					$actions[] = "<a class='o2-comment-reply genericon genericon-reply' href='#' >" . esc_html__( 'Reply', 'o2' ) . "</a>";
 				}
 			}
 
