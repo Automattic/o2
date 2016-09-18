@@ -174,7 +174,10 @@ class o2_Post_Actions {
 
 		if ( 'dropdown' === $location ) {
 			// Only show actions on comments that the current user can edit and that are approved but not previously deleted placeholders.
-			if ( current_user_can( 'edit_comment', $comment->comment_ID ) && '1' === $comment->comment_approved && empty( $prev_deleted ) ) {
+			add_filter( 'map_meta_cap', array( 'o2_Write_API', 'restrict_comment_editing' ), 10, 4 );
+			$current_user_can_edit_comments = current_user_can( 'edit_comment', $comment->comment_ID );
+			remove_filter( 'map_meta_cap', array( 'o2_Write_API', 'restrict_comment_editing' ), 10 );
+			if ( $current_user_can_edit_comments && '1' === $comment->comment_approved && empty( $prev_deleted ) ) {
 				$actions[] = "<a class='o2-comment-edit genericon genericon-edit' href='#' >" . esc_html__( 'Edit', 'o2' ) . "</a>";
 				$actions[] = "<a class='o2-comment-trash genericon genericon-trash o2-actions-border-top o2-warning-hover' href='#' >" . esc_html__( 'Trash', 'o2' ) . "</a>";
 			}
