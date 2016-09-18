@@ -79,7 +79,7 @@ class o2_Fragment {
 			$has_prev_post = ! empty( $prev_post );
 			if ( $has_prev_post ) {
 				$prev_post_title = $prev_post->post_title;
-				$prev_post_title = apply_filters( 'the_title', $prev_post_title );
+				$prev_post_title = apply_filters( 'the_title', $prev_post_title, $prev_post->ID );
 				$prev_post_url = get_permalink( $prev_post->ID );
 			}
 
@@ -87,7 +87,7 @@ class o2_Fragment {
 			$has_next_post = ! empty( $next_post );
 			if ( $has_next_post ) {
 				$next_post_title = $next_post->post_title;
-				$next_post_title = apply_filters( 'the_title', $next_post_title );
+				$next_post_title = apply_filters( 'the_title', $next_post_title, $next_post->ID );
 				$next_post_url = get_permalink( $next_post->ID );
 			}
 
@@ -110,7 +110,7 @@ class o2_Fragment {
 		}
 
 		// Filter the title
-		$filtered_post_title = apply_filters( 'the_title', $raw_post_title );
+		$filtered_post_title = apply_filters( 'the_title', $raw_post_title, $my_post->ID );
 
 		// Handle <!--more--> for same-page toggling
 		global $more;
