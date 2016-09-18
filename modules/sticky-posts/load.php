@@ -94,7 +94,7 @@ class o2_Sticky_Posts extends o2_API_Base {
 			return $actions;
 		}
 
-		if ( current_user_can( 'edit_post', $post_ID ) ) {
+		if ( current_user_can( 'edit_others_posts' ) ) {
 			$actions[41] = array(
 				'action' => 'stickyposts',
 				'href' => '#',
@@ -120,8 +120,8 @@ class o2_Sticky_Posts extends o2_API_Base {
 		if ( ! $post )
 			self::die_failure( 'post_not_found', __( 'Post not found.', 'o2' ) );
 
-		if ( ! current_user_can( 'edit_post', $post->ID ) )
-			self::die_failure( 'cannot_edit_post_sticky', __( 'You are not allowed to edit this post sticky.', 'o2' ) );
+		if ( ! current_user_can( 'edit_others_posts' ) )
+			self::die_failure( 'cannot_edit_post_sticky', __( 'You are not allowed to stick or unstick this post.', 'o2' ) );
 
 		if ( $post_data->isSticky )
 			stick_post( $post->ID );
