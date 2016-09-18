@@ -172,7 +172,7 @@ if ( !function_exists( 'o2_get_default_post_actions' ) ) {
 		}
 
 		// Trash
-		if ( current_user_can( 'edit_post', $post_ID ) ) {
+		if ( current_user_can( 'delete_post', $post_ID ) ) {
 			$actions[100] = array(
 				'action' => 'trash',
 				'href' => get_delete_post_link( $post_ID ),
