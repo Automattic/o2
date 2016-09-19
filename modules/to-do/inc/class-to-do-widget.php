@@ -319,7 +319,7 @@ class o2_ToDos_Widget extends WP_Widget {
 			'id'           => $post->ID,
 			'postID'       => $post->ID,
 			'avatar'       => get_avatar( $post->post_author, 32 ),
-			'title'        => apply_filters( 'the_title', $post_title ),
+			'title'        => apply_filters( 'the_title', $post_title, $post->ID ),
 			'excerpt'      => esc_attr( apply_filters( 'get_the_excerpt', strip_tags( $post->post_content ) ) ),
 			'commentCount' => $comment_count->approved,
 			'state'        => $state,
