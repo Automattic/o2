@@ -46,7 +46,7 @@ class o2_Tags extends o2_Terms_In_Comments {
 		$content_tags = array_map( 'strtolower', $content_tags );
 		$content_tags = array_unique( $content_tags );
 
-		$tags = wp_get_post_tags( $post->ID );
+		$tags = o2_Fragment::get_post_tags( $post->ID );
 
 		if ( ! empty( $tags ) ) {
 			$tag_slugs = array();
@@ -75,7 +75,7 @@ class o2_Tags extends o2_Terms_In_Comments {
 		$content_tags = array_map( 'strtolower', $content_tags );
 		$content_tags = array_unique( $content_tags );
 
-		$tags = wp_get_post_terms( $fragment['id'], 'post_tag' );
+		$tags = o2_Fragment::get_post_tags( $fragment['id'] );
 
 		if ( ! empty( $tags ) ) {
 			$tag_slugs = array();
@@ -108,14 +108,16 @@ class o2_Tags extends o2_Terms_In_Comments {
 		$tags = array_unique( $tags );
 		usort( $tags, array( 'o2_Tags', '_sortByLength' ) );
 
-		$tag_info = array();
+		static $tag_info = array();
+
 		foreach ( $tags as $tag ) {
+			if ( isset( $tag_info[ $tag ] ) ) {
+				continue;
+			}
+
 			$info = get_term_by( 'slug', $tag, 'post_tag' );
 			if ( ! $info ) {
 				$info = get_term_by( 'name', $tag, 'post_tag' );
-				if ( ! $info ) {
-					continue;
-				}
 			}
 			$tag_info[ $tag ] = $info;
 		}

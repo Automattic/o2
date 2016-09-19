@@ -4,6 +4,7 @@
  * Posts and Comments are all represented as "Fragments" within o2.
  */
 class o2_Fragment {
+
 	/**
 	 * Figures out if $data looks like a post or a comment, and gives you
 	 * a Fragment either way.
@@ -41,7 +42,7 @@ class o2_Fragment {
 		add_filter( 'home_url', array( 'o2_Fragment', 'home_url' ), 10, 4 );
 
 		$post_ID = $my_post->ID;
-		$post_tags = wp_get_post_tags( $post_ID );
+		$post_tags = self::get_post_tags( $post_ID );
 		$permalink = get_permalink( $post_ID );
 
 		// Get a set of classes to be used when displaying.
@@ -561,6 +562,19 @@ class o2_Fragment {
 		return $result;
 	}
 
+	/**
+	 * Wrapper for wp_get_post_tags() with static cache.
+	 */
+	public static function get_post_tags( $post_id ) {
+		static $post_tags_cache = array();
+
+		if ( ! isset( $post_tags_cache[ $post_id ] ) ) {
+			$post_tags_cache[ $post_id ] = wp_get_post_tags( $post_id );
+		}
+
+		return $post_tags_cache[ $post_id ];
+	}
+
 	/*
 	 * Returns an array of the posts's taxonomy terms
 	 */
@@ -572,20 +586,28 @@ class o2_Fragment {
 			) );
 		$taxonomies = apply_filters( 'o2_get_post_terms_taxonomies', $taxonomies, $post_id, $post_type );
 
-		$retval = array();
-		foreach ( $taxonomies as $taxonomy ) {
-			$retval[ $taxonomy ] = array();
-			$terms = wp_get_post_terms( $post_id, $taxonomy );
-			foreach ( $terms as $term ) {
-				$arr = array(
-					'label' => $term->name,
-					'count' => $term->count,
-				);
-				$link = get_term_link( $term );
-				if ( ! is_wp_error( $link ) )
-					$arr['link'] = $link;
-				$retval[ $taxonomy ][] = $arr;
+		static $post_terms_cache = array();
+
+		$cache_key = md5( $post_id . serialize( $taxonomies ) );
+		if ( ! isset( $post_terms_cache[ $cache_key ] ) ) {
+			$retval = array();
+			foreach ( $taxonomies as $taxonomy ) {
+				$retval[ $taxonomy ] = array();
+				$terms = wp_get_post_terms( $post_id, $taxonomy );
+				foreach ( $terms as $term ) {
+					$arr = array(
+						'label' => $term->name,
+						'count' => $term->count,
+					);
+					$link = get_term_link( $term );
+					if ( ! is_wp_error( $link ) )
+						$arr['link'] = $link;
+					$retval[ $taxonomy ][] = $arr;
+				}
 			}
+			$post_terms_cache[ $cache_key ] = $retval;
+		} else {
+			$retval = $post_terms_cache[ $cache_key ];
 		}
 
 		$retval = apply_filters( 'o2_get_post_terms', $retval, $post_id, $taxonomies );
