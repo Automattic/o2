@@ -323,7 +323,7 @@ class o2_Write_API extends o2_API_Base {
 			if ( ! current_user_can( 'edit_comment', $message->id ) ) {
 				self::die_failure( 'cannot_edit_comment', __( 'You are not allowed to edit this comment', 'o2' ) );
 			}
-			remove_filter( 'map_meta_cap', array( 'o2_Write_API', 'restrict_comment_editing' ), 10, 4 );
+			remove_filter( 'map_meta_cap', array( 'o2_Write_API', 'restrict_comment_editing' ), 10 );
 
 			// Get current comment data
 			$comment_status = wp_get_comment_status( $message->id );
