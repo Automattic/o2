@@ -11,7 +11,7 @@
 	<img src="{{ data.author.avatar }}" width="{{ data.avatarSize }}" height="{{ data.avatarSize }}" class="avatar {{ data.author.modelClass }}" />
 	<# } #>
 	<div class="comment-meta commentmetadata o2-comment-metadata" data-o2-comment-id="{{ data.id }}">
-		<# if ( ! data.author.userLogin ) { #>
+		<# if ( data.isAnonymousAuthor ) { #>
 			<span class="comment-author">{{ data.strings.anonymous }}</span>
 		<# } else { #>
 			<a href="{{ data.author.url }}" rel="external nofollow" class="comment-author url {{ data.author.modelClass }}">
