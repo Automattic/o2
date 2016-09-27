@@ -150,14 +150,14 @@ o2Editor = {
 		editor = '<div class="o2-editor-wrapper"> \
 			<div class="o2-editor-toolbar-wrapper"> \
 				<div class="o2-editor-toolbar"> \
-					<button class="o2-editor-toolbar-button genericon genericon-bold" value="strong" title="Bold (ctrl/⌘-b)"></button> \
-					<button class="o2-editor-toolbar-button genericon genericon-italic" value="em" title="Italics (ctrl/⌘-i)"></button> \
-					<button class="o2-editor-toolbar-button genericon genericon-link" value="a" title="Link (⌘-shift-a)"></button> \
-					<button class="o2-editor-toolbar-button genericon genericon-picture" value="img" title="Image"></button> \
-					<button class="o2-editor-toolbar-button genericon genericon-quote" value="blockquote" title="Blockquote"></button> \
-					<button class="o2-editor-toolbar-button genericon genericon-code" value="code" title="Code"></button>';
+					<button class="o2-editor-toolbar-button genericon genericon-bold" value="strong" title="' + o2.strings.bold + '"></button> \
+					<button class="o2-editor-toolbar-button genericon genericon-italic" value="em" title="' + o2.strings.italics + '"></button> \
+					<button class="o2-editor-toolbar-button genericon genericon-link" value="a" title="' + o2.strings.link + '"></button> \
+					<button class="o2-editor-toolbar-button genericon genericon-picture" value="img" title="' + o2.strings.image + '"></button> \
+					<button class="o2-editor-toolbar-button genericon genericon-quote" value="blockquote" title="' + o2.strings.blockquote + '"></button> \
+					<button class="o2-editor-toolbar-button genericon genericon-code" value="code" title="' + o2.strings.code + '"></button>';
 					if ( 'string' === typeof title ) {
-						editor += '<div class="o2-editor-format dashicon" title="Add a post title">&#61969;</div>';
+						editor += '<div class="o2-editor-format dashicon" title="' + o2.strings.addPostTitle + '">&#61969;</div>';
 					}
 				editor += '<div class="o2-editor-upload"><div class="o2-editor-upload-progress"></div></div> \
 				</div> \
@@ -167,7 +167,7 @@ o2Editor = {
 			</div>';
 			if ( 'string' === typeof title ) {
 				editor += '<div class="o2-editor-title-wrapper"> \
-					<input type="text" class="o2-title o2-editor-title" value="' + title + '" placeholder="Enter title here" /> \
+					<input type="text" class="o2-title o2-editor-title" value="' + title + '" placeholder="' + o2.strings.enterTitleHere + '" /> \
 				</div>';
 				}
 			editor += '<textarea class="o2-editor-text" placeholder="' + prompt + '">' + content + '</textarea> \
