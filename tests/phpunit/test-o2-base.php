@@ -308,21 +308,55 @@ class o2BaseTest extends WP_UnitTestCase {
 
 		$o2->add_query_vars();
 
-		$this->assertArrayHasKey(
-			'o2_login_complete', $wp->public_query_vars,
+		$this->assertTrue(
+			in_array( 'o2_login_complete', $wp->public_query_vars ),
 			'The o2_login_complete query variable should exist in the $wp object'
-		)
+		);
 	}
-
-/* 	TODO:
 
 	function test_add_json_data() {
 
+		global $post;
+		global $wp_query;
+
+		$author_id = $this->factory->user->create( array(
+			'user_login' => 'Test User'
+		));
+
+		$post_id = $this->factory->post->create( array(
+			'post_title' => 'Test Post',
+			'post_content' => 'Some kinda post content.',
+			'post_author' => $author_id
+		));
+
+		$post = get_post( $post_id );
+		setup_postdata( $post );
+		$wp_query->is_home = true;
+
+		$content = apply_filters( 'the_content', get_the_content() );
+
+		$this->assertGreaterThan(
+			0, stripos( $content, "<script class='o2-data'" ),
+			'Post content should get JSON info added in a script blob'
+		);
 	}
 
 	function test_remove_oembed_handlers() {
+                $oembed = _wp_oembed_get_object();
+		$providers = array_keys( $oembed->providers );
 
+		$this->assertFalse(
+			in_array( '#https?://(.+\.)?polldaddy\.com/.*#i', $providers ),
+			'Polldaddy oembeds should not be supported'
+		);
+
+		$this->assertFalse(
+			in_array( '#https?://poll\.fm/.*#i', $providers ),
+			'Polldaddy oembeds should not be supported'
+		);
 	}
+
+/* 	TODO:
 
 	function test_delete_comment_override() {
 
