@@ -884,6 +884,7 @@ class o2 {
 	*/
 	public function remove_oembed_handlers() {
 		wp_oembed_remove_provider( '#https?://(.+\.)?polldaddy\.com/.*#i' );
+		wp_oembed_remove_provider( '#https?://poll\.fm/.*#i' );
 	}
 
 	/**
@@ -891,7 +892,7 @@ class o2 {
 	* may have saved
 	*/
 	public function remove_cached_incompatible_oembed( $html, $url, $args ) {
-		if ( false !== strpos( $html, 'polldaddy.com' ) ) {
+		if ( false !== strpos( $html, 'polldaddy.com' ) || false !== strpos( $html, 'poll.fm' ) ) {
 			return $url;
 		}
 		return $html;
