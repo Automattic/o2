@@ -876,7 +876,7 @@ class o2 {
 
 		$conversation = array();
 		if ( is_single() || is_category() || is_archive() || is_author() || is_home() || is_page() || is_search() ) {
-			$conversation[] = o2_Fragment::get_fragment( $post, array( 'find-adjacent' => is_single(), 'the_content' => $content ) ) );
+			$conversation[] = o2_Fragment::get_fragment( $post, array( 'find-adjacent' => is_single(), 'the_content' => $content ) );
 
 			// Append the encoded conversation to the content in a hidden script block
 			$content .= "<script class='o2-data' id='o2-data-{$post->ID}' data-post-id='{$post->ID}' type='application/json' style='display:none'>";
