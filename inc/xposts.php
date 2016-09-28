@@ -147,6 +147,28 @@ class o2_Xposts extends o2_Terms_In_Comments {
 		return $this->xpost_links( $content, $subdomains );
 	}
 
+	function xposts_link_callback( $matches ) {
+		$subdomain = $matches[1];
+		if ( !in_array( $subdomain, $this->subdomains ) ) {
+			return $matches[0];
+		}
+
+		$search = is_search() ? substr( get_search_query( false ), 1 ) : '';
+		$classes = 'po-xpost';
+
+		// If we're searching for this name, highlight it.
+		if ( $subdomain === $search ) {
+			$classes .= ' o2-xpost-highlight';
+		}
+
+		// @todo This is assuming WP.com, which is not compatible with .org
+		$replacement = sprintf( '<a href="%s" class="%s">+%s</a>', esc_url( "//$subdomain.wordpress.com/" ), esc_attr( $classes ), esc_html( $subdomain ) );
+		$replacement = apply_filters( 'o2_xpost_link', $replacement, $subdomain );
+		$replacement = preg_replace( "/(^|\s|>|\()\+" . preg_quote( $subdomain, '/' ) . "($|\b|\s|<|\))/i", '$1' . $replacement . '$2', $matches[0] );
+
+		return $replacement;
+	}
+
 	/**
 	 * Parses and links mentions within a string.
 	 * Run on the_content.
@@ -158,21 +180,17 @@ class o2_Xposts extends o2_Terms_In_Comments {
 		if ( empty( $subdomains ) )
 			return $content;
 
-		$search = is_search() ? substr( get_search_query( false ), 1 ) : '';
+		$this->subdomains = $subdomains;
+		$textarr = wp_html_split( $content );
+		foreach( $textarr as &$element ) {
+			if ( '' == $element || '<' === $element[0] || false === strpos( $element, '+' ) ) {
+				continue;
+			}
 
-		foreach ( $subdomains as $subdomain ) {
-			$classes = 'po-xpost';
-			// If we're searching for this name, highlight it.
-			if ( $subdomain === $search )
-				$classes .= ' o2-xpost-highlight';
-
-			// @todo This is assuming WP.com, which is not compatible with .org
-			$replacement = sprintf( '<a href="%s" class="%s">+%s</a>', esc_url( "//$subdomain.wordpress.com/" ), esc_attr( $classes ), esc_html( $subdomain ) );
-			$replacement = apply_filters( 'o2_xpost_link', $replacement, $subdomain );
-			$content     = preg_replace( "/(^|\s|>|\()\+$subdomain($|\b|\s|<|\))/i", '$1' . $replacement . '$2', $content );
+			$element = preg_replace_callback( self::XPOSTS_REGEX, array( $this, 'xposts_link_callback' ), $element );
 		}
-
-		return $content;
+		$this->subdomains = array();
+		return join( $textarr );
 	}
 
 	function get_details_from_subdomain( $subdomain ) {
