@@ -147,7 +147,7 @@ class o2_Fragment {
 		if ( ! empty( $xpost_original_permalink ) ) {
 			$filtered_content = $extended_content;
 		} elseif ( isset( $args['the_content'] ) ) {
-			$filtered_content = $args['the_content'];
+			$filtered_content = make_clickable( $args['the_content'] );
 		} else {
 			add_filter( 'the_content', 'o2_Fragment::o2_make_clickable', 9 );
 			$filtered_content = apply_filters( 'the_content', $extended_content );
