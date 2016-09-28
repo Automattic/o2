@@ -9,6 +9,7 @@ class o2_Xposts extends o2_Terms_In_Comments {
 	*/
 	private $blog_suggestions = array();
 	private $subdomains       = array();
+	private $registered_blogs = array();
 
 	/**
 	* We match on +blogname
@@ -17,6 +18,7 @@ class o2_Xposts extends o2_Terms_In_Comments {
 
 	function __construct() {
 		add_action( 'init',                      array( $this, 'register_taxonomy'           ), 0 );
+		add_action( 'switch_blog',               array( $this, 'register_taxonomy'           ) );
 		add_action( 'init',                      array( $this, 'get_data'                    ) );
 		add_action( 'template_redirect',         array( $this, 'redirect_permalink'          ), 1 );
 		add_action( 'wp_footer',                 array( $this, 'inline_js'                   ) );
@@ -189,6 +191,31 @@ class o2_Xposts extends o2_Terms_In_Comments {
 	 * Register o2 mentions taxonomy.
 	 */
 	function register_taxonomy() {
+		if ( ! did_action( 'init' ) ) {
+			return;
+		}
+
+		$blog_id = get_current_blog_id();
+		$registered_index = array_search( $blog_id, $this->registered_blogs, true );
+
+		if ( function_exists( 'wpcom_o2_is_enabled' ) && ! wpcom_o2_is_enabled() ) {
+			unregister_taxonomy_for_object_type( 'xposts', 'post' );
+
+			if ( false !== $registered_index ) {
+				// If o2 has been disabled after the taxonomy was registered,
+				// remove the blog from the registered list.
+				unset( $this->registered_blogs[ $registered_index ] );
+			}
+			return;
+		}
+
+		if ( false !== $registered_index ) {
+			// If the blog has already registered the taxonomy, there's no need to register it again.
+			return;
+		}
+
+		$this->registered_blogs[] = $blog_id;
+
 		$taxonomy_args = apply_filters( 'o2_xposts_taxonomy_args', array(
 			'show_ui'           => false,
 			'label'             => __( 'Xposts', 'o2' ),
