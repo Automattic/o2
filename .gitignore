@@ -5,3 +5,4 @@ inc/wpcom.php
 bin/autortl
 sftp-config.json
 node_modules
+*~
