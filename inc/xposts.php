@@ -9,6 +9,7 @@ class o2_Xposts extends o2_Terms_In_Comments {
 	*/
 	private $blog_suggestions = array();
 	private $subdomains       = array();
+	private $registered_blogs = array();
 
 	/**
 	* We match on +blogname
@@ -17,6 +18,7 @@ class o2_Xposts extends o2_Terms_In_Comments {
 
 	function __construct() {
 		add_action( 'init',                      array( $this, 'register_taxonomy'           ), 0 );
+		add_action( 'switch_blog',               array( $this, 'register_taxonomy'           ) );
 		add_action( 'init',                      array( $this, 'get_data'                    ) );
 		add_action( 'template_redirect',         array( $this, 'redirect_permalink'          ), 1 );
 		add_action( 'wp_footer',                 array( $this, 'inline_js'                   ) );
@@ -145,6 +147,28 @@ class o2_Xposts extends o2_Terms_In_Comments {
 		return $this->xpost_links( $content, $subdomains );
 	}
 
+	function xposts_link_callback( $matches ) {
+		$subdomain = $matches[1];
+		if ( !in_array( $subdomain, $this->subdomains ) ) {
+			return $matches[0];
+		}
+
+		$search = is_search() ? substr( get_search_query( false ), 1 ) : '';
+		$classes = 'po-xpost';
+
+		// If we're searching for this name, highlight it.
+		if ( $subdomain === $search ) {
+			$classes .= ' o2-xpost-highlight';
+		}
+
+		// @todo This is assuming WP.com, which is not compatible with .org
+		$replacement = sprintf( '<a href="%s" class="%s">+%s</a>', esc_url( "//$subdomain.wordpress.com/" ), esc_attr( $classes ), esc_html( $subdomain ) );
+		$replacement = apply_filters( 'o2_xpost_link', $replacement, $subdomain );
+		$replacement = preg_replace( "/(^|\s|>|\()\+" . preg_quote( $subdomain, '/' ) . "($|\b|\s|<|\))/i", '$1' . $replacement . '$2', $matches[0] );
+
+		return $replacement;
+	}
+
 	/**
 	 * Parses and links mentions within a string.
 	 * Run on the_content.
@@ -156,21 +180,17 @@ class o2_Xposts extends o2_Terms_In_Comments {
 		if ( empty( $subdomains ) )
 			return $content;
 
-		$search = is_search() ? substr( get_search_query( false ), 1 ) : '';
+		$this->subdomains = $subdomains;
+		$textarr = wp_html_split( $content );
+		foreach( $textarr as &$element ) {
+			if ( '' == $element || '<' === $element[0] || false === strpos( $element, '+' ) ) {
+				continue;
+			}
 
-		foreach ( $subdomains as $subdomain ) {
-			$classes = 'po-xpost';
-			// If we're searching for this name, highlight it.
-			if ( $subdomain === $search )
-				$classes .= ' o2-xpost-highlight';
-
-			// @todo This is assuming WP.com, which is not compatible with .org
-			$replacement = sprintf( '<a href="%s" class="%s">+%s</a>', esc_url( "//$subdomain.wordpress.com/" ), esc_attr( $classes ), esc_html( $subdomain ) );
-			$replacement = apply_filters( 'o2_xpost_link', $replacement, $subdomain );
-			$content     = preg_replace( "/(^|\s|>|\()\+$subdomain($|\b|\s|<|\))/i", '$1' . $replacement . '$2', $content );
+			$element = preg_replace_callback( self::XPOSTS_REGEX, array( $this, 'xposts_link_callback' ), $element );
 		}
-
-		return $content;
+		$this->subdomains = array();
+		return join( $textarr );
 	}
 
 	function get_details_from_subdomain( $subdomain ) {
@@ -189,6 +209,31 @@ class o2_Xposts extends o2_Terms_In_Comments {
 	 * Register o2 mentions taxonomy.
 	 */
 	function register_taxonomy() {
+		if ( ! did_action( 'init' ) ) {
+			return;
+		}
+
+		$blog_id = get_current_blog_id();
+		$registered_index = array_search( $blog_id, $this->registered_blogs, true );
+
+		if ( function_exists( 'wpcom_o2_is_enabled' ) && ! wpcom_o2_is_enabled() ) {
+			unregister_taxonomy_for_object_type( 'xposts', 'post' );
+
+			if ( false !== $registered_index ) {
+				// If o2 has been disabled after the taxonomy was registered,
+				// remove the blog from the registered list.
+				unset( $this->registered_blogs[ $registered_index ] );
+			}
+			return;
+		}
+
+		if ( false !== $registered_index ) {
+			// If the blog has already registered the taxonomy, there's no need to register it again.
+			return;
+		}
+
+		$this->registered_blogs[] = $blog_id;
+
 		$taxonomy_args = apply_filters( 'o2_xposts_taxonomy_args', array(
 			'show_ui'           => false,
 			'label'             => __( 'Xposts', 'o2' ),

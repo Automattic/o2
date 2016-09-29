@@ -399,6 +399,14 @@ class o2 {
 				'searchFailed'                         => __( 'Apologies, but I could not find any results for that search term. Please try again.', 'o2' ),
 				'defaultError'                         => __( 'An unexpected error occurred. Please refresh the page and try again.', 'o2' ),
 				'previewPlaceholder'                   => __( 'Generating preview...', 'o2' ),
+				'bold'                                 => __( 'Bold (ctrl/⌘-b)', 'o2' ),
+				'italics'                              => __( 'Italics (ctrl/⌘-i)', 'o2' ),
+				'link'                                 => __( 'Link (⌘-shift-a)', 'o2' ),
+				'image'                                => __( 'Image', 'o2' ),
+				'blockquote'                           => __( 'Blockquote', 'o2' ),
+				'code'                                 => __( 'Code', 'o2' ),
+				'addPostTitle'                         => __( 'Add a post title', 'o2' ),
+				'enterTitleHere'                       => __( 'Enter title here', 'o2' ),
 				'noPosts'                              => __( 'Ready to publish your first post? Simply use the form above.', 'o2' ),
 				'noPostsMobile'                        => __( 'Tap the new post control below to begin writing your first post.', 'o2' ),
 				'awaitingApproval'                     => __( 'This comment is awaiting approval.', 'o2' ),
@@ -868,7 +876,7 @@ class o2 {
 
 		$conversation = array();
 		if ( is_single() || is_category() || is_archive() || is_author() || is_home() || is_page() || is_search() ) {
-			$conversation[] = o2_Fragment::get_fragment( $post, array( 'find-adjacent' => is_single() ) );
+			$conversation[] = o2_Fragment::get_fragment( $post, array( 'find-adjacent' => is_single(), 'the_content' => $content ) );
 
 			// Append the encoded conversation to the content in a hidden script block
 			$content .= "<script class='o2-data' id='o2-data-{$post->ID}' data-post-id='{$post->ID}' type='application/json' style='display:none'>";
@@ -884,6 +892,7 @@ class o2 {
 	*/
 	public function remove_oembed_handlers() {
 		wp_oembed_remove_provider( '#https?://(.+\.)?polldaddy\.com/.*#i' );
+		wp_oembed_remove_provider( '#https?://poll\.fm/.*#i' );
 	}
 
 	/**
@@ -891,7 +900,7 @@ class o2 {
 	* may have saved
 	*/
 	public function remove_cached_incompatible_oembed( $html, $url, $args ) {
-		if ( false !== strpos( $html, 'polldaddy.com' ) ) {
+		if ( false !== strpos( $html, 'polldaddy.com' ) || false !== strpos( $html, 'poll.fm' ) ) {
 			return $url;
 		}
 		return $html;

@@ -375,7 +375,7 @@ o2.Views.Comment = ( function( $ ) {
 			$.extend( true, jsonifiedModel, this.options );
 
 			jsonifiedModel.isNew = this.model.isNew();
-			jsonifiedModel.isAnonymousAuthor = ( 0 === jsonifiedModel.currentUser.userLogin.length ) && ( 0 === jsonifiedModel.noprivUserName.length );
+			jsonifiedModel.isAnonymousAuthor = ( 0 === jsonifiedModel.userLogin.length ) && ( 0 === jsonifiedModel.noprivUserName.length );
 			jsonifiedModel.strings = o2.strings;
 			jsonifiedModel.commentFormExtras = o2.commentFormExtras;
 			jsonifiedModel.someoneElsesComment = someoneElsesComment;
