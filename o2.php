@@ -1326,6 +1326,22 @@ class o2 {
 	}
 
 	/**
+	 * Check if o2 is active on the current site.
+	 */
+	function is_enabled() {
+		$o2_is_enabled = false;
+
+		$o2_options = get_option( 'o2_options' );
+		if ( is_array( $o2_options ) ) {
+			if ( isset( $o2_options['o2_enabled'] ) ) {
+				$o2_is_enabled = $o2_options['o2_enabled'];
+			}
+		}
+
+		return $o2_is_enabled;
+	}
+
+	/**
 	 * This is really only needed for the first load of o2 after activation.
 	 * Useful for flushing rewrite rules, and that kind of thing.
 	 */

@@ -48,6 +48,8 @@ class o2_Xposts extends o2_Terms_In_Comments {
 	* @return array Site Information.
 	*/
 	public function site_suggestions() {
+		global $o2;
+
 		if ( ! empty( $this->blog_suggestions[ get_current_blog_id() ] ) )
 			return $this->blog_suggestions[ get_current_blog_id() ];
 
@@ -99,8 +101,7 @@ class o2_Xposts extends o2_Terms_In_Comments {
 			}
 
 			// Receiving blog must also be running o2 (to handle the xpost properly)
-			// @todo Obviously this is WPCOM only
-			if ( !wpcom_o2_is_enabled() || !wpcom_theme_supports_o2() ) {
+			if ( $o2->is_enabled() )  {
 				restore_current_blog();
 				continue;
 			}
@@ -209,6 +210,8 @@ class o2_Xposts extends o2_Terms_In_Comments {
 	 * Register o2 mentions taxonomy.
 	 */
 	function register_taxonomy() {
+		global $o2;
+
 		if ( ! did_action( 'init' ) ) {
 			return;
 		}
@@ -216,7 +219,7 @@ class o2_Xposts extends o2_Terms_In_Comments {
 		$blog_id = get_current_blog_id();
 		$registered_index = array_search( $blog_id, $this->registered_blogs, true );
 
-		if ( function_exists( 'wpcom_o2_is_enabled' ) && ! wpcom_o2_is_enabled() ) {
+		if ( $o2->is_enabled() ) {
 			unregister_taxonomy_for_object_type( 'xposts', 'post' );
 
 			if ( false !== $registered_index ) {
