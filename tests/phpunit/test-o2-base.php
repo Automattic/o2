@@ -244,7 +244,7 @@ class o2BaseTest extends WP_UnitTestCase {
 
 		$this->assertTrue(
 			$final_settings['mark_posts_unresolved'],
-			'mark_posts_unresolved setting shoult take and preserve a boolean value'
+			'mark_posts_unresolved setting should take and preserve a boolean value'
 		);
 
 	}
@@ -303,6 +303,7 @@ class o2BaseTest extends WP_UnitTestCase {
 	}
 
 	function test_add_query_var() {
+
 		global $o2;
 		global $wp;
 
@@ -342,6 +343,7 @@ class o2BaseTest extends WP_UnitTestCase {
 	}
 
 	function test_remove_oembed_handlers() {
+
                 $oembed = _wp_oembed_get_object();
 		$providers = array_keys( $oembed->providers );
 
@@ -356,31 +358,229 @@ class o2BaseTest extends WP_UnitTestCase {
 		);
 	}
 
-/* 	TODO:
-
 	function test_delete_comment_override() {
 
+		$parent_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'Test comment content',
+			'comment_approved' => 1
+		));
+
+		$child_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'This is a child comment',
+			'comment_approved' => 1,
+			'comment_parent' => $parent_comment_id
+		));
+
+		wp_delete_comment( $parent_comment_id, true );
+
+		$comments = get_comments();
+
+		$this->assertEquals(
+			2, count( $comments ),
+			'Exactly one new comment should be created on parent comment delete'
+		);
+
+		foreach( $comments as $comment ){
+
+			if( $comment->comment_ID == $child_comment_id ){
+				
+				$this->assertNotEquals(
+					$parent_comment_id, $comment->comment_parent,
+					'Child comment parents should get updated to use the new "Deleted" comment as parent'
+				);
+
+			} else {
+
+				$this->assertEquals(
+					'This comment was deleted.', $comment->comment_content,
+					'Deleted parent comment should get replaced with a "Deleted" comment'
+				);
+
+			}
+		}
+	}
+
+	function test_delete_comment_override_no_children() {
+
+		$parent_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'Test comment content',
+			'comment_approved' => 1
+		));
+
+		wp_delete_comment( $parent_comment_id, true );
+
+		$comments = get_comments();
+
+		$this->assertEmpty(
+			$comments,
+			'No "Deleted" comment should get created for comments without children'
+		);
 	}
 
 	function test_insert_comment_actions() {
 
+		$comment_id = wp_insert_comment( array(
+			'comment_content' => 'Test comment content'
+		) );
+
+		$o2_created_time = get_comment_meta( $comment_id, 'o2_comment_created', true );
+
+		$this->assertEquals(
+			current_time( 'timestamp', true ), $o2_created_time,
+			'Comments should get an o2 creation time meta when created'
+		);
 	}
 
 	function test_has_approved_child() {
 
+		global $o2;
+
+		$parent_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'Test comment content',
+			'comment_approved' => 1
+		));
+
+		$child_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'This is a child comment',
+			'comment_approved' => 1,
+			'comment_parent' => $parent_comment_id
+		));
+
+		$this->assertTrue(
+			$o2->has_approved_child( $parent_comment_id ),
+			'has_approved_child method should be true when a comment has an approved child'
+		);
+	}
+
+	function test_has_approved_child_no_child() {
+
+		global $o2;
+
+		$comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'Test comment content',
+			'comment_approved' => 1
+		));
+
+		$this->assertFalse(
+			$o2->has_approved_child( $comment_id ),
+			'has_approved_child method should be false when a comment has no child'
+		);
+	}
+	
+	function test_has_approved_child_unapproved_child() {
+
+		global $o2;
+
+		$parent_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'Test comment content',
+			'comment_approved' => 1
+		));
+
+		$child_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'This is a child comment',
+			'comment_approved' => 0,
+			'comment_parent' => $parent_comment_id
+		));
+
+		$this->assertFalse(
+			$o2->has_approved_child( $child_comment_id ),
+			'has_approved_child method should be false when a comment has only unapproved children'
+		);
 	}
 
 	function test_add_trashed_parents() {
 
+		$parent_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'Test comment content',
+			'comment_approved' => 'trash'
+		));
+
+		$child_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'This is a child comment',
+			'comment_approved' => 'trash',
+			'comment_parent' => $parent_comment_id
+		));
+
+		update_comment_meta( $parent_comment_id, 'o2_comment_has_children', false );
+		wp_untrash_comment( $child_comment_id );
+
+		$this->assertTrue(
+			(bool) get_comment_meta( $parent_comment_id, 'o2_comment_has_children', true ),
+			'Trash parent comments should get updated with true o2_comment_has_children meta when child comments are untrashed'
+		);
 	}
 
 	function test_remove_trashed_parents() {
 
+		$parent_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'Test comment content',
+			'comment_approved' => 'trash'
+		));
+
+		$child_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'This is a child comment',
+			'comment_approved' => 1,
+			'comment_parent' => $parent_comment_id
+		));
+
+		update_comment_meta( $parent_comment_id, 'o2_comment_has_children', true );
+		wp_trash_comment( $child_comment_id );
+
+		$this->assertFalse(
+			(bool) get_comment_meta( $parent_comment_id, 'o2_comment_has_children', true ),
+			'Trash parent comments should lose o2_comment_has_children meta when only-child comments are trashed'
+		);
+	}
+
+	function test_remove_trashed_parents_has_siblings() {
+
+		$parent_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'Test comment content',
+			'comment_approved' => 'trash'
+		));
+
+		$child1_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'This is the first child comment',
+			'comment_approved' => 1,
+			'comment_parent' => $parent_comment_id
+		));
+
+		$child2_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'This is the second child comment',
+			'comment_approved' => 1,
+			'comment_parent' => $parent_comment_id
+		));
+
+		update_comment_meta( $parent_comment_id, 'o2_comment_has_children', true );
+		wp_trash_comment( $child1_comment_id );
+
+		$this->assertTrue(
+			(bool) get_comment_meta( $parent_comment_id, 'o2_comment_has_children', true ),
+			'Trash parent comments should not lose o2_comment_has_children meta while still having an approved child'
+		);
 	}
 
 	function test_maybe_set_comment_has_children() {
 
+		$parent_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'Test comment content',
+			'comment_approved' => '1'
+		));
+
+		$child_comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'This is a child comment',
+			'comment_approved' => 1,
+			'comment_parent' => $parent_comment_id
+		));
+
+		update_comment_meta( $parent_comment_id, 'o2_comment_has_children', false );
+		wp_trash_comment( $parent_comment_id );
+
+		$this->assertTrue(
+			(bool) get_comment_meta( $parent_comment_id, 'o2_comment_has_children', true ),
+			'Parent comments should get updated o2_comment_has_children meta when trashed'
+		);
 	}
-*/
+
 }
 
