@@ -20,7 +20,7 @@ class o2_Terms_In_Comments {
 	 * @return boolean true if we should process TiC on this site
 	 */
 	function should_process_terms() {
-		return apply_filters( 'o2_should_process_terms', '__return_true' );
+		return apply_filters( 'o2_should_process_terms', true );
 	}
 
 	function update_comment( $comment_id ) {
