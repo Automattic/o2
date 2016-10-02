@@ -20,22 +20,48 @@ class o2_Time_Shortcode {
 
 	public static function time_shortcode( $attr, $content = null ) {
 
-		global $post, $in_comment_content, $comment;
-		$post = get_post();
+		global $in_comment_content, $comment;
 
 		// try to parse the time, relative to the post/comment time
-
 		if ( $in_comment_content ) {
 			$date     = strtotime( $comment->comment_date_gmt );
 			$raw_date = date( 'Y-m-d H:i:s', $date );
 		} else {
+			$post = get_post();
 			$date     = get_the_date( 'U' );
 			$raw_date = $post->post_date_gmt; // already in ISO format
 		}
-		$time = strtotime( $content, $date );
+
+		$time = self::parse_time( $content, $date );
 
 		// if strtotime doesn't work, try stronger measures
+		if( $time === false || $time === -1 ) {
+			$time = self::parse_time_with_date_parse( $raw_date, $content );
+		}
+
+		// if that didn't work, give up
 		if ( $time === false || $time === -1 ) {
+			return $content;
+		}
+
+		// build the link and abbr microformat
+		$out = '<a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=' . gmdate( 'Ymd\THi', $time ) . '"><abbr class="globalized-date" title="' . gmdate( 'c', $time ) . '">' . $content . '</abbr></a>';
+
+		// add the time converter JS code
+		add_action( 'wp_footer', array( 'o2_Time_Shortcode', 'time_conversion_script' ) );
+
+		// return the new link
+		return $out;
+	}
+
+	public static function parse_time( $date_string, $utc_now ) {
+
+		return strtotime( $date_string, $utc_now );
+
+	}
+
+	public static function parse_time_with_date_parse( $raw_date, $content ) {
+
 			$timearray = date_parse( $content );
 			foreach ( $timearray as $key => $value ) {
 				if ( $value === false ) unset ( $timearray[$key] );
@@ -52,21 +78,8 @@ class o2_Time_Shortcode {
 
 			// build a normalized time string, then parse it to an integer time using strtotime
 			$time = strtotime( "{$timearray['year']}-{$timearray['month']}-{$timearray['day']}T{$timearray['hour']}:{$timearray['minute']}:{$timearray['second']} {$timearray['tz_id']}" );
-		}
 
-		// if that didn't work, give up
-		if ( $time === false || $time === -1 ) {
-			return $content;
-		}
-
-		// build the link and abbr microformat
-		$out = '<a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=' . gmdate( 'Ymd\THi', $time ) . '"><abbr class="globalized-date" title="' . gmdate( 'c', $time ) . '">' . $content . '</abbr></a>';
-
-		// add the time converter JS code
-		add_action( 'wp_footer', array( 'o2_Time_Shortcode', 'time_conversion_script' ) );
-
-		// return the new link
-		return $out;
+			return $time;
 	}
 
 	/**
