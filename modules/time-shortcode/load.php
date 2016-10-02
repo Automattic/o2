@@ -113,43 +113,42 @@ class o2_Time_Shortcode {
 	}
 
 	public static function time_conversion_script() {
+
 		global $wp_locale; // These are strings that Core has already translated.
+
 		?>
 		<script type="text/javascript">
-		( function( $ ) {
 
-			var ts = <?php echo json_encode( array(
-				'months' => array_values( $wp_locale->month ),
-				'days'   => array_values( $wp_locale->weekday ),
-			) ); ?>;
-
-			var o2_parse_date = function ( text ) {
-				var m = /^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\+00:00$/.exec( text );
-				return new Date( Date.UTC( +m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6] ) );
-			}
-			var o2_format_date = function ( d ) {
-				var p = function( n ) {
-					return ( '00' + n ).slice( -2 );
-				};
-				var tz = -d.getTimezoneOffset() / 60;
-				if ( tz >= 0 ) {
-					tz = "+" + tz;
-				}
-				return "" + ts['days'][ d.getDay() ] + ", " + ts['months'][ d.getMonth() ] + " " + p( d.getDate() ) + ", " + d.getFullYear() + " " + p( d.getHours() ) + ":" + p( d.getMinutes() ) + " UTC" + tz;
+			var o2_get_time_settings = function(){
+				return <?php echo json_encode( array(
+					'months' => array_values( $wp_locale->month ),
+					'days'   => array_values( $wp_locale->weekday ),
+				) ); ?>;
 			}
 
-			$( 'body' ).on( 'ready post-load ready.o2', function() {
-				$( 'abbr.globalized-date' ).each( function() {
-					t = $( this );
-					var d = o2_parse_date( t.attr( 'title' ) );
-					if ( d ) {
-						t.text( o2_format_date( d ) );
+			jQuery( 'body' ).on( 'ready post-load ready.o2', function() {
+
+				jQuery( 'abbr.globalized-date' ).each( function() {
+
+					$this = jQuery( this );
+
+					var parsed_date = o2_parse_date( $this.attr( 'title' ) );
+					if ( parsed_date ) {
+						$this.text( o2_format_date( parsed_date ) );
 					}
 				} );
 			} );
-		} )( jQuery );
+
 		</script>
 		<?php
+
+		wp_enqueue_script(
+			'o2-time-shortcode',
+			plugins_url( 'modules/time-shortcode/js/time-shortcode.js', O2__FILE__ ),
+			array(),
+			1.1,
+			true
+		);
 	}
 }
 o2_Time_Shortcode::init();
