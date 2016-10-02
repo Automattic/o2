@@ -10,121 +10,130 @@
  * Conversion happens via Javascript and will depend on the users browser.
  **/
 
-function o2_time_shortcode( $attr, $content = null ) {
-	global $post, $in_comment_content, $comment;
-	$post = get_post();
+class o2_Time_Shortcode {
 
-	// try to parse the time, relative to the post/comment time
+	public static function init() {
 
-	if ( $in_comment_content ) {
-		$date     = strtotime( $comment->comment_date_gmt );
-		$raw_date = date( 'Y-m-d H:i:s', $date );
-	} else {
-		$date     = get_the_date( 'U' );
-		$raw_date = $post->post_date_gmt; // already in ISO format
-	}
-	$time = strtotime( $content, $date );
-
-	// if strtotime doesn't work, try stronger measures
-	if ( $time === false || $time === -1 ) {
-		$timearray = date_parse( $content );
-		foreach ( $timearray as $key => $value ) {
-			if ( $value === false ) unset ( $timearray[$key] );
-		}
-
-		// merge the info from the post date with this one
-		$relative = date_parse( $raw_date );
-		$timearray = array_merge( $relative, $timearray );
-
-		// use the blog's timezone if none was specified
-		if ( !isset( $timearray['tz_id'] ) ) {
-			$timearray['tz_id'] = get_option( 'timezone_string' );
-		}
-
-		// build a normalized time string, then parse it to an integer time using strtotime
-		$time = strtotime( "{$timearray['year']}-{$timearray['month']}-{$timearray['day']}T{$timearray['hour']}:{$timearray['minute']}:{$timearray['second']} {$timearray['tz_id']}" );
+		add_shortcode( 'time', array( 'o2_Time_Shortcode', 'time_shortcode' ) );
+		add_filter( 'comment_text', array( 'o2_Time_Shortcode', 'do_comment_time_shortcode' ) );
 	}
 
-	// if that didn't work, give up
-	if ( $time === false || $time === -1 ) {
-		return $content;
-	}
+	public static function time_shortcode( $attr, $content = null ) {
 
-	// build the link and abbr microformat
-	$out = '<a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=' . gmdate( 'Ymd\THi', $time ) . '"><abbr class="globalized-date" title="' . gmdate( 'c', $time ) . '">' . $content . '</abbr></a>';
+		global $post, $in_comment_content, $comment;
+		$post = get_post();
 
-	// add the time converter JS code
-	add_action( 'wp_footer', 'o2_time_converter_script' );
+		// try to parse the time, relative to the post/comment time
 
-	// return the new link
-	return $out;
-}
-
-function o2_time_converter_script() {
-	global $wp_locale; // These are strings that Core has already translated.
-?>
-	<script type="text/javascript">
-	( function( $ ) {
-
-		var ts = <?php echo json_encode( array(
-			'months' => array_values( $wp_locale->month ),
-			'days'   => array_values( $wp_locale->weekday ),
-		) ); ?>;
-
-		var o2_parse_date = function ( text ) {
-			var m = /^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\+00:00$/.exec( text );
-			return new Date( Date.UTC( +m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6] ) );
+		if ( $in_comment_content ) {
+			$date     = strtotime( $comment->comment_date_gmt );
+			$raw_date = date( 'Y-m-d H:i:s', $date );
+		} else {
+			$date     = get_the_date( 'U' );
+			$raw_date = $post->post_date_gmt; // already in ISO format
 		}
-		var o2_format_date = function ( d ) {
-			var p = function( n ) {
-				return ( '00' + n ).slice( -2 );
-			};
-			var tz = -d.getTimezoneOffset() / 60;
-			if ( tz >= 0 ) {
-				tz = "+" + tz;
+		$time = strtotime( $content, $date );
+
+		// if strtotime doesn't work, try stronger measures
+		if ( $time === false || $time === -1 ) {
+			$timearray = date_parse( $content );
+			foreach ( $timearray as $key => $value ) {
+				if ( $value === false ) unset ( $timearray[$key] );
 			}
-			return "" + ts['days'][ d.getDay() ] + ", " + ts['months'][ d.getMonth() ] + " " + p( d.getDate() ) + ", " + d.getFullYear() + " " + p( d.getHours() ) + ":" + p( d.getMinutes() ) + " UTC" + tz;
+
+			// merge the info from the post date with this one
+			$relative = date_parse( $raw_date );
+			$timearray = array_merge( $relative, $timearray );
+
+			// use the blog's timezone if none was specified
+			if ( !isset( $timearray['tz_id'] ) ) {
+				$timearray['tz_id'] = get_option( 'timezone_string' );
+			}
+
+			// build a normalized time string, then parse it to an integer time using strtotime
+			$time = strtotime( "{$timearray['year']}-{$timearray['month']}-{$timearray['day']}T{$timearray['hour']}:{$timearray['minute']}:{$timearray['second']} {$timearray['tz_id']}" );
 		}
 
-		$( 'body' ).on( 'ready post-load ready.o2', function() {
-			$( 'abbr.globalized-date' ).each( function() {
-				t = $( this );
-				var d = o2_parse_date( t.attr( 'title' ) );
-				if ( d ) {
-					t.text( o2_format_date( d ) );
+		// if that didn't work, give up
+		if ( $time === false || $time === -1 ) {
+			return $content;
+		}
+
+		// build the link and abbr microformat
+		$out = '<a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=' . gmdate( 'Ymd\THi', $time ) . '"><abbr class="globalized-date" title="' . gmdate( 'c', $time ) . '">' . $content . '</abbr></a>';
+
+		// add the time converter JS code
+		add_action( 'wp_footer', array( 'o2_Time_Shortcode', 'time_conversion_script' ) );
+
+		// return the new link
+		return $out;
+	}
+
+	/**
+	 * Process the time shortcode and only the time shortcode in comments
+	 *
+	 * @param string $comment_text The comment content
+	 * @return string Modified comment content
+	 **/
+	public static function do_comment_time_shortcode( $comment_text ) {
+
+		global $shortcode_tags, $in_comment_content;
+		$in_comment_content = true;
+
+		// save the shortcodes
+		$original_tags = $shortcode_tags;
+
+		// only process the time shortcode
+		$shortcode_tags = array( 'time' => 'o2_time_shortcode' );
+
+		// do the time shortcode on the comment
+		$comment_text = do_shortcode( $comment_text );
+
+		// restore the normal shortcodes
+		$shortcode_tags = $original_tags;
+
+		$in_comment_content = false;
+		return $comment_text;
+	}
+
+	public static function time_conversion_script() {
+		global $wp_locale; // These are strings that Core has already translated.
+		?>
+		<script type="text/javascript">
+		( function( $ ) {
+
+			var ts = <?php echo json_encode( array(
+				'months' => array_values( $wp_locale->month ),
+				'days'   => array_values( $wp_locale->weekday ),
+			) ); ?>;
+
+			var o2_parse_date = function ( text ) {
+				var m = /^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\+00:00$/.exec( text );
+				return new Date( Date.UTC( +m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6] ) );
+			}
+			var o2_format_date = function ( d ) {
+				var p = function( n ) {
+					return ( '00' + n ).slice( -2 );
+				};
+				var tz = -d.getTimezoneOffset() / 60;
+				if ( tz >= 0 ) {
+					tz = "+" + tz;
 				}
+				return "" + ts['days'][ d.getDay() ] + ", " + ts['months'][ d.getMonth() ] + " " + p( d.getDate() ) + ", " + d.getFullYear() + " " + p( d.getHours() ) + ":" + p( d.getMinutes() ) + " UTC" + tz;
+			}
+
+			$( 'body' ).on( 'ready post-load ready.o2', function() {
+				$( 'abbr.globalized-date' ).each( function() {
+					t = $( this );
+					var d = o2_parse_date( t.attr( 'title' ) );
+					if ( d ) {
+						t.text( o2_format_date( d ) );
+					}
+				} );
 			} );
-		} );
-	} )( jQuery );
-	</script>
-<?php
+		} )( jQuery );
+		</script>
+		<?php
+	}
 }
-add_shortcode( 'time', 'o2_time_shortcode' );
-
-/**
- * Process the time shortcode and only the time shortcode in comments
- *
- * @param string $comment_text The comment content
- * @return string Modified comment content
- **/
-function o2_time_shortcode_in_comments( $comment_text ) {
-
-	global $shortcode_tags, $in_comment_content;
-	$in_comment_content = true;
-
-	// save the shortcodes
-	$original_tags = $shortcode_tags;
-
-	// only process the time shortcode
-	$shortcode_tags = array( 'time' => 'o2_time_shortcode' );
-
-	// do the time shortcode on the comment
-	$comment_text = do_shortcode( $comment_text );
-
-	// restore the normal shortcodes
-	$shortcode_tags = $original_tags;
-
-	$in_comment_content = false;
-	return $comment_text;
-}
-add_filter( 'comment_text', 'o2_time_shortcode_in_comments' );
+o2_Time_Shortcode::init();
