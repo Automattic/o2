@@ -11,12 +11,12 @@
  **/
 
 function o2_time_shortcode( $attr, $content = null ) {
-	global $post, $time_in_comments, $comment;
+	global $post, $in_comment_content, $comment;
 	$post = get_post();
 
 	// try to parse the time, relative to the post/comment time
 
-	if ( $time_in_comments ) {
+	if ( $in_comment_content ) {
 		$date     = strtotime( $comment->comment_date_gmt );
 		$raw_date = date( 'Y-m-d H:i:s', $date );
 	} else {
@@ -65,6 +65,7 @@ function o2_time_converter_script() {
 ?>
 	<script type="text/javascript">
 	( function( $ ) {
+
 		var ts = <?php echo json_encode( array(
 			'months' => array_values( $wp_locale->month ),
 			'days'   => array_values( $wp_locale->weekday ),
@@ -100,24 +101,30 @@ function o2_time_converter_script() {
 }
 add_shortcode( 'time', 'o2_time_shortcode' );
 
-function o2_time_shortcode_in_comments( $comment ) {
-	global $shortcode_tags, $post, $time_in_comments;
-	$time_in_comments = true;
-	$post = get_post();
+/**
+ * Process the time shortcode and only the time shortcode in comments
+ *
+ * @param string $comment_text The comment content
+ * @return string Modified comment content
+ **/
+function o2_time_shortcode_in_comments( $comment_text ) {
+
+	global $shortcode_tags, $in_comment_content;
+	$in_comment_content = true;
 
 	// save the shortcodes
-	$saved_tags = $shortcode_tags;
+	$original_tags = $shortcode_tags;
 
 	// only process the time shortcode
 	$shortcode_tags = array( 'time' => 'o2_time_shortcode' );
 
 	// do the time shortcode on the comment
-	$comment = do_shortcode( $comment );
+	$comment_text = do_shortcode( $comment_text );
 
 	// restore the normal shortcodes
-	$shortcode_tags = $saved_tags;
+	$shortcode_tags = $original_tags;
 
-	$time_in_comments = false;
-	return $comment;
+	$in_comment_content = false;
+	return $comment_text;
 }
 add_filter( 'comment_text', 'o2_time_shortcode_in_comments' );
