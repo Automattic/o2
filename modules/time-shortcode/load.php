@@ -25,19 +25,22 @@ class o2_Time_Shortcode {
 		// try to parse the time, relative to the post/comment time
 		if ( $in_comment_content ) {
 			$date     = strtotime( $comment->comment_date_gmt );
-			$raw_date = date( 'Y-m-d H:i:s', $date );
+			$iso_date = date( 'Y-m-d H:i:s', $date );
 		} else {
 			$post = get_post();
 			$date     = get_the_date( 'U' );
-			$raw_date = $post->post_date_gmt; // already in ISO format
+			$iso_date = $post->post_date_gmt; // already in ISO format
 		}
 
 		$time = self::parse_time( $content, $date );
 
-		// if strtotime doesn't work, try stronger measures
-		if( $time === false || $time === -1 ) {
-			$time = self::parse_time_with_date_parse( $raw_date, $content );
-		}
+		// If strtotime doesn't work, try stronger measures
+		// I havent been able to get this to produce anything close to the real time with invalid input,
+		// which doesn't make it much use as a fallback
+		// Removing it from rotation for now
+		// if( $time === false || $time === -1 ) {
+		//	$time = self::parse_time_with_date_parse( $content, $iso_date );
+		// }
 
 		// if that didn't work, give up
 		if ( $time === false || $time === -1 ) {
@@ -54,32 +57,32 @@ class o2_Time_Shortcode {
 		return $out;
 	}
 
-	public static function parse_time( $date_string, $utc_now ) {
+	public static function parse_time( $date_string, $time ) {
 
-		return strtotime( $date_string, $utc_now );
+		return strtotime( $date_string, $time );
 
 	}
 
-	public static function parse_time_with_date_parse( $raw_date, $content ) {
+	public static function parse_time_with_date_parse( $date_string, $iso_date ) {
 
-			$timearray = date_parse( $content );
-			foreach ( $timearray as $key => $value ) {
-				if ( $value === false ) unset ( $timearray[$key] );
-			}
+		$timearray = date_parse( $date_string );
+		foreach ( $timearray as $key => $value ) {
+			if ( $value === false ) unset ( $timearray[$key] );
+		}
 
-			// merge the info from the post date with this one
-			$relative = date_parse( $raw_date );
-			$timearray = array_merge( $relative, $timearray );
+		// merge the info from the post date with this one
+		$relative = date_parse( $iso_date );
+		$timearray = array_merge( $relative, $timearray );
 
-			// use the blog's timezone if none was specified
-			if ( !isset( $timearray['tz_id'] ) ) {
-				$timearray['tz_id'] = get_option( 'timezone_string' );
-			}
+		// use the blog's timezone if none was specified
+		if ( !isset( $timearray['tz_id'] ) ) {
+			$timearray['tz_id'] = get_option( 'timezone_string' );
+		}
 
-			// build a normalized time string, then parse it to an integer time using strtotime
-			$time = strtotime( "{$timearray['year']}-{$timearray['month']}-{$timearray['day']}T{$timearray['hour']}:{$timearray['minute']}:{$timearray['second']} {$timearray['tz_id']}" );
+		// build a normalized time string, then parse it to an integer time using strtotime
+		$time = strtotime( "{$timearray['year']}-{$timearray['month']}-{$timearray['day']}T{$timearray['hour']}:{$timearray['minute']}:{$timearray['second']} {$timearray['tz_id']}" );
 
-			return $time;
+		return $time;
 	}
 
 	/**
