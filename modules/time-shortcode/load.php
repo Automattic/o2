@@ -48,7 +48,7 @@ class o2_Time_Shortcode {
 		}
 
 		// build the link and abbr microformat
-		$out = '<a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=' . gmdate( 'Ymd\THi', $time ) . '"><abbr class="globalized-date" title="' . gmdate( 'c', $time ) . '">' . $content . '</abbr></a>';
+		$out = '<a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=' . gmdate( 'Ymd\THi', $time ) . '"><abbr class="globalized-date" title="' . gmdate( 'c', $time ) . '" data-time="' . absint( $time ) . '000">' . $content . '</abbr></a>';
 
 		// add the time converter JS code
 		add_action( 'wp_footer', array( 'o2_Time_Shortcode', 'time_conversion_script' ) );
@@ -132,10 +132,14 @@ class o2_Time_Shortcode {
 
 					var $this = jQuery( this );
 
-					var parsed_date = o2_parse_date( $this.attr( 'title' ) );
-					if ( parsed_date ) {
-						$this.text( o2_format_date( parsed_date ) );
+					var time = $this.data( 'time' );
+					if( isNaN( time ) ){
+						return;
 					}
+
+					var date = new Date( time );
+					$this.text( o2_format_date( date ) );
+
 				} );
 			} );
 

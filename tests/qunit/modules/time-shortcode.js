@@ -73,18 +73,6 @@ function DateMock( weekday, day, month, year, hour, minute, timezone_offset ) {
 	}
 };
 
-QUnit.test( "o2_parse_date valid date", function( assert ) {
-
-	var date_string = "2016-09-30T12:00:00+00:00";
-
-	var date_object = o2_parse_date( date_string );
-
-  	assert.ok( 
-		date_object.toISOString().indexOf( "2016-09-30T12:00:00" ) != -1, 
-		"Correct date value should be parsed on valid input" 
-	);
-});
-
 QUnit.test( "o2_format_date: valid gmt date", function( assert ) {
 
 	var date = new DateMock( 1, 3, 9, 2016, 1, 30, 0 ); // Mon, 03 Oct 2016 01:30 UTC
