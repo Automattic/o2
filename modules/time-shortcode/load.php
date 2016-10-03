@@ -133,7 +133,7 @@ class o2_Time_Shortcode {
 					var $this = jQuery( this );
 
 					var time = $this.data( 'time' );
-					if( isNaN( time ) ){
+					if( ! time || isNaN( time ) ){
 						return;
 					}
 
