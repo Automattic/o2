@@ -130,7 +130,7 @@ class o2_Time_Shortcode {
 
 				jQuery( 'abbr.globalized-date' ).each( function() {
 
-					$this = jQuery( this );
+					var $this = jQuery( this );
 
 					var parsed_date = o2_parse_date( $this.attr( 'title' ) );
 					if ( parsed_date ) {
