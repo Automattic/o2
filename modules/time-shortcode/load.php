@@ -50,14 +50,28 @@ class o2_Time_Shortcode {
 		// build the link and abbr microformat
 		$out = '<a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=' . gmdate( 'Ymd\THi', $time ) . '"><abbr class="globalized-date" title="' . gmdate( 'c', $time ) . '" data-time="' . absint( $time ) . '000">' . $content . '</abbr></a>';
 
-		// add the time converter JS code
-		add_action( 'wp_footer', array( 'o2_Time_Shortcode', 'time_conversion_script' ) );
+		// add the time converter JS code if not already added
+		if( !has_action( 'wp_footer', array( 'o2_Time_Shortcode', 'time_conversion_script' ) ) ){
+			add_action( 'wp_footer', array( 'o2_Time_Shortcode', 'time_conversion_script' ) );
+		}
 
 		// return the new link
 		return $out;
 	}
 
-	public static function parse_time( $date_string, $time ) {
+	public static function parse_time( $date_string, $time = null ) {
+
+		if( empty( $date_string ) ){
+			return false;
+		}
+
+		if( empty( $time ) ){
+			$time = time();
+		}
+
+		$html_entity_regex = '/&[^\s]*;/';
+		$date_string = preg_replace( $html_entity_regex, ' ', $date_string );
+		$date_string = str_ireplace( "U+00A0", ' ', $date_string );
 
 		return strtotime( $date_string, $time );
 
