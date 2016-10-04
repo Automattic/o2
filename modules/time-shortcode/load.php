@@ -98,7 +98,7 @@ class o2_Time_Shortcode {
 		$original_tags = $shortcode_tags;
 
 		// only process the time shortcode
-		$shortcode_tags = array( 'time' => 'o2_time_shortcode' );
+		$shortcode_tags = array( 'time' => array( 'o2_Time_Shortcode', 'time_shortcode' ) );
 
 		// do the time shortcode on the comment
 		$comment_text = do_shortcode( $comment_text );

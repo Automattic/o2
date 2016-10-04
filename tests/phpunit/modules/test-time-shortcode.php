@@ -2,6 +2,10 @@
 
 class TimeShortcodeTest extends WP_UnitTestCase {
 
+	/**
+	* Time Parser tests
+	*/
+
 	function test_parse_time_now() {
 
 		$time_string = 'now';
@@ -152,5 +156,50 @@ class TimeShortcodeTest extends WP_UnitTestCase {
 			'Time parser should handle U+00A0 gracefully'
 		);
 	}
+
+	/**
+	* Module logic tests
+	**/
+
+	function test_shortcode_processed() {
+
+		global $post;
+
+		$post_id = $this->factory->post->create( array(
+			'post_title' => 'Test Post',
+			'post_content' => 'This is some [time]April 2 2009 2:00 PM[/time] test content.'
+		));
+
+		$post = get_post( $post_id );
+		setup_postdata( $post );
+
+		$content = apply_filters( 'the_content', get_the_content() );
+
+		$this->assertFalse(
+			stripos( $content, "[time]" ),
+			'Time shortcode should get processed in post content'
+		);
+	}
+
+	function test_comment_shortcode_processed() {
+
+		global $comment;
+
+		$comment_id = $this->factory->comment->create( array(
+			'comment_content' => 'Test [time]April 2 2009 2:00 PM[/time] comment content',
+			'comment_approved' => 1
+		));
+
+		$the_comment = get_comment( $comment_id );
+		$comment = $the_comment;
+
+		$content = apply_filters( 'comment_text', $the_comment->comment_content );
+
+		$this->assertFalse(
+			stripos( $content, "[time]" ),
+			'Time shortcode should get processed in comment content'
+		);
+	}
+
 }
 
