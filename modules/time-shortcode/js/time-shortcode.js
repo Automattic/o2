@@ -1,3 +1,9 @@
+/**
+ * Get a nice, localized textual representation of a date
+ *
+ * @param date - date object
+ * @return string
+ **/
 var o2_format_date = function ( date ) {
 
 	var time_settings = o2_get_time_settings();

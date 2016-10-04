@@ -12,12 +12,22 @@
 
 class o2_Time_Shortcode {
 
+	/**
+	 * Set the hooks for handling the time shortcode
+	 **/
 	public static function init() {
 
 		add_shortcode( 'time', array( 'o2_Time_Shortcode', 'time_shortcode' ) );
 		add_filter( 'comment_text', array( 'o2_Time_Shortcode', 'do_comment_time_shortcode' ) );
 	}
 
+	/**
+	 * Process the time shortcode
+	 *
+	 * @param array $attr (unused)
+	 * @param string $content - Any valid strtotime string
+	 * @return string - html content
+	 **/
 	public static function time_shortcode( $attr, $content = null ) {
 
 		global $in_comment_content, $comment;
@@ -48,6 +58,13 @@ class o2_Time_Shortcode {
 		return $out;
 	}
 
+	/**
+	 * Convert a time string into an epoch timestamp
+	 *
+	 * @param string $date_string - Any valid strtotime string
+	 * @param int $time (optional) - Epoch timestamp for relative date parsing
+	 * @return mixed - int Epoch timestamp on success, false on fail
+	 **/
 	public static function parse_time( $date_string, $time = null ) {
 
 		if( empty( $date_string ) ){
@@ -69,7 +86,7 @@ class o2_Time_Shortcode {
 	/**
 	 * Process the time shortcode and only the time shortcode in comments
 	 *
-	 * @param string $comment_text The comment content
+	 * @param string $comment_text - The comment content
 	 * @return string Modified comment content
 	 **/
 	public static function do_comment_time_shortcode( $comment_text ) {
@@ -93,6 +110,9 @@ class o2_Time_Shortcode {
 		return $comment_text;
 	}
 
+	/**
+	 * Render and enqueue the javascript that converts the raw time into local time
+	 **/
 	public static function time_conversion_script() {
 
 		global $wp_locale; // These are strings that Core has already translated.
