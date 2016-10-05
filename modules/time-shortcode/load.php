@@ -136,7 +136,8 @@ class o2_Time_Shortcode {
 
 					var $this = jQuery( this );
 
-					var time = $this.data( 'time' );
+					//Valid elements will have an epoch timestamp in milliseconds on a data-time attribute
+					var time = Number.parseInt( $this.data( 'time' ) );
 					if( ! time || isNaN( time ) ){
 						return;
 					}
