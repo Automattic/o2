@@ -42,7 +42,7 @@ class o2_Time_Shortcode {
 		$time = self::parse_time( $content, $relative_time );
 
 		// if that didn't work, give up
-		if ( $time === false || $time === -1 ) {
+		if ( false === $time || -1 === $time ) {
 			return $content;
 		}
 
@@ -50,7 +50,7 @@ class o2_Time_Shortcode {
 		$out = '<a href="http://www.timeanddate.com/worldclock/fixedtime.html?iso=' . gmdate( 'Ymd\THi', $time ) . '"><abbr class="globalized-date" title="' . gmdate( 'c', $time ) . '" data-time="' . absint( $time ) . '000">' . $content . '</abbr></a>';
 
 		// add the time converter JS code if not already added
-		if( !has_action( 'wp_footer', array( 'o2_Time_Shortcode', 'time_conversion_script' ) ) ){
+		if ( ! has_action( 'wp_footer', array( 'o2_Time_Shortcode', 'time_conversion_script' ) ) ) {
 			add_action( 'wp_footer', array( 'o2_Time_Shortcode', 'time_conversion_script' ) );
 		}
 
@@ -67,11 +67,11 @@ class o2_Time_Shortcode {
 	 **/
 	public static function parse_time( $date_string, $time = null ) {
 
-		if( empty( $date_string ) ){
+		if ( empty( $date_string ) ) {
 			return false;
 		}
 
-		if( empty( $time ) ){
+		if ( empty( $time ) ) {
 			$time = time();
 		}
 
@@ -101,7 +101,9 @@ class o2_Time_Shortcode {
 		$original_tags = $shortcode_tags;
 
 		// only process the time shortcode
-		$shortcode_tags = array( 'time' => array( 'o2_Time_Shortcode', 'time_shortcode' ) );
+		$shortcode_tags = array(
+			'time' => array( 'o2_Time_Shortcode', 'time_shortcode' ),
+		);
 
 		// do the time shortcode on the comment
 		$comment_text = do_shortcode( $comment_text );
@@ -123,12 +125,12 @@ class o2_Time_Shortcode {
 		?>
 		<script type="text/javascript">
 
-			var o2_get_time_settings = function(){
+			var o2_get_time_settings = function() {
 				return <?php echo json_encode( array(
 					'months' => array_values( $wp_locale->month ),
 					'days'   => array_values( $wp_locale->weekday ),
 				) ); ?>;
-			}
+			};
 
 			jQuery( 'body' ).on( 'ready post-load ready.o2', function() {
 
@@ -138,7 +140,7 @@ class o2_Time_Shortcode {
 
 					//Valid elements will have an epoch timestamp in milliseconds on a data-time attribute
 					var time = Number.parseInt( $this.data( 'time' ) );
-					if( ! time || isNaN( time ) ){
+					if( ! time || isNaN( time ) ) {
 						return;
 					}
 

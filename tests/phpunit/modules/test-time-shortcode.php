@@ -14,7 +14,7 @@ class TimeShortcodeTest extends WP_UnitTestCase {
 		$parsed_time = o2_Time_Shortcode::parse_time( $time_string );
 
 		//Allow 1 second max difference in case time has changed since the test started
-		$this->assertLessThanOrEqual( 
+		$this->assertLessThanOrEqual(
 			1, $parsed_time - $epoch_now,
 			'Time parser should handle "Now"'
 		);
@@ -26,7 +26,7 @@ class TimeShortcodeTest extends WP_UnitTestCase {
 
 		$parsed_time = o2_Time_Shortcode::parse_time( $time_string, 968544000 );
 
-		$this->assertEquals( 
+		$this->assertEquals(
 			968544000, $parsed_time,
 			'Time parser should handle "Now" relative to some timestamp'
 		);
@@ -111,7 +111,7 @@ class TimeShortcodeTest extends WP_UnitTestCase {
 
 		$time_string = "next Tuesday";
 		$reference_date = 968544000; //Sunday 10 September 2000
-		$next_tuesday = 968544000 + (60*60*24*2);
+		$next_tuesday = 968544000 + ( 60*60*24*2 );
 
 		$parsed_time = o2_Time_Shortcode::parse_time( $time_string, $reference_date );
 
@@ -125,7 +125,7 @@ class TimeShortcodeTest extends WP_UnitTestCase {
 
 		$time_string = "+2 days";
 		$reference_date = 968544000; //Sunday 10 September 2000
-		$next_tuesday = 968544000 + (60*60*24*2);
+		$next_tuesday = 968544000 + ( 60*60*24*2 );
 
 		$parsed_time = o2_Time_Shortcode::parse_time( $time_string, $reference_date );
 
@@ -216,4 +216,3 @@ class TimeShortcodeTest extends WP_UnitTestCase {
 	}
 
 }
-

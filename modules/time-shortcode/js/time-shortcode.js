@@ -17,10 +17,10 @@ var o2_format_date = function ( date ) {
 		timezone_offset = "+" + timezone_offset;
 	}
 
-	return  time_settings['days'][ date.getDay() ] + ", " 
-		+ time_settings['months'][ date.getMonth() ] + " " 
-		+ zero_prefix( date.getDate() ) + ", " 
-		+ date.getFullYear() + " " 
-		+ zero_prefix( date.getHours() ) + ":" + zero_prefix( date.getMinutes() ) 
+	return  time_settings['days'][ date.getDay() ] + ", "
+		+ time_settings['months'][ date.getMonth() ] + " "
+		+ zero_prefix( date.getDate() ) + ", "
+		+ date.getFullYear() + " "
+		+ zero_prefix( date.getHours() ) + ":" + zero_prefix( date.getMinutes() )
 		+ " UTC" + timezone_offset;
 }
