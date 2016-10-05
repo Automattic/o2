@@ -75,9 +75,12 @@ class o2_Time_Shortcode {
 			$time = time();
 		}
 
+		// Convert all the random characters to html entities, then strip all html entities
+		// This removes both bad unicode characters and html entities in one swoop
+		// .+-/ characters are unnaffected by htmlentities, so strtotime won't break
+		$date_string = htmlentities( $date_string, ENT_QUOTES );
 		$html_entity_regex = '/&[^\s]*;/';
 		$date_string = preg_replace( $html_entity_regex, ' ', $date_string );
-		$date_string = str_ireplace( "U+00A0", ' ', $date_string );
 
 		return strtotime( $date_string, $time );
 

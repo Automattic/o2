@@ -147,13 +147,14 @@ class TimeShortcodeTest extends WP_UnitTestCase {
 
 	function test_parse_time_U00A0() {
 
-		$time_string = '10 SeptemberU+00A0 2000';
+		//Add a unicode nbsp in the middle of the string
+		$time_string = '10 September'.json_decode('"\u00A0"').' 2000';
 
 		$parsed_time = o2_Time_Shortcode::parse_time( $time_string );
 
 		$this->assertEquals(
 			968544000, $parsed_time,
-			'Time parser should handle U+00A0 gracefully'
+			'Time parser should handle unicode nbsp gracefully'
 		);
 	}
 
