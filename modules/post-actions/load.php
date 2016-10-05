@@ -76,7 +76,7 @@ class o2_Post_Actions {
 	function before_post_likes( $content ) {
 		global $post;
 
-		if ( ! apply_filters( 'o2_process_the_content', '__return_true' ) ) {
+		if ( ! apply_filters( 'o2_process_the_content', true ) ) {
 			return $content;
 		}
 
@@ -99,7 +99,7 @@ class o2_Post_Actions {
 	function after_post_likes( $content ) {
 		global $post;
 
-		if ( ! apply_filters( 'o2_process_the_content', '__return_true' ) ) {
+		if ( ! apply_filters( 'o2_process_the_content', true ) ) {
 			return $content;
 		}
 
