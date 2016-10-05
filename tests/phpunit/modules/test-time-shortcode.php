@@ -13,9 +13,22 @@ class TimeShortcodeTest extends WP_UnitTestCase {
 
 		$parsed_time = o2_Time_Shortcode::parse_time( $time_string );
 
-		$this->assertEquals( 
-			$epoch_now, $parsed_time,
+		//Allow 1 second max difference in case time has changed since the test started
+		$this->assertLessThanOrEqual( 
+			1, $parsed_time - $epoch_now,
 			'Time parser should handle "Now"'
+		);
+	}
+
+	function test_parse_time_now_relative() {
+
+		$time_string = 'now';
+
+		$parsed_time = o2_Time_Shortcode::parse_time( $time_string, 968544000 );
+
+		$this->assertEquals( 
+			968544000, $parsed_time,
+			'Time parser should handle "Now" relative to some timestamp'
 		);
 	}
 
