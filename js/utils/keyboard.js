@@ -13,6 +13,7 @@ o2Keyboard = {
 	mainEditor:        false,
 	mainEditorWrapper: false,
 	threadContainer:   'article',
+	currentItem:       false,
 
 	init: function( pageMeta ) {
 		var $doc = $( document );
@@ -63,6 +64,8 @@ o2Keyboard = {
 
 
 		$doc.on( 'keydown', null, 't', this.jumpToTop );
+		$doc.on( 'keydown', null, 'j', this.jumpToNext );
+		$doc.on( 'keydown', null, 'k', this.jumpToPrevious );
 		$doc.on( 'keydown', null, 'c', this.compose );
 		$doc.on( 'keydown', null, 's', this.search );
 		$doc.on( 'keydown', null, '/', this.search );
@@ -84,6 +87,112 @@ o2Keyboard = {
 
 	jumpToTop: function( e ) {
 		o2Keyboard.jumpTo( 0 );
+		e.preventDefault();
+	},
+
+	jumpToNext: function( e ) {
+		var previousItem = false;
+
+		if ( ! o2Keyboard.currentItem ) {
+			// Nothing is selected, jump to the first post.
+			o2Keyboard.currentItem = $( '.o2-post' ).first();
+		} else if ( o2Keyboard.currentItem.hasClass( 'o2-post' ) ) {
+			// A post is selected.
+			if ( o2Keyboard.currentItem.parent().find( '.o2-comment' ).length ) {
+				// If there are comments, jump to the first comment.
+				previousItem = o2Keyboard.currentItem;
+				o2Keyboard.currentItem = o2Keyboard.currentItem.parent().find( '.o2-comment' ).first();
+			} else if ( o2Keyboard.currentItem.parents( '.post' ).next().find( '.o2-post' ).length ) {
+				// If there are no comments, jump to the next post.
+				previousItem = o2Keyboard.currentItem;
+				o2Keyboard.currentItem = o2Keyboard.currentItem.parents( '.post' ).next().find( '.o2-post' ).first();
+			}
+			// If there are no more posts or comments, do nothing.
+
+		} else if ( o2Keyboard.currentItem.hasClass( 'o2-comment' ) ) {
+			// A comment is selected.
+			if ( o2Keyboard.currentItem.find( '.o2-comment' ).length ) {
+				// If there are child comments, jump to the first comment.
+				previousItem = o2Keyboard.currentItem;
+				o2Keyboard.currentItem = o2Keyboard.currentItem.find( '.o2-comment' ).first();
+			} else if ( o2Keyboard.currentItem.next().length ) {
+				// If the current comment has a next sibling, jump to it.
+				previousItem = o2Keyboard.currentItem;
+				o2Keyboard.currentItem = o2Keyboard.currentItem.next();
+			} else if ( o2Keyboard.currentItem.parents( '.o2-comment' ).next().length ) {
+				// If one of the parent comments has a next sibling, jump to that comment.
+				previousItem = o2Keyboard.currentItem;
+				o2Keyboard.currentItem = o2Keyboard.currentItem.parents( '.o2-comment' ).next().first();
+			} else if ( o2Keyboard.currentItem.parents( '.post' ).next().find( '.o2-post' ).length ) {
+				// If there are no more comments, jump to the next post.
+				previousItem = o2Keyboard.currentItem;
+				o2Keyboard.currentItem = o2Keyboard.currentItem.parents( '.post' ).next().find( '.o2-post' ).first();
+			}
+			// If there are no more posts or comments, do nothing.
+		}
+
+		if ( previousItem ) {
+			previousItem.removeClass( 'keyselected' );
+		}
+
+		if ( ! o2Keyboard.currentItem.hasClass( 'keyselected' ) ) {
+			o2Keyboard.currentItem.addClass( 'keyselected' );
+			o2Keyboard.jumpTo( o2Keyboard.currentItem.offset().top - 50 );
+		}
+		e.preventDefault();
+	},
+
+	jumpToPrevious: function( e ) {
+		var previousItem = false;
+
+		if ( ! o2Keyboard.currentItem ) {
+			// Nothing is selected, do nothing.
+		} else if ( o2Keyboard.currentItem.hasClass( 'o2-post' ) ) {
+			// A post is selected.
+			var previousPost = o2Keyboard.currentItem.parent().prev();
+			if ( previousPost.length ) {
+				// There is a previous post
+				if ( previousPost.find( '.o2-comment' ).length ) {
+					// There are comments on the post, jump to the last one.
+					previousItem = o2Keyboard.currentItem;
+					o2Keyboard.currentItem = previousPost.find( '.o2-comment' ).last();
+				} else {
+					// No comments, jump to the post.
+					previousItem = o2Keyboard.currentItem;
+					o2Keyboard.currentItem = previousPost.find( '.o2-post' ).first()
+				}
+			}
+			// No previous post, do nothing.
+
+		} else if ( o2Keyboard.currentItem.hasClass( 'o2-comment' ) ) {
+			// A comment is selected.
+			if ( o2Keyboard.currentItem.prev().find( '.o2-comment' ).length ) {
+				// If the current comment has a previous sibling with child comments, jump to the last one.
+				previousItem = o2Keyboard.currentItem;
+				o2Keyboard.currentItem = o2Keyboard.currentItem.prev().find( '.o2-comment' ).last();
+			} else if ( o2Keyboard.currentItem.prev().length ) {
+				// If the current comment has a previous sibling, jump to it.
+				previousItem = o2Keyboard.currentItem;
+				o2Keyboard.currentItem = o2Keyboard.currentItem.prev();
+			} else if ( o2Keyboard.currentItem.parents( '.o2-comment' ).length ) {
+				// If the current comment has a parent, jump to it.
+				previousItem = o2Keyboard.currentItem;
+				o2Keyboard.currentItem = o2Keyboard.currentItem.parents( '.o2-comment' ).first();
+			} else {
+				// Go to the post.
+					previousItem = o2Keyboard.currentItem;
+					o2Keyboard.currentItem = o2Keyboard.currentItem.parents( '.post' ).find( '.o2-post' ).first()
+			}
+		}
+
+		if ( previousItem ) {
+			previousItem.removeClass( 'keyselected' );
+		}
+
+		if ( ! o2Keyboard.currentItem.hasClass( 'keyselected' ) ) {
+			o2Keyboard.currentItem.addClass( 'keyselected' );
+			o2Keyboard.jumpTo( o2Keyboard.currentItem.offset().top - 50 );
+		}
 		e.preventDefault();
 	},
 

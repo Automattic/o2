@@ -24,6 +24,8 @@ class o2_Keyboard {
 				<dt>r</dt> <dd><?php _e( 'reply', 'o2' ); ?></dd>
 				<dt>e</dt> <dd><?php _e( 'edit', 'o2' ); ?></dd>
 				<dt>t</dt> <dd><?php _e( 'go to top', 'o2' ); ?></dd>
+				<dt>j</dt> <dd><?php _e( 'go to the next post or comment', 'o2' ); ?></dd>
+				<dt>k</dt> <dd><?php _e( 'go to the previous post or comment', 'o2' ); ?></dd>
 				<dt>o</dt> <dd><?php _e( 'toggle comment visibility', 'o2' ); ?></dd>
 				<dt><?php _e( 'esc', 'o2' ); ?></dt> <dd><?php _e( 'cancel edit post or comment', 'o2' ); ?></dd>
 			</dl>
