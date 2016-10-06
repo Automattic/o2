@@ -50,6 +50,7 @@ o2.Views.Pagination = ( function() {
 					totalPages: totalPages,
 					rangeInView: rangeInView,
 					totalView: foundPosts,
+					filterTags: this.model.get( 'filterTags' ),
 					state: this.model.get( 'state' ),
 					prevText: this.options.prevText,
 					nextText: this.options.nextText,

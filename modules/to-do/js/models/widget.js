@@ -10,6 +10,7 @@ o2.Models.ToDosWidget = ( function( $, Backbone ) {
 				'currentPage': 1,
 				'totalPages': 0,
 				'postsPerPage': 5,
+				'filterTags': '',
 				'foundPosts': 0,
 				'state': 'unresolved',
 				'order': 'ASC'

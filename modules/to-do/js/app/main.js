@@ -24,6 +24,7 @@ o2.Routers.ToDos = ( function( $, Backbone ) {
 						state: data.data( 'state' ),
 						order: data.data( 'order' ),
 						postsPerPage: data.data( 'postsPerPage' ),
+						filterTags: data.data( 'filterTags' ),
 						foundPosts: toDosFound[ data.data( 'state' ) ],
 						totalPages: Math.ceil( toDosFound[ data.data( 'state' ) ] / data.data( 'postsPerPage' ) ),
 						collection: toDos

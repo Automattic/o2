@@ -8,6 +8,7 @@ class o2_ToDos_Widget extends WP_Widget {
 		'title'          => '',
 		'posts_per_page' => 5,
 		'order'          => 'ASC',
+		'filter_tags'    => '',
 	);
 
 	function __construct() {
@@ -52,6 +53,7 @@ class o2_ToDos_Widget extends WP_Widget {
 		$title = $instance['title'];
 		$posts_per_page = $instance['posts_per_page'];
 		$order = $instance['order'];
+		$filter_tags = $instance['filter_tags'];
 
 		$states = o2_ToDos::get_state_slugs();
 		?>
@@ -80,6 +82,11 @@ class o2_ToDos_Widget extends WP_Widget {
 		<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'posts_per_page' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'posts_per_page' ) ); ?>" type="number" value="<?php echo esc_attr( $posts_per_page ); ?>" maxlength="2" />
 		</label></p>
 
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'filter_tags' ) ); ?>"><?php esc_html_e( 'Filter to these tags', 'o2' ); ?>
+		<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'filter_tags' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'filter_tags' ) ); ?>" type="text" value="<?php echo esc_attr( $filter_tags ); ?>" />
+		</label><br />
+		<span class="description"><?php _e( "Separate multiple tags with commas, and prefix with '-' to exclude.", 'o2' ); ?></p>
+
 		<?php
 	}
 
@@ -98,6 +105,28 @@ class o2_ToDos_Widget extends WP_Widget {
 			$instance['posts_per_page'] = 1;
 		$instance['order'] = ( 'DESC' == $new_instance['order'] ) ? 'DESC' : 'ASC';
 
+		$multi_tags = (array)explode( ',', $new_instance['filter_tags'] );
+		$multi_tags = array_map( 'sanitize_key', $multi_tags );
+		// We only want to save tags that actually exist
+		foreach( $multi_tags as $key => $multi_tag ) {
+			if ( 0 === strpos( $multi_tag, '-' ) )
+				$invert = '-';
+			else
+				$invert = '';
+			if ( is_numeric( $multi_tag ) ) {
+				if ( false === ( $tag = get_term_by( 'id', $multi_tag, 'post_tag' ) ) )
+					unset( $multi_tags[$key] );
+				if ( is_object( $tag ) )
+					$multi_tags[$key] = $invert . $tag->term_id;
+			} else {
+				if ( false === ( $tag = get_term_by( 'slug', $multi_tag, 'post_tag' ) ) )
+					unset( $multi_tags[$key] );
+				if ( is_object( $tag ) )
+					$multi_tags[$key] = $invert . $tag->slug;
+			}
+		}
+		$instance['filter_tags'] = implode( ',', $multi_tags );
+
 		return $instance;
 	}
 
@@ -110,16 +139,17 @@ class o2_ToDos_Widget extends WP_Widget {
 		$state = $instance['state'];
 		$posts_per_page = intval( $instance['posts_per_page'] );
 		$order = ( 'DESC' == $instance['order'] ) ? 'DESC' : 'ASC';
+		$filter_tags = $instance['filter_tags'];
 
 		echo $args['before_widget'];
 		if ( ! empty( $title ) )
 			echo $args['before_title'] . $title . $args['after_title'];
-		echo "<div data-state='" . esc_attr( $state ) . "' data-posts-per-page='" . esc_attr( $posts_per_page ) . "' data-order='" . esc_attr( $order ) . "' style='display:none;'></div>";
+		echo "<div data-state='" . esc_attr( $state ) . "' data-posts-per-page='" . esc_attr( $posts_per_page ) . "' data-order='" . esc_attr( $order ) . "' data-filter-tags='" . esc_attr( $filter_tags ) . "' style='display:none;'></div>";
 		echo $args['after_widget'];
 
 		// Track which posts we will need to bootstrap
 		$loaded = self::$loaded;
-		$key = $state . ':' . $order;
+		$key = $state . ':' . $order . ':' . $filter_tags;
 		if ( array_key_exists( $key, $loaded ) ) {
 			if ( $posts_per_page > $loaded[ $key ] )
 				$loaded[ $key ] = $posts_per_page;
@@ -136,7 +166,7 @@ class o2_ToDos_Widget extends WP_Widget {
 	 */
 	function get_templates() {
 		$post_stamp = sprintf( __( '%1$s, %2$s comments', 'o2' ), '<span class="resolved-post-date o2-timestamp" data-unixtime="{{ data.timestamp }}"></span>', '{{ data.commentCount }}' );
-		$showing_of = sprintf( __( 'Showing %1$s of %2$s %3$s posts', 'o2' ), '{{{ data.rangeInView }}}', '{{ data.totalView }}', '<a href="' . site_url( '/?resolved={{ data.state }}' ) . '">{{ data.state }}</a>' );
+		$showing_of = sprintf( __( 'Showing %1$s of %2$s %3$s posts', 'o2' ), '{{{ data.rangeInView }}}', '{{ data.totalView }}', '<a href="' . site_url( '/?resolved={{ data.state }}&tags={{ data.filterTags }}' ) . '">{{ data.state }}</a>' );
 		?>
 
 		<script type="html/template" id="tmpl-o2-extend-resolved-posts-resolved-post">
@@ -198,7 +228,7 @@ class o2_ToDos_Widget extends WP_Widget {
 			// Exclude x-posted content
 			$term = get_term_by( 'slug', 'p2-xpost', 'post_tag' );
 			foreach ( $loaded as $key => $posts_per_page ) {
-				list( $state, $order ) = explode( ':', $key );
+				list( $state, $order, $filter_tags ) = explode( ':', $key );
 				$args = array(
 					'posts_per_page' => $posts_per_page,
 					'offset'         => 0,
@@ -214,6 +244,24 @@ class o2_ToDos_Widget extends WP_Widget {
 				if ( $term )
 					$args[ 'tag__not_in' ] = array( $term->term_id );
 
+				$filter_tags = (array)explode( ',', $filter_tags );
+	 			foreach( (array)$filter_tags as $filter_tag ) {
+	 				if ( ! $filter_tag )
+	 					continue;
+	 				$new_tax_query = array(
+							'taxonomy' => 'post_tag',
+						);
+	 				if ( 0 === strpos( $filter_tag, '-' ) )
+						$new_tax_query['operator'] = 'NOT IN';
+					$filter_tag = trim( $filter_tag, '-' );
+					if ( is_numeric( $filter_tag ) )
+						$new_tax_query['field'] = 'ID';
+					else
+						$new_tax_query['field'] = 'slug';
+					$new_tax_query['terms'] = $filter_tag;
+	 				$args['tax_query'][] = $new_tax_query;
+	 			}
+
 				// Use WP_Query instead of get_posts() so we can use $found_posts
 				$query = new WP_Query( $args );
 				foreach( $query->posts as $post ) {
@@ -221,6 +269,7 @@ class o2_ToDos_Widget extends WP_Widget {
 				}
 				$found[] = array(
 					'state' => $state,
+					'filterTags' => $filter_tags,
 					'found' => $query->found_posts,
 				);
 				wp_reset_postdata();
@@ -270,6 +319,7 @@ class o2_ToDos_Widget extends WP_Widget {
 		$posts_per_page = absint( $_REQUEST['postsPerPage'] );
 		$state = sanitize_key( $_REQUEST['state'] );
 		$order = sanitize_key( $_REQUEST['order'] );
+		$filter_tags = sanitize_key( $_REQUEST['filterTags'] );
 
 		$posts = array();
 
@@ -279,6 +329,7 @@ class o2_ToDos_Widget extends WP_Widget {
 			'posts_per_page' => -1,
 			'offset'         => $current_page * $posts_per_page,
 			'order'          => $order,
+			'tags'           => $filter_tags,
 			'tax_query'      => array(
 				array(
 					'taxonomy' => o2_ToDos::taxonomy,
@@ -289,6 +340,24 @@ class o2_ToDos_Widget extends WP_Widget {
 		);
 		if ( $term )
 			$args['tag__not_in'] = array( $term->term_id );
+
+		$filter_tags = (array)explode( ',', $filter_tags );
+	 	foreach( (array)$filter_tags as $filter_tag ) {
+	 		if ( ! $filter_tag )
+	 			continue;
+	 		$new_tax_query = array(
+					'taxonomy' => 'post_tag',
+				);
+	 		if ( 0 === strpos( $filter_tag, '-' ) )
+				$new_tax_query['operator'] = 'NOT IN';
+			$filter_tag = trim( $filter_tag, '-' );
+			if ( is_numeric( $filter_tag ) )
+				$new_tax_query['field'] = 'ID';
+			else
+				$new_tax_query['field'] = 'slug';
+			$new_tax_query['terms'] = $filter_tag;
+	 		$args['tax_query'][] = $new_tax_query;
+	 	}
 
 		$query = new WP_Query( $args );
 		foreach ( $query->posts as $post ) {

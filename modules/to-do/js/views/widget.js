@@ -92,6 +92,7 @@ o2.Views.ToDosWidget = ( function( $ ) {
 					callback: 'o2-extend-resolved-posts-fetch',
 					currentPage: this.model.get( 'currentPage' ),
 					postsPerPage: this.model.get( 'postsPerPage' ),
+					filterTags: this.model.get( 'filterTags' ),
 					state: this.model.get( 'state' )
 				};
 				o2.Query.query( {

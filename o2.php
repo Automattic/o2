@@ -712,6 +712,9 @@ class o2 {
 			$query_slugs = explode( ',', get_query_var( 'tag' ) );
 			$tag_titles = array();
 			foreach( (array) $query_slugs as $query_slug ) {
+				if ( ! $query_slug ) {
+					continue;
+				}
 				$query_slug = strip_tags( wp_kses_no_null( trim( $query_slug ) ) );
 				$found_tag = get_term_by( 'slug', $query_slug, 'post_tag' );
 				if ( $found_tag ) {

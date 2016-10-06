@@ -43,6 +43,7 @@ class o2_ToDos extends o2_API_Base {
 		add_filter( 'o2_filter_widget_filters', array( $this, 'filter_widget_filters' ) );
 		add_filter( 'o2_page_title', array( $this, 'page_title' ) );
 		add_filter( 'o2_options', array( $this, 'show_front_side_post_box_with_results' ) );
+		add_filter( 'request', array( $this, 'request' ) );
 
 		// Infinite Scroll
 		add_filter( 'infinite_scroll_ajax_url', array( $this, 'infinite_scroll_ajax_url' ) );
@@ -140,6 +141,10 @@ class o2_ToDos extends o2_API_Base {
 		if ( isset( $_GET['resolved'] ) && in_array( $_GET['resolved'], self::get_state_slugs() ) ) {
 			$ajax_url = add_query_arg( array( 'o2_resolved' => sanitize_key( $_GET['resolved'] ) ), $ajax_url );
 		}
+		if ( isset( $_GET['tags'] ) ) {
+			$ajax_url = add_query_arg( array( 'tags' => sanitize_key( $_GET['tags'] ) ), $ajax_url );
+		}
+
 		return $ajax_url;
 	}
 
@@ -150,6 +155,11 @@ class o2_ToDos extends o2_API_Base {
 		if ( isset( $_GET['o2_resolved'] ) && in_array( $_GET['o2_resolved'], self::get_state_slugs() ) ) {
 			$query_args['resolved'] = sanitize_key( $_GET['o2_resolved'] );
 		}
+
+		if ( isset( $_GET['tags'] ) ) {
+			$query_args['tags'] = sanitize_key( $_GET['tags'] );
+		}
+
 		return $query_args;
 	}
 
@@ -157,8 +167,14 @@ class o2_ToDos extends o2_API_Base {
 	 * Make this compatible with polling
 	 */
 	function polling_sanitized_query_vars( $query_vars ) {
-		if ( isset( $_GET['resolved'] ) && in_array( $_GET['resolved'], self::get_state_slugs() ) )
+		if ( isset( $_GET['resolved'] ) && in_array( $_GET['resolved'], self::get_state_slugs() ) ) {
 			$query_vars['resolved'] = sanitize_key( $_GET['resolved'] );
+		}
+
+		if ( isset( $_GET['tags'] ) ) {
+			$query_args['tags'] = sanitize_key( $_GET['tags'] );
+		}
+
 		return $query_vars;
 	}
 
@@ -461,6 +477,33 @@ class o2_ToDos extends o2_API_Base {
 	}
 
 	/**
+	 * Parse the request if it's a request for our unresolved posts
+	 */
+	function request( $qvs ) {
+		if ( !empty( $_GET['tags'] ) || !empty( $_GET['post_tag'] ) ) {
+			$filter_tags = ( !empty( $_GET['tags'] ) ) ? $_GET['tags'] : $_GET['post_tag'];
+			$filter_tags = (array)explode( ',', $filter_tags );
+	 		foreach( (array)$filter_tags as $filter_tag ) {
+	 			$filter_tag = sanitize_key( $filter_tag );
+	 			$new_tax_query = array(
+						'taxonomy' => 'post_tag',
+					);
+	 			if ( 0 === strpos( $filter_tag, '-') )
+					$new_tax_query['operator'] = 'NOT IN';
+				$filter_tag = trim( $filter_tag, '-' );
+				if ( is_numeric( $filter_tag ) )
+					$new_tax_query['field'] = 'ID';
+				else
+					$new_tax_query['field'] = 'slug';
+				$new_tax_query['terms'] = $filter_tag;
+	 			$qvs['tax_query'][] = $new_tax_query;
+	 		}
+	 	}
+
+		return $qvs;
+	}
+
+	/**
 	 * Main AJAX callback
 	 *
 	 * Determine if a post's next state is valid, set it, and return the audit log fragment as success, or
@@ -507,7 +550,7 @@ class o2_ToDos extends o2_API_Base {
 		$resolved_query = get_query_var( 'resolved' );
 		if ( ! empty( $resolved_query ) ) {
 			$resolved_query = strip_tags( wp_kses_no_null( trim( $resolved_query ) ) );
-			$page_title = is_tag() ? $page_title . " | " : '';
+			$page_title = is_tag() && $page_title ? $page_title . " | " : '';
 			if ( 'unresolved' === $resolved_query ) {
 				$page_title .= sprintf( _x( 'Posts Marked To Do (%d)', 'resolved/unresolved posts', 'o2' ), $wp_query->found_posts );
 			} else if ( 'resolved' === $resolved_query ) {
