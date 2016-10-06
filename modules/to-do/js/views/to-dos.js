@@ -28,13 +28,13 @@ o2.Views.ToDos = ( function() {
 			var postsPerPage = this.model.get( 'postsPerPage' );
 			var currentPage = this.model.get( 'currentPage' );
 			var order = this.model.get( 'order' );
-			var mine = _.toArray( this.model.get( 'collection' ).where( { state: this.model.get( 'state' ) } ) );
+			var mine = _.toArray( this.model.get( 'collection' ).where( { widgetID: this.model.get( 'widgetID' ) } ) );
 
 			// Reverse array if descending
 			if ( 'DESC' === order ) {
 				mine.reverse();
 			}
- 
+
 			var start = ( currentPage - 1 ) * postsPerPage;
 			var end = start + postsPerPage - 1;
 			if ( end > ( foundPosts - 1 ) ) {

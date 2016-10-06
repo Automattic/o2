@@ -11,7 +11,7 @@ o2.Routers.ToDos = ( function( $, Backbone ) {
 			var toDosFound = {};
 
 			_.each( options.found, function( found ) {
-				toDosFound[ found.state ] = found.found;
+				toDosFound[ found.widgetID ] = found.found;
 			} );
 
 			// Initialize each widget as a new View
@@ -25,8 +25,8 @@ o2.Routers.ToDos = ( function( $, Backbone ) {
 						order: data.data( 'order' ),
 						postsPerPage: data.data( 'postsPerPage' ),
 						filterTags: data.data( 'filterTags' ),
-						foundPosts: toDosFound[ data.data( 'state' ) ],
-						totalPages: Math.ceil( toDosFound[ data.data( 'state' ) ] / data.data( 'postsPerPage' ) ),
+						foundPosts: toDosFound[ widget.id ],
+						totalPages: Math.ceil( toDosFound[ widget.id ] / data.data( 'postsPerPage' ) ),
 						collection: toDos
 					} );
 					toDosWidgetsModels.push( model );

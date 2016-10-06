@@ -87,13 +87,14 @@ o2.Views.ToDosWidget = ( function( $ ) {
 
 		fetchAll: function() {
 			// Only fetch more fragments if we don't have all of them
-			if ( o2.ToDos.toDosFound[ this.model.get( 'state' ) ] > _.size( this.model.get( 'collection' ).where( { state: this.model.get( 'state' ) } ) ) ) {
+			if ( o2.ToDos.toDosFound[ this.model.get( 'widgetID' ) ] > _.size( this.model.get( 'collection' ).where( { widgetID: this.model.get( 'widgetID' ) } ) ) ) {
 				var data = {
 					callback: 'o2-extend-resolved-posts-fetch',
 					currentPage: this.model.get( 'currentPage' ),
 					postsPerPage: this.model.get( 'postsPerPage' ),
 					filterTags: this.model.get( 'filterTags' ),
-					state: this.model.get( 'state' )
+					state: this.model.get( 'state' ),
+					widgetID: this.model.get( 'widgetID' )
 				};
 				o2.Query.query( {
 					target: this.model,
@@ -108,7 +109,7 @@ o2.Views.ToDosWidget = ( function( $ ) {
 			_.each( e.data.posts, function( post ) {
 				o2.ToDos.toDos.add( post );
 			} );
-			o2.ToDos.toDosFound[ this.model.get( 'state' ) ] = foundPosts;
+			o2.ToDos.toDosFound[ this.model.get( 'widgetID' ) ] = foundPosts;
 
 			// Fetched fragments should be ready to render now
 			this.render();

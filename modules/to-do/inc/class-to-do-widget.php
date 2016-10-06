@@ -153,7 +153,7 @@ class o2_ToDos_Widget extends WP_Widget {
 
 		// Track which posts we will need to bootstrap
 		$loaded = self::$loaded;
-		$key = $state . ':' . $order . ':' . $filter_tags;
+		$key = $state . ':' . $order . ':' . $filter_tags . ':' . $this->id;
 		if ( array_key_exists( $key, $loaded ) ) {
 			if ( $posts_per_page > $loaded[ $key ] )
 				$loaded[ $key ] = $posts_per_page;
@@ -232,7 +232,7 @@ class o2_ToDos_Widget extends WP_Widget {
 			// Exclude x-posted content
 			$term = get_term_by( 'slug', 'p2-xpost', 'post_tag' );
 			foreach ( $loaded as $key => $posts_per_page ) {
-				list( $state, $order, $filter_tags ) = explode( ':', $key );
+				list( $state, $order, $filter_tags, $widget_id ) = explode( ':', $key );
 				$args = array(
 					'posts_per_page' => $posts_per_page,
 					'offset'         => 0,
@@ -269,9 +269,10 @@ class o2_ToDos_Widget extends WP_Widget {
 				// Use WP_Query instead of get_posts() so we can use $found_posts
 				$query = new WP_Query( $args );
 				foreach( $query->posts as $post ) {
-					$data[ $post->ID ] = self::get_fragment_from_post( $post, $state );
+					$data[ $post->ID . ':' . $widget_id ] = self::get_fragment_from_post( $post, $state, $widget_id );
 				}
 				$found[] = array(
+					'widgetID' => $widget_id,
 					'state' => $state,
 					'filterTags' => $filter_tags,
 					'found' => $query->found_posts,
@@ -324,6 +325,7 @@ class o2_ToDos_Widget extends WP_Widget {
 		$state = sanitize_key( $_REQUEST['state'] );
 		$order = sanitize_key( $_REQUEST['order'] );
 		$filter_tags = sanitize_key( $_REQUEST['filterTags'] );
+		$widget_id = sanitize_key( $_REQUEST['widgetID'] );
 
 		$posts = array();
 
@@ -365,7 +367,7 @@ class o2_ToDos_Widget extends WP_Widget {
 
 		$query = new WP_Query( $args );
 		foreach ( $query->posts as $post ) {
-			$posts[ $post->ID ] = self::get_fragment_from_post( $post, $state );
+			$posts[ $post->ID . ':' . $widget_id ] = self::get_fragment_from_post( $post, $state, $widget_id );
 		}
 		wp_reset_postdata();
 		$payload = array(
@@ -382,14 +384,15 @@ class o2_ToDos_Widget extends WP_Widget {
 	 *
 	 * @param object Post object
 	 * @param string Current post state slug
+	 * @param string The ID of the widget that the current post belongs to
 	 * @return array A resolved post fragment
 	 */
-	public static function get_fragment_from_post( $post, $state ) {
+	public static function get_fragment_from_post( $post, $state, $widget_id ) {
 		$comment_count = wp_count_comments( $post->ID );
 		$post_title = empty( $post->post_title ) ? __( 'Untitled', 'o2' ) : $post->post_title;
 		$fragment = array(
 			'type'         => 'post',
-			'id'           => $post->ID,
+			'id'           => $post->ID . ':' . $widget_id,
 			'postID'       => $post->ID,
 			'avatar'       => get_avatar( $post->post_author, 32 ),
 			'title'        => apply_filters( 'the_title', $post_title, $post->ID ),
@@ -398,6 +401,7 @@ class o2_ToDos_Widget extends WP_Widget {
 			'state'        => $state,
 			'timestamp'    => strtotime( $post->post_date_gmt ),
 			'permalink'    => get_permalink( $post ),
+			'widgetID'     => $widget_id,
 		);
 		return $fragment;
 	}

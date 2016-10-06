@@ -12,7 +12,8 @@ o2.Models.ToDo = ( function() {
 				'permalink': '',
 				'timestamp': Math.round( +new Date() / 1000 ),
 				'commentCount': 0,
-				'state': ''
+				'state': '',
+				'widgetID': ''
 			};
 		}
 	} );
