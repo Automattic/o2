@@ -109,6 +109,10 @@ class o2_ToDos_Widget extends WP_Widget {
 		$multi_tags = array_map( 'sanitize_key', $multi_tags );
 		// We only want to save tags that actually exist
 		foreach( $multi_tags as $key => $multi_tag ) {
+			if ( empty( $multi_tag ) ) {
+				unset( $multi_tags[ $key ] );
+				continue;
+			}
 			if ( 0 === strpos( $multi_tag, '-' ) )
 				$invert = '-';
 			else
