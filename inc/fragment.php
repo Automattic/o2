@@ -672,6 +672,7 @@ class o2_Fragment {
 			$post_content = $post->post_content;
 		}
 		$post_content = htmlspecialchars_decode( $post_content, ENT_QUOTES );
+		$post_content = apply_filters( 'o2_bump_post_content', $post_content, $post_id );
 
 		// We don't want to create a revision, so remove the wp_save_post_revision post_updated action
 		// before updating the post

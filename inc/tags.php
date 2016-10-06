@@ -20,6 +20,7 @@ class o2_Tags extends o2_Terms_In_Comments {
 		}
 		add_filter( 'comment_text',           array( 'o2_Tags', 'tag_links' ), 15 );
 		add_filter( 'o2_post_fragment',       array( $this, 'append_old_tags_to_fragment' ), 10, 1 );
+		add_filter( 'o2_bump_post_content',   array( 'o2_Tags', 'append_old_tags_raw' ) );
 
 		parent::__construct( 'post_tag' );
 	}
@@ -67,17 +68,18 @@ class o2_Tags extends o2_Terms_In_Comments {
 	}
 
 	/**
-	 * Appends the tags of old posts to the end of the post, for o2 fragments
+	 * Append the tags of old posts to the end of the post, as a comma separated list.
 	 *
-	 * @param string $fragment The fragment
-	 * @return string The fragment with any old tags appended to contentRaw
+	 * @param string $content The raw content to be processed
+	 * @param int $post_id The post ID that the content belongs to
+	 * @return string The raw content, with tags appended
 	 */
-	function append_old_tags_to_fragment( $fragment ) {
-		$content_tags = o2_Tags::find_tags( $fragment['contentRaw'], true );
+	function append_old_tags_raw( $content, $post_id ) {
+		$content_tags = o2_Tags::find_tags( $content, true );
 		$content_tags = array_map( 'strtolower', $content_tags );
 		$content_tags = array_unique( $content_tags );
 
-		$tags = o2_Fragment::get_post_tags( $fragment['id'] );
+		$tags = o2_Fragment::get_post_tags( $post_id );
 
 		if ( ! empty( $tags ) ) {
 			$tag_slugs = array();
@@ -88,10 +90,21 @@ class o2_Tags extends o2_Terms_In_Comments {
 			}
 
 			if ( ! empty( $tag_slugs ) ) {
-				$fragment['contentRaw'] .= "\n\n" . implode( ', ', $tag_slugs );
+				$content .= "\n\n" . implode( ', ', $tag_slugs );
 			}
 		}
 
+		return $content;
+	}
+
+	/**
+	 * Appends the tags of old posts to the end of the post, for o2 fragments
+	 *
+	 * @param string $fragment The fragment
+	 * @return string The fragment with any old tags appended to contentRaw
+	 */
+	function append_old_tags_to_fragment( $fragment ) {
+		$fragment['contentRaw'] = $this->append_old_tags_raw( $fragment['contentRaw'], $fragment['id'] );
 		return $fragment;
 	}
 
