@@ -876,7 +876,13 @@ class o2 {
 
 		$conversation = array();
 		if ( is_single() || is_category() || is_archive() || is_author() || is_home() || is_page() || is_search() ) {
-			$conversation[] = o2_Fragment::get_fragment( $post, array( 'find-adjacent' => is_single(), 'the_content' => $content ) );
+			if ( current_filter() === 'the_content' ) {
+				$conversation[] = o2_Fragment::get_fragment( $post, array( 'find-adjacent' => is_single(), 'the_content' => $content ) );
+			} else {
+				// Other content filters (particularly, the_excerpt) may try to strip tags, which causes issues
+				// for the various actions that o2 adds to the end of the content.
+				$conversation[] = o2_Fragment::get_fragment( $post, array( 'find-adjacent' => is_single() ) );
+			}
 
 			// Append the encoded conversation to the content in a hidden script block
 			$content .= "<script class='o2-data' id='o2-data-{$post->ID}' data-post-id='{$post->ID}' type='application/json' style='display:none'>";
