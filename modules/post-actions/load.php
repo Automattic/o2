@@ -76,7 +76,7 @@ class o2_Post_Actions {
 	function before_post_likes( $content ) {
 		global $post;
 
-		if ( is_admin() ) {
+		if ( is_admin() && ! ( isset( $_GET['action'] ) && 'o2_read' === $_GET['action'] ) ) {
 			return $content;
 		}
 
@@ -103,7 +103,7 @@ class o2_Post_Actions {
 	function after_post_likes( $content ) {
 		global $post;
 
-		if ( is_admin() ) {
+		if ( is_admin() && ! ( isset( $_GET['action'] ) && 'o2_read' === $_GET['action'] ) ) {
 			return $content;
 		}
 
