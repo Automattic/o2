@@ -170,7 +170,7 @@ class o2_ToDos_Widget extends WP_Widget {
 	 */
 	function get_templates() {
 		$post_stamp = sprintf( __( '%1$s, %2$s comments', 'o2' ), '<span class="resolved-post-date o2-timestamp" data-unixtime="{{ data.timestamp }}"></span>', '{{ data.commentCount }}' );
-		$showing_of = sprintf( __( 'Showing %1$s of %2$s %3$s posts', 'o2' ), '{{{ data.rangeInView }}}', '{{ data.totalView }}', '<a href="' . site_url( '/?resolved={{ data.state }}&tags={{ data.filterTags }}' ) . '">{{ data.state }}</a>' );
+		$showing_of = sprintf( __( 'Showing %1$s of %2$s %3$s posts', 'o2' ), '{{{ data.rangeInView }}}', '{{ data.totalView }}', '<a href="' . site_url( '/?resolved={{ data.state }}<# if ( data.filterTags ) { #>&tags={{ data.filterTags }}<# } #>' ) . '">{{ data.state }}</a>' );
 		?>
 
 		<script type="html/template" id="tmpl-o2-extend-resolved-posts-resolved-post">
