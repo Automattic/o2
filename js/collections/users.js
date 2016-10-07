@@ -35,9 +35,10 @@ o2.Collections.Users = ( function( $, Backbone ) {
 				if ( 'undefined' === typeof user ) {
 					// we don't have it, create an new one with some temporary values
 					user = new o2.Models.User( {
-						userLogin   : object.userLogin,
-						displayName : object.userLogin,
-						modelClass  : 'o2-incomplete-' + object.userLogin
+						userLogin    : object.userLogin,
+						userNicename : object.userNicename,
+						displayName  : object.userLogin,
+						modelClass   : 'o2-incomplete-' + object.userNicename
 					} );
 
 					// add it to the collection
@@ -116,7 +117,7 @@ o2.Collections.Users = ( function( $, Backbone ) {
 			var user = this.getUserFor( { userLogin: userLogin } );
 
 			// update img src's and a href's with .o2-incomplete-{userLogin}
-			var selectorClass = 'o2-incomplete-' + userLogin;
+			var selectorClass = 'o2-incomplete-' + user.userNicename;
 
 			$( 'a.' + selectorClass ).each( function() {
 				$( this ).attr( 'href', user.url ).removeClass( selectorClass );
