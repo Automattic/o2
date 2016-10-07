@@ -20,7 +20,7 @@ class o2_Tags extends o2_Terms_In_Comments {
 		}
 		add_filter( 'comment_text',           array( 'o2_Tags', 'tag_links' ), 15 );
 		add_filter( 'o2_post_fragment',       array( $this, 'append_old_tags_to_fragment' ), 10, 1 );
-		add_filter( 'o2_bump_post_content',   array( 'o2_Tags', 'append_old_tags_raw' ) );
+		add_filter( 'o2_bump_post_content',   array( 'o2_Tags', 'append_old_tags_raw' ), 10, 2 );
 
 		parent::__construct( 'post_tag' );
 	}
