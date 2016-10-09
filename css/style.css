@@ -392,6 +392,12 @@ article.sticky .o2-sticky-link:after {
   font-size: 1em;
 }
 
+.o2-editor .o2-editor-footer:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
 .o2-editor .o2-editor-footer > a {
   float: right;
   display: block;
