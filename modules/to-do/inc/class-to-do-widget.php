@@ -249,13 +249,13 @@ class o2_ToDos_Widget extends WP_Widget {
 					$args[ 'tag__not_in' ] = array( $term->term_id );
 
 				$filter_tags = (array)explode( ',', $filter_tags );
-	 			foreach( (array)$filter_tags as $filter_tag ) {
-	 				if ( ! $filter_tag )
-	 					continue;
-	 				$new_tax_query = array(
+				foreach( (array)$filter_tags as $filter_tag ) {
+					if ( ! $filter_tag )
+						continue;
+					$new_tax_query = array(
 							'taxonomy' => 'post_tag',
 						);
-	 				if ( 0 === strpos( $filter_tag, '-' ) )
+					if ( 0 === strpos( $filter_tag, '-' ) )
 						$new_tax_query['operator'] = 'NOT IN';
 					$filter_tag = trim( $filter_tag, '-' );
 					if ( is_numeric( $filter_tag ) )
@@ -263,8 +263,8 @@ class o2_ToDos_Widget extends WP_Widget {
 					else
 						$new_tax_query['field'] = 'slug';
 					$new_tax_query['terms'] = $filter_tag;
-	 				$args['tax_query'][] = $new_tax_query;
-	 			}
+					$args['tax_query'][] = $new_tax_query;
+				}
 
 				// Use WP_Query instead of get_posts() so we can use $found_posts
 				$query = new WP_Query( $args );
@@ -348,13 +348,13 @@ class o2_ToDos_Widget extends WP_Widget {
 			$args['tag__not_in'] = array( $term->term_id );
 
 		$filter_tags = (array)explode( ',', $filter_tags );
-	 	foreach( (array)$filter_tags as $filter_tag ) {
-	 		if ( ! $filter_tag )
-	 			continue;
-	 		$new_tax_query = array(
+		foreach( (array)$filter_tags as $filter_tag ) {
+			if ( ! $filter_tag )
+				continue;
+			$new_tax_query = array(
 					'taxonomy' => 'post_tag',
 				);
-	 		if ( 0 === strpos( $filter_tag, '-' ) )
+			if ( 0 === strpos( $filter_tag, '-' ) )
 				$new_tax_query['operator'] = 'NOT IN';
 			$filter_tag = trim( $filter_tag, '-' );
 			if ( is_numeric( $filter_tag ) )
@@ -362,8 +362,8 @@ class o2_ToDos_Widget extends WP_Widget {
 			else
 				$new_tax_query['field'] = 'slug';
 			$new_tax_query['terms'] = $filter_tag;
-	 		$args['tax_query'][] = $new_tax_query;
-	 	}
+			$args['tax_query'][] = $new_tax_query;
+		}
 
 		$query = new WP_Query( $args );
 		foreach ( $query->posts as $post ) {
