@@ -327,8 +327,6 @@ class o2_ToDos_Widget extends WP_Widget {
 
 		$posts = array();
 
-		// Exclude x-posted content
-		$term = get_term_by( 'slug', 'p2-xpost', 'post_tag' );
 		$args = array(
 			'posts_per_page' => -1,
 			'order'          => $order,
@@ -340,8 +338,16 @@ class o2_ToDos_Widget extends WP_Widget {
 				),
 			),
 		);
-		if ( $term )
-			$args['tag__not_in'] = array( $term->term_id );
+
+		// Exclude x-posted content.
+		$term = get_term_by( 'slug', 'p2-xpost', 'post_tag' );
+		if ( $term ) {
+			$args['tax_query'][] = array(
+				'taxonomy' => 'post_tag',
+				'terms'    => $term->term_id,
+				'operator' => 'NOT IN'
+			);
+		}
 
 		$filter_tags = (array)explode( ',', $filter_tags );
 		foreach( (array)$filter_tags as $filter_tag ) {
