@@ -332,7 +332,6 @@ class o2_ToDos_Widget extends WP_Widget {
 		$args = array(
 			'posts_per_page' => -1,
 			'order'          => $order,
-			'tags'           => $filter_tags,
 			'tax_query'      => array(
 				array(
 					'taxonomy' => o2_ToDos::taxonomy,
