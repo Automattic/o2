@@ -320,8 +320,6 @@ class o2_ToDos_Widget extends WP_Widget {
 	 * Get resolved post fragments and return them via AJAX
 	 */
 	public static function fetch() {
-		$current_page = absint( $_REQUEST['currentPage'] );
-		$posts_per_page = absint( $_REQUEST['postsPerPage'] );
 		$state = sanitize_key( $_REQUEST['state'] );
 		$order = sanitize_key( $_REQUEST['order'] );
 		$filter_tags = sanitize_text_field( $_REQUEST['filterTags'] );
@@ -333,7 +331,6 @@ class o2_ToDos_Widget extends WP_Widget {
 		$term = get_term_by( 'slug', 'p2-xpost', 'post_tag' );
 		$args = array(
 			'posts_per_page' => -1,
-			'offset'         => $current_page * $posts_per_page,
 			'order'          => $order,
 			'tags'           => $filter_tags,
 			'tax_query'      => array(
