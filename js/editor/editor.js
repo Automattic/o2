@@ -759,7 +759,7 @@ o2Editor = {
 		var postID    = $editor.data( 'post_id' );
 		var commentID = $editor.data( 'comment_id' );
 
-		return o2Editor.getKeyFromIDs( postID, commentID );
+		return o2.options.currentBlogId + '-' + o2Editor.getKeyFromIDs( postID, commentID );
 	},
 
 	getKeyFromIDs: function( postID, commentID ) {
