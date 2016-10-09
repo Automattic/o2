@@ -349,21 +349,26 @@ class o2_ToDos_Widget extends WP_Widget {
 			);
 		}
 
-		$filter_tags = (array)explode( ',', $filter_tags );
-		foreach( (array)$filter_tags as $filter_tag ) {
-			if ( ! $filter_tag )
-				continue;
+		$filter_tags = explode( ',', $filter_tags );
+		$filter_tags = array_map( 'sanitize_key', $filter_tags );
+		$filter_tags = array_filter( $filter_tags );
+		foreach( $filter_tags as $filter_tag ) {
 			$new_tax_query = array(
-					'taxonomy' => 'post_tag',
-				);
-			if ( 0 === strpos( $filter_tag, '-' ) )
+				'taxonomy' => 'post_tag',
+			);
+
+			if ( 0 === strpos( $filter_tag, '-' ) ) {
 				$new_tax_query['operator'] = 'NOT IN';
+			}
+
 			$filter_tag = trim( $filter_tag, '-' );
-			if ( is_numeric( $filter_tag ) )
+			if ( is_numeric( $filter_tag ) ) {
 				$new_tax_query['field'] = 'ID';
-			else
+			} else {
 				$new_tax_query['field'] = 'slug';
+			}
 			$new_tax_query['terms'] = $filter_tag;
+
 			$args['tax_query'][] = $new_tax_query;
 		}
 
