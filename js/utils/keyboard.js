@@ -159,7 +159,7 @@ o2Keyboard = {
 				} else {
 					// No comments, jump to the post.
 					previousItem = o2Keyboard.currentItem;
-					o2Keyboard.currentItem = previousPost.find( '.o2-post' ).first()
+					o2Keyboard.currentItem = previousPost.find( '.o2-post' ).first();
 				}
 			}
 			// No previous post, do nothing.
@@ -181,7 +181,7 @@ o2Keyboard = {
 			} else {
 				// Go to the post.
 					previousItem = o2Keyboard.currentItem;
-					o2Keyboard.currentItem = o2Keyboard.currentItem.parents( '.post' ).find( '.o2-post' ).first()
+					o2Keyboard.currentItem = o2Keyboard.currentItem.parents( '.post' ).find( '.o2-post' ).first();
 			}
 		}
 
