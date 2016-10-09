@@ -324,7 +324,7 @@ class o2_ToDos_Widget extends WP_Widget {
 		$posts_per_page = absint( $_REQUEST['postsPerPage'] );
 		$state = sanitize_key( $_REQUEST['state'] );
 		$order = sanitize_key( $_REQUEST['order'] );
-		$filter_tags = sanitize_key( $_REQUEST['filterTags'] );
+		$filter_tags = sanitize_text_field( $_REQUEST['filterTags'] );
 		$widget_id = sanitize_key( $_REQUEST['widgetID'] );
 
 		$posts = array();
