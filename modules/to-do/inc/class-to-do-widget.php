@@ -249,13 +249,13 @@ class o2_ToDos_Widget extends WP_Widget {
 					$args[ 'tag__not_in' ] = array( $term->term_id );
 
 				$filter_tags = (array)explode( ',', $filter_tags );
-	 			foreach( (array)$filter_tags as $filter_tag ) {
-	 				if ( ! $filter_tag )
-	 					continue;
-	 				$new_tax_query = array(
+				foreach( (array)$filter_tags as $filter_tag ) {
+					if ( ! $filter_tag )
+						continue;
+					$new_tax_query = array(
 							'taxonomy' => 'post_tag',
 						);
-	 				if ( 0 === strpos( $filter_tag, '-' ) )
+					if ( 0 === strpos( $filter_tag, '-' ) )
 						$new_tax_query['operator'] = 'NOT IN';
 					$filter_tag = trim( $filter_tag, '-' );
 					if ( is_numeric( $filter_tag ) )
@@ -263,8 +263,8 @@ class o2_ToDos_Widget extends WP_Widget {
 					else
 						$new_tax_query['field'] = 'slug';
 					$new_tax_query['terms'] = $filter_tag;
-	 				$args['tax_query'][] = $new_tax_query;
-	 			}
+					$args['tax_query'][] = $new_tax_query;
+				}
 
 				// Use WP_Query instead of get_posts() so we can use $found_posts
 				$query = new WP_Query( $args );
@@ -320,22 +320,16 @@ class o2_ToDos_Widget extends WP_Widget {
 	 * Get resolved post fragments and return them via AJAX
 	 */
 	public static function fetch() {
-		$current_page = absint( $_REQUEST['currentPage'] );
-		$posts_per_page = absint( $_REQUEST['postsPerPage'] );
 		$state = sanitize_key( $_REQUEST['state'] );
 		$order = sanitize_key( $_REQUEST['order'] );
-		$filter_tags = sanitize_key( $_REQUEST['filterTags'] );
+		$filter_tags = sanitize_text_field( $_REQUEST['filterTags'] );
 		$widget_id = sanitize_key( $_REQUEST['widgetID'] );
 
 		$posts = array();
 
-		// Exclude x-posted content
-		$term = get_term_by( 'slug', 'p2-xpost', 'post_tag' );
 		$args = array(
 			'posts_per_page' => -1,
-			'offset'         => $current_page * $posts_per_page,
 			'order'          => $order,
-			'tags'           => $filter_tags,
 			'tax_query'      => array(
 				array(
 					'taxonomy' => o2_ToDos::taxonomy,
@@ -344,26 +338,39 @@ class o2_ToDos_Widget extends WP_Widget {
 				),
 			),
 		);
-		if ( $term )
-			$args['tag__not_in'] = array( $term->term_id );
 
-		$filter_tags = (array)explode( ',', $filter_tags );
-	 	foreach( (array)$filter_tags as $filter_tag ) {
-	 		if ( ! $filter_tag )
-	 			continue;
-	 		$new_tax_query = array(
-					'taxonomy' => 'post_tag',
-				);
-	 		if ( 0 === strpos( $filter_tag, '-' ) )
+		// Exclude x-posted content.
+		$term = get_term_by( 'slug', 'p2-xpost', 'post_tag' );
+		if ( $term ) {
+			$args['tax_query'][] = array(
+				'taxonomy' => 'post_tag',
+				'terms'    => $term->term_id,
+				'operator' => 'NOT IN'
+			);
+		}
+
+		$filter_tags = explode( ',', $filter_tags );
+		$filter_tags = array_map( 'sanitize_key', $filter_tags );
+		$filter_tags = array_filter( $filter_tags );
+		foreach( $filter_tags as $filter_tag ) {
+			$new_tax_query = array(
+				'taxonomy' => 'post_tag',
+			);
+
+			if ( 0 === strpos( $filter_tag, '-' ) ) {
 				$new_tax_query['operator'] = 'NOT IN';
+			}
+
 			$filter_tag = trim( $filter_tag, '-' );
-			if ( is_numeric( $filter_tag ) )
+			if ( is_numeric( $filter_tag ) ) {
 				$new_tax_query['field'] = 'ID';
-			else
+			} else {
 				$new_tax_query['field'] = 'slug';
+			}
 			$new_tax_query['terms'] = $filter_tag;
-	 		$args['tax_query'][] = $new_tax_query;
-	 	}
+
+			$args['tax_query'][] = $new_tax_query;
+		}
 
 		$query = new WP_Query( $args );
 		foreach ( $query->posts as $post ) {
