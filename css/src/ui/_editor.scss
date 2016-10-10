@@ -142,7 +142,7 @@
 			}
 		}
 
-		ul {
+		.o2-editor-tabs {
 			list-style-type: none;
 			float: left;
 			margin: 0;
@@ -202,7 +202,7 @@
 }
 
 .o2-post .o2-editor {
-	.o2-editor .o2-editor-footer ul li a {
+	.o2-editor .o2-editor-footer .o2-editor-tabs li a {
 		border-left: 1px $gray-5 solid;
 	}
 }
@@ -388,7 +388,7 @@
 
 #respond {
 	.o2-editor-footer {
-		ul {
+		.o2-editor-tabs {
 			li:first-of-type {
 				border-left: 1px $gray-10 solid;
 			}
@@ -411,7 +411,7 @@
 		padding: 0;
 
 		.o2-editor-footer {
-			ul {
+			.o2-editor-tabs {
 				li:first-of-type {
 					border-left: 1px $gray-10 solid;
 				}
