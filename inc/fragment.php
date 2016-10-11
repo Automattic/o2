@@ -404,7 +404,7 @@ class o2_Fragment {
 
 	/**
 	  * get_current_user_properties returns
-	  * 	userLogin, canEditPosts, canEditOthersPosts, and canPublishPosts for logged in user
+	  * 	userLogin, userNicename, canEditPosts, canEditOthersPosts, and canPublishPosts for logged in user
 	  * OR
 	  * 	noprivUserName, noprivUserHash and noprivUserURL for nopriv user
 	  *
@@ -424,6 +424,7 @@ class o2_Fragment {
 
 				$return_result = array(
 					'userLogin' => $user_data->user_login,
+					'userNicename' => $user_data->user_nicename,
 					'noprivUserName' => '',
 					'noprivUserHash' => '',
 					'noprivUserURL' => '',
@@ -441,6 +442,7 @@ class o2_Fragment {
 
 		$return_result = array(
 			'userLogin' => '',
+			'userNicename' => '',
 			'noprivUserName' => esc_attr( $commenter['comment_author'] ),
 			'noprivUserEmail' => esc_attr( $commenter['comment_author_email'] ),
 			'noprivUserURL' => esc_url( $commenter['comment_author_url'] ),
@@ -472,6 +474,7 @@ class o2_Fragment {
 			'id' => $user_data->ID,
 			'type' => 'user',
 			'userLogin' => $user_data->user_login,
+			'userNicename' => $user_data->user_nicename,
 			'displayName' => $user_data->display_name,
 			'firstName' => $user_data->user_firstname,
 			'lastName' => $user_data->user_lastname,
@@ -500,7 +503,8 @@ class o2_Fragment {
 		self::add_to_user_bootstrap( $user_data );
 
 		$return_result = array(
-			'userLogin' => $user_data->user_login
+			'userLogin' => $user_data->user_login,
+			'userNicename' => $user_data->user_nicename
 		);
 
 		return $return_result;
@@ -515,7 +519,8 @@ class o2_Fragment {
 			self::add_to_user_bootstrap( $user_data );
 
 			$return_result = array(
-				'userLogin' => $user_data->user_login
+				'userLogin' => $user_data->user_login,
+				'userNicename' => $user_data->user_nicename
 			);
 		} else { // no priv commentor
 			$comment_author_email_hash = !empty( $_comment->comment_author_email ) ? md5( strtolower( trim( $_comment->comment_author_email ) ) ) : '00000000000000000000000000000000';

@@ -6,14 +6,15 @@ o2.Models.User = ( function( Backbone ) {
 	return Backbone.Model.extend( {
 		defaults: function() {
 			return {
-				userLogin   : '',
-				displayName : '',
-				url         : '',
-				urlTitle    : '',
-				hash        : '00000000000000000000000000000000',
-				modelClass  : '',
-				avatar      : '',
-				avatarSize  : 100
+				userLogin    : '',
+				displayName  : '',
+				userNicename : '',
+				url          : '',
+				urlTitle     : '',
+				hash         : '00000000000000000000000000000000',
+				modelClass   : '',
+				avatar       : '',
+				avatarSize   : 100
 			};
 		},
 
