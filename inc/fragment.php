@@ -490,8 +490,8 @@ class o2_Fragment {
 	}
 
 	/**
-	  * get_post_user_properties returns the userLogin for the author and
-	  * bootstraps the rest of the user info
+	  * get_post_user_properties returns the userLogin and email hash for
+	  * the author and bootstraps the rest of the user info
 	  */
 
 	public static function get_post_user_properties( $_post ) {
@@ -500,7 +500,8 @@ class o2_Fragment {
 		self::add_to_user_bootstrap( $user_data );
 
 		$return_result = array(
-			'userLogin' => $user_data->user_login
+			'userLogin' => $user_data->user_login,
+			'hash' => md5( strtolower( trim( $user_data->user_email ) ) )
 		);
 
 		return $return_result;
@@ -515,7 +516,8 @@ class o2_Fragment {
 			self::add_to_user_bootstrap( $user_data );
 
 			$return_result = array(
-				'userLogin' => $user_data->user_login
+				'userLogin' => $user_data->user_login,
+				'hash' => md5( strtolower( trim( $user_data->user_email ) ) )
 			);
 		} else { // no priv commentor
 			$comment_author_email_hash = !empty( $_comment->comment_author_email ) ? md5( strtolower( trim( $_comment->comment_author_email ) ) ) : '00000000000000000000000000000000';

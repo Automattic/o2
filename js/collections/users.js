@@ -27,6 +27,7 @@ o2.Collections.Users = ( function( $, Backbone ) {
 		  * model back to the caller
 		  */
 		getUserFor: function( object, avatarSize ) {
+
 			// construct from userLogin if present
 			var user;
 
@@ -37,7 +38,7 @@ o2.Collections.Users = ( function( $, Backbone ) {
 					user = new o2.Models.User( {
 						userLogin   : object.userLogin,
 						displayName : object.userLogin,
-						modelClass  : 'o2-incomplete-' + object.userLogin
+						modelClass  : 'o2-incomplete-' + object.hash
 					} );
 
 					// add it to the collection
@@ -100,7 +101,7 @@ o2.Collections.Users = ( function( $, Backbone ) {
 			}
 
 			// We can update incompletes for this user now
-			this.updateIncompletes( user.userLogin );
+			this.updateIncompletes( user );
 		},
 
 		userDataCallback: function( data ) {
@@ -110,13 +111,14 @@ o2.Collections.Users = ( function( $, Backbone ) {
 			} );
 		},
 
-		updateIncompletes: function( userLogin ) {
+		updateIncompletes: function( user ) {
+
 			// crawl the DOM and update tags that need the deets
 
-			var user = this.getUserFor( { userLogin: userLogin } );
+			var user = this.getUserFor( { userLogin: user.userLogin } );
 
-			// update img src's and a href's with .o2-incomplete-{userLogin}
-			var selectorClass = 'o2-incomplete-' + userLogin;
+			// update img src's and a href's with .o2-incomplete-{user.hash}
+			var selectorClass = 'o2-incomplete-' + user.hash;
 
 			$( 'a.' + selectorClass ).each( function() {
 				$( this ).attr( 'href', user.url ).removeClass( selectorClass );
