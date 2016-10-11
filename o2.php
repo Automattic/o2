@@ -376,7 +376,8 @@ class o2 {
 				'searchURL'                            => home_url( '/' ),
 				'homeURL'                              => home_url( '/' ),
 				'postId'                               => is_singular( array( 'post', 'page' ) ) ? get_the_ID() : 0,
-				'mimeTypes'                            => get_allowed_mime_types()
+				'mimeTypes'                            => get_allowed_mime_types(),
+				'currentBlogId'                        => get_current_blog_id(),
 			),
 			'currentUser'       => o2_Fragment::get_current_user_properties(),
 			'appControls'       => self::get_app_controls(),
