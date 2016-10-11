@@ -232,7 +232,7 @@ o2Editor = {
 			commentID = 0;
 		}
 
-		var cacheKey = o2Editor.getKeyFromIDs( postID, commentID );
+		var cacheKey = o2.options.currentBlogId + '-' + o2Editor.getKeyFromIDs( postID, commentID );
 
 		if ( 'undefined' === typeof args || 'undefined' === typeof args.keepCache || ! args.keepCache ) {
 			localStorage.removeItem( cacheKey );
