@@ -17,6 +17,7 @@
 	</div>
 </header>
 <div class="o2-editor">
+	{{{ data.commentFormBefore }}}
 	<textarea class="o2-editor">{{ data.contentRaw }}</textarea>
 	<div class="o2-editor-footer">
 		<ul class="o2-editor-tabs">

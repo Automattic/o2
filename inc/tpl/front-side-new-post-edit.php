@@ -1,5 +1,6 @@
 <div class="entry-content">
 	<div class="o2-editor">
+		{{{ data.postFormBefore }}}
 		<textarea title="" placeholder="{{ data.postPrompt }}" class="o2-editor">{{ data.contentRaw }}</textarea>
 		<div class="o2-editor-footer">
 			<ul class="o2-editor-tabs">

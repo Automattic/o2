@@ -240,6 +240,7 @@ o2.Views.FrontSidePost = ( function( $ ) {
 			}
 			jsonifiedModel.avatarSize = this.options.avatarSize;
 			jsonifiedModel.strings = o2.strings;
+			jsonifiedModel.postFormBefore = o2.postFormBefore;
 			jsonifiedModel.postFormExtras = o2.postFormExtras;
 
 			// If we are on a tag archive page, add the tag automatically to an empty editor
