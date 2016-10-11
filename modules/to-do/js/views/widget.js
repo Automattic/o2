@@ -10,6 +10,8 @@ o2.Views.ToDosWidget = ( function( $ ) {
 
 		toDosView: o2.Views.ToDos,
 
+		_isFetching: false,
+
 		events: {
 			'mouseenter ul': 'fetchAll',
 			'mouseenter div': 'fetchAll',
@@ -34,6 +36,7 @@ o2.Views.ToDosWidget = ( function( $ ) {
 
 			this.listenTo( this.model, 'change', this.render );
 			this.listenTo( this.model, 'o2-extend-resolved-posts-fetch', this.fetched );
+			this.listenTo( this.model, 'o2-extend-resolved-posts-fetch-error', this.fetchedError );
 		},
 
 		render: function() {
@@ -86,8 +89,14 @@ o2.Views.ToDosWidget = ( function( $ ) {
 		},
 
 		fetchAll: function() {
-			// Only fetch more fragments if we don't have all of them
+			// Avoid multiple requests for the same data.
+			if ( this._isFetching ) {
+				return;
+			}
+
+			// Only fetch more fragments if we don't have all of them.
 			if ( o2.ToDos.toDosFound[ this.model.get( 'widgetID' ) ] > _.size( this.model.get( 'collection' ).where( { widgetID: this.model.get( 'widgetID' ) } ) ) ) {
+				this._isFetching = true;
 				var data = {
 					callback: 'o2-extend-resolved-posts-fetch',
 					currentPage: this.model.get( 'currentPage' ),
@@ -111,8 +120,14 @@ o2.Views.ToDosWidget = ( function( $ ) {
 			} );
 			o2.ToDos.toDosFound[ this.model.get( 'widgetID' ) ] = foundPosts;
 
+			this._isFetching = false;
+
 			// Fetched fragments should be ready to render now
 			this.render();
+		},
+
+		fetchedError: function() {
+			this._isFetching = false;
 		}
 	} );
 } )( jQuery );
