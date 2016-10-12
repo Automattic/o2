@@ -111,11 +111,13 @@ o2.Views.FrontSidePost = ( function( $ ) {
 			} );
 			o2.App.posts.add( clientModel ); // @todo we've made the view coupled to the app here - could we use an event?
 
-			clientModel.save( {
+			var data = {
 				contentRaw: contentRaw,
 				titleRaw: titleRaw,
 				isFollowing: isFollowing
-			}, {
+			};
+			data = o2.Events.applyFilters( 'post-save-data.o2', data, this );
+			clientModel.save( data, {
 				success: this.onSaveSuccess,
 				error: this.onSaveError
 			} );
