@@ -1,5 +1,3 @@
-/* This file was automatically generated on Aug 22 2014 22:44:14 */
-
 /*
 GLOBAL PARTIALS
 Global partials provide base HTML styling as well as variables and mixins to be used in the UI partials
@@ -8,42 +6,63 @@ Global partials provide base HTML styling as well as variables and mixins to be 
 /* TYPOGRAPHY */
 /* EFFECTS & UTILITIES */
 /*
+// REQUIRES SASS 3.3 AND COMPASS 1.0
+
+$breakpoints:(
+  'web':1200px,
+  'tablet-landscape':1024px,
+  'tablet-portrait': 876px,
+  'handset-landscape': 640px,
+  'handset-portrait': 550px
+);
+
+
+@mixin breakpoint($size){
+  @each $breakpoint, $value in $breakpoints {
+   @if $size == $breakpoint {
+     @media (max-width: map-get($breakpoints, $breakpoint)){
+       @content;
+     }
+   }
+  }
+}
+*/
+/*
 UI PARTIALS
 UI partials provide the higher-level styles required for o2 to function and display properly
 */
-/* line 1, src/ui/_icons.scss */
 li.o2-filter-widget-item {
   padding: 0px !important;
 }
-/* line 4, src/ui/_icons.scss */
+
 li.o2-filter-widget-item a {
   display: block;
   padding: 5px;
 }
-/* line 8, src/ui/_icons.scss */
+
 li.o2-filter-widget-item a.o2-filter-widget-selected {
   background: #f1f1f1;
-  color: #222222;
+  color: #222;
 }
-/* line 12, src/ui/_icons.scss */
+
 li.o2-filter-widget-item a.o2-filter-widget-selected:before {
-  color: #222222;
+  color: #222;
 }
-/* line 17, src/ui/_icons.scss */
+
 li.o2-filter-widget-item a:hover {
-  color: #222222;
+  color: #222;
   background: #fafafa;
 }
-/* line 21, src/ui/_icons.scss */
+
 li.o2-filter-widget-item a:hover:before {
-  color: #222222;
+  color: #222;
 }
-/* line 26, src/ui/_icons.scss */
+
 li.o2-filter-widget-item a:before {
   -webkit-font-smoothing: antialiased;
-  font: normal 16px/1 "Genericons";
+  font: normal 16px/1 'Genericons';
   display: inline-block;
-  color: #cccccc;
+  color: #ccc;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
@@ -51,36 +70,35 @@ li.o2-filter-widget-item a:before {
   position: relative;
   top: 3px;
 }
-/* line 38, src/ui/_icons.scss */
+
 li.o2-filter-widget-item#o2-filter-recent-updates a:before {
   content: '\f409';
 }
-/* line 39, src/ui/_icons.scss */
+
 li.o2-filter-widget-item#o2-filter-recent-comments a:before {
   content: '\f108';
 }
-/* line 40, src/ui/_icons.scss */
+
 li.o2-filter-widget-item#o2-filter-my-mentions a:before {
   content: '\f300';
 }
-/* line 41, src/ui/_icons.scss */
+
 li.o2-filter-widget-item#o2-filter-unresolved-posts a:before {
   content: '\f468';
 }
-/* line 42, src/ui/_icons.scss */
+
 li.o2-filter-widget-item#o2-filter-resolved-posts a:before {
   content: '\f418';
 }
-/* line 43, src/ui/_icons.scss */
+
 li.o2-filter-widget-item#o2-filter-no-replies a:before {
   content: '\f404';
 }
-/* line 44, src/ui/_icons.scss */
+
 li.o2-filter-widget-item#o2-filter-my-posts a:before {
   content: '\f304';
 }
 
-/* line 54, src/ui/_icons.scss */
 .o2-permalink,
 .o2-post-reply,
 .o2-scroll-to-comments,
@@ -95,7 +113,7 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
   width: 32px;
   overflow: hidden;
 }
-/* line 55, src/ui/_icons.scss */
+
 .o2-permalink:after,
 .o2-post-reply:after,
 .o2-scroll-to-comments:after,
@@ -105,11 +123,11 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
 .o2-resolve-link:after,
 .o2-sticky-link:after {
   -webkit-font-smoothing: antialiased;
-  font: normal 16px/1 "Genericons";
+  font: normal 16px/1 'Genericons';
   display: inline-block;
   height: 20px;
   width: 32px;
-  color: #cccccc;
+  color: #ccc;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
@@ -118,91 +136,74 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
   opacity: 0.4;
 }
 
-/* line 77, src/ui/_icons.scss */
 .o2-post:hover .o2-actions a:after,
 .o2-comment:hover .o2-actions a:after {
   opacity: 1;
 }
 
-/* line 82, src/ui/_icons.scss */
 .o2-actions.entry-actions {
   position: relative;
   padding-top: 5px;
 }
 
-/* line 87, src/ui/_icons.scss */
 .o2-permalink:after {
   content: '\f107';
 }
 
-/* line 88, src/ui/_icons.scss */
 .o2-post-reply:after {
   content: '\f466';
 }
 
-/* line 89, src/ui/_icons.scss */
 .o2-edit.edit-post-link:after {
   content: '\f411';
 }
 
-/* line 90, src/ui/_icons.scss */
 .o2-follow:after {
   content: '\f463';
 }
 
-/* line 91, src/ui/_icons.scss */
 .o2-short-link:after {
   content: '\f107';
 }
 
-/* line 92, src/ui/_icons.scss */
 .o2-scroll-to-comments {
   display: none;
 }
 
-/* line 93, src/ui/_icons.scss */
 .o2-scroll-to-comments:after {
   content: '\f300';
 }
 
-/* line 94, src/ui/_icons.scss */
 .o2-sticky-link:after {
   content: '\f308';
 }
 
-/* line 95, src/ui/_icons.scss */
 .o2-resolve-link:after {
   content: '\f468';
 }
 
-/* line 97, src/ui/_icons.scss */
 .post-comments-subscribed .o2-follow:after {
   content: '\f465';
-  color: #666666;
+  color: #666;
 }
 
-/* line 98, src/ui/_icons.scss */
 .post-comments-subscribed .o2-follow:hover:after {
   content: '\f464';
-  color: #666666;
+  color: #666;
 }
 
-/* line 99, src/ui/_icons.scss */
 .sticky .o2-sticky-link:after {
-  color: #666666;
+  color: #666;
 }
 
-/* line 100, src/ui/_icons.scss */
 .state-unresolved .o2-resolve-link:after {
   color: #e6000a;
 }
 
-/* line 101, src/ui/_icons.scss */
 .state-resolved .o2-resolve-link:after {
   color: #009632;
 }
 
-/* line 111, src/ui/_icons.scss */
 .o2-post .entry-header span.entry-actions .genericon-edit:before,
 .o2-post .entry-header span.entry-actions .genericon-reply:before,
 .o2-post .entry-header span.entry-actions .genericon-subscribe:before,
@@ -213,7 +214,6 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
   content: none;
 }
 
-/* line 118, src/ui/_icons.scss */
 .o2-comment-edit,
 .o2-comment-reply {
   width: 20px;
@@ -224,16 +224,16 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
   overflow: hidden;
   position: relative;
 }
-/* line 127, src/ui/_icons.scss */
+
 .o2-comment-edit:after,
 .o2-comment-reply:after {
   content: '\f103';
   -webkit-font-smoothing: antialiased;
-  font: normal 16px/1 "Genericons";
+  font: normal 16px/1 'Genericons';
   display: inline-block;
   height: 20px;
   width: 20px;
-  color: #cccccc;
+  color: #ccc;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
@@ -243,60 +243,54 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
   top: 0;
 }
 
-/* line 143, src/ui/_icons.scss */
 .o2-comment-reply:after {
   content: '\f466';
 }
 
-/* line 144, src/ui/_icons.scss */
 .o2-comment-edit:after {
   content: '\f411';
 }
 
-/* line 146, src/ui/_icons.scss */
 .comment-actions {
   position: relative;
   top: -10px;
 }
 
-/* line 151, src/ui/_icons.scss */
 article.sticky .o2-sticky-link:after {
   color: #d47300;
 }
 
 @media (max-width: 876px) {
-  /* line 164, src/ui/_icons.scss */
   .o2-editor-format {
     display: none;
   }
 }
 
 /* o2 EDITOR */
-/* line 3, src/ui/_editor.scss */
 .o2-editor {
   padding: 0;
 }
+
 @media (max-width: 640px) {
-  /* line 3, src/ui/_editor.scss */
   .o2-editor {
     margin-right: 0 !important;
   }
 }
-/* line 10, src/ui/_editor.scss */
+
 .o2-editor .o2-editor-wrapper {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
 }
+
 @media (max-width: 640px) {
-  /* line 10, src/ui/_editor.scss */
   .o2-editor .o2-editor-wrapper {
-    border: 1px solid #dddddd;
+    border: 1px solid #ddd;
   }
 }
-/* line 18, src/ui/_editor.scss */
+
 .o2-editor .markdown-mark {
   display: none;
 }
-/* line 22, src/ui/_editor.scss */
+
 .o2-editor .o2-editor-text {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -309,32 +303,32 @@ article.sticky .o2-sticky-link:after {
   clear: both;
   display: block;
 }
-/* line 38, src/ui/_editor.scss */
+
 .o2-editor .o2-editor-text:focus {
   outline: none;
 }
-/* line 42, src/ui/_editor.scss */
+
 .o2-editor .o2-editor-text.autocomplete-loading {
-  background: white url("../../img/o2-spinner.gif") no-repeat left 15px bottom 15px/16px;
+  background: #fff url("../img/o2-spinner.gif") no-repeat right 15px bottom 15px/16px;
 }
-/* line 47, src/ui/_editor.scss */
+
 .o2-editor .o2-editor-title-wrapper {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
   padding: 0.8em;
   background: #fff;
 }
-/* line 53, src/ui/_editor.scss */
+
 .o2-editor .o2-editor-title {
   border: 0;
   width: 100%;
   font-size: 22px !important;
   padding: 0 3px 0 0;
 }
-/* line 59, src/ui/_editor.scss */
+
 .o2-editor .o2-editor-title:focus {
   outline: none;
 }
-/* line 64, src/ui/_editor.scss */
+
 .o2-editor .o2-editor-toolbar-button {
   display: inline-block;
   float: none;
@@ -342,11 +336,11 @@ article.sticky .o2-sticky-link:after {
   border: 0;
   padding: inherit 10px;
 }
-/* line 71, src/ui/_editor.scss */
+
 .o2-editor .o2-editor-toolbar-button:first-of-type {
   padding-right: 20px;
 }
-/* line 76, src/ui/_editor.scss */
+
 .o2-editor .o2-editor-text {
   border: 0;
   font-size: 1.1em;
@@ -355,109 +349,115 @@ article.sticky .o2-sticky-link:after {
   padding: 0.4em 0.8em;
   min-height: 1em;
   width: 100%;
-  color: black;
+  color: #000;
 }
-/* line 87, src/ui/_editor.scss */
+
 .o2-editor .o2-editor-signin {
   margin: 0.1em 0 0;
   overflow: hidden;
   padding: 0.8em 0;
 }
-/* line 92, src/ui/_editor.scss */
+
 .o2-editor .o2-editor-signin p {
   font-size: 12px;
   color: #999;
 }
-/* line 97, src/ui/_editor.scss */
+
 .o2-editor .o2-editor-signin input {
   width: 98%;
   margin: 0 0 0.5em 0;
   font-size: 12px;
 }
-/* line 104, src/ui/_editor.scss */
+
 .o2-editor .o2-editor-preview {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   display: none;
   padding: 0 0.8em;
-  border: 1px solid white;
+  border: 1px solid #fff;
   width: 100%;
   min-height: 171px;
   background: #fff;
 }
-/* line 116, src/ui/_editor.scss */
+
 .o2-editor .o2-app-controls {
   font-size: 0.5em;
   line-height: 2;
 }
-/* line 121, src/ui/_editor.scss */
+
 .o2-editor .o2-editor-footer {
   min-height: 4em;
   background: transparent;
   font-size: 1em;
 }
-/* line 126, src/ui/_editor.scss */
+
+.o2-editor .o2-editor-footer:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
 .o2-editor .o2-editor-footer > a {
   float: left;
   display: block;
   margin: 0.8em 0.4em 0.8em 0;
 }
+
 @media (max-width: 640px) {
-  /* line 133, src/ui/_editor.scss */
   .o2-editor .o2-editor-footer > a.o2-comment-save, .o2-editor .o2-editor-footer > a.o2-save {
     clear: both;
   }
 }
-/* line 139, src/ui/_editor.scss */
-.o2-editor .o2-editor-footer ul {
+
+.o2-editor .o2-editor-footer .o2-editor-tabs {
   list-style-type: none;
   float: right;
   margin: 0;
   padding: 0;
   margin-top: -1px;
 }
-/* line 146, src/ui/_editor.scss */
-.o2-editor .o2-editor-footer ul li {
+
+.o2-editor .o2-editor-footer .o2-editor-tabs li {
   float: right;
-  border-top: 1px #dddddd solid;
+  border-top: 1px #ddd solid;
 }
-/* line 150, src/ui/_editor.scss */
-.o2-editor .o2-editor-footer ul li:first-of-type {
-  border-top: 1px white solid;
-  border-right: 1px #dddddd solid;
+
+.o2-editor .o2-editor-footer .o2-editor-tabs li:first-of-type {
+  border-top: 1px #fff solid;
+  border-right: 1px #ddd solid;
   -webkit-border-bottom-right-radius: 3px;
   -webkit-border-bottom-left-radius: 3px;
-  -moz-border-radius-bottomleft: 3px;
   -moz-border-radius-bottomright: 3px;
+  -moz-border-radius-bottomleft: 3px;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
   -webkit-background-clip: padding-box;
 }
-/* line 156, src/ui/_editor.scss */
-.o2-editor .o2-editor-footer ul li.selected {
-  border-top: 1px white solid;
+
+.o2-editor .o2-editor-footer .o2-editor-tabs li.selected {
+  border-top: 1px #fff solid;
 }
-/* line 159, src/ui/_editor.scss */
-.o2-editor .o2-editor-footer ul li.selected a {
-  border-top: 1px white solid;
-  background: white;
+
+.o2-editor .o2-editor-footer .o2-editor-tabs li.selected a {
+  border-top: 1px #fff solid;
+  background: #fff;
 }
-/* line 165, src/ui/_editor.scss */
-.o2-editor .o2-editor-footer ul li a {
+
+.o2-editor .o2-editor-footer .o2-editor-tabs li a {
   float: none;
   display: block;
   text-decoration: none;
   padding: 0.25em 1.2em 0.5em 1.2em;
   background: -webkit-gradient(linear, right top, right bottom, from(#fafafa), to(#f1f1f1));
   background: -moz-linear-gradient(top, #fafafa, #f1f1f1);
-  border: 1px #dddddd solid;
+  border: 1px #ddd solid;
   border-top: 1px #f1f1f1 solid;
   vertical-align: middle;
   -webkit-border-bottom-right-radius: 3px;
   -webkit-border-bottom-left-radius: 3px;
-  -moz-border-radius-bottomleft: 3px;
   -moz-border-radius-bottomright: 3px;
+  -moz-border-radius-bottomleft: 3px;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
   -webkit-background-clip: padding-box;
@@ -465,27 +465,14 @@ article.sticky .o2-sticky-link:after {
   font-size: 11px;
   border-right: 0px;
 }
-/* line 179, src/ui/_editor.scss */
-.o2-editor .o2-editor-footer ul li a span {
+
+.o2-editor .o2-editor-footer .o2-editor-tabs li a span {
   display: none;
 }
-/* line 183, src/ui/_editor.scss */
-.o2-editor .o2-editor-footer ul li a.o2-editor-fullscreen {
-  border-width: 0px;
-  background: transparent;
-  padding-top: calc(0.25em + 2px );
-  padding-right: 0.5em;
-}
-@media (max-width: 876px) {
-  /* line 183, src/ui/_editor.scss */
-  .o2-editor .o2-editor-footer ul li a.o2-editor-fullscreen {
-    display: none;
-  }
-}
-/* line 194, src/ui/_editor.scss */
-.o2-editor .o2-editor-footer ul li a:before {
+
+.o2-editor .o2-editor-footer .o2-editor-tabs li a:before {
   -webkit-font-smoothing: antialiased;
-  font: normal 16px/1 "Genericons";
+  font: normal 16px/1 'Genericons';
   width: 16px;
   height: 20px;
   margin-left: 5px;
@@ -493,20 +480,18 @@ article.sticky .o2-sticky-link:after {
   top: 3px;
 }
 
-/* line 210, src/ui/_editor.scss */
-.o2-post .o2-editor .o2-editor .o2-editor-footer ul li a {
+.o2-post .o2-editor .o2-editor .o2-editor-footer .o2-editor-tabs li a {
   border-right: 1px #f1f1f1 solid;
 }
 
-/* line 215, src/ui/_editor.scss */
 .o2-post-form-options {
   float: left;
   display: inline-block;
   padding-left: 10px;
   margin-top: 13px;
 }
+
 @media (max-width: 640px) {
-  /* line 215, src/ui/_editor.scss */
   .o2-post-form-options {
     float: none;
     display: block;
@@ -515,14 +500,12 @@ article.sticky .o2-sticky-link:after {
   }
 }
 
-/* line 229, src/ui/_editor.scss */
 .o2-logged-out-editor {
   clear: none;
   padding-top: 0;
   margin-top: 0;
 }
 
-/* line 235, src/ui/_editor.scss */
 .o2-editing-others {
   font-weight: normal;
   font-style: italic;
@@ -531,22 +514,19 @@ article.sticky .o2-sticky-link:after {
   color: #911;
 }
 
-/* line 243, src/ui/_editor.scss */
 .o2-editor-toolbar {
   position: relative;
   top: 0;
 }
-/* line 247, src/ui/_editor.scss */
+
 .o2-editor-toolbar.floated {
-  box-shadow: 0px 0px 4px 0px #888888;
+  box-shadow: 0px 0px 4px 0px #888;
 }
 
-/* line 252, src/ui/_editor.scss */
 .o2-editor-toolbar-button-dropdown {
   display: none;
 }
 
-/* line 256, src/ui/_editor.scss */
 .o2-editor-toolbar-button {
   display: block;
   float: right;
@@ -555,34 +535,22 @@ article.sticky .o2-sticky-link:after {
   background: transparent;
   box-shadow: none !important;
 }
+
 @media (max-width: 876px) {
-  /* line 256, src/ui/_editor.scss */
   .o2-editor-toolbar-button {
     width: 50px;
     height: 38px;
   }
-  /* line 268, src/ui/_editor.scss */
   .o2-editor-toolbar-button:before {
     font-size: 32px;
   }
 }
 
-/* line 277, src/ui/_editor.scss */
-.o2-editor.fullscreen,
-.o2 .o2-comment .o2-editor.fullscreen,
-.o2-fullscreen-fallback,
-.o2 .o2-comment .o2-fullscreen-fallback {
-  width: 100%;
-  height: 100%;
-}
-
-/* line 282, src/ui/_editor.scss */
 .comment-subscription-form {
   display: block;
   clear: both;
 }
 
-/* line 293, src/ui/_editor.scss */
 .o2-save,
 .o2-cancel,
 .o2-comment-save,
@@ -591,7 +559,7 @@ article.sticky .o2-sticky-link:after {
   padding: 0.5em 1.2em;
   background: -webkit-gradient(linear, right top, right bottom, from(#fafafa), to(#f1f1f1));
   background: -moz-linear-gradient(top, #fafafa, #f1f1f1);
-  border: 1px #dddddd solid;
+  border: 1px #ddd solid;
   vertical-align: middle;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -599,35 +567,34 @@ article.sticky .o2-sticky-link:after {
   -webkit-background-clip: padding-box;
   font-family: "Open Sans", sans-serif;
 }
-/* line 301, src/ui/_editor.scss */
+
 .o2-save.primary,
 .o2-cancel.primary,
 .o2-comment-save.primary,
 .o2-comment-cancel.primary,
 .o2-new-comment-cancel.primary {
-  border-color: #bbbbbb;
-  background: -webkit-gradient(linear, right top, right bottom, from(white), to(#f1f1f1));
-  background: -moz-linear-gradient(top, white, #f1f1f1);
+  border-color: #bbb;
+  background: -webkit-gradient(linear, right top, right bottom, from(#fff), to(#f1f1f1));
+  background: -moz-linear-gradient(top, #fff, #f1f1f1);
   font-weight: bold;
 }
-/* line 305, src/ui/_editor.scss */
+
 .o2-save.primary:hover,
 .o2-cancel.primary:hover,
 .o2-comment-save.primary:hover,
 .o2-comment-cancel.primary:hover,
 .o2-new-comment-cancel.primary:hover {
-  border-color: #888888;
+  border-color: #888;
 }
-/* line 310, src/ui/_editor.scss */
+
 .o2-save:hover,
 .o2-cancel:hover,
 .o2-comment-save:hover,
 .o2-comment-cancel:hover,
 .o2-new-comment-cancel:hover {
-  border-color: #bbbbbb;
+  border-color: #bbb;
 }
 
-/* line 324, src/ui/_editor.scss */
 .o2-save:focus,
 .o2-save:active,
 .o2-comment-save:focus,
@@ -641,27 +608,23 @@ article.sticky .o2-sticky-link:after {
   border-color: #bbb;
 }
 
-/* line 328, src/ui/_editor.scss */
 .o2-fspost-content {
   background: #fff;
   padding: 0 0.8em 0.8em 0.8em;
 }
 
-/* line 333, src/ui/_editor.scss */
 .o2-save {
   float: left;
 }
 
-/* line 337, src/ui/_editor.scss */
 .o2-save-spinner {
   height: 25px;
-  background: url("../../img/o2-spinner.gif") no-repeat left bottom;
+  background: url("../img/o2-spinner.gif") no-repeat right bottom;
   background-size: 25px 25px;
   margin-left: 1.6em;
   margin-bottom: 0.6em;
 }
 
-/* line 368, src/ui/_editor.scss */
 .o2-editor-toolbar-button:hover,
 .o2-editor-toolbar-button:focus,
 .o2-save:hover,
@@ -674,10 +637,9 @@ article.sticky .o2-sticky-link:after {
 .o2-comment-cancel:focus,
 .o2-new-comment-cancel:hover,
 .o2-new-comment-cancel:focus {
-  color: black;
+  color: #000;
 }
 
-/* line 383, src/ui/_editor.scss */
 .o2-editor-toolbar-button:focus,
 .o2-editor-toolbar-button:active,
 .o2-save:focus,
@@ -693,27 +655,23 @@ article.sticky .o2-sticky-link:after {
   outline: none;
 }
 
-/* line 387, src/ui/_editor.scss */
 .o2-post .post-password-form input[type="submit"] {
   color: #3498db;
   font-family: "Open Sans", sans-serif;
 }
 
-/* line 395, src/ui/_editor.scss */
 .o2-app-new-post .o2-editor-text.o2-editor-title-line:first-line {
   font-size: 1.3em;
 }
 
-/* line 405, src/ui/_editor.scss */
-#respond .o2-editor-footer ul li:first-of-type {
-  border-right: 1px #dddddd solid;
-}
-/* line 412, src/ui/_editor.scss */
-#respond .o2-editor .o2-editor-wrapper {
-  border: 1px solid #dddddd;
+#respond .o2-editor-footer .o2-editor-tabs li:first-of-type {
+  border-right: 1px #ddd solid;
 }
 
-/* line 419, src/ui/_editor.scss */
+#respond .o2-editor .o2-editor-wrapper {
+  border: 1px solid #ddd;
+}
+
 .o2-comment .o2-editor {
   clear: both;
   padding-top: 0.4em;
@@ -721,77 +679,33 @@ article.sticky .o2-sticky-link:after {
   margin: 0.8em 65px 1.2em 0;
   padding: 0;
 }
-/* line 428, src/ui/_editor.scss */
-.o2-comment .o2-editor .o2-editor-footer ul li:first-of-type {
-  border-right: 1px #dddddd solid;
+
+.o2-comment .o2-editor .o2-editor-footer .o2-editor-tabs li:first-of-type {
+  border-right: 1px #ddd solid;
 }
-/* line 435, src/ui/_editor.scss */
+
 .o2-comment .o2-logged-out-editor {
   clear: none;
 }
-/* line 439, src/ui/_editor.scss */
+
 .o2-comment .o2-editor-toolbar {
   background: #fafafa;
 }
-/* line 443, src/ui/_editor.scss */
+
 .o2-comment .o2-actions {
   left: 0;
   position: absolute;
 }
-/* line 448, src/ui/_editor.scss */
+
 .o2-comment:empty {
   border-top: none 0;
   display: none;
 }
 
-/* line 456, src/ui/_editor.scss */
 .o2-child-views .o2-comment .o2-editor {
   margin-right: 45px;
 }
 
-/* line 466, src/ui/_editor.scss */
-.o2-editor.fullscreen .o2-editor-toolbar-wrapper,
-.o2-fullscreen-fallback .o2-editor-toolbar-wrapper {
-  position: fixed;
-  width: 72%;
-  top: 0;
-  padding-top: 100px;
-  background-color: white;
-}
-/* line 474, src/ui/_editor.scss */
-.o2-editor.fullscreen .o2-editor-toolbar,
-.o2-fullscreen-fallback .o2-editor-toolbar {
-  top: 0 !important;
-}
-/* line 478, src/ui/_editor.scss */
-.o2-editor.fullscreen .o2-editor-wrapper,
-.o2-fullscreen-fallback .o2-editor-wrapper {
-  margin: 100px 200px 0;
-  height: 100%;
-}
-/* line 483, src/ui/_editor.scss */
-.o2-editor.fullscreen .o2-editor-text,
-.o2-fullscreen-fallback .o2-editor-text {
-  margin-top: 140px;
-  margin-bottom: 100px;
-  width: 100%;
-  /* Rather than disable the auto-resize, we just override the CSS it tries to introduce */
-  min-height: -moz-calc(100% - 240px ) !important;
-  min-height: -webkit-calc(100% - 240px ) !important;
-  min-height: calc(100% - 240px ) !important;
-  overflow-y: auto !important;
-}
-/* line 500, src/ui/_editor.scss */
-.o2-editor.fullscreen .o2-editor-footer,
-.o2-fullscreen-fallback .o2-editor-footer {
-  margin: 0 200px !important;
-  position: fixed;
-  bottom: 0;
-  background-color: #fff;
-  width: 72%;
-}
-
-/* line 512, src/ui/_editor.scss */
 .o2-editor-format,
 .o2-editor-format-standard,
 .o2-editor-format-aside,
@@ -808,14 +722,14 @@ article.sticky .o2-sticky-link:after {
   left: 5px;
   top: 3px;
 }
-/* line 525, src/ui/_editor.scss */
+
 .o2-editor-format:hover,
 .o2-editor-format-standard:hover,
 .o2-editor-format-aside:hover,
 .o2-editor-format-status:hover {
   opacity: 1;
 }
-/* line 529, src/ui/_editor.scss */
+
 .o2-editor-format:before,
 .o2-editor-format-standard:before,
 .o2-editor-format-aside:before,
@@ -831,33 +745,17 @@ article.sticky .o2-sticky-link:after {
   height: 32px;
 }
 
-/* line 544, src/ui/_editor.scss */
 .o2-editor-format-aside:before,
 .o2-editor-format-status:before {
   content: '\f100';
 }
 
-/* line 549, src/ui/_editor.scss */
-.o2-fullscreen-fallback {
-  position: fixed;
-  top: 0;
-  right: 0;
-  background: #fff;
-  z-index: 99999999;
-}
-/* line 556, src/ui/_editor.scss */
-.o2-fullscreen-fallback .o2-editor-text {
-  overflow-x: none;
-}
-
 @media (max-width: 640px) {
-  /* line 561, src/ui/_editor.scss */
   .o2-editor-toolbar-wrapper {
     display: none;
   }
 }
 
-/* line 567, src/ui/_editor.scss */
 .ui-helper-hidden-accessible {
   display: none;
 }
@@ -865,21 +763,18 @@ article.sticky .o2-sticky-link:after {
 /*
  * Drag and drop uploading
  */
-/* line 574, src/ui/_editor.scss */
 .o2 .o2-editor-wrapper.dragging {
-  outline: 3px dashed #028db9;
+  outline: 3px dashed #028DB9;
 }
-/* line 577, src/ui/_editor.scss */
+
 .o2 .o2-editor-wrapper.dragging .o2-editor-toolbar {
   background: #fafafa !important;
 }
 
-/* line 582, src/ui/_editor.scss */
 .dragging div, .dragging div div {
   background: #fafafa !important;
 }
 
-/* line 586, src/ui/_editor.scss */
 .o2-editor-upload {
   overflow: hidden;
   padding: 0;
@@ -887,7 +782,6 @@ article.sticky .o2-sticky-link:after {
   background: #fafafa;
 }
 
-/* line 593, src/ui/_editor.scss */
 .o2-editor-upload-progress {
   height: 3px;
   background-color: #028DB9;
@@ -896,12 +790,10 @@ article.sticky .o2-sticky-link:after {
   transition: width 0.2s;
 }
 
-/* line 601, src/ui/_editor.scss */
 .o2-editor-progress-fallback {
   line-height: 1;
 }
 
-/* line 605, src/ui/_editor.scss */
 .o2-app-controls {
   font-size: 0.7em;
   font-weight: 300;
@@ -910,52 +802,46 @@ article.sticky .o2-sticky-link:after {
 }
 
 @media (max-width: 640px) {
-  /* line 612, src/ui/_editor.scss */
   .o2-app-new-post {
     display: none;
     margin-bottom: 0.5em;
   }
 }
-/* line 618, src/ui/_editor.scss */
+
 .o2-app-new-post .o2-editor {
   border: none 0;
 }
-/* line 622, src/ui/_editor.scss */
+
 .o2-app-new-post .o2-save {
   float: left;
 }
 
-/* line 628, src/ui/_editor.scss */
 .o2-child-comments .o2-editor-wrapper {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
 }
 
-/* line 633, src/ui/_editor.scss */
 .o2-editor-toolbar {
   background: #fafafa;
 }
 
-/* line 637, src/ui/_editor.scss */
 #post_subscribe_label {
   margin-right: 0.5em;
 }
 
-/* line 641, src/ui/_editor.scss */
 #o2-expand-editor {
   display: none;
 }
 
-/* line 646, src/ui/_editor.scss */
 .o2-app-new-post .entry-content {
   margin: 0;
   padding: 0;
 }
-/* line 651, src/ui/_editor.scss */
+
 .o2-app-new-post .entry-header {
   padding: 0.8em 0.8em 0 0.8em;
   background: #fff;
 }
-/* line 656, src/ui/_editor.scss */
+
 .o2-app-new-post h2 {
   font-size: 1.25em;
   margin-bottom: 0.4em;
@@ -965,44 +851,45 @@ article.sticky .o2-sticky-link:after {
 /*
  * o2 App Controls
  */
-/* line 5, src/ui/_controls.scss */
 .o2-app-page-title {
   position: relative;
 }
 
-/* line 9, src/ui/_controls.scss */
 .o2-app-controls {
   font-size: 0.6em;
   font-weight: normal;
   line-height: 1.8em;
   text-align: left;
   float: left;
+  margin-top: -2em;
 }
 
 /*
  * o2 Actions
  */
-/* line 21, src/ui/_controls.scss */
+.o2-disabled-action {
+  cursor: not-allowed;
+}
+
 .o2-meta {
   font-weight: normal;
   margin-right: 0.4em;
 }
 
 @media (max-width: 640px) {
-  /* line 27, src/ui/_controls.scss */
   #o2-expand-editor {
     position: fixed;
     display: block;
     bottom: 10px;
-    right: 10px;
+    left: 10px;
     text-align: right;
     color: #fff;
     border-radius: 50%;
     width: 44px;
     height: 44px;
     padding: 4px 4px 1px 1px;
-    border: solid 2px white;
-    box-shadow: 0 0 1em black;
+    border: solid 2px #fff;
+    box-shadow: 0 0 1em #000;
     opacity: 1;
     -webkit-appearance: preserve-3d;
     -webkit-transition: all 0.25s ease-out;
@@ -1010,36 +897,32 @@ article.sticky .o2-sticky-link:after {
     transition: all 0.25s ease-out;
     -webkit-transform: rotate(0deg);
   }
-  /* line 45, src/ui/_controls.scss */
   #o2-expand-editor.hidden {
     bottom: -50px;
     opacity: 0;
-    -webkit-transform: rotate(160deg);
+    -webkit-transform: rotate(-160deg);
   }
-  /* line 51, src/ui/_controls.scss */
   #o2-expand-editor span {
     font-size: 32px;
     width: 44px;
     text-align: center;
     line-height: 44px;
+    margin: -1px -1px 0 0;
   }
 }
-/* line 1, src/ui/_messaging.scss */
+
 .o2-new-content {
   width: 100%;
 }
 
-/* line 5, src/ui/_messaging.scss */
 .o2-extended-more {
   display: none;
 }
 
-/* line 9, src/ui/_messaging.scss */
 .o2-error {
   background-color: #fff0f0;
 }
 
-/* line 13, src/ui/_messaging.scss */
 .o2-browser-warning {
   background-color: #ffff90;
   color: #000;
@@ -1050,7 +933,6 @@ article.sticky .o2-sticky-link:after {
 /*
  * o2 Notifications
  */
-/* line 24, src/ui/_messaging.scss */
 .o2-notifications {
   position: fixed;
   bottom: 10px;
@@ -1059,7 +941,6 @@ article.sticky .o2-sticky-link:after {
   width: 100%;
 }
 
-/* line 32, src/ui/_messaging.scss */
 .o2-notification {
   background: #111;
   background: rgba(0, 0, 0, 0.75);
@@ -1077,55 +958,51 @@ article.sticky .o2-sticky-link:after {
   box-shadow: 0 0 1px rgba(255, 255, 255, 0.25);
   font-family: inherit;
 }
-/* line 52, src/ui/_messaging.scss */
+
 .o2-notification a:link, .o2-notification a:visited, .o2-notification a:active {
   color: #eee;
 }
-/* line 56, src/ui/_messaging.scss */
+
 .o2-notification a:hover {
   color: #fff;
 }
-/* line 61, src/ui/_messaging.scss */
+
 .o2-notification table {
   padding: 10px;
   margin: 0;
 }
-/* line 68, src/ui/_messaging.scss */
+
 .o2-notification table,
 .o2-notification tr,
 .o2-notification td {
   border: none;
 }
 
-/* line 73, src/ui/_messaging.scss */
 .o2-notification-error {
   background: #911;
 }
 
-/* line 77, src/ui/_messaging.scss */
 .o2-notification-message {
   padding: 0px;
   text-align: center;
   vertical-align: middle;
 }
 
-/* line 83, src/ui/_messaging.scss */
 .o2-notification-icon {
   text-align: center;
   vertical-align: middle;
   width: 80px;
   -webkit-font-smoothing: antialiased;
-  font: normal 32px/1 "Genericons";
+  font: normal 32px/1 'Genericons';
 }
 
-/* line 91, src/ui/_messaging.scss */
 .o2-notification-close {
   float: left;
   vertical-align: top;
   -webkit-font-smoothing: antialiased;
-  font: normal 20px/1 "Genericons";
+  font: normal 20px/1 'Genericons';
 }
-/* line 97, src/ui/_messaging.scss */
+
 .o2-notification-close a:hover {
   border-bottom: none;
   text-decoration: none;
@@ -1134,7 +1011,6 @@ article.sticky .o2-sticky-link:after {
 /*
  * Help modal
  */
-/* line 106, src/ui/_messaging.scss */
 #help {
   background: #000;
   background: rgba(0, 0, 0, 0.75);
@@ -1142,7 +1018,7 @@ article.sticky .o2-sticky-link:after {
   -moz-border-radius: 0;
   border-radius: 0;
   box-shadow: 0 0 1px rgba(255, 255, 255, 0.25);
-  color: white;
+  color: #fff;
   display: none;
   padding: 30px;
   margin: 0;
@@ -1152,13 +1028,13 @@ article.sticky .o2-sticky-link:after {
   z-index: 10000;
   width: 60%;
 }
-/* line 123, src/ui/_messaging.scss */
+
 #help dl {
   margin: 0;
   padding: 0;
   font-size: 2em;
 }
-/* line 130, src/ui/_messaging.scss */
+
 #help dd,
 #help dt {
   display: block;
@@ -1166,7 +1042,7 @@ article.sticky .o2-sticky-link:after {
   margin: 0;
   padding: 0;
 }
-/* line 137, src/ui/_messaging.scss */
+
 #help dt {
   clear: right;
   color: #3478e3;
@@ -1175,7 +1051,7 @@ article.sticky .o2-sticky-link:after {
   text-align: left;
   width: 25%;
 }
-/* line 146, src/ui/_messaging.scss */
+
 #help dd {
   width: 70%;
   font-family: inherit;
