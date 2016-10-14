@@ -47,13 +47,16 @@ class o2BaseTest extends WP_UnitTestCase {
 	function test_rtl_support() {
 		global $wp_locale;
 		global $o2;
+		global $wp_styles;
 
-		wp_dequeue_style( 'o2-plugin-styles-rtl' );
+		$wp_styles = null;
 		$wp_locale->text_direction = 'rtl';
 		$o2->register_plugin_styles();
 
+		$style = $wp_styles->query( 'o2-plugin-styles' );
+
 		$this->assertTrue(
-			wp_style_is( 'o2-plugin-styles-rtl' ),
+			(bool) stripos( $style->src, 'rtl' ),
 			'RTL styles should get enqueued if mode is RTL'
 		);
 	}
@@ -63,12 +66,14 @@ class o2BaseTest extends WP_UnitTestCase {
 		global $o2;
 		global $wp_styles;
 
-		wp_dequeue_style( 'o2-plugin-styles-rtl' );
+		$wp_styles = null;
 		$wp_locale->text_direction = 'ltr';
 		$o2->register_plugin_styles();
 
+		$style = $wp_styles->query( 'o2-plugin-styles' );
+
 		$this->assertFalse(
-			wp_style_is( 'o2-plugin-styles-rtl' ),
+			(bool) stripos( $style->src, 'rtl' ),
 			'RTL styles should not get enqueued if mode is LTR'
 		);
 	}

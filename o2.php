@@ -166,11 +166,14 @@ class o2 {
 
 	public function register_plugin_styles() {
 
+		$sheet_path = 'css/style.css';
+
 		if( is_rtl() ) {
-			wp_enqueue_style( 'o2-plugin-styles-rtl', plugins_url( 'css/rtl/style-rtl.css', O2__FILE__ ), array( 'genericons' ) );
-		} else {
-			wp_enqueue_style( 'o2-plugin-styles', plugins_url( 'css/style.css', O2__FILE__ ), array( 'genericons' ) );
+			$sheet_path = 'css/rtl/style-rtl.css';
 		}
+
+		wp_enqueue_style( 'o2-plugin-styles', plugins_url( $sheet_path, O2__FILE__ ), array( 'genericons' ) );
+		
 	}
 
 	public function register_plugin_scripts() {
