@@ -1,5 +1,3 @@
-/* This file was automatically generated on Aug 22 2014 22:44:14 */
-
 /* COLORS */
 /* TYPOGRAPHY */
 /* EFFECTS & UTILITIES */
@@ -19,7 +17,7 @@ nav.o2-dropdown-actions {
   /* ul */
 }
 /* line 20, _post-actions.scss */
-nav.o2-dropdown-actions .genericon {
+nav.o2-dropdown-actions .genericon:before {
   font-family: 'Genericons';
 }
 /* line 26, _post-actions.scss */
@@ -58,7 +56,7 @@ nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon:before {
   text-align: center;
   color: #cccccc;
   position: relative;
-  top: -7px;
+  top: -4px;
 }
 /* line 63, _post-actions.scss */
 nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon:hover {
@@ -87,7 +85,7 @@ nav.o2-dropdown-actions ul {
   border-radius: 3px;
   -webkit-background-clip: padding-box;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2);
   float: left;
   display: none;
   margin: 0;
@@ -111,7 +109,7 @@ nav.o2-dropdown-actions ul li > a, nav.o2-dropdown-actions ul li > span > a {
   box-shadow: none;
   text-align: right;
   color: #666666;
-  padding: 0.6em 1.0em 0.6em 1.0em;
+  padding: 0.6em 1em 0.6em 1em;
   margin: 0;
   line-height: 1.5;
   width: calc(100% - 2.0em );
@@ -123,7 +121,7 @@ nav.o2-dropdown-actions ul li > a, nav.o2-dropdown-actions ul li > span > a {
   /* line 103, _post-actions.scss */
   nav.o2-dropdown-actions ul li > a, nav.o2-dropdown-actions ul li > span > a {
     line-height: 2.5;
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 /* line 125, _post-actions.scss */
@@ -147,17 +145,25 @@ nav.o2-dropdown-actions ul li > a.o2-actions-border-top, nav.o2-dropdown-actions
     border-top-color: #cccccc !important;
   }
 }
-/* line 144, _post-actions.scss */
+/* line 145, _post-actions.scss */
+nav.o2-dropdown-actions ul li > a.o2-warning-hover:hover, nav.o2-dropdown-actions ul li > span > a.o2-warning-hover:hover {
+  color: red;
+}
+/* line 147, _post-actions.scss */
+nav.o2-dropdown-actions ul li > a.o2-warning-hover:hover:before, nav.o2-dropdown-actions ul li > span > a.o2-warning-hover:hover:before {
+  color: red;
+}
+/* line 153, _post-actions.scss */
 nav.o2-dropdown-actions ul li > a.o2-actions-border-bottom, nav.o2-dropdown-actions ul li > span > a.o2-actions-border-bottom {
   border-bottom: 1px #f1f1f1 solid;
 }
 @media (max-width: 550px) {
-  /* line 144, _post-actions.scss */
+  /* line 153, _post-actions.scss */
   nav.o2-dropdown-actions ul li > a.o2-actions-border-bottom, nav.o2-dropdown-actions ul li > span > a.o2-actions-border-bottom {
     border-bottom-color: #cccccc !important;
   }
 }
-/* line 153, _post-actions.scss */
+/* line 162, _post-actions.scss */
 nav.o2-dropdown-actions ul li > a.genericon:before, nav.o2-dropdown-actions ul li > span > a.genericon:before {
   display: inline-block;
   width: 16px;
@@ -173,28 +179,33 @@ nav.o2-dropdown-actions ul li > a.genericon:before, nav.o2-dropdown-actions ul l
   color: #bbbbbb;
 }
 @media (max-width: 640px) {
-  /* line 153, _post-actions.scss */
+  /* line 162, _post-actions.scss */
   nav.o2-dropdown-actions ul li > a.genericon:before, nav.o2-dropdown-actions ul li > span > a.genericon:before {
     line-height: 2.0;
+    font-size: 32px;
+    position: relative;
+    top: -12px;
+    right: -10px;
+    padding-left: 12px;
   }
 }
 
 /*********************************************************************************************/
 /* POST ACTIONS DROPDOWN */
-/* line 182, _post-actions.scss */
+/* line 196, _post-actions.scss */
 nav.o2-post-actions button {
   position: absolute;
   top: -10px;
   left: -10px;
 }
-/* line 188, _post-actions.scss */
+/* line 202, _post-actions.scss */
 nav.o2-post-actions ul {
   position: absolute;
   top: -10px;
   left: -10px;
 }
 @media (max-width: 550px) {
-  /* line 188, _post-actions.scss */
+  /* line 202, _post-actions.scss */
   nav.o2-post-actions ul {
     right: -50px;
   }
@@ -202,27 +213,27 @@ nav.o2-post-actions ul {
 
 /*********************************************************************************************/
 /* COMMENT ACTIONS DROPDOWN */
-/* line 203, _post-actions.scss */
+/* line 217, _post-actions.scss */
 nav.o2-comment-actions button {
   position: absolute;
   left: 10px;
 }
-/* line 204, _post-actions.scss */
+/* line 218, _post-actions.scss */
 nav.o2-comment-actions button:before {
   padding-left: 0;
 }
-/* line 211, _post-actions.scss */
+/* line 225, _post-actions.scss */
 nav.o2-comment-actions button .open {
   display: block;
 }
-/* line 216, _post-actions.scss */
+/* line 230, _post-actions.scss */
 nav.o2-comment-actions ul {
   position: absolute;
   left: 10px;
-  margin-top: 22px;
+  margin-top: 32px;
 }
 @media (max-width: 550px) {
-  /* line 216, _post-actions.scss */
+  /* line 230, _post-actions.scss */
   nav.o2-comment-actions ul {
     right: 10px;
   }
@@ -230,7 +241,7 @@ nav.o2-comment-actions ul {
 
 /*********************************************************************************************/
 /* POST FOOTER ACTIONS */
-/* line 230, _post-actions.scss */
+/* line 244, _post-actions.scss */
 footer.entry-meta {
   margin-right: 40px;
   overflow: hidden;
@@ -238,22 +249,22 @@ footer.entry-meta {
   padding-top: 15px;
 }
 @media (max-width: 640px) {
-  /* line 230, _post-actions.scss */
+  /* line 244, _post-actions.scss */
   footer.entry-meta {
     margin-right: 0;
   }
 }
 
-/* line 242, _post-actions.scss */
+/* line 256, _post-actions.scss */
 #jp-post-flair {
   padding-top: 0px;
 }
 
-/* line 245, _post-actions.scss */
+/* line 259, _post-actions.scss */
 nav.o2-post-footer-actions {
   overflow: hidden;
 }
-/* line 249, _post-actions.scss */
+/* line 263, _post-actions.scss */
 nav.o2-post-footer-actions ul {
   list-style-type: none;
   margin: 0;
@@ -261,11 +272,11 @@ nav.o2-post-footer-actions ul {
   clear: both;
   float: right;
 }
-/* line 256, _post-actions.scss */
+/* line 270, _post-actions.scss */
 nav.o2-post-footer-actions ul.o2-extended-actions {
   clear: both;
 }
-/* line 260, _post-actions.scss */
+/* line 274, _post-actions.scss */
 nav.o2-post-footer-actions ul.wpl-avatars {
   float: right;
   margin-top: 3px;
@@ -273,16 +284,16 @@ nav.o2-post-footer-actions ul.wpl-avatars {
   display: flex;
 }
 @media (max-width: 1024px) {
-  /* line 260, _post-actions.scss */
+  /* line 274, _post-actions.scss */
   nav.o2-post-footer-actions ul.wpl-avatars {
     display: none;
   }
 }
-/* line 271, _post-actions.scss */
+/* line 285, _post-actions.scss */
 nav.o2-post-footer-actions ul.wpl-avatars li {
   margin: 0px auto;
 }
-/* line 274, _post-actions.scss */
+/* line 288, _post-actions.scss */
 nav.o2-post-footer-actions ul.wpl-avatars li .avatar {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -290,14 +301,14 @@ nav.o2-post-footer-actions ul.wpl-avatars li .avatar {
   -webkit-background-clip: padding-box;
   margin-left: 2px;
 }
-/* line 281, _post-actions.scss */
+/* line 295, _post-actions.scss */
 nav.o2-post-footer-actions ul li {
   float: right;
   margin-bottom: 12px;
   white-space: nowrap;
   margin: 7px auto 7px 7px;
 }
-/* line 287, _post-actions.scss */
+/* line 301, _post-actions.scss */
 nav.o2-post-footer-actions ul li.o2-likes {
   margin-left: 0;
   display: flex;
@@ -305,12 +316,12 @@ nav.o2-post-footer-actions ul li.o2-likes {
   min-width: 550px;
 }
 @media (max-width: 1024px) {
-  /* line 287, _post-actions.scss */
+  /* line 301, _post-actions.scss */
   nav.o2-post-footer-actions ul li.o2-likes {
     min-width: 0;
   }
 }
-/* line 298, _post-actions.scss */
+/* line 312, _post-actions.scss */
 nav.o2-post-footer-actions ul li button {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -329,40 +340,40 @@ nav.o2-post-footer-actions ul li button {
   background: white;
   float: right;
 }
-/* line 317, _post-actions.scss */
+/* line 331, _post-actions.scss */
 nav.o2-post-footer-actions ul li button.genericon {
   font-size: 14px;
 }
-/* line 322, _post-actions.scss */
+/* line 336, _post-actions.scss */
 nav.o2-post-footer-actions ul li button.o2-actions-no-icon:before {
   content: '';
   padding: 0;
 }
 @media (max-width: 876px) {
-  /* line 321, _post-actions.scss */
+  /* line 335, _post-actions.scss */
   nav.o2-post-footer-actions ul li button.o2-actions-no-icon {
     font-size: 22px;
   }
 }
 @media (max-width: 876px) {
-  /* line 333, _post-actions.scss */
+  /* line 347, _post-actions.scss */
   nav.o2-post-footer-actions ul li button:not(.o2-actions-no-icon) span {
     display: none;
   }
 }
-/* line 341, _post-actions.scss */
+/* line 355, _post-actions.scss */
 nav.o2-post-footer-actions ul li button span.o2-count {
   color: #bbbbbb;
   display: inline-block;
   padding-right: 3px;
 }
 @media (max-width: 876px) {
-  /* line 341, _post-actions.scss */
+  /* line 355, _post-actions.scss */
   nav.o2-post-footer-actions ul li button span.o2-count {
     font-size: 32px;
   }
 }
-/* line 352, _post-actions.scss */
+/* line 366, _post-actions.scss */
 nav.o2-post-footer-actions ul li button:before {
   font-size: 16px;
   color: #3498db;
@@ -372,13 +383,13 @@ nav.o2-post-footer-actions ul li button:before {
   position: relative;
 }
 @media (max-width: 876px) {
-  /* line 352, _post-actions.scss */
+  /* line 366, _post-actions.scss */
   nav.o2-post-footer-actions ul li button:before {
     font-size: 32px;
     padding-left: 2px;
   }
 }
-/* line 368, _post-actions.scss */
+/* line 382, _post-actions.scss */
 nav.o2-post-footer-actions ul li > a, nav.o2-post-footer-actions ul li > span > a {
   background: transparent;
   border: 1px #cccccc solid;
@@ -397,43 +408,43 @@ nav.o2-post-footer-actions ul li > a, nav.o2-post-footer-actions ul li > span > 
   font-family: "Open Sans", sans-serif;
   background-color: #f8f8f8;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
-  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.08);
   -webkit-font-smoothing: auto !important;
   -moz-osx-font-smoothing: auto;
 }
-/* line 395, _post-actions.scss */
+/* line 409, _post-actions.scss */
 nav.o2-post-footer-actions ul li > a:hover, nav.o2-post-footer-actions ul li > span > a:hover {
   border-color: #999999;
   color: #777777;
   background-color: #f8f8f8;
 }
-/* line 401, _post-actions.scss */
+/* line 415, _post-actions.scss */
 nav.o2-post-footer-actions ul li > a.o2-actions-no-icon:before, nav.o2-post-footer-actions ul li > span > a.o2-actions-no-icon:before {
   width: 24px;
   display: inline-block;
   content: '';
 }
-/* line 407, _post-actions.scss */
+/* line 421, _post-actions.scss */
 nav.o2-post-footer-actions ul li > a.o2-actions-border-top, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-top {
   border-top: 1px #f1f1f1 solid;
 }
 @media (max-width: 640px) {
-  /* line 407, _post-actions.scss */
+  /* line 421, _post-actions.scss */
   nav.o2-post-footer-actions ul li > a.o2-actions-border-top, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-top {
     border-top-color: #cccccc !important;
   }
 }
-/* line 415, _post-actions.scss */
+/* line 429, _post-actions.scss */
 nav.o2-post-footer-actions ul li > a.o2-actions-border-bottom, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-bottom {
   border-bottom: 1px #f1f1f1 solid;
 }
 @media (max-width: 550px) {
-  /* line 415, _post-actions.scss */
+  /* line 429, _post-actions.scss */
   nav.o2-post-footer-actions ul li > a.o2-actions-border-bottom, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-bottom {
     border-bottom-color: #cccccc !important;
   }
 }
-/* line 424, _post-actions.scss */
+/* line 438, _post-actions.scss */
 nav.o2-post-footer-actions ul li > a.genericon:before, nav.o2-post-footer-actions ul li > span > a.genericon:before {
   display: inline-block;
   width: 16px;
@@ -448,42 +459,44 @@ nav.o2-post-footer-actions ul li > a.genericon:before, nav.o2-post-footer-action
   padding-right: 3px;
   padding-left: 3px;
   color: #2ba1cb;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: antialiased;
 }
 
-/* line 445, _post-actions.scss */
+/* line 461, _post-actions.scss */
 footer.entry-meta {
   border-top: none;
 }
 
 /*********************************************************************************************/
 /* COMMENT FOOTER ACTIONS */
-/* line 452, _post-actions.scss */
+/* line 468, _post-actions.scss */
 div.o2-comment-footer-actions {
   overflow: hidden;
   padding: 0 0 10px 0;
 }
 @media (max-width: 640px) {
-  /* line 452, _post-actions.scss */
+  /* line 468, _post-actions.scss */
   div.o2-comment-footer-actions {
     padding-bottom: 0px;
   }
 }
-/* line 463, _post-actions.scss */
+/* line 479, _post-actions.scss */
 div.o2-comment-footer-actions ul {
   list-style-type: none;
   margin: 0;
   padding: 1px;
   /* Lots of styling below to reduce comment like star a bit and clean up alignments */
 }
-/* line 468, _post-actions.scss */
+/* line 484, _post-actions.scss */
 div.o2-comment-footer-actions ul li {
   float: right;
 }
-/* line 474, _post-actions.scss */
+/* line 490, _post-actions.scss */
 div.o2-comment-footer-actions ul li a .o2-comment-like .liked:before {
   color: #ff9a00;
 }
-/* line 482, _post-actions.scss */
+/* line 498, _post-actions.scss */
 div.o2-comment-footer-actions ul li > a {
   color: #555555;
   opacity: 0.8;
@@ -498,7 +511,7 @@ div.o2-comment-footer-actions ul li > a {
   overflow: visible;
   display: inline-flex;
 }
-/* line 495, _post-actions.scss */
+/* line 511, _post-actions.scss */
 div.o2-comment-footer-actions ul li > a:before {
   font-family: 'Genericons';
   margin-left: 5px;
@@ -507,46 +520,46 @@ div.o2-comment-footer-actions ul li > a:before {
   line-height: 18px;
   height: 20px;
 }
-/* line 505, _post-actions.scss */
+/* line 521, _post-actions.scss */
 div.o2-comment-footer-actions ul li > a:hover:before {
   color: #ff9a00;
 }
-/* line 510, _post-actions.scss */
+/* line 526, _post-actions.scss */
 div.o2-comment-footer-actions ul li > a span {
   color: #3498db;
   line-height: 1;
   vertical-align: top;
 }
-/* line 516, _post-actions.scss */
+/* line 532, _post-actions.scss */
 div.o2-comment-footer-actions ul li > a.o2-comment-reply {
   padding-left: 10px;
   -webkit-font-smoothing: auto;
   -moz-font-smoothing: auto;
 }
-/* line 522, _post-actions.scss */
+/* line 538, _post-actions.scss */
 div.o2-comment-footer-actions ul li > a.o2-comment-reply:before {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: grayscale;
 }
-/* line 535, _post-actions.scss */
+/* line 551, _post-actions.scss */
 div.o2-comment-footer-actions ul p.comment-likes {
   height: 20px;
 }
-/* line 538, _post-actions.scss */
+/* line 554, _post-actions.scss */
 div.o2-comment-footer-actions ul p.comment-likes span.comment-like-feedback {
   padding: 0px 2px 0px 5px;
   line-height: 20px;
   -webkit-font-smoothing: auto;
   -moz-font-smoothing: auto;
 }
-/* line 545, _post-actions.scss */
+/* line 561, _post-actions.scss */
 div.o2-comment-footer-actions ul p.comment-likes a.comment-like-link {
   font-size: 16px;
   width: 16px;
   line-height: 18px;
   height: 20px;
 }
-/* line 551, _post-actions.scss */
+/* line 567, _post-actions.scss */
 div.o2-comment-footer-actions ul p.comment-likes a.comment-like-link:before {
   font-size: 16px;
   width: 16px;

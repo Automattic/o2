@@ -61,8 +61,26 @@ module.exports = function(grunt) {
 			},
 			rtlcss: {
 				o2: {
+					options: {
+						saveUnmodified: false
+					},
 					src: 'css/style.css',
 					dest: 'css/rtl/style-rtl.css'
+				},
+				modules: {
+					options: {
+						saveUnmodified: false
+					},
+					files: {
+						'modules/checklists/css/rtl/style-rtl.css':    'modules/checklists/css/style.css',
+						'modules/filter-widget/css/rtl/style-rtl.css': 'modules/filter-widget/css/style.css',
+						'modules/follow/css/rtl/style-rtl.css':        'modules/follow/css/style.css',
+						'modules/live-comments/css/rtl/style-rtl.css': 'modules/live-comments/css/style.css',
+						'modules/notifications/css/rtl/style-rtl.css': 'modules/notifications/css/style.css',
+						'modules/post-actions/css/rtl/style-rtl.css':  'modules/post-actions/css/style.css',
+						'modules/sticky-posts/css/rtl/style-rtl.css':  'modules/sticky-posts/css/style.css',
+						'modules/to-do/css/rtl/style-rtl.css':         'modules/to-do/css/style.css'
+					}
 				}
 			}
 		};
