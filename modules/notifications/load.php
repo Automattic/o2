@@ -9,10 +9,9 @@ class o2_Notifications extends o2_API_Base {
 
 	function __construct() {
 
-		// Scripts and styles
-		if ( ! is_admin() ) {
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		}
+
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_style' ) );
 
 		// Actions
 		add_action( 'o2_templates', array( $this, 'get_templates' ) );
@@ -23,7 +22,6 @@ class o2_Notifications extends o2_API_Base {
 	}
 
 	function enqueue_scripts() {
-		wp_enqueue_style( 'o2-notifications', plugins_url( 'modules/notifications/css/style.css', O2__FILE__ ) );
 		wp_enqueue_script( 'o2-notifications-models-notification', plugins_url( 'modules/notifications/js/models/notification.js', O2__FILE__ ), array( 'o2-models-base', 'o2-timestamp' ) );
 		wp_enqueue_script( 'o2-notifications-collections-notifications', plugins_url( 'modules/notifications/js/collections/notifications.js', O2__FILE__ ), array( 'o2-notifications-models-notification' ) );
 		wp_enqueue_script( 'o2-notifications-views-notification', plugins_url( 'modules/notifications/js/views/notification.js', O2__FILE__ ), array( 'o2-notifications-models-notification', 'wp-backbone' ) );
@@ -33,6 +31,16 @@ class o2_Notifications extends o2_API_Base {
 		wp_enqueue_script( 'o2-notifications-views-flash-items', plugins_url( 'modules/notifications/js/views/flash-items.js', O2__FILE__ ), array( 'o2-notifications-collections-notifications', 'o2-notifications-views-notification' ) );
 		wp_enqueue_script( 'o2-notifications-views-flash', plugins_url( 'modules/notifications/js/views/flash.js', O2__FILE__ ), array( 'o2-notifications-views-notification', 'wp-backbone' ) );
 		wp_enqueue_script( 'o2-notifications', plugins_url( 'modules/notifications/js/app/notifications.js', O2__FILE__ ), array( 'o2-notifications-views-dock', 'o2-notifications-views-flash' ) );
+	}
+
+	function enqueue_style() {
+		$style_path = 'modules/notifications/css/style.css';
+
+		if( is_rtl() ) {
+			$style_path = 'modules/notifications/css/rtl/style-rtl.css';
+		}
+
+		wp_enqueue_style( 'o2-notifications', plugins_url( $style_path, O2__FILE__ ) );
 	}
 
 	/**

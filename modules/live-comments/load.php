@@ -66,7 +66,13 @@ class o2_Live_Comments_Widget extends WP_Widget {
 	}
 
 	function register_widget_styles() {
-		wp_enqueue_style( 'o2-live-comments-styles', plugins_url( 'modules/live-comments/css/style.css', O2__FILE__ ) );
+		$style_path = 'modules/live-comments/css/style.css';
+
+		if( is_rtl() ) {
+			$style_path = 'modules/live-comments/css/rtl/style-rtl.css';
+		}
+
+		wp_enqueue_style( 'o2-live-comments-styles', plugins_url( $style_path, O2__FILE__ ) );
 	}
 
 	function widget( $args, $instance ) {

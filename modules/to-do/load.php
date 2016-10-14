@@ -23,9 +23,8 @@ class o2_ToDos extends o2_API_Base {
 		add_action( 'init', array( $this, 'register_taxonomy' ) );
 
 		// Scripts and styles
-		if ( ! is_admin() ) {
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		}
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_style' ) );
 
 		// Actions
 		add_action( 'o2_templates', array( $this, 'get_templates' ) );
@@ -61,11 +60,20 @@ class o2_ToDos extends o2_API_Base {
 	}
 
 	function enqueue_scripts() {
-		wp_enqueue_style( 'o2-extend-to-do', plugins_url( 'modules/to-do/css/style.css', O2__FILE__ ) );
 		wp_enqueue_script( 'o2-extend-to-do-models-audit-log', plugins_url( 'modules/to-do/js/models/audit-log.js', O2__FILE__ ), array( 'o2-models-base' ) );
 		wp_enqueue_script( 'o2-extend-to-do-collections-audit-logs', plugins_url( 'modules/to-do/js/collections/audit-logs.js', O2__FILE__ ), array( 'o2-extend-to-do-models-audit-log' ) );
 		wp_enqueue_script( 'o2-extend-to-do-views-audit-log', plugins_url( 'modules/to-do/js/views/audit-log.js', O2__FILE__ ), array( 'o2-extend-to-do-models-audit-log', 'wp-backbone' ) );
 		wp_enqueue_script( 'o2-extend-to-do-views-extend-post', plugins_url( 'modules/to-do/js/views/extend-post.js', O2__FILE__ ), array( 'o2-cocktail', 'o2-extend-to-do-views-audit-log', 'o2-notifications' ) );
+	}
+
+	function enqueue_style() {
+		$style_path = 'modules/to-do/css/style.css';
+
+		if( is_rtl() ) {
+			$style_path = 'modules/to-do/css/rtl/style-rtl.css';
+		}
+
+		wp_enqueue_style( 'o2-extend-to-do', plugins_url( $style_path, O2__FILE__ ) );
 	}
 
 	/**

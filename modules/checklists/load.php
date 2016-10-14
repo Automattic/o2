@@ -40,6 +40,7 @@ class o2_List_Creator {
 
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_style' ) );
 		add_action( 'wp_ajax_o2_checklist', array( $this, 'on_ajax' ) );
 		add_filter( 'o2_options', array( $this, 'filter_options' ) );
 	}
@@ -50,8 +51,16 @@ class o2_List_Creator {
 		if ( wp_is_mobile() ) {
 			wp_enqueue_script( 'jquery-touch-punch' );
 		}
+	}
 
-		wp_enqueue_style( 'o2-extend-checklists-styles', plugins_url( 'modules/checklists/css/style.css', O2__FILE__ ) );
+	public function enqueue_style() {
+		$style_path = 'modules/checklists/css/style.css';
+
+		if( is_rtl() ) {
+			$style_path = 'modules/checklists/css/rtl/style-rtl.css';
+		}
+
+		wp_enqueue_style( 'o2-extend-checklists-styles', plugins_url( $style_path, O2__FILE__ ) );
 	}
 
 	public function parse_lists_in_post( $content ) {

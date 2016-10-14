@@ -35,7 +35,13 @@ class o2_Post_Actions {
 	}
 
 	function enqueue_styles() {
-		wp_enqueue_style( 'post-actions-styles', plugins_url( 'modules/post-actions/css/style.css', O2__FILE__ ) );
+		$style_path = 'modules/post-actions/css/style.css';
+
+		if( is_rtl() ) {
+			$style_path = 'modules/post-actions/css/rtl/style-rtl.css';
+		}
+
+		wp_enqueue_style( 'post-actions-styles', plugins_url( $style_path, O2__FILE__ ) );
 	}
 
 	function enqueue_scripts() {
