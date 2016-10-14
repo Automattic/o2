@@ -61,16 +61,10 @@ module.exports = function(grunt) {
 			},
 			rtlcss: {
 				o2: {
-					options: {
-						saveUnmodified: false
-					},
 					src: 'css/style.css',
 					dest: 'css/rtl/style-rtl.css'
 				},
 				modules: {
-					options: {
-						saveUnmodified: false
-					},
 					files: {
 						'modules/checklists/css/rtl/style-rtl.css':    'modules/checklists/css/style.css',
 						'modules/filter-widget/css/rtl/style-rtl.css': 'modules/filter-widget/css/style.css',
