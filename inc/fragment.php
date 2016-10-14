@@ -127,6 +127,11 @@ class o2_Fragment {
 
 				$extended_content = $extended_content['main'] . "\n\n" . $more_link . "\n<div class='o2-extended-more'>\n\n" . $extended_content['extended'] . "\n\n</div><!--.o2-extended-more-->\n";
 
+				// If the post has more content, we need to go through the full `the_content` filter again
+				if ( isset( $args['the_content'] ) ) {
+					unset( $args['the_content'] );
+				}
+
 			// No <!--more--> text
 			} else {
 				$extended_content = $extended_content['main'];
