@@ -215,4 +215,33 @@ class TimeShortcodeTest extends WP_UnitTestCase {
 		);
 	}
 
+
+	function test_relative_shortcode_arg_processed() {
+
+		global $post;
+
+		$post_id = $this->factory->post->create( array(
+			'post_title' => 'Test Post',
+			'post_content' => 'This is some [time now]+2 days[/time] test content.',
+			'post_date' => '2000-01-01 02:00:00',
+			'post_date_gmt' => '2000-01-01 02:00:00'
+		));
+
+		$post = get_post( $post_id );
+		setup_postdata( $post );
+
+		$result = o2_Time_Shortcode::time_shortcode( array(), '+2 days' );
+		$this->assertTrue(
+			(bool) strpos( $result, "946864800000"),
+			'Time shortcode should parse relative to post time when no args in shortcode'
+		);
+
+		$result = o2_Time_Shortcode::time_shortcode( array( 'now' ), '+2 days' );
+		$this->assertFalse(
+			(bool) strpos( $result, "946864800000"),
+			'Time shortcode should parse relative to now when no args in shortcode'
+		);
+
+	}
+
 }

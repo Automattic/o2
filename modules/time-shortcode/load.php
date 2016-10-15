@@ -4,6 +4,8 @@
  * Original Author: Otto
  *
  * Usage: [time]any-valid-time-string-here[/time]
+ * Put any attribute into the shortcode to have a date relative to the current time instead of the post/comment time
+ * e.g. [time doitlive]any-valid-time-string-here[/time]
  * Will attempt to parse the time string and create a format that shows it in the viewers local time zone
  * Note that times should be complete with year, month, day, and hour and minute.. something strtotime can parse meaningfully.
  * Times are assumed to be UTC.
@@ -24,7 +26,7 @@ class o2_Time_Shortcode {
 	/**
 	 * Process the time shortcode
 	 *
-	 * @param array $attr (unused)
+	 * @param array $attr - parse relative to current time if any attribute is set
 	 * @param string $content - Any valid strtotime string
 	 * @return string - html content
 	 **/
@@ -32,8 +34,10 @@ class o2_Time_Shortcode {
 
 		global $in_comment_content, $comment;
 
-		// try to parse the time, relative to the post/comment time
-		if ( $in_comment_content ) {
+		// try to parse the time, relative to now or comment time or post time, in that order
+		if( ! empty( $attr ) ) {
+			$relative_time = false;
+		} elseif ( $in_comment_content ) {
 			$relative_time = strtotime( $comment->comment_date_gmt );
 		} else {
 			$relative_time = get_the_date( 'U' );
