@@ -171,6 +171,18 @@ class TimeShortcodeTest extends WP_UnitTestCase {
 		);
 	}
 
+	function test_parse_time_with_at() {
+
+		$time_string = 'April 2 2009 at 2:00 PM';
+
+		$parsed_time = o2_Time_Shortcode::parse_time( $time_string );
+
+		$this->assertEquals(
+			1238680800, $parsed_time,
+			'Time parser should handle the word "at"'
+		);
+	}
+
 	/**
 	* Module logic tests
 	**/

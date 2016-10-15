@@ -79,6 +79,9 @@ class o2_Time_Shortcode {
 			$time = time();
 		}
 
+		// Remove the word "at" from the string, if present. Allows strings like "Monday, April 6 at 19:00 UTC" to work
+		$date_string = str_replace( ' at ', ' ', $date_string );
+
 		// Convert all the random characters to html entities, then strip all html entities
 		// This removes both bad unicode characters and html entities in one swoop
 		// .+-/ characters are unnaffected by htmlentities, so strtotime won't break
