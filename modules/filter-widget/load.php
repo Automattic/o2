@@ -98,13 +98,9 @@ class o2_Filter_Widget extends WP_Widget {
 	}
 
 	function register_widget_styles() {
-		$style_path = 'modules/filter-widget/css/style.css';
-
-		if( is_rtl() ) {
-			$style_path = 'modules/filter-widget/css/rtl/style-rtl.css';
-		}
-
-		wp_enqueue_style( 'o2-filter-widget-styles', plugins_url( $style_path, O2__FILE__ ) );
+		wp_register_style( 'o2-filter-widget-styles', plugins_url( 'modules/filter-widget/css/style.css', O2__FILE__ ) );
+		wp_style_add_data( 'o2-filter-widget-styles', 'rtl', 'replace' );
+		wp_enqueue_style( 'o2-filter-widget-styles' );
 	}
 
 	function widget( $args, $instance ) {

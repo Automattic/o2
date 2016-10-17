@@ -22,13 +22,9 @@ class o2_Follow extends o2_API_Base {
 	}
 
 	function enqueue_style() {
-		$style_path = 'modules/follow/css/style.css';
-
-		if( is_rtl() ) {
-			$style_path = 'modules/follow/css/rtl/style-rtl.css';
-		}
-
-		wp_enqueue_style( 'o2-follow', plugins_url( $style_path, O2__FILE__ ) );
+		wp_register_style( 'o2-follow', plugins_url( 'modules/follow/css/style.css', O2__FILE__ ) );
+		wp_style_add_data( 'o2-follow', 'rtl', 'replace' );
+		wp_enqueue_style( 'o2-follow' );
 	}
 
 	/**

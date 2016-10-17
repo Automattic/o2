@@ -54,13 +54,9 @@ class o2_List_Creator {
 	}
 
 	public function enqueue_style() {
-		$style_path = 'modules/checklists/css/style.css';
-
-		if( is_rtl() ) {
-			$style_path = 'modules/checklists/css/rtl/style-rtl.css';
-		}
-
-		wp_enqueue_style( 'o2-extend-checklists-styles', plugins_url( $style_path, O2__FILE__ ) );
+		wp_register_style( 'o2-extend-checklists-styles', plugins_url( 'modules/checklists/css/style.css', O2__FILE__ ) );
+		wp_style_add_data( 'o2-extend-checklists-styles', 'rtl', 'replace' );
+		wp_enqueue_style( 'o2-extend-checklists-styles' );
 	}
 
 	public function parse_lists_in_post( $content ) {

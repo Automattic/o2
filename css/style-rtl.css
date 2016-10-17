@@ -1,0 +1,1059 @@
+/*
+GLOBAL PARTIALS
+Global partials provide base HTML styling as well as variables and mixins to be used in the UI partials
+*/
+/* COLORS */
+/* TYPOGRAPHY */
+/* EFFECTS & UTILITIES */
+/*
+// REQUIRES SASS 3.3 AND COMPASS 1.0
+
+$breakpoints:(
+  'web':1200px,
+  'tablet-landscape':1024px,
+  'tablet-portrait': 876px,
+  'handset-landscape': 640px,
+  'handset-portrait': 550px
+);
+
+
+@mixin breakpoint($size){
+  @each $breakpoint, $value in $breakpoints {
+   @if $size == $breakpoint {
+     @media (max-width: map-get($breakpoints, $breakpoint)){
+       @content;
+     }
+   }
+  }
+}
+*/
+/*
+UI PARTIALS
+UI partials provide the higher-level styles required for o2 to function and display properly
+*/
+li.o2-filter-widget-item {
+  padding: 0px !important;
+}
+
+li.o2-filter-widget-item a {
+  display: block;
+  padding: 5px;
+}
+
+li.o2-filter-widget-item a.o2-filter-widget-selected {
+  background: #f1f1f1;
+  color: #222;
+}
+
+li.o2-filter-widget-item a.o2-filter-widget-selected:before {
+  color: #222;
+}
+
+li.o2-filter-widget-item a:hover {
+  color: #222;
+  background: #fafafa;
+}
+
+li.o2-filter-widget-item a:hover:before {
+  color: #222;
+}
+
+li.o2-filter-widget-item a:before {
+  -webkit-font-smoothing: antialiased;
+  font: normal 16px/1 'Genericons';
+  display: inline-block;
+  color: #ccc;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  padding-left: 5px;
+  position: relative;
+  top: 3px;
+}
+
+li.o2-filter-widget-item#o2-filter-recent-updates a:before {
+  content: '\f409';
+}
+
+li.o2-filter-widget-item#o2-filter-recent-comments a:before {
+  content: '\f108';
+}
+
+li.o2-filter-widget-item#o2-filter-my-mentions a:before {
+  content: '\f300';
+}
+
+li.o2-filter-widget-item#o2-filter-unresolved-posts a:before {
+  content: '\f468';
+}
+
+li.o2-filter-widget-item#o2-filter-resolved-posts a:before {
+  content: '\f418';
+}
+
+li.o2-filter-widget-item#o2-filter-no-replies a:before {
+  content: '\f404';
+}
+
+li.o2-filter-widget-item#o2-filter-my-posts a:before {
+  content: '\f304';
+}
+
+.o2-permalink,
+.o2-post-reply,
+.o2-scroll-to-comments,
+.o2-edit.edit-post-link,
+.o2-follow,
+.o2-short-link,
+.o2-resolve-link,
+.o2-sticky-link {
+  display: inline-block;
+  text-indent: -9999px;
+  height: 32px;
+  width: 32px;
+  overflow: hidden;
+}
+
+.o2-permalink:after,
+.o2-post-reply:after,
+.o2-scroll-to-comments:after,
+.o2-edit.edit-post-link:after,
+.o2-follow:after,
+.o2-short-link:after,
+.o2-resolve-link:after,
+.o2-sticky-link:after {
+  -webkit-font-smoothing: antialiased;
+  font: normal 16px/1 'Genericons';
+  display: inline-block;
+  height: 20px;
+  width: 32px;
+  color: #ccc;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  padding-left: 8px;
+  padding-right: 8px;
+  opacity: 0.4;
+}
+
+.o2-post:hover .o2-actions a:after,
+.o2-comment:hover .o2-actions a:after {
+  opacity: 1;
+}
+
+.o2-actions.entry-actions {
+  position: relative;
+  padding-top: 5px;
+}
+
+.o2-permalink:after {
+  content: '\f107';
+}
+
+.o2-post-reply:after {
+  content: '\f466';
+}
+
+.o2-edit.edit-post-link:after {
+  content: '\f411';
+}
+
+.o2-follow:after {
+  content: '\f463';
+}
+
+.o2-short-link:after {
+  content: '\f107';
+}
+
+.o2-scroll-to-comments {
+  display: none;
+}
+
+.o2-scroll-to-comments:after {
+  content: '\f300';
+}
+
+.o2-sticky-link:after {
+  content: '\f308';
+}
+
+.o2-resolve-link:after {
+  content: '\f468';
+}
+
+.post-comments-subscribed .o2-follow:after {
+  content: '\f465';
+  color: #666;
+}
+
+.post-comments-subscribed .o2-follow:hover:after {
+  content: '\f464';
+  color: #666;
+}
+
+.sticky .o2-sticky-link:after {
+  color: #666;
+}
+
+.state-unresolved .o2-resolve-link:after {
+  color: #e6000a;
+}
+
+.state-resolved .o2-resolve-link:after {
+  color: #009632;
+}
+
+.o2-post .entry-header span.entry-actions .genericon-edit:before,
+.o2-post .entry-header span.entry-actions .genericon-reply:before,
+.o2-post .entry-header span.entry-actions .genericon-subscribe:before,
+.o2-post .entry-header span.entry-actions .genericon-unsubscribe:before,
+.o2-post .entry-header span.entry-actions .genericon-subscribed:before,
+.o2-post .entry-header span.entry-actions .genericon-pinned:before,
+.o2-post .entry-header span.entry-actions .genericon-flag:before {
+  content: none;
+}
+
+.o2-comment-edit,
+.o2-comment-reply {
+  width: 20px;
+  height: 20px;
+  padding-right: 0.4em;
+  text-indent: -9999px;
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+}
+
+.o2-comment-edit:after,
+.o2-comment-reply:after {
+  content: '\f103';
+  -webkit-font-smoothing: antialiased;
+  font: normal 16px/1 'Genericons';
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  color: #ccc;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  position: absolute;
+  right: 0;
+  text-indent: 0px;
+  top: 0;
+}
+
+.o2-comment-reply:after {
+  content: '\f466';
+}
+
+.o2-comment-edit:after {
+  content: '\f411';
+}
+
+.comment-actions {
+  position: relative;
+  top: -10px;
+}
+
+article.sticky .o2-sticky-link:after {
+  color: #d47300;
+}
+
+@media (max-width: 876px) {
+  .o2-editor-format {
+    display: none;
+  }
+}
+
+/* o2 EDITOR */
+.o2-editor {
+  padding: 0;
+}
+
+@media (max-width: 640px) {
+  .o2-editor {
+    margin-right: 0 !important;
+  }
+}
+
+.o2-editor .o2-editor-wrapper {
+  border: 1px solid #ddd;
+}
+
+@media (max-width: 640px) {
+  .o2-editor .o2-editor-wrapper {
+    border: 1px solid #ddd;
+  }
+}
+
+.o2-editor .markdown-mark {
+  display: none;
+}
+
+.o2-editor .o2-editor-text {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 0px;
+  min-height: 100px;
+  width: 100%;
+  padding: 0.4em;
+  margin-bottom: 0.4em;
+  clear: both;
+  display: block;
+}
+
+.o2-editor .o2-editor-text:focus {
+  outline: none;
+}
+
+.o2-editor .o2-editor-text.autocomplete-loading {
+  background: #fff url("../img/o2-spinner.gif") no-repeat right 15px bottom 15px/16px;
+}
+
+.o2-editor .o2-editor-title-wrapper {
+  border-bottom: 1px solid #ddd;
+  padding: 0.8em;
+  background: #fff;
+}
+
+.o2-editor .o2-editor-title {
+  border: 0;
+  width: 100%;
+  font-size: 22px !important;
+  padding: 0 3px 0 0;
+}
+
+.o2-editor .o2-editor-title:focus {
+  outline: none;
+}
+
+.o2-editor .o2-editor-toolbar-button {
+  display: inline-block;
+  float: none;
+  margin: 0.2em 0px 0.8em 0;
+  border: 0;
+  padding: inherit 10px;
+}
+
+.o2-editor .o2-editor-toolbar-button:first-of-type {
+  padding-right: 20px;
+}
+
+.o2-editor .o2-editor-text {
+  border: 0;
+  font-size: 1.1em;
+  line-height: 180%;
+  margin-bottom: 0;
+  padding: 0.4em 0.8em;
+  min-height: 1em;
+  width: 100%;
+  color: #000;
+}
+
+.o2-editor .o2-editor-signin {
+  margin: 0.1em 0 0;
+  overflow: hidden;
+  padding: 0.8em 0;
+}
+
+.o2-editor .o2-editor-signin p {
+  font-size: 12px;
+  color: #999;
+}
+
+.o2-editor .o2-editor-signin input {
+  width: 98%;
+  margin: 0 0 0.5em 0;
+  font-size: 12px;
+}
+
+.o2-editor .o2-editor-preview {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  display: none;
+  padding: 0 0.8em;
+  border: 1px solid #fff;
+  width: 100%;
+  min-height: 171px;
+  background: #fff;
+}
+
+.o2-editor .o2-app-controls {
+  font-size: 0.5em;
+  line-height: 2;
+}
+
+.o2-editor .o2-editor-footer {
+  min-height: 4em;
+  background: transparent;
+  font-size: 1em;
+}
+
+.o2-editor .o2-editor-footer:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.o2-editor .o2-editor-footer > a {
+  float: left;
+  display: block;
+  margin: 0.8em 0.4em 0.8em 0;
+}
+
+@media (max-width: 640px) {
+  .o2-editor .o2-editor-footer > a.o2-comment-save, .o2-editor .o2-editor-footer > a.o2-save {
+    clear: both;
+  }
+}
+
+.o2-editor .o2-editor-footer .o2-editor-tabs {
+  list-style-type: none;
+  float: right;
+  margin: 0;
+  padding: 0;
+  margin-top: -1px;
+}
+
+.o2-editor .o2-editor-footer .o2-editor-tabs li {
+  float: right;
+  border-top: 1px #ddd solid;
+}
+
+.o2-editor .o2-editor-footer .o2-editor-tabs li:first-of-type {
+  border-top: 1px #fff solid;
+  border-right: 1px #ddd solid;
+  -webkit-border-bottom-right-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -webkit-background-clip: padding-box;
+}
+
+.o2-editor .o2-editor-footer .o2-editor-tabs li.selected {
+  border-top: 1px #fff solid;
+}
+
+.o2-editor .o2-editor-footer .o2-editor-tabs li.selected a {
+  border-top: 1px #fff solid;
+  background: #fff;
+}
+
+.o2-editor .o2-editor-footer .o2-editor-tabs li a {
+  float: none;
+  display: block;
+  text-decoration: none;
+  padding: 0.25em 1.2em 0.5em 1.2em;
+  background: -webkit-gradient(linear, right top, right bottom, from(#fafafa), to(#f1f1f1));
+  background: -moz-linear-gradient(top, #fafafa, #f1f1f1);
+  border: 1px #ddd solid;
+  border-top: 1px #f1f1f1 solid;
+  vertical-align: middle;
+  -webkit-border-bottom-right-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -webkit-background-clip: padding-box;
+  font-family: "Open Sans", sans-serif;
+  font-size: 11px;
+  border-right: 0px;
+}
+
+.o2-editor .o2-editor-footer .o2-editor-tabs li a span {
+  display: none;
+}
+
+.o2-editor .o2-editor-footer .o2-editor-tabs li a:before {
+  -webkit-font-smoothing: antialiased;
+  font: normal 16px/1 'Genericons';
+  width: 16px;
+  height: 20px;
+  margin-left: 5px;
+  position: relative;
+  top: 3px;
+}
+
+.o2-post .o2-editor .o2-editor .o2-editor-footer .o2-editor-tabs li a {
+  border-right: 1px #f1f1f1 solid;
+}
+
+.o2-post-form-options {
+  float: left;
+  display: inline-block;
+  padding-left: 10px;
+  margin-top: 13px;
+}
+
+@media (max-width: 640px) {
+  .o2-post-form-options {
+    float: none;
+    display: block;
+    padding-left: 0;
+    clear: both;
+  }
+}
+
+.o2-logged-out-editor {
+  clear: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.o2-editing-others {
+  font-weight: normal;
+  font-style: italic;
+  font-size: 0.8em;
+  margin-right: 0.5em;
+  color: #911;
+}
+
+.o2-editor-toolbar {
+  position: relative;
+  top: 0;
+}
+
+.o2-editor-toolbar.floated {
+  box-shadow: 0px 0px 4px 0px #888;
+}
+
+.o2-editor-toolbar-button-dropdown {
+  display: none;
+}
+
+.o2-editor-toolbar-button {
+  display: block;
+  float: right;
+  margin: 0 0 0.4em 0.4em;
+  height: 24px;
+  background: transparent;
+  box-shadow: none !important;
+}
+
+@media (max-width: 876px) {
+  .o2-editor-toolbar-button {
+    width: 50px;
+    height: 38px;
+  }
+  .o2-editor-toolbar-button:before {
+    font-size: 32px;
+  }
+}
+
+.comment-subscription-form {
+  display: block;
+  clear: both;
+}
+
+.o2-save,
+.o2-cancel,
+.o2-comment-save,
+.o2-comment-cancel,
+.o2-new-comment-cancel {
+  padding: 0.5em 1.2em;
+  background: -webkit-gradient(linear, right top, right bottom, from(#fafafa), to(#f1f1f1));
+  background: -moz-linear-gradient(top, #fafafa, #f1f1f1);
+  border: 1px #ddd solid;
+  vertical-align: middle;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-background-clip: padding-box;
+  font-family: "Open Sans", sans-serif;
+}
+
+.o2-save.primary,
+.o2-cancel.primary,
+.o2-comment-save.primary,
+.o2-comment-cancel.primary,
+.o2-new-comment-cancel.primary {
+  border-color: #bbb;
+  background: -webkit-gradient(linear, right top, right bottom, from(#fff), to(#f1f1f1));
+  background: -moz-linear-gradient(top, #fff, #f1f1f1);
+  font-weight: bold;
+}
+
+.o2-save.primary:hover,
+.o2-cancel.primary:hover,
+.o2-comment-save.primary:hover,
+.o2-comment-cancel.primary:hover,
+.o2-new-comment-cancel.primary:hover {
+  border-color: #888;
+}
+
+.o2-save:hover,
+.o2-cancel:hover,
+.o2-comment-save:hover,
+.o2-comment-cancel:hover,
+.o2-new-comment-cancel:hover {
+  border-color: #bbb;
+}
+
+.o2-save:focus,
+.o2-save:active,
+.o2-comment-save:focus,
+.o2-comment-save:active,
+.o2-cancel:focus,
+.o2-cancel:active,
+.o2-comment-cancel:focus,
+.o2-new-comment-cancel:focus,
+.o2-comment-cancel:active,
+.o2-new-comment-cancel:active {
+  border-color: #bbb;
+}
+
+.o2-fspost-content {
+  background: #fff;
+  padding: 0 0.8em 0.8em 0.8em;
+}
+
+.o2-save {
+  float: left;
+}
+
+.o2-save-spinner {
+  height: 25px;
+  background: url("../img/o2-spinner.gif") no-repeat right bottom;
+  background-size: 25px 25px;
+  margin-left: 1.6em;
+  margin-bottom: 0.6em;
+}
+
+.o2-editor-toolbar-button:hover,
+.o2-editor-toolbar-button:focus,
+.o2-save:hover,
+.o2-save:focus,
+.o2-cancel:hover,
+.o2-cancel:focus,
+.o2-comment-save:hover,
+.o2-comment-save:focus,
+.o2-comment-cancel:hover,
+.o2-comment-cancel:focus,
+.o2-new-comment-cancel:hover,
+.o2-new-comment-cancel:focus {
+  color: #000;
+}
+
+.o2-editor-toolbar-button:focus,
+.o2-editor-toolbar-button:active,
+.o2-save:focus,
+.o2-save:active,
+.o2-cancel:focus,
+.o2-cancel:active,
+.o2-comment-save:focus,
+.o2-comment-save:active,
+.o2-comment-cancel:focus,
+.o2-comment-cancel:active,
+.o2-new-comment-cancel:focus,
+.o2-new-comment-cancel:active {
+  outline: none;
+}
+
+.o2-post .post-password-form input[type="submit"] {
+  color: #3498db;
+  font-family: "Open Sans", sans-serif;
+}
+
+.o2-app-new-post .o2-editor-text.o2-editor-title-line:first-line {
+  font-size: 1.3em;
+}
+
+#respond .o2-editor-footer .o2-editor-tabs li:first-of-type {
+  border-right: 1px #ddd solid;
+}
+
+#respond .o2-editor .o2-editor-wrapper {
+  border: 1px solid #ddd;
+}
+
+.o2-comment .o2-editor {
+  clear: both;
+  padding-top: 0.4em;
+  width: auto;
+  margin: 0.8em 65px 1.2em 0;
+  padding: 0;
+}
+
+.o2-comment .o2-editor .o2-editor-footer .o2-editor-tabs li:first-of-type {
+  border-right: 1px #ddd solid;
+}
+
+.o2-comment .o2-logged-out-editor {
+  clear: none;
+}
+
+.o2-comment .o2-editor-toolbar {
+  background: #fafafa;
+}
+
+.o2-comment .o2-actions {
+  left: 0;
+  position: absolute;
+}
+
+.o2-comment:empty {
+  border-top: none 0;
+  display: none;
+}
+
+.o2-child-views .o2-comment .o2-editor {
+  margin-right: 45px;
+}
+
+.o2-editor-format,
+.o2-editor-format-standard,
+.o2-editor-format-aside,
+.o2-editor-format-status {
+  font-family: 'genericons';
+  float: left;
+  cursor: pointer;
+  font-size: 16px;
+  opacity: 0.5;
+  overflow: hidden;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  left: 5px;
+  top: 3px;
+}
+
+.o2-editor-format:hover,
+.o2-editor-format-standard:hover,
+.o2-editor-format-aside:hover,
+.o2-editor-format-status:hover {
+  opacity: 1;
+}
+
+.o2-editor-format:before,
+.o2-editor-format-standard:before,
+.o2-editor-format-aside:before,
+.o2-editor-format-status:before {
+  content: '\f100';
+  display: block;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1;
+  font-family: 'genericons';
+  padding: 10px 0 5px 0;
+  text-align: center;
+  width: 32px;
+  height: 32px;
+}
+
+.o2-editor-format-aside:before,
+.o2-editor-format-status:before {
+  content: '\f100';
+}
+
+@media (max-width: 640px) {
+  .o2-editor-toolbar-wrapper {
+    display: none;
+  }
+}
+
+.ui-helper-hidden-accessible {
+  display: none;
+}
+
+/*
+ * Drag and drop uploading
+ */
+.o2 .o2-editor-wrapper.dragging {
+  outline: 3px dashed #028DB9;
+}
+
+.o2 .o2-editor-wrapper.dragging .o2-editor-toolbar {
+  background: #fafafa !important;
+}
+
+.dragging div, .dragging div div {
+  background: #fafafa !important;
+}
+
+.o2-editor-upload {
+  overflow: hidden;
+  padding: 0;
+  height: 3px;
+  background: #fafafa;
+}
+
+.o2-editor-upload-progress {
+  height: 3px;
+  background-color: #028DB9;
+  width: 0;
+  -webkit-transition: width 0.2s;
+  transition: width 0.2s;
+}
+
+.o2-editor-progress-fallback {
+  line-height: 1;
+}
+
+.o2-app-controls {
+  font-size: 0.7em;
+  font-weight: 300;
+  line-height: 2;
+  text-transform: none;
+}
+
+@media (max-width: 640px) {
+  .o2-app-new-post {
+    display: none;
+    margin-bottom: 0.5em;
+  }
+}
+
+.o2-app-new-post .o2-editor {
+  border: none 0;
+}
+
+.o2-app-new-post .o2-save {
+  float: left;
+}
+
+.o2-child-comments .o2-editor-wrapper {
+  border: 1px solid #ddd;
+}
+
+.o2-editor-toolbar {
+  background: #fafafa;
+}
+
+#post_subscribe_label {
+  margin-right: 0.5em;
+}
+
+#o2-expand-editor {
+  display: none;
+}
+
+.o2-app-new-post .entry-content {
+  margin: 0;
+  padding: 0;
+}
+
+.o2-app-new-post .entry-header {
+  padding: 0.8em 0.8em 0 0.8em;
+  background: #fff;
+}
+
+.o2-app-new-post h2 {
+  font-size: 1.25em;
+  margin-bottom: 0.4em;
+  padding: 0.8em 1.2em;
+}
+
+/*
+ * o2 App Controls
+ */
+.o2-app-page-title {
+  position: relative;
+}
+
+.o2-app-controls {
+  font-size: 0.6em;
+  font-weight: normal;
+  line-height: 1.8em;
+  text-align: left;
+  float: left;
+  margin-top: -2em;
+}
+
+/*
+ * o2 Actions
+ */
+.o2-disabled-action {
+  cursor: not-allowed;
+}
+
+.o2-meta {
+  font-weight: normal;
+  margin-right: 0.4em;
+}
+
+@media (max-width: 640px) {
+  #o2-expand-editor {
+    position: fixed;
+    display: block;
+    bottom: 10px;
+    left: 10px;
+    text-align: right;
+    color: #fff;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    padding: 4px 4px 1px 1px;
+    border: solid 2px #fff;
+    box-shadow: 0 0 1em #000;
+    opacity: 1;
+    -webkit-appearance: preserve-3d;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+    -webkit-transform: rotate(0deg);
+  }
+  #o2-expand-editor.hidden {
+    bottom: -50px;
+    opacity: 0;
+    -webkit-transform: rotate(-160deg);
+  }
+  #o2-expand-editor span {
+    font-size: 32px;
+    width: 44px;
+    text-align: center;
+    line-height: 44px;
+    margin: -1px -1px 0 0;
+  }
+}
+
+.o2-new-content {
+  width: 100%;
+}
+
+.o2-extended-more {
+  display: none;
+}
+
+.o2-error {
+  background-color: #fff0f0;
+}
+
+.o2-browser-warning {
+  background-color: #ffff90;
+  color: #000;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+/*
+ * o2 Notifications
+ */
+.o2-notifications {
+  position: fixed;
+  bottom: 10px;
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+}
+
+.o2-notification {
+  background: #111;
+  background: rgba(0, 0, 0, 0.75);
+  color: #eee;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  right: 30%;
+  text-align: center;
+  width: 40%;
+  border: 0 none;
+  border-radius: 0;
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.25);
+  font-family: inherit;
+}
+
+.o2-notification a:link, .o2-notification a:visited, .o2-notification a:active {
+  color: #eee;
+}
+
+.o2-notification a:hover {
+  color: #fff;
+}
+
+.o2-notification table {
+  padding: 10px;
+  margin: 0;
+}
+
+.o2-notification table,
+.o2-notification tr,
+.o2-notification td {
+  border: none;
+}
+
+.o2-notification-error {
+  background: #911;
+}
+
+.o2-notification-message {
+  padding: 0px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.o2-notification-icon {
+  text-align: center;
+  vertical-align: middle;
+  width: 80px;
+  -webkit-font-smoothing: antialiased;
+  font: normal 32px/1 'Genericons';
+}
+
+.o2-notification-close {
+  float: left;
+  vertical-align: top;
+  -webkit-font-smoothing: antialiased;
+  font: normal 20px/1 'Genericons';
+}
+
+.o2-notification-close a:hover {
+  border-bottom: none;
+  text-decoration: none;
+}
+
+/*
+ * Help modal
+ */
+#help {
+  background: #000;
+  background: rgba(0, 0, 0, 0.75);
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.25);
+  color: #fff;
+  display: none;
+  padding: 30px;
+  margin: 0;
+  position: fixed;
+  top: 20%;
+  right: 20%;
+  z-index: 10000;
+  width: 60%;
+}
+
+#help dl {
+  margin: 0;
+  padding: 0;
+  font-size: 2em;
+}
+
+#help dd,
+#help dt {
+  display: block;
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+
+#help dt {
+  clear: right;
+  color: #3478e3;
+  font-family: courier;
+  padding-left: 5%;
+  text-align: left;
+  width: 25%;
+}
+
+#help dd {
+  width: 70%;
+  font-family: inherit;
+  font-weight: 300;
+}

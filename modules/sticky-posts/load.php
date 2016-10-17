@@ -32,13 +32,9 @@ class o2_Sticky_Posts extends o2_API_Base {
 	}
 
 	function enqueue_style() {
-		$style_path = 'modules/sticky-posts/css/style.css';
-
-		if( is_rtl() ) {
-			$style_path = 'modules/sticky-posts/css/rtl/style-rtl.css';
-		}
-
-		wp_enqueue_style( 'o2-extend-sticky-posts', plugins_url( $style_path, O2__FILE__ ) );
+		wp_register_style( 'o2-extend-sticky-posts', plugins_url( 'modules/sticky-posts/css/style.css', O2__FILE__ ) );
+		wp_style_add_data( 'o2-extend-sticky-posts', 'rtl', 'replace' );
+		wp_enqueue_style( 'o2-extend-sticky-posts' );
 	}
 
 	/**

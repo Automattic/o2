@@ -67,13 +67,9 @@ class o2_ToDos extends o2_API_Base {
 	}
 
 	function enqueue_style() {
-		$style_path = 'modules/to-do/css/style.css';
-
-		if( is_rtl() ) {
-			$style_path = 'modules/to-do/css/rtl/style-rtl.css';
-		}
-
-		wp_enqueue_style( 'o2-extend-to-do', plugins_url( $style_path, O2__FILE__ ) );
+		wp_register_style( 'o2-extend-to-do', plugins_url( 'modules/to-do/css/style.css', O2__FILE__ ) );
+		wp_style_add_data( 'o2-extend-to-do', 'rtl', 'replace' );
+		wp_enqueue_style( 'o2-extend-to-do' );
 	}
 
 	/**
