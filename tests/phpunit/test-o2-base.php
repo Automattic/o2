@@ -50,31 +50,12 @@ class o2BaseTest extends WP_UnitTestCase {
 		global $wp_styles;
 
 		$wp_styles = null;
-		$wp_locale->text_direction = 'rtl';
 		$o2->register_plugin_styles();
+		$rtl_mode = $wp_styles->get_data( 'o2-plugin-styles', 'rtl' );
 
-		$style = $wp_styles->query( 'o2-plugin-styles' );
-
-		$this->assertTrue(
-			(bool) stripos( $style->src, 'rtl' ),
-			'RTL styles should get enqueued if mode is RTL'
-		);
-	}
-
-	function test_rtl_support_off() {
-		global $wp_locale;
-		global $o2;
-		global $wp_styles;
-
-		$wp_styles = null;
-		$wp_locale->text_direction = 'ltr';
-		$o2->register_plugin_styles();
-
-		$style = $wp_styles->query( 'o2-plugin-styles' );
-
-		$this->assertFalse(
-			(bool) stripos( $style->src, 'rtl' ),
-			'RTL styles should not get enqueued if mode is LTR'
+		$this->assertEquals(
+			'replace', $rtl_mode,
+			'RTL style replacement should be enabled'
 		);
 	}
 
