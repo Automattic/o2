@@ -45,7 +45,6 @@ class o2BaseTest extends WP_UnitTestCase {
 	}
 
 	function test_rtl_support() {
-		global $wp_locale;
 		global $o2;
 		global $wp_styles;
 
