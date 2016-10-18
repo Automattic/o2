@@ -69,10 +69,7 @@ module.exports = function(grunt) {
 					cwd: 'modules',
 					dest: 'modules/',
 					ext: '-rtl.css',
-					src: ['**/css/style.css'],
-					rename: function(dest, src) {
-						return dest + src;
-					}
+					src: ['**/css/style.css']
 				}
 			}
 		};
