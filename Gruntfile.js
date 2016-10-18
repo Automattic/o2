@@ -65,15 +65,13 @@ module.exports = function(grunt) {
 					dest: 'css/rtl/style-rtl.css'
 				},
 				modules: {
-					files: {
-						'modules/checklists/css/style-rtl.css':    'modules/checklists/css/style.css',
-						'modules/filter-widget/css/style-rtl.css': 'modules/filter-widget/css/style.css',
-						'modules/follow/css/style-rtl.css':        'modules/follow/css/style.css',
-						'modules/live-comments/css/style-rtl.css': 'modules/live-comments/css/style.css',
-						'modules/notifications/css/style-rtl.css': 'modules/notifications/css/style.css',
-						'modules/post-actions/css/style-rtl.css':  'modules/post-actions/css/style.css',
-						'modules/sticky-posts/css/style-rtl.css':  'modules/sticky-posts/css/style.css',
-						'modules/to-do/css/style-rtl.css':         'modules/to-do/css/style.css'
+					expand: true,
+					cwd: 'modules',
+					dest: 'modules/',
+					ext: '-rtl.css',
+					src: ['**/css/style.css'],
+					rename: function(dest, src) {
+						return dest + src;
 					}
 				}
 			}
