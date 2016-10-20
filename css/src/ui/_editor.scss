@@ -123,7 +123,13 @@
 		background: transparent;
 		font-size: 1em;
 
-		>a {
+		&:after {
+			content: '';
+			display: table;
+			clear: both;
+		}
+
+		> a {
 			float: right;
 			display: block;
 			margin: 0.8em 0 0.8em 0.4em;
@@ -136,7 +142,7 @@
 			}
 		}
 
-		ul {
+		.o2-editor-tabs {
 			list-style-type: none;
 			float: left;
 			margin: 0;
@@ -196,7 +202,7 @@
 }
 
 .o2-post .o2-editor {
-	.o2-editor .o2-editor-footer ul li a {
+	.o2-editor .o2-editor-footer .o2-editor-tabs li a {
 		border-left: 1px $gray-5 solid;
 	}
 }
@@ -382,7 +388,7 @@
 
 #respond {
 	.o2-editor-footer {
-		ul {
+		.o2-editor-tabs {
 			li:first-of-type {
 				border-left: 1px $gray-10 solid;
 			}
@@ -405,7 +411,7 @@
 		padding: 0;
 
 		.o2-editor-footer {
-			ul {
+			.o2-editor-tabs {
 				li:first-of-type {
 					border-left: 1px $gray-10 solid;
 				}

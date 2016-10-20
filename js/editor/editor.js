@@ -232,7 +232,7 @@ o2Editor = {
 			commentID = 0;
 		}
 
-		var cacheKey = o2Editor.getKeyFromIDs( postID, commentID );
+		var cacheKey = o2.options.currentBlogId + '-' + o2Editor.getKeyFromIDs( postID, commentID );
 
 		if ( 'undefined' === typeof args || 'undefined' === typeof args.keepCache || ! args.keepCache ) {
 			localStorage.removeItem( cacheKey );
@@ -759,7 +759,7 @@ o2Editor = {
 		var postID    = $editor.data( 'post_id' );
 		var commentID = $editor.data( 'comment_id' );
 
-		return o2Editor.getKeyFromIDs( postID, commentID );
+		return o2.options.currentBlogId + '-' + o2Editor.getKeyFromIDs( postID, commentID );
 	},
 
 	getKeyFromIDs: function( postID, commentID ) {

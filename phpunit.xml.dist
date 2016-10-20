@@ -10,5 +10,8 @@
 		<testsuite>
 			<directory prefix="test-" suffix=".php">./tests/phpunit/</directory>
 		</testsuite>
+		<testsuite>
+			<directory prefix="test-" suffix=".php">./tests/phpunit/modules</directory>
+		</testsuite>
 	</testsuites>
 </phpunit>

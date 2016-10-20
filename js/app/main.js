@@ -133,7 +133,7 @@ o2.Routers.App = ( function( $, Backbone ) {
 			} );
 
 			o2.Events.doAction( 'pre-postsView-render.o2' );
-			o2.$appContainer.addClass( 'current-user-' + o2.currentUser.userLogin ).append( this.postsView.render().el );
+			o2.$appContainer.addClass( 'current-user-' + o2.currentUser.userNicename ).append( this.postsView.render().el );
 			o2.Events.doAction( 'post-postsView-render.o2' );
 
 			// If we're on the blog home page, and we have no posts, say as much
@@ -433,7 +433,7 @@ o2.Routers.App = ( function( $, Backbone ) {
 			var firstWithReloginType = o2.Notifications.notifications.findFirst( 'relogin' );
 
 			if ( ! isLoggedIn ) {
-				o2.$appContainer.removeClass( 'current-user-' + o2.currentUser.nicename );
+				o2.$appContainer.removeClass( 'current-user-' + o2.currentUser.userNicename );
 
 				// If there is no relogin notification, add one
 				if ( 'undefined' === typeof firstWithReloginType ) {
@@ -447,7 +447,7 @@ o2.Routers.App = ( function( $, Backbone ) {
 					} );
 				}
 			} else {
-				o2.$appContainer.addClass( 'current-user-' + o2.currentUser.nicename );
+				o2.$appContainer.addClass( 'current-user-' + o2.currentUser.userNicename );
 
 				// Remove any relogin notifications
 				if ( 'undefined' !== typeof firstWithReloginType ) {

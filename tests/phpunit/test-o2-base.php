@@ -419,16 +419,19 @@ class o2BaseTest extends WP_UnitTestCase {
 
 	function test_insert_comment_actions() {
 
+		$right_now = date( 'U' );
 		$comment_id = wp_insert_comment( array(
 			'comment_content' => 'Test comment content'
 		) );
 
 		$o2_created_time = get_comment_meta( $comment_id, 'o2_comment_created', true );
 
-		$this->assertEquals(
-			current_time( 'timestamp', true ), $o2_created_time,
-			'Comments should get an o2 creation time meta when created'
-		);
+		//Allow 1 second max difference in case time has changed since the test started
+		$this->assertLessThanOrEqual(
+			1, $o2_created_time - $right_now,
+			'Comments should get a meta with a timestamp of when they were created upon creation'
+		); 
+
 	}
 
 	function test_has_approved_child() {

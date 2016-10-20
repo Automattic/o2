@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>o2 QUnit Test Suite</title>
+		<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.0.1.css">
+
+		<!-- General Dependencies -->
+		<script src="../../../../../wp-includes/js/jquery/jquery.js"></script>
+
+		<!-- 
+		These other ones aren't needed yet, but may be down the line
+		<script src="../../../../../wp-includes/js/jquery/ui/core.js"></script>
+		<script src="../../../../../wp-includes/js/underscore.min.js"></script>
+		<script src="../../../../../wp-includes/js/backbone.min.js"></script>
+		<script src="../../../../../wp-includes/js/wp-backbone.js"></script>
+		<script src="../../../../../wp-includes/js/wp-util.js"></script>
+		-->
+
+		<!-- Plugin Dependencies -->
+		<script src="../../modules/time-shortcode/js/time-shortcode.js"></script>
+
+	</head>
+
+	<body>
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+
+		<script src="https://code.jquery.com/qunit/qunit-2.0.1.js"></script>
+		<script>QUnit.config.hidepassed = false;</script>
+
+		<!-- Test Suites -->
+		<script src="modules/time-shortcode.js"></script>
+	</body>
+</html>

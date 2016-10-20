@@ -76,7 +76,8 @@ class o2_Post_Actions {
 	function before_post_likes( $content ) {
 		global $post;
 
-		if ( is_admin() && ! ( isset( $_GET['action'] ) && 'o2_read' === $_GET['action'] ) ) {
+		// Don't add post actions in the admin and only for o2 read/write requests.
+		if ( is_admin() && ! ( isset( $_GET['action'] ) && ( 'o2_read' === $_GET['action'] || 'o2_write' === $_GET['action'] ) ) ) {
 			return $content;
 		}
 
@@ -103,7 +104,8 @@ class o2_Post_Actions {
 	function after_post_likes( $content ) {
 		global $post;
 
-		if ( is_admin() && ! ( isset( $_GET['action'] ) && 'o2_read' === $_GET['action'] ) ) {
+		// Don't add post actions in the admin and only for o2 read/write requests.
+		if ( is_admin() && ! ( isset( $_GET['action'] ) && ( 'o2_read' === $_GET['action'] || 'o2_write' === $_GET['action'] ) ) ) {
 			return $content;
 		}
 
