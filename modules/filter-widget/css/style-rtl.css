@@ -1,0 +1,33 @@
+/* line 2, style.scss */
+.o2-filter-widget-list,
+.o2-filter-widget-select {
+  width: 100%;
+}
+
+/* line 6, style.scss */
+.o2-filter-widget-select {
+  display: none;
+}
+
+/* line 10, style.scss */
+.o2-filter-widget-list {
+  display: block;
+}
+
+@media only screen and (max-width: 640px) {
+  /* line 18, style.scss */
+  .o2-filter-widget-list,
+  .o2-filter-widget-select {
+    font-size: 16px;
+  }
+
+  /* line 23, style.scss */
+  .o2-filter-widget-select {
+    display: block;
+  }
+
+  /* line 27, style.scss */
+  .o2-filter-widget-list {
+    display: none;
+  }
+}

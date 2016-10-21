@@ -9,6 +9,7 @@ class o2_Sticky_Posts extends o2_API_Base {
 
 	function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_style' ) );
 
 		// Actions
 		add_action( 'o2_callback_o2_sticky_posts', array( $this, 'callback' ) );
@@ -24,12 +25,16 @@ class o2_Sticky_Posts extends o2_API_Base {
 	}
 
 	function enqueue_scripts() {
-		wp_enqueue_style( 'o2-extend-sticky-posts', plugins_url( 'modules/sticky-posts/css/style.css', O2__FILE__ ) );
-
 		wp_enqueue_script( 'o2-extend-sticky-posts-models-extend-post', plugins_url( 'modules/sticky-posts/js/models/extend-post.js', O2__FILE__ ), array( 'o2-cocktail' ) );
 		wp_enqueue_script( 'o2-extend-sticky-posts-collections-extend-posts', plugins_url( 'modules/sticky-posts/js/collections/extend-posts.js', O2__FILE__ ), array( 'o2-cocktail', 'o2-extend-sticky-posts-models-extend-post' ) );
 		wp_enqueue_script( 'o2-extend-sticky-posts-views-extend-post', plugins_url( 'modules/sticky-posts/js/views/extend-post.js', O2__FILE__ ), array( 'o2-cocktail', 'o2-extend-sticky-posts-models-extend-post' ) );
 		wp_enqueue_script( 'o2-extend-sticky-posts-views-extend-posts', plugins_url( 'modules/sticky-posts/js/views/extend-posts.js', O2__FILE__ ), array( 'o2-cocktail', 'o2-extend-sticky-posts-collections-extend-posts' ) );
+	}
+
+	function enqueue_style() {
+		wp_register_style( 'o2-extend-sticky-posts', plugins_url( 'modules/sticky-posts/css/style.css', O2__FILE__ ) );
+		wp_style_add_data( 'o2-extend-sticky-posts', 'rtl', 'replace' );
+		wp_enqueue_style( 'o2-extend-sticky-posts' );
 	}
 
 	/**

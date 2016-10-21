@@ -44,6 +44,20 @@ class o2BaseTest extends WP_UnitTestCase {
 		);
 	}
 
+	function test_rtl_support() {
+		global $o2;
+		global $wp_styles;
+
+		$wp_styles = null;
+		$o2->register_plugin_styles();
+		$rtl_mode = $wp_styles->get_data( 'o2-plugin-styles', 'rtl' );
+
+		$this->assertEquals(
+			'replace', $rtl_mode,
+			'RTL style replacement should be enabled'
+		);
+	}
+
 	function test_get_app_controls() {
 
 		global $o2;

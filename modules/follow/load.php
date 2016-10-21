@@ -9,17 +9,22 @@ class o2_Follow extends o2_API_Base {
 
 	function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_style' ) );
 
 		// Filters
 		add_filter( 'o2_options', array( $this, 'get_options' ) );
 	}
 
 	function enqueue_scripts() {
-		wp_enqueue_style( 'o2-follow', plugins_url( 'modules/follow/css/style.css', O2__FILE__ ) );
-
 		wp_enqueue_script( 'o2-extend-follow-models-post', plugins_url( 'modules/follow/js/models/post.js', O2__FILE__ ), array( 'o2-cocktail', 'o2-models-post', 'o2-notifications' ) );
 		wp_enqueue_script( 'o2-extend-follow-views-comment', plugins_url( 'modules/follow/js/views/comment.js', O2__FILE__ ), array( 'o2-cocktail', 'o2-views-comment' ) );
 		wp_enqueue_script( 'o2-extend-follow-views-post', plugins_url( 'modules/follow/js/views/post.js', O2__FILE__ ), array( 'o2-cocktail', 'o2-extend-follow-models-post' ) );
+	}
+
+	function enqueue_style() {
+		wp_register_style( 'o2-follow', plugins_url( 'modules/follow/css/style.css', O2__FILE__ ) );
+		wp_style_add_data( 'o2-follow', 'rtl', 'replace' );
+		wp_enqueue_style( 'o2-follow' );
 	}
 
 	/**

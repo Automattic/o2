@@ -58,6 +58,19 @@ module.exports = function(grunt) {
 						]
 					}
 				}
+			},
+			rtlcss: {
+				o2: {
+					src: 'css/style.css',
+					dest: 'css/rtl/style-rtl.css'
+				},
+				modules: {
+					expand: true,
+					cwd: 'modules',
+					dest: 'modules/',
+					ext: '-rtl.css',
+					src: ['**/css/style.css']
+				}
 			}
 		};
 
@@ -67,10 +80,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-wp-i18n');
+	grunt.loadNpmTasks('grunt-rtlcss');
 
 	grunt.registerTask('default', [
 		'phplint',
 		'jshint',
-		'sass'
+		'sass',
+		'rtlcss'
 	]);
 };

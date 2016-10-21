@@ -1,11 +1,30 @@
-/* This file was automatically generated on Aug 22 2014 22:44:15 */
-
 /* COLORS */
 /* TYPOGRAPHY */
 /* EFFECTS & UTILITIES */
 /*********************************************************************************************/
 /* Resolved Posts */
-/* line 6, style.scss */
+/*
+ * Resolved posts
+ */
+/* line 11, style.scss */
+.state-unresolved,
+.state-resolved {
+  position: relative;
+}
+/* line 14, style.scss */
+.state-unresolved:before,
+.state-resolved:before {
+  display: block;
+  width: 5px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: -5px;
+  content: " ";
+  margin-left: 5px;
+}
+
+/* line 27, style.scss */
 nav.o2-post-footer-actions .o2-resolve-wrap ul {
   border-radius: 3px;
   border-color: #f1f1f1;
@@ -14,16 +33,16 @@ nav.o2-post-footer-actions .o2-resolve-wrap ul {
   overflow-y: scroll;
   z-index: 1;
 }
-/* line 14, style.scss */
+/* line 35, style.scss */
 nav.o2-post-footer-actions .o2-resolve-wrap ul span.audit-log-text {
   font-size: 11px;
 }
-/* line 18, style.scss */
+/* line 39, style.scss */
 nav.o2-post-footer-actions .o2-resolve-wrap ul li {
   float: none;
 }
 
-/* line 24, style.scss */
+/* line 45, style.scss */
 .o2-resolved-posts-audit-log,
 .controls .o2-resolved-posts-audit-log {
   border: 0 none;
@@ -32,45 +51,45 @@ nav.o2-post-footer-actions .o2-resolve-wrap ul li {
   top: 0;
   right: 100%;
 }
-/* line 32, style.scss */
+/* line 53, style.scss */
 .o2-resolved-posts-audit-log .avatar,
 .controls .o2-resolved-posts-audit-log .avatar {
   margin-left: 0;
 }
 
 @media (max-width: 876px) {
-  /* line 37, style.scss */
+  /* line 58, style.scss */
   .state-unresolved {
     border-top: 5px red solid;
   }
 }
-/* line 42, style.scss */
+/* line 63, style.scss */
 .state-unresolved:before {
   background: #e6000a;
 }
-/* line 47, style.scss */
+/* line 68, style.scss */
 .state-unresolved .actions .o2-resolve-link:before {
   color: red;
 }
 
 @media (max-width: 876px) {
-  /* line 53, style.scss */
+  /* line 74, style.scss */
   .state-resolved {
     border-top: 5px #009632 solid;
   }
 }
-/* line 58, style.scss */
+/* line 79, style.scss */
 .state-resolved:before {
   background: #009632;
 }
 
-/* line 63, style.scss */
+/* line 84, style.scss */
 .actions .o2-resolve-wrap .o2-resolve-link {
   border-left: none;
 }
 
 @media (max-width: 640px) {
-  /* line 70, style.scss */
+  /* line 91, style.scss */
   .o2-resolved-posts-audit-log,
   .controls .o2-resolved-posts-audit-log {
     display: none;
@@ -83,7 +102,7 @@ nav.o2-post-footer-actions .o2-resolve-wrap ul li {
     border: 1px solid #bbbbbb;
   }
 }
-/* line 85, style.scss */
+/* line 106, style.scss */
 .o2-resolved-posts-audit-log li {
   list-style-type: none;
   color: #777;
@@ -91,27 +110,27 @@ nav.o2-post-footer-actions .o2-resolve-wrap ul li {
   border-bottom: none;
   padding: 2px auto;
 }
-/* line 93, style.scss */
+/* line 114, style.scss */
 .o2-resolved-posts-audit-log li img {
   float: right;
   margin-left: 0;
   margin-top: 4px;
 }
-/* line 101, style.scss */
+/* line 122, style.scss */
 .o2-resolved-posts-audit-log li span.audit-log-text {
   margin-right: 25px;
   display: block;
 }
-/* line 107, style.scss */
+/* line 128, style.scss */
 .o2-resolved-posts-audit-log li span.date-time {
   font-size: 10px;
 }
-/* line 111, style.scss */
+/* line 132, style.scss */
 .o2-resolved-posts-audit-log li span:first-child {
   opacity: 1.0;
 }
 
-/* line 121, style.scss */
+/* line 142, style.scss */
 .o2-resolve-wrap ul {
   background-color: #fff;
   padding: 0;
@@ -122,7 +141,7 @@ nav.o2-post-footer-actions .o2-resolve-wrap ul li {
   border: 1px solid #bbbbbb;
   display: none;
 }
-/* line 132, style.scss */
+/* line 153, style.scss */
 .o2-resolve-wrap ul li {
   list-style-type: none;
   color: #333;
@@ -130,39 +149,39 @@ nav.o2-post-footer-actions .o2-resolve-wrap ul li {
   border: 0;
   padding: 3px 10px;
 }
-/* line 140, style.scss */
+/* line 161, style.scss */
 .o2-resolve-wrap ul li:first-child {
   opacity: 1.0;
 }
-/* line 144, style.scss */
+/* line 165, style.scss */
 .o2-resolve-wrap span.audit-log-text {
   margin-right: 40px;
   display: block;
   text-align: right;
   font-family: "Open Sans", sans-serif;
 }
-/* line 151, style.scss */
+/* line 172, style.scss */
 .o2-resolve-wrap span.audit-log-date {
   font-size: 10px;
   font-family: "Open Sans", sans-serif;
 }
 
-/* line 158, style.scss */
+/* line 179, style.scss */
 .o2-extend-resolved-posts-unresolved-posts-widget img {
   float: right;
 }
-/* line 162, style.scss */
+/* line 183, style.scss */
 .o2-extend-resolved-posts-unresolved-posts-widget .inner {
   margin-right: 42px;
   font-size: 12px;
   line-height: 14px;
 }
-/* line 168, style.scss */
+/* line 189, style.scss */
 .o2-extend-resolved-posts-unresolved-posts-widget .inner-sub {
   font-size: 10px;
 }
 
-/* line 174, style.scss */
+/* line 195, style.scss */
 .o2-resolve-wrap ul li img.avatar,
 .o2-post .o2-resolve-wrap ul li img.avatar {
   float: right;

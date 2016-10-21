@@ -35,7 +35,9 @@ class o2_Post_Actions {
 	}
 
 	function enqueue_styles() {
-		wp_enqueue_style( 'post-actions-styles', plugins_url( 'modules/post-actions/css/style.css', O2__FILE__ ) );
+		wp_register_style( 'post-actions-styles', plugins_url( 'modules/post-actions/css/style.css', O2__FILE__ ) );
+		wp_style_add_data( 'post-actions-styles', 'rtl', 'replace' );
+		wp_enqueue_style( 'post-actions-styles' );
 	}
 
 	function enqueue_scripts() {

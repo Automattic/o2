@@ -1,0 +1,20 @@
+/* COLORS */
+/* TYPOGRAPHY */
+/* EFFECTS & UTILITIES */
+/* line 4, style.scss */
+.post-subscription-form {
+  float: left;
+  padding-left: 1em;
+  font-size: 0.9em;
+  font-family: "Open Sans", sans-serif;
+}
+@media (max-width: 640px) {
+  /* line 4, style.scss */
+  .post-subscription-form {
+    float: none;
+  }
+}
+/* line 14, style.scss */
+.post-subscription-form small {
+  margin-right: 0.3em;
+}
