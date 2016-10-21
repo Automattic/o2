@@ -541,7 +541,7 @@ class o2_Fragment {
 	}
 
 	/*
-	 * Returns a raw string of comma delimeted tags, suitable for editing (e.g. tag1, tag2, tag3)
+	 * Returns a raw string of comma delimited tags, suitable for editing (e.g. tag1, tag2, tag3)
 	 */
 	public static function get_post_tags_raw( $post_tags ) {
 		$tag_names = array();
