@@ -143,9 +143,13 @@ o2Editor = {
 		// Prime details from the <textarea> we're replacing
 		var $holder = $( elem ),
 				prompt  = $holder.attr( 'placeholder' ) || '',
-				title   = $holder.attr( 'title' ).replace( /"/g, '&quot;' ), // Leave attribute off <textarea> completely to remove title controls
+				title   = $holder.attr( 'title' ), // Leave attribute off <textarea> completely to remove title controls
 				content = $holder.val(),
 				editor;
+
+				if ( 'string' === typeof title ) {
+					title = title.replace( /"/g, '&quot;' );
+				}
 
 		editor = '<div class="o2-editor-wrapper"> \
 			<div class="o2-editor-toolbar-wrapper"> \
