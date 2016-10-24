@@ -39,6 +39,10 @@ class o2_Tags extends o2_Terms_In_Comments {
 			return $content;
 		}
 
+		if ( ! apply_filters( 'o2_process_the_content', true ) ) {
+			return $content;
+		}
+
 		// if this is an xpost, don't bother looking for tags
 		$xpost = get_post_meta( $post->ID, '_xpost_original_permalink', true );
 		if ( ! empty( $xpost ) ) {
@@ -118,6 +122,10 @@ class o2_Tags extends o2_Terms_In_Comments {
 	static function tag_links( $content ) {
 		if ( empty( $content ) )
 			return $content;
+
+		if ( ! apply_filters( 'o2_process_the_content', true ) ) {
+			return $content;
+		}
 
 		$tags = o2_Tags::find_tags( $content, true );
 		$tags = array_unique( $tags );
