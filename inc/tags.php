@@ -15,9 +15,10 @@ class o2_Tags extends o2_Terms_In_Comments {
 		add_action( 'transition_post_status', array( $this, 'process_tags' ), 12, 3 );
 
 		add_filter( 'the_content',            array( 'o2_Tags', 'append_old_tags' ), 14 );
-		if ( ! is_admin() ) {
+		if ( ! is_admin() || ( isset( $_GET['action'] ) && ( 'o2_read' === $_GET['action'] || 'o2_write' === $_GET['action'] ) ) ) {
 			add_filter( 'the_content',            array( 'o2_Tags', 'tag_links' ), 15 );
 		}
+
 		add_filter( 'comment_text',           array( 'o2_Tags', 'tag_links' ), 15 );
 		add_filter( 'o2_post_fragment',       array( $this, 'append_old_tags_to_fragment' ), 10, 1 );
 		add_filter( 'o2_bump_post_content',   array( 'o2_Tags', 'append_old_tags_raw' ), 10, 2 );
