@@ -62,7 +62,7 @@ module.exports = function(grunt) {
 			rtlcss: {
 				o2: {
 					src: 'css/style.css',
-					dest: 'css/rtl/style-rtl.css'
+					dest: 'css/style-rtl.css'
 				},
 				modules: {
 					expand: true,
