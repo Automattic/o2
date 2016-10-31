@@ -132,6 +132,7 @@ class o2_Tags extends o2_Terms_In_Comments {
 		$tags = array_unique( $tags );
 		usort( $tags, array( 'o2_Tags', '_sortByLength' ) );
 
+		static $tag_links = array();
 		static $tag_info = array();
 
 		foreach ( $tags as $tag ) {
@@ -176,10 +177,17 @@ class o2_Tags extends o2_Terms_In_Comments {
 				if ( empty( $tag_info[ $tag ] ) ) {
 					continue;
 				}
-				$tag_url = get_tag_link( $tag_info[ $tag ] );
 
-				$replacement = "<a href='" . esc_url( $tag_url ) . "' class='tag'><span class='tag-prefix'>#</span>" . htmlentities( $tag ) . "</a>";
-				$replacement = apply_filters( 'o2_tag_link', $replacement, $tag );
+				if ( empty( $tag_links[ $tag ] ) ) {
+					$tag_url = get_tag_link( $tag_info[ $tag ] );
+
+					$replacement = "<a href='" . esc_url( $tag_url ) . "' class='tag'><span class='tag-prefix'>#</span>" . htmlentities( $tag ) . "</a>";
+					$replacement = apply_filters( 'o2_tag_link', $replacement, $tag );
+
+					$tag_links[ $tag ] = $replacement;
+				} else {
+					$replacement = $tag_links[ $tag ];
+				}
 
 				$count = 0;
 				$text = preg_replace( "/(^|\s|>|\()#$tag(($|\b|\s|<|\)))/", '$1' . $replacement . '$2', $text, -1, $count );
