@@ -147,12 +147,15 @@ class o2_Tags extends o2_Terms_In_Comments {
 			$tag_info[ $tag ] = $info;
 		}
 
+		$content = wp_pre_kses_less_than( $content );
+		$content = wp_kses_normalize_entities( $content );
+
 		if ( class_exists( 'WPCOM_Safe_DOMDocument' ) ) {
 			$dom = new WPCOM_Safe_DOMDocument;
 		} else {
 			$dom = new DOMDocument;
 		}
-		@$dom->loadHTML( '<?xml encoding="UTF-8">' . $content );
+		$dom->loadHTML( '<?xml encoding="UTF-8">' . $content );
 
 		$xpath = new DOMXPath( $dom );
 		$textNodes = $xpath->query( '//text()' );
@@ -197,6 +200,9 @@ class o2_Tags extends o2_Terms_In_Comments {
 			if ( ! $totalCount ) {
 				continue;
 			}
+
+			$text = wp_pre_kses_less_than( $text );
+			$text = wp_kses_normalize_entities( $text );
 
 			if ( class_exists( 'WPCOM_Safe_DOMDocument' ) ) {
 				$newNodes = new WPCOM_Safe_DOMDocument;
@@ -274,12 +280,15 @@ class o2_Tags extends o2_Terms_In_Comments {
 
 		$tags = array();
 
+		$content = wp_pre_kses_less_than( $content );
+		$content = wp_kses_normalize_entities( $content );
+
 		if ( class_exists( 'WPCOM_Safe_DOMDocument' ) ) {
 			$dom = new WPCOM_Safe_DOMDocument;
 		} else {
 			$dom = new DOMDocument;
 		}
-		$dom->loadHTML( '<?xml encoding="UTF-8">' . htmlentities( $content ) );
+		$dom->loadHTML( '<?xml encoding="UTF-8">' . $content );
 
 		$xpath = new DOMXPath( $dom );
 		$textNodes = $xpath->query( '//text()' );
