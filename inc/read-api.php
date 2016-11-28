@@ -326,6 +326,7 @@ class o2_Read_API extends o2_API_Base {
 
 		// Run through The Loop
 		global $post;
+		$post = isset( $GLOBALS['wp_query']->post ) ? $GLOBALS['wp_query']->post : null;
 
 		if ( have_posts() ) {
 			ob_start();
