@@ -12,8 +12,8 @@ This plugin works with the p2-breathe theme, available at
 https://wpcom-themes.svn.automattic.com/p2-breathe
 
 This plugin uses Genericons. If you're using [Jetpack](http://jetpack.me/), then you should already have them available. If you're not using Jetpack, you should install and activate
-the Genericon'd plugin, available at
-https://wordpress.org/plugins/genericond/
+the Genericon'd 3.4.1 plugin, available at
+https://downloads.wordpress.org/plugin/genericond.3.4.1.zip
 
 This plugin's editor can insert code shortcodes.  To get
 those to render as code blocks, you should install and activate
@@ -29,7 +29,7 @@ Install the p2-breathe theme into wp-content/themes/p2-breathe
 
 Activate the theme.
 
-Install and activate the Genericon'd plugin.
+Install and activate the Genericon'd 3.4.1 plugin.
 
 Install and activate the SyntaxHighlighter Evolved plugin
 
