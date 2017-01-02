@@ -34,7 +34,7 @@ class o2_Unreplied_Posts {
 	}
 
 	function pre_get_posts( $query ) {
-		if ( 'none' === get_query_var( 'replies' ) || ( !empty( $_GET['query_args']['replies'] ) && 'none' === $_GET['query_args']['replies'] ) ) {
+		if ( ( $query->is_main_query() && 'none' === get_query_var( 'replies' ) ) || ( !empty( $_GET['query_args']['replies'] ) && 'none' === $_GET['query_args']['replies'] ) ) {
 			// Manipulating WP_Query directly like this isn't great, but it works
 			$query->query_vars['ignore_sticky_posts'] = true;
 		}
