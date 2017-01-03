@@ -3,6 +3,8 @@ o2
 
 The o2 Plugin for WordPress - blogging at the speed of thought
 
+[![Build Status](https://travis-ci.org/Automattic/o2.svg?branch=master)](https://travis-ci.org/Automattic/o2)
+
 Dependencies
 ============
 
