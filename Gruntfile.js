@@ -71,6 +71,12 @@ module.exports = function(grunt) {
 					ext: '-rtl.css',
 					src: ['**/css/style.css']
 				}
+			},
+			phpunit: {
+				'default': {
+					cmd: 'phpunit',
+					args: ['-c', 'phpunit.xml.dist']
+				}
 			}
 		};
 
