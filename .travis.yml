@@ -5,23 +5,31 @@ notifications:
     on_success: never
     on_failure: change
 
-branches:
-  only:
-    - master
-
-php:
-  - 5.3
-  - 5.6
+cache:
+  apt: true
+  directories:
+    - node_modules
 
 env:
-  - WP_VERSION=latest WP_MULTISITE=0
+  global:
+    - WP_TRAVISCI=travis:phpunit WP_VERSION=latest WP_MULTISITE=0
 
 matrix:
   include:
+    - php: 7.0
+    - env: WP_TRAVISCI=travis:lint
     - php: 5.3
-      env: WP_VERSION=latest WP_MULTISITE=1
+    - php: 7.0
+    - php: 7.1
+    - php: nightly
+    - php: 7.0
+      env: WP_MULTISITE=1
 
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+  - npm install -i npm
+  - npm install -g grunt-cli
+  - npm install
+  - npm prune
 
-script: phpunit
+script: grunt $WP_TRAVISCI
