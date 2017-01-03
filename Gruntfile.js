@@ -71,6 +71,12 @@ module.exports = function(grunt) {
 					ext: '-rtl.css',
 					src: ['**/css/style.css']
 				}
+			},
+			phpunit: {
+				'default': {
+					cmd: 'phpunit',
+					args: ['-c', 'phpunit.xml.dist']
+				}
 			}
 		};
 
@@ -88,4 +94,15 @@ module.exports = function(grunt) {
 		'sass',
 		'rtlcss'
 	]);
+
+	grunt.registerMultiTask('phpunit', 'Runs PHPUnit tests.', function() {
+		grunt.util.spawn({
+			cmd: this.data.cmd,
+			args: this.data.args,
+			opts: {stdio: 'inherit'}
+		}, this.async());
+	});
+
+	grunt.registerTask( 'travis:lint', 'Runs code linting Travis CI tasks', [ 'phplint', 'jshint' ] );
+	grunt.registerTask( 'travis:phpunit', 'Runs PHPUnit Travis CI tasks.', 'phpunit' );
 };
