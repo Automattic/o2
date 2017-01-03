@@ -1,10 +1,10 @@
 <header class="entry-header">
+	<div class="entry-meta">
 <# if ( ! data.isPage && o2.options.showAvatars && data.author.avatar ) { #>
 	<a href="{{ data.author.url }}" title="{{ data.author.urlTitle }}" class="author-avatar">
 		<img src="{{ data.author.avatar }}" width="{{ data.avatarSize }}" height="{{ data.avatarSize }}" class="avatar" />
 	</a>
 <# } #>
-	<div class="entry-meta">
 <# if ( ! data.isPage ) { #>
 		<a href="{{ data.author.url }}" title="{{ data.author.urlTitle }}" class="entry-author">
 			{{ data.author.displayName }}

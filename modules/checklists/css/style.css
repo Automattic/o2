@@ -1,14 +1,16 @@
-/*THIS FILE IS COMPILED FROM AN .SCSS FILE - DO NOT EDIT DIRECTLY*/
 /* COLORS */
 /* TYPOGRAPHY */
 /* EFFECTS & UTILITIES */
+/* line 3, style.scss */
 ul.o2-tasks {
   margin-left: 0;
   padding-left: 0;
 }
+/* line 7, style.scss */
 ul.o2-tasks ul {
   margin-left: 25px;
 }
+/* line 11, style.scss */
 ul.o2-tasks .ui-sortable-dropzone {
   height: 1.5em;
   list-style-type: none;
@@ -16,25 +18,31 @@ ul.o2-tasks .ui-sortable-dropzone {
   background: #f1f1f1;
   border: dashed 1px #cbcbcb;
 }
+/* line 19, style.scss */
 ul.o2-tasks .o2-task-completed .o2-task-item-text {
   text-decoration: line-through;
 }
+/* line 23, style.scss */
 ul.o2-tasks li.o2-task-item {
   list-style: none;
   padding-left: 1.8em;
   text-indent: -1.8em;
   margin-bottom: 0.5em;
 }
+/* line 29, style.scss */
 ul.o2-tasks li.o2-task-item input[type="checkbox"] {
   margin-right: 0.6em;
 }
+/* line 33, style.scss */
 ul.o2-tasks li.o2-task-item .o2-task-item-text {
   cursor: move;
 }
+/* line 37, style.scss */
 ul.o2-tasks li.o2-task-item .o2-task-item-input {
   margin: 5px 0;
   width: 85%;
 }
+/* line 42, style.scss */
 ul.o2-tasks li.o2-task-item .o2-task-tools {
   display: none;
   padding-bottom: 0.25em;
@@ -42,18 +50,22 @@ ul.o2-tasks li.o2-task-item .o2-task-tools {
   font-family: "Open Sans", "sans-serif";
   font-size: 11px;
 }
+/* line 49, style.scss */
 ul.o2-tasks li.o2-task-item .o2-task-tools .genericon {
   vertical-align: text-bottom;
   font-size: 150%;
 }
+/* line 54, style.scss */
 ul.o2-tasks li.o2-task-item .o2-task-tools .o2-task-tool-char {
   font-weight: bold;
   font-size: 150%;
 }
+/* line 59, style.scss */
 ul.o2-tasks li.o2-task-item .o2-task-tools a {
   text-decoration: none;
   padding: 0.25em 0.75em 0.5em 0.75em;
 }
+/* line 63, style.scss */
 ul.o2-tasks li.o2-task-item .o2-task-tools a:before {
   -webkit-font-smoothing: antialiased;
   font: normal 16px/1 "Genericons";
@@ -63,14 +75,17 @@ ul.o2-tasks li.o2-task-item .o2-task-tools a:before {
   position: relative;
   top: 3px;
 }
+/* line 76, style.scss */
 ul.o2-tasks li.o2-current-task-item {
   background: #f1f1f1;
 }
+/* line 79, style.scss */
 ul.o2-tasks li.o2-current-task-item div.o2-task-tools {
   display: block;
 }
 
 @media only screen and (max-width: 876px) {
+  /* line 87, style.scss */
   .o2-tasks {
     margin-left: 10px;
   }

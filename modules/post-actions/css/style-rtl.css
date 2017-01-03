@@ -49,7 +49,7 @@ nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon {
 }
 /* line 52, _post-actions.scss */
 nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon:before {
-  font-size: 16px !important;
+  font-size: 16px;
   height: 32px;
   width: 32px;
   line-height: 1;
@@ -109,10 +109,10 @@ nav.o2-dropdown-actions ul li > a, nav.o2-dropdown-actions ul li > span > a {
   box-shadow: none;
   text-align: right;
   color: #666666;
-  padding: 0.6em 1em 0.6em 1em;
+  padding: 0.6em 1.0em 0.6em 1.0em;
   margin: 0;
   line-height: 1.5;
-  width: calc(100% - 2.0em );
+  width: 100%;
   height: auto;
   font-size: 12px;
   font-family: "Open Sans", sans-serif;
@@ -195,14 +195,14 @@ nav.o2-dropdown-actions ul li > a.genericon:before, nav.o2-dropdown-actions ul l
 /* line 196, _post-actions.scss */
 nav.o2-post-actions button {
   position: absolute;
-  top: -10px;
-  left: -10px;
+  top: 0;
+  left: 0;
 }
 /* line 202, _post-actions.scss */
 nav.o2-post-actions ul {
   position: absolute;
-  top: -10px;
-  left: -10px;
+  top: 0;
+  left: 0;
 }
 @media (max-width: 550px) {
   /* line 202, _post-actions.scss */
@@ -402,7 +402,7 @@ nav.o2-post-footer-actions ul li > a, nav.o2-post-footer-actions ul li > span > 
   padding-left: 10px;
   margin: 0;
   line-height: 1.5;
-  width: calc(100% - 1.5em );
+  width: auto;
   height: auto;
   font-size: 12px;
   font-family: "Open Sans", sans-serif;
@@ -574,7 +574,7 @@ div.o2-comment-footer-actions ul p.comment-likes a.comment-like-link:before {
 .o2-comment-reply, .o2-comment-edit, .o2-short-link {
   text-indent: 0;
   height: auto;
-  width: calc(100% - 2.0em );
+  width: 100%;
   font-weight: normal;
 }
 /* line 14, style.scss */

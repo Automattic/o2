@@ -539,10 +539,11 @@ article.sticky .o2-sticky-link:after {
 @media (max-width: 876px) {
   .o2-editor-toolbar-button {
     width: 50px;
-    height: 38px;
+    height: 22px;
+    padding: 6px;
   }
   .o2-editor-toolbar-button:before {
-    font-size: 32px;
+    font-size: 24px;
   }
 }
 

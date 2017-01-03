@@ -1,7 +1,7 @@
-/*THIS FILE IS COMPILED FROM AN .SCSS FILE - DO NOT EDIT DIRECTLY*/
 /* COLORS */
 /* TYPOGRAPHY */
 /* EFFECTS & UTILITIES */
+/* line 3, style.scss */
 #o2-dock {
   position: fixed;
   bottom: 0;
@@ -12,19 +12,23 @@
   text-align: left;
 }
 @media (max-width: 876px) {
+  /* line 3, style.scss */
   #o2-dock {
     left: 0;
     width: 100%;
   }
+  /* line 16, style.scss */
   #o2-dock br {
     content: ' ';
     display: none;
   }
 }
+/* line 22, style.scss */
 #o2-dock .o2-notification-close {
   float: left;
 }
 @media (max-width: 876px) {
+  /* line 22, style.scss */
   #o2-dock .o2-notification-close {
     font: normal 32px/1 "Genericons";
     padding: 6px;
@@ -33,6 +37,7 @@
     top: 0;
   }
 }
+/* line 34, style.scss */
 #o2-dock .o2-dock-count {
   display: inline-block;
   opacity: 1;
@@ -53,14 +58,17 @@
   transition: all 0.3s cubic-bezier(0, 1.8, 1, 1.8);
 }
 @media (max-width: 876px) {
+  /* line 34, style.scss */
   #o2-dock .o2-dock-count {
     height: 38px;
     padding: 15px 15px 0px;
   }
+  /* line 54, style.scss */
   #o2-dock .o2-dock-count:before {
     font-size: 32px;
   }
 }
+/* line 61, style.scss */
 #o2-dock .o2-dock-count:before {
   font-size: 16px;
   color: #dddddd;
@@ -70,6 +78,7 @@
   position: relative;
   top: 3px;
 }
+/* line 73, style.scss */
 #o2-dock #o2-dock-controls {
   display: none;
   margin: 0;
@@ -84,17 +93,21 @@
   line-height: 12px;
 }
 @media (max-width: 876px) {
+  /* line 73, style.scss */
   #o2-dock #o2-dock-controls {
     padding: 15px;
   }
 }
+/* line 92, style.scss */
 #o2-dock.empty {
   display: none;
 }
+/* line 96, style.scss */
 #o2-dock #o2-items-scroll {
   overflow: auto;
   max-height: 350px;
 }
+/* line 101, style.scss */
 #o2-dock .o2-dock-items {
   display: none;
   margin: 0;
@@ -106,36 +119,43 @@
   border: 1px rgba(0, 0, 0, 0.1) solid;
   border-width: 1px 1px 0 1px;
 }
+/* line 112, style.scss */
 #o2-dock .o2-dock-items li {
   clear: both;
 }
 @media (max-width: 876px) {
+  /* line 112, style.scss */
   #o2-dock .o2-dock-items li {
     position: relative;
   }
 }
+/* line 119, style.scss */
 #o2-dock .o2-dock-items li img {
   float: right;
 }
 @media (max-width: 876px) {
+  /* line 119, style.scss */
   #o2-dock .o2-dock-items li img {
     margin: 0;
     max-height: 32px;
     max-width: 32px;
   }
 }
+/* line 129, style.scss */
 #o2-dock .o2-dock-items li p {
   margin: 0 10px;
   float: right;
   width: 190px;
 }
 @media (max-width: 876px) {
+  /* line 129, style.scss */
   #o2-dock .o2-dock-items li p {
     float: none;
     margin: 5px 42px 5px 10px;
     width: auto;
   }
 }
+/* line 141, style.scss */
 #o2-dock .o2-dock-items li.o2-notification {
   margin: 0;
   padding: 5px 10px 6px;
@@ -148,16 +168,20 @@
   text-align: right;
   font-size: 12px;
 }
+/* line 153, style.scss */
 #o2-dock .o2-dock-items li.o2-notification a {
   color: #3498db;
 }
+/* line 156, style.scss */
 #o2-dock .o2-dock-items li.o2-notification a:hover {
   color: #2875a8;
 }
+/* line 161, style.scss */
 #o2-dock .o2-dock-items li.o2-notification:hover {
   background: rgba(255, 255, 255, 0.7);
 }
 
+/* line 169, style.scss */
 #o2-flash {
   position: fixed;
   bottom: 10px;
@@ -165,19 +189,22 @@
   text-align: center;
   width: 100%;
 }
+/* line 176, style.scss */
 #o2-flash .o2-flash-items {
   list-style: none;
   margin: 0;
 }
+/* line 180, style.scss */
 #o2-flash .o2-flash-items li {
   list-style-type: none;
 }
+/* line 184, style.scss */
 #o2-flash .o2-flash-items li.o2-notification {
   background: #111;
   border-radius: 5px;
-  border: 2px solid white;
+  border: 2px solid #fff;
   color: #eee;
-  font: 14px/18px "Open Sans", sans-serif;
+  font: 14px/18px 'Open Sans', sans-serif;
   padding: 10px;
   margin: 0;
   position: relative;
