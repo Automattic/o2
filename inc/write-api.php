@@ -74,7 +74,7 @@ class o2_Write_API extends o2_API_Base {
 
 		case 'update':
 			if ( ! current_user_can( 'edit_post', $message->postID ) ) {
-				self::die_failure( 'cannot_edit_post', __( 'You are not allowed to edit this post', 'o2' ) );
+				self::die_failure( 'cannot_edit_post', __( 'Sorry, you are not allowed to edit this post.', 'o2' ) );
 			}
 
 			// Load existing post
@@ -123,7 +123,7 @@ class o2_Write_API extends o2_API_Base {
 
 		case 'patch':
 			if ( ! current_user_can( 'edit_post', $message->postID ) ) {
-				self::die_failure( 'cannot_edit_post', __( 'You are not allowed to edit this post', 'o2' ) );
+				self::die_failure( 'cannot_edit_post', __( 'Sorry, you are not allowed to edit this post.', 'o2' ) );
 			}
 
 			// We must store this in postmeta, because WP doesn't allow us to manually
@@ -137,7 +137,7 @@ class o2_Write_API extends o2_API_Base {
 
 		case 'create':
 			if ( ! current_user_can( 'publish_posts' ) ) {
-				self::die_failure( 'cannot_publish_posts', __( 'You are not allowed to publish new posts', 'o2' ) );
+				self::die_failure( 'cannot_publish_posts', __( 'Sorry, you are not allowed to publish posts on this site.', 'o2' ) );
 			}
 
 			if ( 'standard' !== $message->postFormat || empty( $message->titleRaw ) ) {
@@ -321,7 +321,7 @@ class o2_Write_API extends o2_API_Base {
 
 			add_filter( 'map_meta_cap', array( 'o2_Write_API', 'restrict_comment_editing' ), 10, 4 );
 			if ( ! current_user_can( 'edit_comment', $message->id ) ) {
-				self::die_failure( 'cannot_edit_comment', __( 'You are not allowed to edit this comment', 'o2' ) );
+				self::die_failure( 'cannot_edit_comment', __( 'Sorry, you are not allowed to edit this comment.', 'o2' ) );
 			}
 			remove_filter( 'map_meta_cap', array( 'o2_Write_API', 'restrict_comment_editing' ), 10 );
 
