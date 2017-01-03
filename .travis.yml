@@ -21,6 +21,16 @@ matrix:
     - php: 5.3
     - php: 7.0
     - php: 7.1
+    - php: hhvm
+      sudo: required
+      dist: trusty
+      group: edge
+      addons:
+        apt:
+          packages:
+          - mysql-server-5.6
+          - mysql-client-core-5.6
+          - mysql-client-5.6
     - php: nightly
     - php: 7.0
       env: WP_MULTISITE=1
