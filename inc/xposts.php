@@ -101,7 +101,7 @@ class o2_Xposts extends o2_Terms_In_Comments {
 			}
 
 			// Receiving blog must also be running o2 (to handle the xpost properly)
-			if ( $o2->is_enabled() )  {
+			if ( $o2 && $o2->is_enabled() )  {
 				restore_current_blog();
 				continue;
 			}
@@ -219,7 +219,7 @@ class o2_Xposts extends o2_Terms_In_Comments {
 		$blog_id = get_current_blog_id();
 		$registered_index = array_search( $blog_id, $this->registered_blogs, true );
 
-		if ( $o2->is_enabled() ) {
+		if ( $o2 && $o2->is_enabled() ) {
 			unregister_taxonomy_for_object_type( 'xposts', 'post' );
 
 			if ( false !== $registered_index ) {
