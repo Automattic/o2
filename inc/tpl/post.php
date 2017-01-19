@@ -18,7 +18,7 @@
 	</div>
 	<# if ( data.showTitle && ! data.titleWasGeneratedFromContent ) { #>
 		<h1 class="entry-title">
-			<# if ( ! data.isPage ) { #>
+			<# if ( data.linkTitle ) { #>
 				<a href="{{ data.permalink }}">{{{ data.titleFiltered }}}</a>
 			<# } else { #>
 				{{{ data.titleFiltered }}}

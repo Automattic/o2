@@ -559,6 +559,9 @@ o2.Views.Post = ( function( $ ) {
 			// Some useful meta data
 			jsonifiedModel.commentCount = this.model.comments.length;
 
+			// We only sometimes want the title to be linked
+			jsonifiedModel.linkTitle = ! jsonifiedModel.isPage || 'search' === o2.options.viewType;
+
 			var postID = this.model.get( 'id' );
 			if ( _.isUndefined( postID ) ) {
 				postID = 'new';
