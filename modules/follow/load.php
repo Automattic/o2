@@ -38,7 +38,8 @@ class o2_Follow extends o2_API_Base {
 			'unfollowComments' => __( 'Unfollow comments', 'o2' ),
 			'followError'      => __( 'There was a problem updating your following preferences.', 'o2' ),
 			'followingAll'     => __( 'Following all', 'o2' ),
-			'followingAllComments' => __( 'You are already following all comments on this site.', 'o2' )
+			'followingAllComments' => __( 'You are already following all comments on this site.', 'o2' ),
+			'commentNotification'  => __( 'Notify me of new comments via email.', 'o2' )
 		);
 		$localizations = array_merge( $options['strings'], $localizations );
 		$options['strings'] = $localizations;
