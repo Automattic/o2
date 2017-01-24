@@ -94,8 +94,8 @@ class o2_Sticky_Posts extends o2_API_Base {
 	 * @return array The filtered o2 post actions
 	 */
 	function add_post_action( $actions, $post_ID ) {
-		// Do not show sticky post action on pages - return immediately
-		if ( is_page() ) {
+		// Only show sticky post action on posts.
+		if ( 'post' !== get_post_type( $post_ID ) ) {
 			return $actions;
 		}
 
