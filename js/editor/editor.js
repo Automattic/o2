@@ -4,6 +4,15 @@ var o2Editor;
 
 ( function( $ ) {
 
+var featureSticky = ( function() {
+	var element = document.createElement( 'div' );
+	var style = element.style;
+
+	style.cssText = 'position:sticky;position:-webkit-sticky';
+
+	return !! style.position;
+} )();
+
 o2Editor = {
 	editors:   [],
 	isFirefox: false,
@@ -55,7 +64,11 @@ o2Editor = {
 		$doc.on( 'paste',   '.o2-editor-text',                this.paste );
 
 		$doc.on( 'change',  '.o2-image-file-input',           this.onImageFileInputChanged );
-		$doc.on( 'scroll', _.debounce( this.onDocumentScrollStopped, 250 ) );
+
+		if ( ! featureSticky ) {
+			$doc.on( 'scroll', _.debounce( this.onDocumentScrollStopped, 250 ) );
+		}
+
 		$doc.on( 'scroll', _.debounce( this.toggleMobileEditorIconVisibility, 250 ) );
 
 		// Atwho event handlers to prevent duplicate tab behavior
@@ -168,14 +181,16 @@ o2Editor = {
 				<div style="display:none;"> \
 					<input class="o2-image-file-input" style="display:none" type="file" accept="image/*,video/*"> \
 				</div> \
-			</div>';
-			if ( 'string' === typeof title ) {
-				editor += '<div class="o2-editor-title-wrapper"> \
-					<input type="text" class="o2-title o2-editor-title" value="' + title + '" placeholder="' + o2.strings.enterTitleHere + '" /> \
-				</div>';
-				}
-			editor += '<textarea class="o2-editor-text" placeholder="' + prompt + '">' + content + '</textarea> \
-			<div class="o2-editor-preview"></div> \
+			</div> \
+			<div class="o2-editor-content-wrapper">';
+				if ( 'string' === typeof title ) {
+					editor += '<div class="o2-editor-title-wrapper"> \
+						<input type="text" class="o2-title o2-editor-title" value="' + title + '" placeholder="' + o2.strings.enterTitleHere + '" /> \
+					</div>';
+					}
+				editor += '<textarea class="o2-editor-text" placeholder="' + prompt + '">' + content + '</textarea> \
+				<div class="o2-editor-preview"></div> \
+			</div> \
 		</div>';
 
 		return editor;

@@ -488,9 +488,22 @@
 }
 
 .o2-editor-toolbar-wrapper {
+	border-bottom: 1px solid $gray-10;
+	position: sticky;
+	position: -webkit-sticky;
+	margin-bottom: 100px;
+
 	@include breakpoint( handset-landscape ) {
 		display: none;
 	}
+}
+
+.admin-bar .o2-editor-toolbar-wrapper {
+	top: 32px;
+}
+
+.o2-editor-content-wrapper {
+	margin-top: -100px;
 }
 
 .ui-helper-hidden-accessible {
