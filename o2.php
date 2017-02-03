@@ -860,14 +860,17 @@ class o2 {
 			return;
 		}
 
-		$text = esc_html__( 'Your browser is not up-to-date.  As a result, some features may not work correctly.  Please switch to an updated browser.', 'o2' );
+		$text = esc_html__( 'Your browser is not up-to-date. As a result, some features may not work correctly. Please switch to an updated browser.', 'o2' );
 
+		// Use browser comments to ensure a cached version isn't accidentally shown.
 		?>
+		<!--[if lte IE 9]>
 		<script type="text/javascript">
 			jQuery( document ).ready( function() {
 				jQuery( 'body' ).prepend( '<div class="o2-browser-warning"><?php echo esc_js( $text ); ?></div>' );
 			} );
 		</script>
+		<![endif]-->
 		<?php
 	}
 
