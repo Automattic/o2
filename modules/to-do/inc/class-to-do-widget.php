@@ -266,6 +266,11 @@ class o2_ToDos_Widget extends WP_Widget {
 					$args['tax_query'][] = $new_tax_query;
 				}
 
+				$args['post_status'] = array( 'publish' );
+				if ( current_user_can( 'read_private_posts' ) ) {
+					array_push( $args['post_status'], 'private' );
+				}
+
 				// Use WP_Query instead of get_posts() so we can use $found_posts
 				$query = new WP_Query( $args );
 				foreach( $query->posts as $post ) {
@@ -370,6 +375,11 @@ class o2_ToDos_Widget extends WP_Widget {
 			$new_tax_query['terms'] = $filter_tag;
 
 			$args['tax_query'][] = $new_tax_query;
+		}
+
+		$args['post_status'] = array( 'publish' );
+		if ( current_user_can( 'read_private_posts' ) ) {
+			array_push( $args['post_status'], 'private' );
 		}
 
 		$query = new WP_Query( $args );
