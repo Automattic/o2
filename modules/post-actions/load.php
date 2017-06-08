@@ -83,6 +83,10 @@ class o2_Post_Actions {
 			return $content;
 		}
 
+		if ( is_feed() ) {
+			return $content;
+		}
+
 		if ( ! apply_filters( 'o2_process_the_content', true ) ) {
 			return $content;
 		}
@@ -108,6 +112,10 @@ class o2_Post_Actions {
 
 		// Don't add post actions in the admin and only for o2 read/write requests.
 		if ( is_admin() && ! ( isset( $_GET['action'] ) && ( 'o2_read' === $_GET['action'] || 'o2_write' === $_GET['action'] ) ) ) {
+			return $content;
+		}
+
+		if ( is_feed() ) {
 			return $content;
 		}
 
