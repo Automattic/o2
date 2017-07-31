@@ -1,8 +1,9 @@
+/* global o2Config */
 var o2 = o2 || {};
 
 o2.Utilities = o2.Utilities || {};
 
-o2.Utilities.rawToFiltered = function( raw, context = 'comment' ) {
+o2.Utilities.rawToFiltered = function( raw, context ) {
 	var filtered = stripUnsafeHTML( raw, context );
 
 	filtered = '<p>' + filtered.replace( /\n\n/g, '</p><p>' ) + '</p>';
@@ -33,7 +34,7 @@ o2.Utilities.htmlSpecialChars = function( str ) {
 
 o2.Utilities.containsHTML = function( str ) {
 	return str !== stripUnsafeHTML( str, 'stripall' );
-}
+};
 
 function stripUnsafeHTML( html, context ) {
 	var parsed = true;
@@ -120,8 +121,7 @@ function removeUnsafeNodes( node, context ) {
 	return newNode;
 }
 
-
-
+/* jshint ignore:start */
 /*
  * DOMParser HTML extension
  * 2012-09-04
@@ -168,3 +168,4 @@ function removeUnsafeNodes( node, context ) {
 		}
 	};
 }(DOMParser));
+/* jshint ignore:end */
