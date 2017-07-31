@@ -465,6 +465,7 @@ class o2_Read_API extends o2_API_Base {
 			switch ( $_REQUEST['type'] ) {
 				case 'comment':
 					$response = apply_filters( 'o2_preview_comment', wp_unslash( $_REQUEST['data'] ) );
+					$response = apply_filters( 'pre_comment_content', $response );
 					$response = trim( apply_filters( 'comment_text', $response ) );
 
 					break;
@@ -478,12 +479,14 @@ class o2_Read_API extends o2_API_Base {
 					add_filter( 'o2_should_process_terms', '__return_false' );
 					add_filter( 'o2_process_the_content', '__return_false' );
 
-					$message->contentRaw = apply_filters( 'o2_preview_post', $message->contentRaw );
+					$response = apply_filters( 'o2_preview_post', $message->contentRaw );
+					$response = apply_filters( 'content_save_pre', $response );
+					$response = trim( apply_filters( 'the_content', $response ) );
 
-					$response = trim( apply_filters( 'the_content', $message->contentRaw ) );
+					$title = apply_filters( 'title_save_pre', $message->titleRaw );
 
-					if ( ! empty( $message->titleRaw ) ) {
-						$response = "<h1>{$message->titleRaw}</h1>" . $response;
+					if ( ! empty( $title ) ) {
+						$response = "<h1>$title</h1>" . $response;
 					}
 
 					break;
