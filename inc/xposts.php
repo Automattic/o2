@@ -163,7 +163,7 @@ class o2_Xposts extends o2_Terms_In_Comments {
 		}
 
 		// @todo This is assuming WP.com, which is not compatible with .org
-		$replacement = sprintf( '<a href="%s" class="%s">+%s</a>', esc_url( "//$subdomain.wordpress.com/" ), esc_attr( $classes ), esc_html( $subdomain ) );
+		$replacement = sprintf( '<a href="%s" class="%s">+%s</a>', esc_url( "https://$subdomain.wordpress.com/" ), esc_attr( $classes ), esc_html( $subdomain ) );
 		$replacement = apply_filters( 'o2_xpost_link', $replacement, $subdomain );
 		$replacement = preg_replace( "/(^|\s|>|\()\+" . preg_quote( $subdomain, '/' ) . "($|\b|\s|<|\))/i", '$1' . $replacement . '$2', $matches[0] );
 
