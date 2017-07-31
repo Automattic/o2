@@ -12,7 +12,7 @@ class o2_Editor {
 		if ( !defined( 'IS_WPCOM' ) || !IS_WPCOM ) {
 			wp_enqueue_script( 'jquery.autoresize', plugins_url( 'js/editor/jquery.autoresize.js', O2__FILE__ ), array( 'jquery' ) );
 		}
-		wp_enqueue_script( 'o2-editor', plugins_url( 'js/editor/editor.js', O2__FILE__ ), array( 'jquery', 'o2-jquery-hotkeys', 'jquery.autoresize', 'o2-plugin-caret', 'o2-events' ) );
+		wp_enqueue_script( 'o2-editor', plugins_url( 'js/editor/editor.js', O2__FILE__ ), array( 'jquery', 'o2-jquery-hotkeys', 'jquery.autoresize', 'o2-plugin-caret', 'o2-events', 'o2-raw-to-filtered' ) );
 	}
 
 	function wp_footer() {

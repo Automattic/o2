@@ -406,8 +406,12 @@ o2.Views.Comment = ( function( $ ) {
 
 			if ( this.options.isEditing ) {
 				o2Editor.detectAndRender( this.$el );
+
+				var editor = this.$el.find( '.o2-editor-text' );
+				editor.data( 'autoTitleDisabled', true );
+
 				o2Editor.create(
-					this.$el.find( '.o2-editor-text' ),
+					editor,
 					this.model.get( 'postID' ),
 					this.model.get( 'parentID' )
 				);

@@ -766,7 +766,7 @@ o2Editor = {
 		}
 
 		// Don't auto-title if there's HTML
-		if ( $( '<div>' + lines[0] + '</div>' ).text() !== lines[0] ) {
+		if ( o2.Utilities.containsHTML( lines[0] ) ) {
 			return false;
 		}
 

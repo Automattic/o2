@@ -31,6 +31,10 @@ o2.Utilities.htmlSpecialChars = function( str ) {
 		.replace( />/g, '&gt;' );
 };
 
+o2.Utilities.containsHTML = function( str ) {
+	return str !== stripUnsafeHTML( str, 'stripall' );
+}
+
 function stripUnsafeHTML( html, context ) {
 	var parsed = true;
 	var doc;
@@ -58,6 +62,10 @@ function stripUnsafeHTML( html, context ) {
 	if ( ! parsed ) {
 		// Something went horribly wrong. Strip everything that looks like a tag, let the server sort it out.
 		return html.replace( /<.*?>/g, '' );
+	}
+
+	if ( 'stripall' === context ) {
+		return doc.body.textContent;
 	}
 
 	return removeUnsafeNodes( doc.body, context ).innerHTML;
