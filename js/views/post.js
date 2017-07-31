@@ -280,7 +280,7 @@ o2.Views.Post = ( function( $ ) {
 			var modelToSave = {};
 			modelToSave.contentRaw = this.$el.find( '.o2-editor-text' ).last().val();
 
-			modelToSave.contentFiltered = o2.Utilities.rawToFiltered( modelToSave.contentRaw );
+			modelToSave.contentFiltered = o2.Utilities.rawToFiltered( modelToSave.contentRaw, 'post' );
 			modelToSave.titleRaw = this.$el.find( '.o2-title' ).val();
 			modelToSave.titleFiltered = modelToSave.titleRaw;
 			modelToSave.postFormat = this.options.viewFormat; // retrieve from the view

@@ -244,7 +244,7 @@ o2.Views.Comment = ( function( $ ) {
 
 				// Render a temporary filtered version of the content to display while
 				// we are saving
-				modelToSave.contentFiltered = o2.Utilities.rawToFiltered( modelToSave.contentRaw );
+				modelToSave.contentFiltered = o2.Utilities.rawToFiltered( modelToSave.contentRaw, 'comment' );
 
 				this.options.isEditing = false;
 				this.options.isSaving = true;

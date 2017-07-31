@@ -82,7 +82,7 @@ o2.Views.FrontSidePost = ( function( $ ) {
 				previewContentRaw = previewContentRaw.replace( title, '' ).trim();
 			}
 
-			var contentFiltered = o2.Utilities.rawToFiltered( previewContentRaw );
+			var contentFiltered = o2.Utilities.rawToFiltered( previewContentRaw, 'post' );
 			// If there is an auto-title, add it to the content
 			if ( title ) {
 				contentFiltered = '<h1><a href="#">' + title + '</a></h1>' + contentFiltered;

@@ -171,7 +171,7 @@ class o2 {
 	}
 
 	public function register_plugin_scripts() {
-		global $wp_locale;
+		global $wp_locale, $allowedposttags, $allowedtags;
 
 		// Utils
 		wp_enqueue_script( 'o2-compare-times',        plugins_url( 'js/utils/compare-times.js', O2__FILE__ ),       array( 'jquery' ) );
@@ -387,6 +387,10 @@ class o2 {
 			'postFormExtras'    => apply_filters( 'o2_post_form_extras', '' ),
 			'commentFormBefore' => apply_filters( 'o2_comment_form_before', '' ),
 			'commentFormExtras' => apply_filters( 'o2_comment_form_extras', '' ),
+			'allowedTags'       => array(
+				'post'                                 => $allowedposttags,
+				'comment'                              => $allowedtags,
+			),
 			'strings' => array(
 				'unsavedChanges'                       => __( 'You have unsaved changes.', 'o2' ),
 				'saveInProgress'                       => __( 'Not all changes have been saved to the server yet. Please stay on this page until they are saved.', 'o2' ),
