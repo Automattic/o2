@@ -155,7 +155,9 @@ class o2_Tags extends o2_Terms_In_Comments {
 		} else {
 			$dom = new DOMDocument;
 		}
+		libxml_use_internal_errors( true );
 		@$dom->loadHTML( '<?xml encoding="UTF-8">' . $content );
+		libxml_use_internal_errors( false );
 
 		$xpath = new DOMXPath( $dom );
 		$textNodes = $xpath->query( '//text()' );
@@ -209,7 +211,9 @@ class o2_Tags extends o2_Terms_In_Comments {
 			} else {
 				$newNodes = new DOMDocument;
 			}
+			libxml_use_internal_errors( true );
 			@$newNodes->loadHTML( '<?xml encoding="UTF-8"><div>' . $text . '</div>' );
+			libxml_use_internal_errors( false );
 
 			foreach( $newNodes->getElementsByTagName( 'body' )->item( 0 )->childNodes->item( 0 )->childNodes as $newNode ) {
 				$cloneNode = $dom->importNode( $newNode, true );
@@ -288,7 +292,9 @@ class o2_Tags extends o2_Terms_In_Comments {
 		} else {
 			$dom = new DOMDocument;
 		}
+		libxml_use_internal_errors( true );
 		@$dom->loadHTML( '<?xml encoding="UTF-8">' . $content );
+		libxml_use_internal_errors( false );
 
 		$xpath = new DOMXPath( $dom );
 		$textNodes = $xpath->query( '//text()' );
