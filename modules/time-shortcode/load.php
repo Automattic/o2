@@ -153,23 +153,7 @@ class o2_Time_Shortcode {
 						return;
 					}
 
-					var date = new Date( time );
-					date = o2_format_date( date );
-
-					var format = $this.data( 'format' );
-					if ( format == 'time' ) {
-						var p = date.indexOf( 'UTC' );
-						$this.text( date.substr( p - 6 ) );
-					} else if ( format == 'date' ) {
-						var p = date.indexOf( 'UTC' );
-						$this.text( date.substr( 0, p - 6 ) );
-					} else if ( format == 'shortdate' ) {
-						var p = date.indexOf( 'UTC' );
-						var c = date.indexOf( ',' );
-						$this.text( date.substr( c + 2, p - c - 9 ) );
-					} else {
-						$this.text( date );
-					}
+					$this.text( o2_format_date( new Date( time ), $this.data( 'format' ) ) );
 
 				} );
 			} );
