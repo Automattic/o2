@@ -48,7 +48,7 @@ class o2_Notifications extends o2_API_Base {
 		<script type="html/template" id="tmpl-o2-notification">
 
 		<# if ( '' !== data.iconUrl ) { #>
-			<img src="{{ data.iconUrl }}&amp;s={{ data.iconSize }}" width="{{ data.iconSize }}" height="{{ data.iconSize }}" class="avatar {{data.iconClass}}" />
+			<img src="{{ data.iconUrl }}&amp;s={{ data.iconSize }}" alt="" width="{{ data.iconSize }}" height="{{ data.iconSize }}" class="avatar {{data.iconClass}}" />
 		<# } #>
 
 		<# if ( data.dismissable ) { #>

@@ -1,6 +1,6 @@
 <header class="o2-comment-header comment">
 	<# if ( o2.options.showAvatars && data.author.avatar ) { #>
-	<img src="{{ data.author.avatar }}" width="{{ data.avatarSize }}" height="{{ data.avatarSize }}" class="avatar {{ data.author.modelClass }}" />
+	<img src="{{ data.author.avatar }}" alt="" width="{{ data.avatarSize }}" height="{{ data.avatarSize }}" class="avatar {{ data.author.modelClass }}" />
 	<# } #>
 	<div class="comment-meta commentmetadata">
 		<# if ( data.isAnonymousAuthor ) { #>

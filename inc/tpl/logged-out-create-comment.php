@@ -1,6 +1,6 @@
 <header class="o2-comment-header comment">
 	<# if ( o2.options.showAvatars && data.author.avatar ) { #>
-	<img src="{{ data.author.avatar }}&amp;s={{ data.avatarSize }}" width="{{ data.avatarSize }}" height="{{ data.avatarSize }}" class="avatar" />
+	<img src="{{ data.author.avatar }}&amp;s={{ data.avatarSize }}" alt="" width="{{ data.avatarSize }}" height="{{ data.avatarSize }}" class="avatar" />
 	<# } #>
 </header>
 <div class="o2-editor o2-logged-out-editor">
