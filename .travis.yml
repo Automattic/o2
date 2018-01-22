@@ -30,7 +30,7 @@ matrix:
 
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-  - nvm install
+  - nvm install 8
   - npm install -g grunt-cli
   - npm install
   - npm prune
