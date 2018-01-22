@@ -2,7 +2,7 @@ QUnit.module( 'Time Shortcode' );
 
 //Set up the time settings function manually since PHP usually generates it
 var o2_get_time_settings = function(){
-	return { 
+	return {
 		"months": [
 				"January",
 				"February",
@@ -101,5 +101,25 @@ QUnit.test( "o2_format_date: valid, positive-offset date", function( assert ) {
 	assert.equal(
 		o2_format_date( date ), "Sunday, January 12, 2012 12:00 UTC+2",
 		"Correct date should return for positive UTC timezone"
+	);
+});
+
+QUnit.test( "o2_format_date: output formating", function( assert ) {
+
+	var date = new DateMock( 0, 12, 0, 2012, 12, 00, -120 ); // Sun, 12 Jan 2012 12:00 UTC+2
+
+	assert.equal(
+		o2_format_date( date, 'time' ), "12:00 UTC+2",
+		"Correct output for time format"
+	);
+
+	assert.equal(
+		o2_format_date( date, 'date' ), "Sunday, January 12, 2012",
+		"Correct output for date format"
+	);
+
+	assert.equal(
+		o2_format_date( date, 'shortdate' ), "January 12, 2012",
+		"Correct output for shortdate format"
 	);
 });
