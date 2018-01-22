@@ -34,7 +34,7 @@ class o2_Live_Comments_Widget extends WP_Widget {
 			</script>
 			<script type="html/template" id='tmpl-o2-live-item-template'>
 				<# if ( o2.options.showAvatars && data.author.avatar ) { #>
-				<img src="{{ data.author.avatar }}" width="{{ data.author.avatarSize }}" height="{{ data.author.avatarSize }}" class="avatar o2-live-item-img {{ data.author.modelClass }}" />
+				<img src="{{ data.author.avatar }}" alt="" width="{{ data.author.avatarSize }}" height="{{ data.author.avatarSize }}" class="avatar o2-live-item-img {{ data.author.modelClass }}" />
 				<# } #>
 				<p class="o2-live-item-text"><a href="{{ data.permalink }}" data-domref="{{ data.domRef }}"
 					<# if ( 'comment' === data.type ) { #>
