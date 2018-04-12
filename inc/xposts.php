@@ -334,6 +334,10 @@ class o2_Xposts extends o2_Terms_In_Comments {
 		if ( 'publish' != $new )
 			return;
 
+		if ( ! in_array( $post->post_type, array( 'post', 'page' ), true ) ) {
+			return;
+		}
+
 		$subdomains = $this->find_xposts( $post->post_content );
 		if ( ! $subdomains )
 			return;
