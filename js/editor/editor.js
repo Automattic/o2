@@ -167,12 +167,12 @@ o2Editor = {
 		editor = '<div class="o2-editor-wrapper"> \
 			<div class="o2-editor-toolbar-wrapper"> \
 				<div class="o2-editor-toolbar"> \
-					<button class="o2-editor-toolbar-button genericon genericon-bold" value="strong" title="' + o2.strings.bold + '"></button> \
-					<button class="o2-editor-toolbar-button genericon genericon-italic" value="em" title="' + o2.strings.italics + '"></button> \
-					<button class="o2-editor-toolbar-button genericon genericon-link" value="a" title="' + o2.strings.link + '"></button> \
-					<button class="o2-editor-toolbar-button genericon genericon-picture" value="img" title="' + o2.strings.image + '"></button> \
-					<button class="o2-editor-toolbar-button genericon genericon-quote" value="blockquote" title="' + o2.strings.blockquote + '"></button> \
-					<button class="o2-editor-toolbar-button genericon genericon-code" value="code" title="' + o2.strings.code + '"></button>';
+					<button class="o2-editor-toolbar-button genericons-neue genericons-neue-bold" value="strong" title="' + o2.strings.bold + '"></button> \
+					<button class="o2-editor-toolbar-button genericons-neue genericons-neue-italic" value="em" title="' + o2.strings.italics + '"></button> \
+					<button class="o2-editor-toolbar-button genericons-neue genericons-neue-link" value="a" title="' + o2.strings.link + '"></button> \
+					<button class="o2-editor-toolbar-button genericons-neue genericons-neue-picture" value="img" title="' + o2.strings.image + '"></button> \
+					<button class="o2-editor-toolbar-button genericons-neue genericons-neue-quote" value="blockquote" title="' + o2.strings.blockquote + '"></button> \
+					<button class="o2-editor-toolbar-button genericons-neue genericons-neue-code" value="code" title="' + o2.strings.code + '"></button>';
 					if ( 'string' === typeof title ) {
 						editor += '<div class="o2-editor-format dashicon" title="' + o2.strings.addPostTitle + '">&#61969;</div>';
 					}
