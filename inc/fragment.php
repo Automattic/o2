@@ -728,15 +728,23 @@ class o2_Fragment {
 		// processing between brackets because it messes up not-yet-filtered shortcodes that have url
 		// attributes like googlemaps
 
-		$pieces = preg_split( '/(\[[^\]]*])/i', $content, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE );
+		$regex = '/(\[[^\]]*])/i';
 
-		$content = '';
+		$placeholders = $matches = array();
+		$count = 0;
 
-		foreach( (array) $pieces as $piece ) {
-			if ( '[' !== substr( $piece, 0, 1 ) ) {
-				$piece = make_clickable( $piece );
-			}
-			$content .= $piece;
+		while ( preg_match( $regex, $content, $matches ) ) {
+			$placeholder = ":: o2-make-clickable-placeholder $count ::";
+			$placeholders[ $count ] = $matches[0];
+			$content = preg_replace( $regex, $placeholder, $content, 1 );
+			$count++;
+		}
+
+		$content = make_clickable( $content );
+
+		foreach ( $placeholders as $count => $original ) {
+			$placeholder = ":: o2-make-clickable-placeholder $count ::";
+			$content = str_replace( $placeholder, $original, $content );
 		}
 
 		return $content;
