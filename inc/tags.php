@@ -9,10 +9,18 @@ class o2_Tags extends o2_Terms_In_Comments {
 	*/
 	const TAGS_REGEX = '/(?:^|\s|>|\()#(?!\d{1,2}(?:$|\s|<|\)|\p{P}{1}\s))([\p{L}\p{N}\_\-\.]*[\p{L}\p{N}]+)(?:$|\b|\s|<|\))/iu';
 
+	/**
+	 * Keep track of the post ID being edited by o2's AJAX request.
+	 * @var int
+	 */
+	protected $post_id_being_updated_by_o2 = 0;
 
 	function __construct() {
 		add_action( 'wp_ajax_o2_tag_search',  array( $this, 'tag_search' ) );
+
+		add_action( 'o2_update_post', array( $this, 'o2_update_post' ) );
 		add_action( 'transition_post_status', array( $this, 'process_tags' ), 12, 3 );
+		add_action( 'o2_writeapi_post_updated', array( $this, 'o2_writeapi_post_updated' ) );
 
 		add_filter( 'the_content',            array( 'o2_Tags', 'append_old_tags' ), 14 );
 		if ( ! is_admin() || ( isset( $_GET['action'] ) && ( 'o2_read' === $_GET['action'] || 'o2_write' === $_GET['action'] ) ) ) {
@@ -323,6 +331,31 @@ class o2_Tags extends o2_Terms_In_Comments {
 	}
 
 	/**
+	 * Take note of the ID being updated by O2
+	 *
+	 * @param WP_Post $post
+	 */
+	function o2_update_post( $post ) {
+		$this->post_id_being_updated_by_o2 = (int) $post->ID;
+	}
+
+	/**
+	 * O2 has finished updating the post
+	 *
+	 * @param int $post_id
+	 */
+	function o2_writeapi_post_updated( $post_id ) {
+		$post_id = (int) $post_id;
+
+		// This check is probably not important.
+		// If we're updating multiple posts per O2 write request,
+		// something else will probably break anyway.
+		if ( $post_id && $post_id === $this->post_id_being_updated_by_o2 ) {
+			$this->post_id_being_updated_by_o2 = 0;
+		}
+	}
+
+	/**
 	 * Fires when the post is published or edited
 	 *
 	 * @param boolean $new Status being switched to
@@ -340,51 +373,27 @@ class o2_Tags extends o2_Terms_In_Comments {
 	}
 
 	function gather_all_tags( $post ) {
-		$tags = array();
+		// Are we currently processing a write request made by O2?
+		// Or instead, are we doing a write request made by wp-admin/, the REST API, etc.?
+		$is_o2_write = $this->post_id_being_updated_by_o2 && $this->post_id_being_updated_by_o2 === (int) $post->ID;
 
-		// If we're on wp-admin, then tags are POSTed (Quick Edit) or GETed (Bulk Edit).
-		$new_tags = array();
-		if ( ! empty( $_POST['tax_input']['post_tag'] ) ) {
-			$new_tags = $_POST['tax_input']['post_tag'];
-		} else if ( ! empty( $_GET['tax_input']['post_tag'] ) ) {
-			$new_tags = explode( ',', $_GET['tax_input']['post_tag'] );
-			$old_tags = wp_get_post_terms( $post->ID, 'post_tag' );
-			foreach ( $old_tags as $old_tag ) {
-				$new_tags[] = $old_tag->slug;
-			}
-			$new_tags = array_unique( $new_tags );
+		// Extract #inline-tags from the post_content.
+		$tags = o2_Tags::find_tags( $post->post_content, true );
+
+		// If we're doing an O2 write, #inline-tags are all that matter.
+		if ( $is_o2_write ) {
+			return array_unique( $tags );
 		}
 
-		if ( ! empty( $new_tags ) ) {
-			if ( is_array( $new_tags ) ) {
-				$post_tags = $new_tags;
-			} else {
-				$post_tags = preg_split( '/\s*,\s*/', $new_tags );
-			}
-			foreach ( $post_tags as $tag ) {
-				if ( is_int( $tag ) ) {
-					/*
-					 * Deal with edit_post() which converts taxonomy input to term IDs to avoid ambiguity.
-					 * See https://core.trac.wordpress.org/changeset/31359
-					 */
-					$term = get_term( $tag, 'post_tag' );
-					if ( ! empty( $term ) && ! is_wp_error( $term ) ) {
-						$tags[] = $term->slug;
-					}
-				} else {
-					$tags[] = trim( $tag );
-				}
-			}
+		// If we're doing any other kind of write, respect the
+		// tags that have already been saved during the form
+		// submission, API request, etc.
+		$current_tags = o2_Fragment::get_post_tags( $post->ID );
+		foreach ( $current_tags as $current_tag ) {
+			$tags[] = $current_tag->slug;
 		}
 
-		// Extract inline tags from the post_content.
-		$inline_tags = o2_Tags::find_tags( $post->post_content, true );
-		if ( ! empty( $inline_tags ) ) {
-			$tags = array_merge( $tags, $inline_tags );
-		}
-
-		$tags = array_unique( $tags );
-		return $tags;
+		return array_unique( $tags );
 	}
 
 	public function tag_search() {
