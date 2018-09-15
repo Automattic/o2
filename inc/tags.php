@@ -388,7 +388,7 @@ class o2_Tags extends o2_Terms_In_Comments {
 		// If we're doing any other kind of write, respect the
 		// tags that have already been saved during the form
 		// submission, API request, etc.
-		$current_tags = o2_Fragment::get_post_tags( $post->ID );
+		$current_tags = wp_get_post_tags( $post->ID );
 		foreach ( $current_tags as $current_tag ) {
 			$tags[] = $current_tag->slug;
 		}
