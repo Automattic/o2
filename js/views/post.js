@@ -205,10 +205,10 @@ o2.Views.Post = ( function( $ ) {
 
 			var element = $( event.target );
 
-            element.addClass( 'clipboard-shake' );
-            setTimeout( function() {
-            	element.removeClass( 'clipboard-shake' );
-            }, 250 );
+			element.addClass( 'clipboard-shake' );
+			setTimeout( function() {
+				element.removeClass( 'clipboard-shake' );
+			}, 250 );
 		},
 
 		copyToClipboard: function( text ) {
