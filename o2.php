@@ -448,6 +448,7 @@ class o2 {
 				'pageBeingTrashed'                     => __( 'This page is being trashed.', 'o2' ),
 				'postTrashedFailed'                    => __( 'There was an error trashing that post. Please try again in a moment.', 'o2' ),
 				'pageTrashedFailed'                    => __( 'There was an error trashing that page. Please try again in a moment.', 'o2' ),
+				'shortlinkCopied'                      => __( 'Shortlink copied to clipboard.', 'o2' ),
 			),
 		);
 

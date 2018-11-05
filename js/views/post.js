@@ -203,6 +203,21 @@ o2.Views.Post = ( function( $ ) {
 
 			this.copyToClipboard( shortLink );
 
+			// Check if there is a shortlinkCopied notification and remove if so
+			o2.Notifications.notifications.findFirstAndDestroy( 'shortlinkCopied' );
+
+			o2.Notifications.add( {
+				text: o2.strings[ 'shortlinkCopied' ],
+				type: 'shortlinkCopied',
+				sticky: false,
+				popup: false,
+				dismissable: true
+			} );
+
+			setTimeout( function() {
+				o2.Notifications.notifications.findFirstAndDestroy( 'shortlinkCopied' );
+			}, 2500 );
+
 			var element = $( event.target );
 
 			element.addClass( 'clipboard-shake' );
