@@ -207,7 +207,7 @@ o2.Views.Post = ( function( $ ) {
 			o2.Notifications.notifications.findFirstAndDestroy( 'shortlinkCopied' );
 
 			o2.Notifications.add( {
-				text: o2.strings[ 'shortlinkCopied' ],
+				text: o2.strings.shortlinkCopied,
 				type: 'shortlinkCopied',
 				sticky: false,
 				popup: false,
