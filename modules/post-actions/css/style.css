@@ -1,693 +1,550 @@
 /* COLORS */
 /* TYPOGRAPHY */
 /* EFFECTS & UTILITIES */
+/*
+// REQUIRES SASS 3.3 AND COMPASS 1.0
+
+$breakpoints:(
+  'web':1200px,
+  'tablet-landscape':1024px,
+  'tablet-portrait': 876px,
+  'handset-landscape': 640px,
+  'handset-portrait': 550px
+);
+
+
+@mixin breakpoint($size){
+  @each $breakpoint, $value in $breakpoints {
+   @if $size == $breakpoint {
+     @media (max-width: map-get($breakpoints, $breakpoint)){
+       @content;
+     }
+   }
+  }
+}
+*/
 /* COLORS */
 /* TYPOGRAPHY */
 /* EFFECTS & UTILITIES */
-/* line 11, _post-actions.scss */
-*:focus {
-  outline: 0;
+/*
+// REQUIRES SASS 3.3 AND COMPASS 1.0
+
+$breakpoints:(
+  'web':1200px,
+  'tablet-landscape':1024px,
+  'tablet-portrait': 876px,
+  'handset-landscape': 640px,
+  'handset-portrait': 550px
+);
+
+
+@mixin breakpoint($size){
+  @each $breakpoint, $value in $breakpoints {
+   @if $size == $breakpoint {
+     @media (max-width: map-get($breakpoints, $breakpoint)){
+       @content;
+     }
+   }
+  }
 }
+*/
+*:focus {
+  outline: 0; }
 
 /*********************************************************************************************/
 /* POST AND COMMENT DROPDOWNS (SHARED STYLES) */
-/* line 18, _post-actions.scss */
+@-webkit-keyframes shake {
+  0% {
+    -webkit-transform: translate(2px, 1px) rotate(0deg); }
+  10% {
+    -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
+  20% {
+    -webkit-transform: translate(-3px, 0px) rotate(1deg); }
+  30% {
+    -webkit-transform: translate(0px, 2px) rotate(0deg); }
+  40% {
+    -webkit-transform: translate(1px, -1px) rotate(1deg); }
+  50% {
+    -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
+  60% {
+    -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+  70% {
+    -webkit-transform: translate(2px, 1px) rotate(-1deg); }
+  80% {
+    -webkit-transform: translate(-1px, -1px) rotate(1deg); }
+  90% {
+    -webkit-transform: translate(2px, 2px) rotate(0deg); }
+  100% {
+    -webkit-transform: translate(1px, -2px) rotate(-1deg); } }
 nav.o2-dropdown-actions {
   /* note:  the button and the ul are absolutely positioned relative to the post/comment */
-  /* ul */
-}
-/* line 20, _post-actions.scss */
-nav.o2-dropdown-actions .genericon:before {
-  font-family: 'Genericons';
-}
-/* line 26, _post-actions.scss */
-nav.o2-dropdown-actions button {
-  float: right;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  padding: 0;
-  margin: 0;
-  line-height: 1;
-  width: 32px;
-  height: 32px;
-  font-size: 32px;
-  font-family: "Open Sans", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: antialiased;
-}
-/* line 45, _post-actions.scss */
-nav.o2-dropdown-actions button:hover {
-  background: #fafafa;
-}
-/* line 49, _post-actions.scss */
-nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon {
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-background-clip: padding-box;
-}
-/* line 52, _post-actions.scss */
-nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon:before {
-  font-size: 16px;
-  height: 32px;
-  width: 32px;
-  line-height: 1;
-  text-align: center;
-  color: #cccccc;
-  position: relative;
-  top: -4px;
-}
-/* line 63, _post-actions.scss */
-nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon:hover {
-  background: #f1f1f1;
-}
-/* line 65, _post-actions.scss */
-nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon:hover:before {
-  color: #2875a8;
-}
-/* line 70, _post-actions.scss */
-nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon:focus {
-  outline: 0;
-}
-/* line 74, _post-actions.scss */
-nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon span {
-  display: none;
-}
-/* line 79, _post-actions.scss */
-nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.open {
-  background: #f1f1f1;
-}
-/* line 84, _post-actions.scss */
-nav.o2-dropdown-actions ul {
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-background-clip: padding-box;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2);
-  float: right;
-  display: none;
-  margin: 0;
-  margin-top: 32px;
-  /* must match button height above */
-  border: 1px #f1f1f1 solid;
-  clear: both;
-  z-index: 100;
-  /* li > a */
-}
-/* line 97, _post-actions.scss */
-nav.o2-dropdown-actions ul li {
-  list-style-type: none;
-  white-space: nowrap;
-  background: white;
-}
-/* line 103, _post-actions.scss */
-nav.o2-dropdown-actions ul li > a, nav.o2-dropdown-actions ul li > span > a {
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-  text-align: left;
-  color: #666666;
-  padding: 0.6em 1.0em 0.6em 1.0em;
-  margin: 0;
-  line-height: 1.5;
-  width: 100%;
-  height: auto;
-  font-size: 12px;
-  font-family: "Open Sans", sans-serif;
-}
-@media (max-width: 640px) {
-  /* line 103, _post-actions.scss */
-  nav.o2-dropdown-actions ul li > a, nav.o2-dropdown-actions ul li > span > a {
-    line-height: 2.5;
-    font-size: 16px;
-  }
-}
-/* line 125, _post-actions.scss */
-nav.o2-dropdown-actions ul li > a:hover, nav.o2-dropdown-actions ul li > span > a:hover {
-  background: #fafafa;
-  color: #2875a8;
-}
-/* line 130, _post-actions.scss */
-nav.o2-dropdown-actions ul li > a.o2-actions-no-icon:before, nav.o2-dropdown-actions ul li > span > a.o2-actions-no-icon:before {
-  width: 24px;
-  display: inline-block;
-  content: '';
-}
-/* line 136, _post-actions.scss */
-nav.o2-dropdown-actions ul li > a.o2-actions-border-top, nav.o2-dropdown-actions ul li > span > a.o2-actions-border-top {
-  border-top: 1px #f1f1f1 solid;
-}
-@media (max-width: 640px) {
-  /* line 136, _post-actions.scss */
-  nav.o2-dropdown-actions ul li > a.o2-actions-border-top, nav.o2-dropdown-actions ul li > span > a.o2-actions-border-top {
-    border-top-color: #cccccc !important;
-  }
-}
-/* line 145, _post-actions.scss */
-nav.o2-dropdown-actions ul li > a.o2-warning-hover:hover, nav.o2-dropdown-actions ul li > span > a.o2-warning-hover:hover {
-  color: red;
-}
-/* line 147, _post-actions.scss */
-nav.o2-dropdown-actions ul li > a.o2-warning-hover:hover:before, nav.o2-dropdown-actions ul li > span > a.o2-warning-hover:hover:before {
-  color: red;
-}
-/* line 153, _post-actions.scss */
-nav.o2-dropdown-actions ul li > a.o2-actions-border-bottom, nav.o2-dropdown-actions ul li > span > a.o2-actions-border-bottom {
-  border-bottom: 1px #f1f1f1 solid;
-}
-@media (max-width: 550px) {
-  /* line 153, _post-actions.scss */
-  nav.o2-dropdown-actions ul li > a.o2-actions-border-bottom, nav.o2-dropdown-actions ul li > span > a.o2-actions-border-bottom {
-    border-bottom-color: #cccccc !important;
-  }
-}
-/* line 162, _post-actions.scss */
-nav.o2-dropdown-actions ul li > a.genericon:before, nav.o2-dropdown-actions ul li > span > a.genericon:before {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  font-size: 16px;
-  line-height: 1.25;
-  font-family: 'Genericons';
-  text-decoration: inherit;
-  font-weight: normal;
-  font-style: normal;
-  vertical-align: top;
-  padding-right: 8px;
-  color: #bbbbbb;
-}
-@media (max-width: 640px) {
-  /* line 162, _post-actions.scss */
-  nav.o2-dropdown-actions ul li > a.genericon:before, nav.o2-dropdown-actions ul li > span > a.genericon:before {
-    line-height: 2.0;
+  /* ul */ }
+  nav.o2-dropdown-actions .genericon:before {
+    font-family: 'Genericons'; }
+  nav.o2-dropdown-actions .clipboard-shake.genericon:before {
+    -webkit-animation-name: shake;
+    -webkit-animation-duration: 0.8s;
+    -webkit-transform-origin: 50% 50%;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear; }
+  nav.o2-dropdown-actions button {
+    float: right;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
     font-size: 32px;
-    position: relative;
-    top: -12px;
-    left: -10px;
-    padding-right: 12px;
-  }
-}
+    font-family: "Open Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: antialiased; }
+    nav.o2-dropdown-actions button:hover {
+      background: #fafafa; }
+    nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon {
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      -webkit-background-clip: padding-box; }
+      nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon:before {
+        font-size: 16px;
+        height: 32px;
+        width: 32px;
+        line-height: 1;
+        text-align: center;
+        color: #ccc;
+        position: relative;
+        top: -4px; }
+      nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon:hover {
+        background: #f1f1f1; }
+        nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon:hover:before {
+          color: #2875a8; }
+      nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon:focus {
+        outline: 0; }
+      nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.genericon span {
+        display: none; }
+    nav.o2-dropdown-actions button.o2-dropdown-actions-disclosure.open {
+      background: #f1f1f1; }
+  nav.o2-dropdown-actions ul {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-background-clip: padding-box;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2);
+    float: right;
+    display: none;
+    margin: 0;
+    margin-top: 32px;
+    /* must match button height above */
+    border: 1px #f1f1f1 solid;
+    clear: both;
+    z-index: 100;
+    /* li > a */ }
+    nav.o2-dropdown-actions ul li {
+      list-style-type: none;
+      white-space: nowrap;
+      background: #fff; }
+    nav.o2-dropdown-actions ul li > a, nav.o2-dropdown-actions ul li > span > a {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      text-align: left;
+      color: #666;
+      padding: 0.6em 1.0em 0.6em 1.0em;
+      margin: 0;
+      line-height: 1.5;
+      width: 100%;
+      height: auto;
+      font-size: 12px;
+      font-family: "Open Sans", sans-serif; }
+      @media (max-width: 640px) {
+        nav.o2-dropdown-actions ul li > a, nav.o2-dropdown-actions ul li > span > a {
+          line-height: 2.5;
+          font-size: 16px; } }
+      nav.o2-dropdown-actions ul li > a:hover, nav.o2-dropdown-actions ul li > span > a:hover {
+        background: #fafafa;
+        color: #2875a8; }
+      nav.o2-dropdown-actions ul li > a.o2-actions-no-icon:before, nav.o2-dropdown-actions ul li > span > a.o2-actions-no-icon:before {
+        width: 24px;
+        display: inline-block;
+        content: ''; }
+      nav.o2-dropdown-actions ul li > a.o2-actions-border-top, nav.o2-dropdown-actions ul li > span > a.o2-actions-border-top {
+        border-top: 1px #f1f1f1 solid; }
+        @media (max-width: 640px) {
+          nav.o2-dropdown-actions ul li > a.o2-actions-border-top, nav.o2-dropdown-actions ul li > span > a.o2-actions-border-top {
+            border-top-color: #ccc !important; } }
+      nav.o2-dropdown-actions ul li > a.o2-warning-hover:hover, nav.o2-dropdown-actions ul li > span > a.o2-warning-hover:hover {
+        color: #F00; }
+        nav.o2-dropdown-actions ul li > a.o2-warning-hover:hover:before, nav.o2-dropdown-actions ul li > span > a.o2-warning-hover:hover:before {
+          color: #F00; }
+      nav.o2-dropdown-actions ul li > a.o2-actions-border-bottom, nav.o2-dropdown-actions ul li > span > a.o2-actions-border-bottom {
+        border-bottom: 1px #f1f1f1 solid; }
+        @media (max-width: 550px) {
+          nav.o2-dropdown-actions ul li > a.o2-actions-border-bottom, nav.o2-dropdown-actions ul li > span > a.o2-actions-border-bottom {
+            border-bottom-color: #ccc !important; } }
+      nav.o2-dropdown-actions ul li > a.genericon:before, nav.o2-dropdown-actions ul li > span > a.genericon:before {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
+        line-height: 1.25;
+        font-family: 'Genericons';
+        text-decoration: inherit;
+        font-weight: normal;
+        font-style: normal;
+        vertical-align: top;
+        padding-right: 8px;
+        color: #bbb; }
+        @media (max-width: 640px) {
+          nav.o2-dropdown-actions ul li > a.genericon:before, nav.o2-dropdown-actions ul li > span > a.genericon:before {
+            line-height: 2.0;
+            font-size: 32px;
+            position: relative;
+            top: -12px;
+            left: -10px;
+            padding-right: 12px; } }
 
 /*********************************************************************************************/
 /* POST ACTIONS DROPDOWN */
-/* line 196, _post-actions.scss */
 nav.o2-post-actions button {
   position: absolute;
   top: 0;
-  right: 0;
-}
-/* line 202, _post-actions.scss */
+  right: 0; }
 nav.o2-post-actions ul {
   position: absolute;
   top: 0;
-  right: 0;
-}
-@media (max-width: 550px) {
-  /* line 202, _post-actions.scss */
-  nav.o2-post-actions ul {
-    left: -50px;
-  }
-}
+  right: 0; }
+  @media (max-width: 550px) {
+    nav.o2-post-actions ul {
+      left: -50px; } }
 
 /*********************************************************************************************/
 /* COMMENT ACTIONS DROPDOWN */
-/* line 217, _post-actions.scss */
 nav.o2-comment-actions button {
   position: absolute;
-  right: 10px;
-}
-/* line 218, _post-actions.scss */
-nav.o2-comment-actions button:before {
-  padding-right: 0;
-}
-/* line 225, _post-actions.scss */
-nav.o2-comment-actions button .open {
-  display: block;
-}
-/* line 230, _post-actions.scss */
+  right: 10px; }
+  nav.o2-comment-actions button:before {
+    padding-right: 0; }
+  nav.o2-comment-actions button .open {
+    display: block; }
 nav.o2-comment-actions ul {
   position: absolute;
   right: 10px;
-  margin-top: 32px;
-}
-@media (max-width: 550px) {
-  /* line 230, _post-actions.scss */
-  nav.o2-comment-actions ul {
-    left: 10px;
-  }
-}
+  margin-top: 32px; }
+  @media (max-width: 550px) {
+    nav.o2-comment-actions ul {
+      left: 10px; } }
 
 /*********************************************************************************************/
 /* POST FOOTER ACTIONS */
-/* line 244, _post-actions.scss */
 footer.entry-meta {
   margin-left: 40px;
   overflow: hidden;
-  border-top: 1px #cccccc solid;
-  padding-top: 15px;
-}
-@media (max-width: 640px) {
-  /* line 244, _post-actions.scss */
-  footer.entry-meta {
-    margin-left: 0;
-  }
-}
+  border-top: 1px #ccc solid;
+  padding-top: 15px; }
+  @media (max-width: 640px) {
+    footer.entry-meta {
+      margin-left: 0; } }
 
-/* line 256, _post-actions.scss */
 #jp-post-flair {
-  padding-top: 0px;
-}
+  padding-top: 0px; }
 
-/* line 259, _post-actions.scss */
 nav.o2-post-footer-actions {
-  overflow: hidden;
-}
-/* line 263, _post-actions.scss */
-nav.o2-post-footer-actions ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  clear: both;
-  float: left;
-}
-/* line 270, _post-actions.scss */
-nav.o2-post-footer-actions ul.o2-extended-actions {
-  clear: both;
-}
-/* line 274, _post-actions.scss */
-nav.o2-post-footer-actions ul.wpl-avatars {
-  float: left;
-  margin-top: 3px;
-  margin-left: 5px;
-  display: flex;
-}
-@media (max-width: 1024px) {
-  /* line 274, _post-actions.scss */
-  nav.o2-post-footer-actions ul.wpl-avatars {
-    display: none;
-  }
-}
-/* line 285, _post-actions.scss */
-nav.o2-post-footer-actions ul.wpl-avatars li {
-  margin: 0px auto;
-}
-/* line 288, _post-actions.scss */
-nav.o2-post-footer-actions ul.wpl-avatars li .avatar {
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-background-clip: padding-box;
-  margin-right: 2px;
-}
-/* line 295, _post-actions.scss */
-nav.o2-post-footer-actions ul li {
-  float: left;
-  margin-bottom: 12px;
-  white-space: nowrap;
-  margin: 7px 7px 7px auto;
-}
-/* line 301, _post-actions.scss */
-nav.o2-post-footer-actions ul li.o2-likes {
-  margin-right: 0;
-  display: flex;
-  width: auto;
-  min-width: 550px;
-}
-@media (max-width: 1024px) {
-  /* line 301, _post-actions.scss */
-  nav.o2-post-footer-actions ul li.o2-likes {
-    min-width: 0;
-  }
-}
-/* line 312, _post-actions.scss */
-nav.o2-post-footer-actions ul li button {
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -webkit-background-clip: padding-box;
-  width: auto;
-  height: auto;
-  padding: 0.4em 0.6em 0.8em 0.6em;
-  line-height: 1;
-  display: flex;
-  flex-wrap: nowrap;
-  font-size: 14px;
-  border: 1px #bbbbbb solid;
-  box-shadow: none;
-  color: #3498db;
-  background: white;
-  float: left;
-}
-/* line 331, _post-actions.scss */
-nav.o2-post-footer-actions ul li button.genericon {
-  font-size: 14px;
-}
-/* line 336, _post-actions.scss */
-nav.o2-post-footer-actions ul li button.o2-actions-no-icon:before {
-  content: '';
-  padding: 0;
-}
-@media (max-width: 876px) {
-  /* line 335, _post-actions.scss */
-  nav.o2-post-footer-actions ul li button.o2-actions-no-icon {
-    font-size: 22px;
-  }
-}
-@media (max-width: 876px) {
-  /* line 347, _post-actions.scss */
-  nav.o2-post-footer-actions ul li button:not(.o2-actions-no-icon) span {
-    display: none;
-  }
-}
-/* line 355, _post-actions.scss */
-nav.o2-post-footer-actions ul li button span.o2-count {
-  color: #bbbbbb;
-  display: inline-block;
-  padding-left: 3px;
-}
-@media (max-width: 876px) {
-  /* line 355, _post-actions.scss */
-  nav.o2-post-footer-actions ul li button span.o2-count {
-    font-size: 32px;
-  }
-}
-/* line 366, _post-actions.scss */
-nav.o2-post-footer-actions ul li button:before {
-  font-size: 16px;
-  color: #3498db;
-  padding-right: 8px;
-  padding-left: 2px;
-  top: 2px;
-  position: relative;
-}
-@media (max-width: 876px) {
-  /* line 366, _post-actions.scss */
-  nav.o2-post-footer-actions ul li button:before {
-    font-size: 32px;
-    padding-right: 2px;
-  }
-}
-/* line 382, _post-actions.scss */
-nav.o2-post-footer-actions ul li > a, nav.o2-post-footer-actions ul li > span > a {
-  background: transparent;
-  border: 1px #cccccc solid;
-  border-radius: 3px;
-  box-shadow: none;
-  text-align: left;
-  text-decoration: none;
-  color: #666666;
-  padding: 3px;
-  padding-right: 10px;
-  margin: 0;
-  line-height: 1.5;
-  width: auto;
-  height: auto;
-  font-size: 12px;
-  font-family: "Open Sans", sans-serif;
-  background-color: #f8f8f8;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
-  -webkit-box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.08);
-  -webkit-font-smoothing: auto !important;
-  -moz-osx-font-smoothing: auto;
-}
-/* line 409, _post-actions.scss */
-nav.o2-post-footer-actions ul li > a:hover, nav.o2-post-footer-actions ul li > span > a:hover {
-  border-color: #999999;
-  color: #777777;
-  background-color: #f8f8f8;
-}
-/* line 415, _post-actions.scss */
-nav.o2-post-footer-actions ul li > a.o2-actions-no-icon:before, nav.o2-post-footer-actions ul li > span > a.o2-actions-no-icon:before {
-  width: 24px;
-  display: inline-block;
-  content: '';
-}
-/* line 421, _post-actions.scss */
-nav.o2-post-footer-actions ul li > a.o2-actions-border-top, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-top {
-  border-top: 1px #f1f1f1 solid;
-}
-@media (max-width: 640px) {
-  /* line 421, _post-actions.scss */
-  nav.o2-post-footer-actions ul li > a.o2-actions-border-top, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-top {
-    border-top-color: #cccccc !important;
-  }
-}
-/* line 429, _post-actions.scss */
-nav.o2-post-footer-actions ul li > a.o2-actions-border-bottom, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-bottom {
-  border-bottom: 1px #f1f1f1 solid;
-}
-@media (max-width: 550px) {
-  /* line 429, _post-actions.scss */
-  nav.o2-post-footer-actions ul li > a.o2-actions-border-bottom, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-bottom {
-    border-bottom-color: #cccccc !important;
-  }
-}
-/* line 438, _post-actions.scss */
-nav.o2-post-footer-actions ul li > a.genericon:before, nav.o2-post-footer-actions ul li > span > a.genericon:before {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  font-size: 16px;
-  line-height: 1.25;
-  font-family: 'Genericons';
-  text-decoration: inherit;
-  font-weight: normal;
-  font-style: normal;
-  vertical-align: top;
-  padding-left: 3px;
-  padding-right: 3px;
-  color: #2ba1cb;
-  -webkit-font-smoothing: antialiased !important;
-  -moz-osx-font-smoothing: antialiased;
-}
+  overflow: hidden; }
+  nav.o2-post-footer-actions ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    clear: both;
+    float: left; }
+    nav.o2-post-footer-actions ul.o2-extended-actions {
+      clear: both; }
+    nav.o2-post-footer-actions ul.wpl-avatars {
+      float: left;
+      margin-top: 3px;
+      margin-left: 5px;
+      display: flex; }
+      @media (max-width: 1024px) {
+        nav.o2-post-footer-actions ul.wpl-avatars {
+          display: none; } }
+      nav.o2-post-footer-actions ul.wpl-avatars li {
+        margin: 0px auto; }
+        nav.o2-post-footer-actions ul.wpl-avatars li .avatar {
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          border-radius: 3px;
+          -webkit-background-clip: padding-box;
+          margin-right: 2px; }
+    nav.o2-post-footer-actions ul li {
+      float: left;
+      margin-bottom: 12px;
+      white-space: nowrap;
+      margin: 7px 7px 7px auto; }
+      nav.o2-post-footer-actions ul li.o2-likes {
+        margin-right: 0;
+        display: flex;
+        width: auto;
+        min-width: 550px; }
+        @media (max-width: 1024px) {
+          nav.o2-post-footer-actions ul li.o2-likes {
+            min-width: 0; } }
+      nav.o2-post-footer-actions ul li button {
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+        -webkit-background-clip: padding-box;
+        width: auto;
+        height: auto;
+        padding: 0.4em 0.6em 0.8em 0.6em;
+        line-height: 1;
+        display: flex;
+        flex-wrap: nowrap;
+        font-size: 14px;
+        border: 1px #bbb solid;
+        box-shadow: none;
+        color: #3498db;
+        background: #fff;
+        float: left; }
+        nav.o2-post-footer-actions ul li button.genericon {
+          font-size: 14px; }
+        nav.o2-post-footer-actions ul li button.o2-actions-no-icon:before {
+          content: '';
+          padding: 0; }
+        @media (max-width: 876px) {
+          nav.o2-post-footer-actions ul li button.o2-actions-no-icon {
+            font-size: 22px; } }
+        @media (max-width: 876px) {
+          nav.o2-post-footer-actions ul li button:not(.o2-actions-no-icon) span {
+            display: none; } }
+        nav.o2-post-footer-actions ul li button span.o2-count {
+          color: #bbb;
+          display: inline-block;
+          padding-left: 3px; }
+          @media (max-width: 876px) {
+            nav.o2-post-footer-actions ul li button span.o2-count {
+              font-size: 32px; } }
+        nav.o2-post-footer-actions ul li button:before {
+          font-size: 16px;
+          color: #3498db;
+          padding-right: 8px;
+          padding-left: 2px;
+          top: 2px;
+          position: relative; }
+          @media (max-width: 876px) {
+            nav.o2-post-footer-actions ul li button:before {
+              font-size: 32px;
+              padding-right: 2px; } }
+    nav.o2-post-footer-actions ul li > a, nav.o2-post-footer-actions ul li > span > a {
+      background: transparent;
+      border: 1px #ccc solid;
+      border-radius: 3px;
+      box-shadow: none;
+      text-align: left;
+      text-decoration: none;
+      color: #666;
+      padding: 3px;
+      padding-right: 10px;
+      margin: 0;
+      line-height: 1.5;
+      width: auto;
+      height: auto;
+      font-size: 12px;
+      font-family: "Open Sans", sans-serif;
+      background-color: #f8f8f8;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+      -webkit-box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.08);
+      -webkit-font-smoothing: auto !important;
+      -moz-osx-font-smoothing: auto; }
+      nav.o2-post-footer-actions ul li > a:hover, nav.o2-post-footer-actions ul li > span > a:hover {
+        border-color: #999;
+        color: #777;
+        background-color: #f8f8f8; }
+      nav.o2-post-footer-actions ul li > a.o2-actions-no-icon:before, nav.o2-post-footer-actions ul li > span > a.o2-actions-no-icon:before {
+        width: 24px;
+        display: inline-block;
+        content: ''; }
+      nav.o2-post-footer-actions ul li > a.o2-actions-border-top, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-top {
+        border-top: 1px #f1f1f1 solid; }
+        @media (max-width: 640px) {
+          nav.o2-post-footer-actions ul li > a.o2-actions-border-top, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-top {
+            border-top-color: #ccc !important; } }
+      nav.o2-post-footer-actions ul li > a.o2-actions-border-bottom, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-bottom {
+        border-bottom: 1px #f1f1f1 solid; }
+        @media (max-width: 550px) {
+          nav.o2-post-footer-actions ul li > a.o2-actions-border-bottom, nav.o2-post-footer-actions ul li > span > a.o2-actions-border-bottom {
+            border-bottom-color: #ccc !important; } }
+      nav.o2-post-footer-actions ul li > a.genericon:before, nav.o2-post-footer-actions ul li > span > a.genericon:before {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
+        line-height: 1.25;
+        font-family: 'Genericons';
+        text-decoration: inherit;
+        font-weight: normal;
+        font-style: normal;
+        vertical-align: top;
+        padding-left: 3px;
+        padding-right: 3px;
+        color: #2ba1cb;
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: antialiased; }
 
-/* line 461, _post-actions.scss */
 footer.entry-meta {
-  border-top: none;
-}
+  border-top: none; }
 
 /*********************************************************************************************/
 /* COMMENT FOOTER ACTIONS */
-/* line 468, _post-actions.scss */
 div.o2-comment-footer-actions {
   overflow: hidden;
-  padding: 0 0 10px 0;
-}
-@media (max-width: 640px) {
-  /* line 468, _post-actions.scss */
-  div.o2-comment-footer-actions {
-    padding-bottom: 0px;
-  }
-}
-/* line 479, _post-actions.scss */
-div.o2-comment-footer-actions ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 1px;
-  /* Lots of styling below to reduce comment like star a bit and clean up alignments */
-}
-/* line 484, _post-actions.scss */
-div.o2-comment-footer-actions ul li {
-  float: left;
-}
-/* line 490, _post-actions.scss */
-div.o2-comment-footer-actions ul li a .o2-comment-like .liked:before {
-  color: #ff9a00;
-}
-/* line 498, _post-actions.scss */
-div.o2-comment-footer-actions ul li > a {
-  color: #555555;
-  opacity: 0.8;
-  font-family: "Open Sans", sans-serif;
-  font-size: 12px;
-  text-decoration: none;
-  color: #555555;
-  line-height: 20px;
-  width: auto;
-  height: 20px;
-  vertical-align: top;
-  overflow: visible;
-  display: inline-flex;
-}
-/* line 511, _post-actions.scss */
-div.o2-comment-footer-actions ul li > a:before {
-  font-family: 'Genericons';
-  margin-right: 5px;
-  color: #3498db;
-  font-size: 16px;
-  line-height: 18px;
-  height: 20px;
-}
-/* line 521, _post-actions.scss */
-div.o2-comment-footer-actions ul li > a:hover:before {
-  color: #ff9a00;
-}
-/* line 526, _post-actions.scss */
-div.o2-comment-footer-actions ul li > a span {
-  color: #3498db;
-  line-height: 1;
-  vertical-align: top;
-}
-/* line 532, _post-actions.scss */
-div.o2-comment-footer-actions ul li > a.o2-comment-reply {
-  padding-right: 10px;
-  -webkit-font-smoothing: auto;
-  -moz-font-smoothing: auto;
-}
-/* line 538, _post-actions.scss */
-div.o2-comment-footer-actions ul li > a.o2-comment-reply:before {
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: grayscale;
-}
-/* line 551, _post-actions.scss */
-div.o2-comment-footer-actions ul p.comment-likes {
-  height: 20px;
-}
-/* line 554, _post-actions.scss */
-div.o2-comment-footer-actions ul p.comment-likes span.comment-like-feedback {
-  padding: 0px 5px 0px 2px;
-  line-height: 20px;
-  -webkit-font-smoothing: auto;
-  -moz-font-smoothing: auto;
-}
-/* line 561, _post-actions.scss */
-div.o2-comment-footer-actions ul p.comment-likes a.comment-like-link {
-  font-size: 16px;
-  width: 16px;
-  line-height: 18px;
-  height: 20px;
-}
-/* line 567, _post-actions.scss */
-div.o2-comment-footer-actions ul p.comment-likes a.comment-like-link:before {
-  font-size: 16px;
-  width: 16px;
-  line-height: 18px;
-  height: 20px;
-}
+  padding: 0 0 10px 0; }
+  @media (max-width: 640px) {
+    div.o2-comment-footer-actions {
+      padding-bottom: 0px; } }
+  div.o2-comment-footer-actions ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 1px;
+    /* Lots of styling below to reduce comment like star a bit and clean up alignments */ }
+    div.o2-comment-footer-actions ul li {
+      float: left; }
+      div.o2-comment-footer-actions ul li a .o2-comment-like .liked:before {
+        color: #ff9a00; }
+    div.o2-comment-footer-actions ul li > a {
+      color: #555;
+      opacity: 0.8;
+      font-family: "Open Sans", sans-serif;
+      font-size: 12px;
+      text-decoration: none;
+      color: #555;
+      line-height: 20px;
+      width: auto;
+      height: 20px;
+      vertical-align: top;
+      overflow: visible;
+      display: inline-flex; }
+      div.o2-comment-footer-actions ul li > a:before {
+        font-family: 'Genericons';
+        margin-right: 5px;
+        color: #3498db;
+        font-size: 16px;
+        line-height: 18px;
+        height: 20px; }
+      div.o2-comment-footer-actions ul li > a:hover:before {
+        color: #ff9a00; }
+      div.o2-comment-footer-actions ul li > a span {
+        color: #3498db;
+        line-height: 1;
+        vertical-align: top; }
+      div.o2-comment-footer-actions ul li > a.o2-comment-reply {
+        padding-right: 10px;
+        -webkit-font-smoothing: auto;
+        -moz-font-smoothing: auto; }
+        div.o2-comment-footer-actions ul li > a.o2-comment-reply:before {
+          -webkit-font-smoothing: antialiased;
+          -moz-font-smoothing: grayscale; }
+    div.o2-comment-footer-actions ul p.comment-likes {
+      height: 20px; }
+      div.o2-comment-footer-actions ul p.comment-likes span.comment-like-feedback {
+        padding: 0px 5px 0px 2px;
+        line-height: 20px;
+        -webkit-font-smoothing: auto;
+        -moz-font-smoothing: auto; }
+      div.o2-comment-footer-actions ul p.comment-likes a.comment-like-link {
+        font-size: 16px;
+        width: 16px;
+        line-height: 18px;
+        height: 20px; }
+        div.o2-comment-footer-actions ul p.comment-likes a.comment-like-link:before {
+          font-size: 16px;
+          width: 16px;
+          line-height: 18px;
+          height: 20px; }
 
 /*********************************************************************************************/
 /* the following styles override o2 styles and need to remain until/if we merge post-actions into core o2 */
-/* line 8, style.scss */
 .o2-post-reply, .o2-scroll-to-comments, .o2-edit.edit-post-link, .o2-follow, .o2-resolve-link, .o2-sticky-link,
 .o2-comment-reply, .o2-comment-edit, .o2-short-link {
   text-indent: 0;
   height: auto;
   width: 100%;
-  font-weight: normal;
-}
-/* line 14, style.scss */
-.o2-post-reply:after, .o2-scroll-to-comments:after, .o2-edit.edit-post-link:after, .o2-follow:after, .o2-resolve-link:after, .o2-sticky-link:after,
-.o2-comment-reply:after, .o2-comment-edit:after, .o2-short-link:after {
-  content: none;
-}
+  font-weight: normal; }
+  .o2-post-reply:after, .o2-scroll-to-comments:after, .o2-edit.edit-post-link:after, .o2-follow:after, .o2-resolve-link:after, .o2-sticky-link:after,
+  .o2-comment-reply:after, .o2-comment-edit:after, .o2-short-link:after {
+    content: none; }
 
-/* line 19, style.scss */
 .o2-comment-reply {
-  padding-left: 0;
-}
+  padding-left: 0; }
 
-/* line 23, style.scss */
 .comment-actions {
-  display: none;
-}
+  display: none; }
 
 /*********************************************************************************************/
 /* the following styles tweak the styles defined in post-actions.scss for specific features */
 /*********************************************************************************************/
 /* Reply count */
-/* line 33, style.scss */
 .o2-reply-count {
-  color: #999999;
-  padding-left: 5px;
-}
+  color: #999;
+  padding-left: 5px; }
 
 /*********************************************************************************************/
 /* Follows/subscriptions */
-/* line 42, style.scss */
 nav.o2-post-footer-actions .o2-follow.post-comments-subscribed:hover:after {
-  content: none;
-}
+  content: none; }
 
-/* line 49, style.scss */
 .post-comments-subscribed nav.o2-post-footer-actions .o2-follow {
-  color: white;
+  color: #fff;
   background-color: #2ba1cb;
-  border-color: #198fbb;
-}
-/* line 54, style.scss */
-.post-comments-subscribed nav.o2-post-footer-actions .o2-follow:after {
-  content: none;
-}
-/* line 58, style.scss */
-.post-comments-subscribed nav.o2-post-footer-actions .o2-follow:before {
-  content: '\f465';
-  color: white;
-}
-/* line 64, style.scss */
-.post-comments-subscribed nav.o2-post-footer-actions .o2-follow:hover:after {
-  content: none;
-}
-/* line 68, style.scss */
-.post-comments-subscribed nav.o2-post-footer-actions .o2-follow:hover:before {
-  content: '\f464';
-  color: white;
-}
+  border-color: #198fbb; }
+  .post-comments-subscribed nav.o2-post-footer-actions .o2-follow:after {
+    content: none; }
+  .post-comments-subscribed nav.o2-post-footer-actions .o2-follow:before {
+    content: '\f465';
+    color: #fff; }
+  .post-comments-subscribed nav.o2-post-footer-actions .o2-follow:hover:after {
+    content: none; }
+  .post-comments-subscribed nav.o2-post-footer-actions .o2-follow:hover:before {
+    content: '\f464';
+    color: #fff; }
 
 /*********************************************************************************************/
 /* Posts Likes */
-/* line 83, style.scss */
 .o2-post .o2-post-footer-actions > ul {
-  float: left;
-}
-/* line 87, style.scss */
+  float: left; }
 .o2-post .sd-like h3.sd-title {
-  display: none;
-}
-/* line 91, style.scss */
+  display: none; }
 .o2-post div.jetpack-likes-widget-wrapper {
   min-height: 0;
   line-height: 0;
   height: 27px;
   width: auto;
   overflow: hidden;
-  -webkit-overflow-scrolling: none;
-}
-/* line 102, style.scss */
+  -webkit-overflow-scrolling: none; }
 .o2-post .post-likes-widget-placeholder .loading {
   padding-top: 12px;
-  display: inline-block;
-}
-/* line 107, style.scss */
+  display: inline-block; }
 .o2-post .o2-post-footer-action-likes {
-  padding-top: 7px;
-}
+  padding-top: 7px; }
 
-/* line 112, style.scss */
 .o2-post-footer-actions div.sharedaddy, #content .o2-post-footer-actions div.sharedaddy, #main .o2-post-footer-actions div.sharedaddy {
-  clear: none;
-}
+  clear: none; }
 
 /*********************************************************************************************/
 /* Posts Discussion Disclosure / Post Comments Collapsed */
-/* line 119, style.scss */
 .o2-post-comments-collapsed {
   /* the following is temporary until the new post-actions ui is universally adopted */
   /* then this style (and the corresponding style in the core _comments.scss file) should */
   /* be removed */
-  padding-top: 0;
-}
+  padding-top: 0; }
 
 /*********************************************************************************************/
 /* Comment Position Fixes ( move to o2 or breathe as appropriate when launching across the board ) */
-/* line 131, style.scss */
 .comment-meta,
 .o2-comment-header {
-  position: static !important;
-}
+  position: static !important; }
 
-/* line 135, style.scss */
 .o2-post-comments {
-  position: relative;
-}
+  position: relative; }

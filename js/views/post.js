@@ -96,6 +96,7 @@ o2.Views.Post = ( function( $ ) {
 			'keydown':                           'onKeyDown',
 			'click .o2-new-comment-cancel':      'onNewCommentCancel',
 			'click .o2-editor-format':           'onFormat',
+			'click .o2-short-link':              'onShortLinkClick',
 
 			'touchstart':                        'onTouchStart',
 			'touchmove':                         'onTouchMove',
@@ -107,7 +108,8 @@ o2.Views.Post = ( function( $ ) {
 			'touchend .o2-scroll-to-comments':   'onScrollToComments',
 			'touchend .o2-cancel':               'onCancel',
 			'touchend .o2-save':                 'onSave',
-			'touchend .o2-new-comment-cancel':   'onNewCommentCancel'
+			'touchend .o2-new-comment-cancel':   'onNewCommentCancel',
+			'touchend .o2-short-link':           'onShortLinkClick'
 		},
 
 		// keep track of whether a drag is in progress
@@ -191,6 +193,54 @@ o2.Views.Post = ( function( $ ) {
 				} );
 
 				this.destroyViewModel( this, postId );
+			}
+		},
+
+		onShortLinkClick: function( event ) {
+			var shortLink = event.target.href;
+			event.preventDefault();
+			event.stopPropagation();
+
+			this.copyToClipboard( shortLink );
+
+			// Check if there is a shortlinkCopied notification and remove if so
+			o2.Notifications.notifications.findFirstAndDestroy( 'shortlinkCopied' );
+
+			o2.Notifications.add( {
+				text: o2.strings.shortlinkCopied,
+				type: 'shortlinkCopied',
+				sticky: false,
+				popup: false,
+				dismissable: true
+			} );
+
+			setTimeout( function() {
+				o2.Notifications.notifications.findFirstAndDestroy( 'shortlinkCopied' );
+			}, 2500 );
+
+			var element = $( event.target );
+
+			element.addClass( 'clipboard-shake' );
+			setTimeout( function() {
+				element.removeClass( 'clipboard-shake' );
+			}, 250 );
+		},
+
+		copyToClipboard: function( text ) {
+			if ( navigator.clipboard ) {
+			  	navigator.clipboard.writeText( text );
+			} else {
+				var textArea = document.createElement( 'textarea' );
+				textArea.value = text;
+				document.body.appendChild( textArea );
+				textArea.select();
+
+				try {
+					document.execCommand( 'copy' );
+				} catch (err) {
+				}
+
+				document.body.removeChild( textArea );
 			}
 		},
 
