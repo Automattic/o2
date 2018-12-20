@@ -300,14 +300,14 @@ class o2_ToDos_Widget extends WP_Widget {
 		<script type='text/javascript'>
 		jQuery( document ).ready( function( $ ) {
 			var bootstrap = { data: [], found: [] };
-			var resolvedPostsData = $( '.o2-resolved-posts-data' );
+			var resolvedPostsData = $( 'script.o2-resolved-posts-data' );
 			if ( resolvedPostsData.length > 0 ) {
 				_.each( $.parseJSON( resolvedPostsData.text() ), function( fragment ) {
 					bootstrap.data.push( fragment );
 				} );
 				resolvedPostsData.remove();
 			}
-			var foundPostsData = $( '.o2-resolved-posts-found' );
+			var foundPostsData = $( 'script.o2-resolved-posts-found' );
 			if ( foundPostsData.length > 0 ) {
 				_.each( $.parseJSON( foundPostsData.text() ), function( fragment ) {
 					bootstrap.found.push( fragment );

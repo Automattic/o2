@@ -20,7 +20,7 @@ o2.Routers.App = ( function( $, Backbone ) {
 
 		initialize: function( options ) {
 			// Load post action states dictionary
-			var postActionStateDict = $( '.o2-post-action-states-dict' );
+			var postActionStateDict = $( 'script.o2-post-action-states-dict' );
 			if ( postActionStateDict.length ) {
 				o2.PostActionStates.stateDictionary = $.parseJSON( postActionStateDict.text() );
 			}
@@ -248,14 +248,14 @@ o2.Routers.App = ( function( $, Backbone ) {
 
 		bootstrapUsers: function() {
 			var that = this; // keep a reference to the app
-			$( '.o2-user-data' ).each( function( index, element ) {
+			$( 'script.o2-user-data' ).each( function( index, element ) {
 				var me = $( element );
 				var userdatum = $.parseJSON( me.text() );
 				_.each( userdatum, function( frag ) {
 					that.addUser( frag );
 				} );
 			} );
-			$( '.o2-user-data' ).remove();
+			$( 'script.o2-user-data' ).remove();
 		},
 
 		addPost: function( post ) {
@@ -513,7 +513,7 @@ o2.Routers.App = ( function( $, Backbone ) {
 	 */
 	$( document ).on( 'post-load', function() {
 		o2.Events.doAction( 'pre-infinite-scroll-response.o2' );
-		$( '.infinite-wrap .o2-data' ).each( function() {
+		$( '.infinite-wrap script.o2-data' ).each( function() {
 			o2.Notifications.close();
 			o2.App.suppressHighlighting();
 			var me = $( this );

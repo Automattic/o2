@@ -10,7 +10,7 @@ o2.Routers.LiveComments = ( function( $, Backbone ) {
 
 			// consume the bootstrap data, if present
 			var liveBootstrap = [];
-			var bootstrapEl = $( '.o2-live-widget-bootstrap-data' );
+			var bootstrapEl = $( 'script.o2-live-widget-bootstrap-data' );
 			if ( bootstrapEl.length ) {
 				liveBootstrap = $.parseJSON( bootstrapEl.text() );
 			}

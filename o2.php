@@ -809,7 +809,7 @@ class o2 {
 			<script>
 				jQuery(document).ready(function($) {
 					var bootstrap = { data: [] };
-					o2Data = $( '.o2-data' );
+					o2Data = $( 'script.o2-data' );
 					if ( o2Data.length > 0 ) {
 						o2Data.each( function() {
 							// Parse the JSON that's embedded in the page and add it to the bootstrap data

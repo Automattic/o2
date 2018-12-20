@@ -9,7 +9,7 @@ o2.Routers.Notifications = ( function( $, Backbone ) {
 
 			// Acquire bootstrap data if available
 			var bootstrap = [];
-			var bootstrapEl = $( '.o2-notifications-data' );
+			var bootstrapEl = $( 'script.o2-notifications-data' );
 			if ( bootstrapEl.length > 0 ) {
 				_.each( $.parseJSON( bootstrapEl.text() ), function( fragment ) {
 					bootstrap.push( fragment );
