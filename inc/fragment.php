@@ -731,22 +731,23 @@ class o2_Fragment {
 		$regex = '/(\[[^\]]*])/i';
 
 		$placeholders = $matches = array();
-		$count = 0;
 
 		while ( preg_match( $regex, $content, $matches ) ) {
-			$placeholder = ":: o2-make-clickable-placeholder $count ::";
-			$placeholders[ $count ] = $matches[0];
+			do {
+				$hash = wp_generate_password( 36, false );
+			} while( array_key_exists( $hash, $placeholders ) );
+			$placeholder = ":: o2-make-clickable-placeholder $hash ::";
+			$placeholders[ $hash ] = $matches[0];
 			$content = preg_replace( $regex, $placeholder, $content, 1 );
-			$count++;
 		}
 
 		$content = make_clickable( $content );
 
-		foreach ( $placeholders as $count => $original ) {
-			$placeholder = ":: o2-make-clickable-placeholder $count ::";
+		foreach ( $placeholders as $hash => $original ) {
+			$placeholder = ":: o2-make-clickable-placeholder $hash ::";
 			$content = str_replace( $placeholder, $original, $content );
 		}
 
-		return $content;
+		return wp_kses_post( $content );
 	}
 }
