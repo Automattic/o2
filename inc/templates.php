@@ -18,7 +18,8 @@ class o2_Templates {
 			'comment-edit',
 			'logged-out-create-comment',
 			'xpost',
-			'search-form'
+			'search-form',
+			'live-item-template',
 		) );
 		$this->template_dir = plugin_dir_path( __FILE__ ) . 'tpl/';
 
