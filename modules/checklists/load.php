@@ -475,7 +475,7 @@ class o2_List_Creator {
 
 		$current_user = wp_get_current_user();
 		if ( $current_user instanceof WP_User ) {
-			$current_user_mention = " (@" . $current_user->user_login . ")";
+			$current_user_mention = " (@" . $current_user->user_nicename . ")";
 		}
 
 		return $current_user_mention;
