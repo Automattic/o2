@@ -1,0 +1,13 @@
+{
+	"extends": [ "plugin:@wordpress/eslint-plugin/recommended" ],
+	"env": {
+		"browser": true
+	},
+	"globals": {
+		"enquire": true,
+		"jQuery": true,
+		"MicroModal": true,
+		"Modernizr": true
+	},
+	"ignorePatterns": [ "vendor/" ]
+}
