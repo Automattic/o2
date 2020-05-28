@@ -1,6 +1,6 @@
 {
 	"name": "o2",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Front-page editing and live-updating posts/comments for your site.",
 	"main": "o2.php",
 	"scripts": {
