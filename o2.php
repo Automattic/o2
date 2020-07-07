@@ -9,6 +9,8 @@ Author URI: http://wordpress.com/
 License: GNU General Public License v2 or later
 */
 
+use \Automattic\Jetpack\Device_Detection\User_Agent_Info;
+
 /*  Copyright 2013 Automattic
 
 	This program is free software; you can redistribute it and/or modify
@@ -1161,7 +1163,13 @@ class o2 {
 	 * Returns true if the user agent is recognized as a tablet
 	 */
 	public static function is_tablet() {
-		$is_tablet = ( class_exists( 'Jetpack_User_Agent_Info' ) ) ? ( new Jetpack_User_Agent_Info )->is_tablet() : false;
+		if ( class_exists( '\Automattic\Jetpack\Device_Detection\User_Agent_Info' ) ) {
+			$is_tablet = ( new User_Agent_Info )->is_tablet();
+		} else if ( class_exists( 'Jetpack_User_Agent_Info' ) ) {
+			$is_tablet = Jetpack_User_Agent_Info::is_tablet();
+		} else {
+			$is_tablet = false;
+		}
 		return $is_tablet;
 	}
 
