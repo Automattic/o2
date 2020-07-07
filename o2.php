@@ -1161,7 +1161,7 @@ class o2 {
 	 * Returns true if the user agent is recognized as a tablet
 	 */
 	public static function is_tablet() {
-		$is_tablet = ( class_exists( 'Jetpack_User_Agent_Info' ) ) ? Jetpack_User_Agent_Info::is_tablet() : false;
+		$is_tablet = ( class_exists( 'Jetpack_User_Agent_Info' ) ) ? ( new Jetpack_User_Agent_Info )->is_tablet() : false;
 		return $is_tablet;
 	}
 
