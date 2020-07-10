@@ -1164,7 +1164,8 @@ class o2 {
 	 */
 	public static function is_tablet() {
 		if ( class_exists( '\Automattic\Jetpack\Device_Detection\User_Agent_Info' ) ) {
-			$is_tablet = ( new User_Agent_Info )->is_tablet();
+			$jetpack_user_agent = new User_Agent_Info();
+			$is_tablet = $jetpack_user_agent->is_tablet();
 		} else if ( class_exists( 'Jetpack_User_Agent_Info' ) ) {
 			$is_tablet = Jetpack_User_Agent_Info::is_tablet();
 		} else {
