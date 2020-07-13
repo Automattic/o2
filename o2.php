@@ -189,6 +189,7 @@ class o2 {
 		wp_enqueue_script( 'o2-query',                plugins_url( 'js/utils/query.js', O2__FILE__ ),               array( 'backbone', 'jquery' ) );
 		wp_enqueue_script( 'o2-template',             plugins_url( 'js/utils/template.js', O2__FILE__ ),            array( 'backbone', 'jquery', 'wp-util' ) );
 		wp_enqueue_script( 'o2-enquire',              plugins_url( 'js/utils/enquire.js', O2__FILE__ ) );
+		wp_enqueue_script( 'o2-uuid4',                plugins_url( 'js/utils/uuid4.js', O2__FILE__ ) );
 
 		// Models
 		wp_enqueue_script( 'o2-models-base',          plugins_url( 'js/models/base.js', O2__FILE__ ),        array( 'backbone', 'jquery', 'o2-highlight', 'o2-events' ) );
