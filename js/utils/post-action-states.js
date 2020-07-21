@@ -63,6 +63,7 @@ o2.PostActionStates = ( function( $ ) {
 				}
 
 				target.data( 'actionstate', newState );
+				target.attr( 'data-actionstate', newState );
 				target.attr( 'title', newStateData.title ); // TODO only on <a>s?
 				target.text( newStateData.shortText );
 			}
