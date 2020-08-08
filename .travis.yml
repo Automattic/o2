@@ -29,6 +29,7 @@ matrix:
     - php: 7.0
       env: WP_TRAVISCI=travis:lint
     - php: 5.3
+      env: WP_TRAVISCI=travis:phpunit WP_VERSION=5.1.6 WP_MULTISITE=0 CXX=g++-4.8
       dist: precise
       before_install:
         - curl -sSfL -o ~/.phpenv/versions/5.3/bin/phpunit https://phar.phpunit.de/phpunit-4.phar
