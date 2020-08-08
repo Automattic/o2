@@ -1,5 +1,8 @@
 language: php
 
+services:
+  - mysql
+
 notifications:
   email:
     on_success: never
