@@ -7,10 +7,10 @@
 	convertWarningsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite>
+		<testsuite name="plugin">
 			<directory prefix="test-" suffix=".php">./tests/phpunit/</directory>
 		</testsuite>
-		<testsuite>
+		<testsuite name="modules">
 			<directory prefix="test-" suffix=".php">./tests/phpunit/modules</directory>
 		</testsuite>
 	</testsuites>
