@@ -30,13 +30,19 @@ matrix:
       env: WP_TRAVISCI=travis:lint
     - php: 5.3
       dist: precise
+      before_install:
+        - curl -sSfL -o ~/.phpenv/versions/7.1/bin/phpunit https://phar.phpunit.de/phpunit-4.phar
     - php: 7.0
+      before_install:
+        - curl -sSfL -o ~/.phpenv/versions/7.1/bin/phpunit https://phar.phpunit.de/phpunit-6.phar
     - php: 7.1
       before_install:
-        - curl -sSfL -o ~/.phpenv/versions/7.1/bin/phpunit https://phar.phpunit.de/phpunit-7.5.9.phar
+        - curl -sSfL -o ~/.phpenv/versions/7.1/bin/phpunit https://phar.phpunit.de/phpunit-7.phar
     - php: nightly
     - php: 7.0
       env: WP_MULTISITE=1
+      before_install:
+        - curl -sSfL -o ~/.phpenv/versions/7.1/bin/phpunit https://phar.phpunit.de/phpunit-6.phar
   allow_failures:
     - php: nightly
 
