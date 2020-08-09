@@ -1,5 +1,8 @@
 language: php
 
+services:
+  - mysql
+
 notifications:
   email:
     on_success: never
@@ -26,12 +29,21 @@ matrix:
     - php: 7.0
       env: WP_TRAVISCI=travis:lint
     - php: 5.3
+      env: WP_TRAVISCI=travis:phpunit WP_VERSION=5.1.6 WP_MULTISITE=0 CXX=g++-4.8
       dist: precise
+      before_install:
+        - curl -sSfL -o ~/.phpenv/versions/5.3/bin/phpunit https://phar.phpunit.de/phpunit-4.phar
     - php: 7.0
+      before_install:
+        - curl -sSfL -o ~/.phpenv/versions/7.0/bin/phpunit https://phar.phpunit.de/phpunit-6.phar
     - php: 7.1
+      before_install:
+        - curl -sSfL -o ~/.phpenv/versions/7.1/bin/phpunit https://phar.phpunit.de/phpunit-7.phar
     - php: nightly
     - php: 7.0
       env: WP_MULTISITE=1
+      before_install:
+        - curl -sSfL -o ~/.phpenv/versions/7.0/bin/phpunit https://phar.phpunit.de/phpunit-6.phar
   allow_failures:
     - php: nightly
 
