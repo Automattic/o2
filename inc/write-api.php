@@ -229,7 +229,7 @@ class o2_Write_API extends o2_API_Base {
 		}
 
 		// Don't auto-title if there's a mention/tag/xpost
-		if ( preg_match( '/(?:^|\s|>|\b|\()[@+#]([\w-\.]*\w+)(?:$|\s|<|\b|\))/', $firstLine ) ) {
+		if ( preg_match( '/(?:^|\s|>|\b|\()[@+#]([\w\-\.]*\w+)(?:$|\s|<|\b|\))/', $firstLine ) ) {
 			return $message;
 		}
 
