@@ -59,11 +59,15 @@ class o2_Filter_Widget extends WP_Widget {
 				'css_id' => 'o2-filter-my-posts'
 			);
 		}
+	}
 
-		$this->filters = apply_filters( 'o2_filter_widget_filters', $this->filters );
+	function get_filters() {
+		$filters = (array) apply_filters( 'o2_filter_widget_filters', $this->filters );
 
 		// sort the filters by priority
-		usort( $this->filters, array( $this, 'filter_sort' ) );
+		usort( $filters, array( $this, 'filter_sort' ) );
+
+		return $filters;
 	}
 
 	function filter_sort( $filter_1, $filter_2 ) {
@@ -108,7 +112,8 @@ class o2_Filter_Widget extends WP_Widget {
 		$title = ( isset( $instance['title'] ) ) ? $instance['title'] : '';
 		$title = apply_filters( 'widget_title', $title );
 
-		if ( 0 < count( $this->filters ) ) {
+		$filters = $this->get_filters();
+		if ( $filters ) {
 			echo $before_widget;
 
 			if ( ! empty( $title ) ) {
@@ -117,7 +122,7 @@ class o2_Filter_Widget extends WP_Widget {
 
 			// Check if none of them are selected
 			$at_least_one_filter_is_active = false;
-			foreach ( (array) $this->filters as $key => $filter ) {
+			foreach ( $filters as $key => $filter ) {
 				$item_class = '';
 				if ( is_callable( $filter['is_active'] ) ) {
 					if ( call_user_func( $filter['is_active'] ) ) {
@@ -128,7 +133,7 @@ class o2_Filter_Widget extends WP_Widget {
 
 			// Render a full size list-based widget for larger screens
 			echo "<ul class='o2-filter-widget-list'>";
-			foreach ( (array) $this->filters as $key => $filter ) {
+			foreach ( $filters as $key => $filter ) {
 				$item_class = '';
 				if ( is_callable( $filter['is_active'] ) ) {
 					if ( call_user_func( $filter['is_active'] ) ) {
@@ -147,7 +152,7 @@ class o2_Filter_Widget extends WP_Widget {
 
 			// A compact select-box-based widget for smaller screens
 			echo "<select class='o2-filter-widget-select'>";
-			foreach ( (array) $this->filters as $key => $filter ) {
+			foreach ( $filters as $key => $filter ) {
 				$selected = ( is_callable( $filter['is_active'] ) ) ? selected( call_user_func( $filter['is_active'] ), true, false ) : '';
 				echo "<option value='" . esc_attr( $key ) . "' data-key='" . esc_attr( $key ) . "' data-url='" . esc_url( $filter['url'] ) . "'" . $selected . ">" . esc_html( $filter['label'] ) . "</option>";
 			}
