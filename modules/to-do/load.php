@@ -274,10 +274,12 @@ class o2_ToDos extends o2_API_Base {
 	}
 
 	function filter_widget_filters( $filters ) {
+		$relative_to_url = is_archive() ? false : home_url();
+
 		$filters['filter-resolved.o2'] = array(
 			'label' => __( 'Done', 'o2' ),
 			'is_active' => array( $this, 'is_resolved_filter_active' ),
-			'url' => esc_url( add_query_arg( 'resolved', 'resolved' ) ),
+			'url' => esc_url( add_query_arg( 'resolved', 'resolved', $relative_to_url ) ),
 			'priority' => 25,
 			'css_id' => 'o2-filter-resolved-posts'
 		);
@@ -285,7 +287,7 @@ class o2_ToDos extends o2_API_Base {
 		$filters['filter-unresolved.o2'] = array(
 			'label' => __( 'To Do', 'o2' ),
 			'is_active' => array( $this, 'is_unresolved_filter_active' ),
-			'url' => esc_url( add_query_arg( 'resolved', 'unresolved' ) ),
+			'url' => esc_url( add_query_arg( 'resolved', 'unresolved', $relative_to_url ) ),
 			'priority' => 20,
 			'css_id' => 'o2-filter-unresolved-posts'
 		);
