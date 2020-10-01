@@ -49,9 +49,9 @@ class o2_Read_API extends o2_API_Base {
 
 		// Need to sort things because they're queried separately
 		function o2_date_sort( $a, $b ) {
-			if ( $a->unixtime == $b->unixtime )
+			if ( $a['unixtime'] == $b['unixtime'] )
 				return 0;
-			return $a->unixtime > $b->unixtime ? -1 : 1;
+			return $a['unixtime'] > $b['unixtime'] ? -1 : 1;
 		}
 
 		$ok_to_serve_data = true;
