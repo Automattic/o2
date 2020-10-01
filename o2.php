@@ -886,6 +886,11 @@ class o2 {
 	public static function add_json_data( $content ) {
 		global $post;
 
+		// No post context? return immediately.
+		if ( ! $post ) {
+			return $content;
+		}
+
 		// password protected post? return immediately (password protected pages are OK)
 		if ( ! is_page() && ! empty( $post->post_password ) ) {
 			return $content;
