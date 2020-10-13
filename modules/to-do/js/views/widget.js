@@ -103,6 +103,7 @@ o2.Views.ToDosWidget = ( function( $ ) {
 					postsPerPage: this.model.get( 'postsPerPage' ),
 					filterTags: this.model.get( 'filterTags' ),
 					state: this.model.get( 'state' ),
+					order: this.model.get( 'order' ),
 					widgetID: this.model.get( 'widgetID' )
 				};
 				o2.Query.query( {
