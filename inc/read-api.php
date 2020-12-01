@@ -107,7 +107,7 @@ class o2_Read_API extends o2_API_Base {
 				if ( ! is_array( $_REQUEST['scripts'] ) ) {
 					$_REQUEST['scripts'] = explode( ',', $_REQUEST['scripts'] );
 				}
-				
+
 				$initial_scripts = is_array( $_REQUEST['scripts'] ) ? array_map( 'sanitize_text_field', $_REQUEST['scripts'] ) : null;
 
 				if ( is_array( $initial_scripts ) ) {
@@ -175,7 +175,7 @@ class o2_Read_API extends o2_API_Base {
 				if ( ! is_array( $_REQUEST['styles'] ) ) {
 					$_REQUEST['styles'] = explode( ',', $_REQUEST['styles'] );
 				}
-	
+
 				// Parse and sanitize the style handles already output
 				$initial_styles = is_array( $_REQUEST['styles'] ) ? array_map( 'sanitize_text_field', $_REQUEST['styles'] ) : null;
 
@@ -460,6 +460,11 @@ class o2_Read_API extends o2_API_Base {
 	 */
 	public static function preview() {
 		$response = '<p>' . __( 'Nothing to preview.', 'o2' ) . '</p>';
+
+		// Only users that can edit posts should be able to see the preview
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			self::die_failure( 'cannot_edit_posts', __( 'Sorry, you are not allowed to edit posts on this site.', 'o2' ) );
+		}
 
 		if ( ! empty( $_REQUEST['data'] ) ) {
 			switch ( $_REQUEST['type'] ) {
