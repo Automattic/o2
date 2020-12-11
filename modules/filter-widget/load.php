@@ -47,14 +47,14 @@ class o2_Filter_Widget extends WP_Widget {
 			$this->filters['filter-mentionsMe.o2'] = array(
 				'label' => __( 'My @Mentions', 'o2' ),
 				'is_active' => array( $this, 'is_mentions_me_filter_active' ),
-				'url' => esc_url( add_query_arg( 'mentions', $user->user_login, home_url() ) ),
+				'url' => esc_url( add_query_arg( 'mentions', $user->user_nicename, home_url() ) ),
 				'priority' => 15,
 				'css_id' => 'o2-filter-my-mentions'
 			);
 			$this->filters['filter-myPosts.o2'] = array(
 				'label' => __( 'My Posts', 'o2' ),
 				'is_active' => array( $this, 'is_my_posts_filter_active' ),
-				'url' => esc_url( home_url( '/author/' . $user->user_login ) ),
+				'url' => esc_url( home_url( '/author/' . $user->user_nicename ) ),
 				'priority' => 35,
 				'css_id' => 'o2-filter-my-posts'
 			);
