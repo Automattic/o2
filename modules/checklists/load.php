@@ -68,7 +68,7 @@ class o2_List_Creator {
 
 	public function parse_lists_in_comment( $content, $comment = null ) {
 		$this->post_ID = '';
-		$this->comment_ID = get_comment_ID();
+		$this->comment_ID = ! empty( $comment->comment_ID ) ? $comment->comment_ID : get_comment_ID(); // use context if available.
 		$content = wp_kses_post( $content ); // we need to this this here because we removed the wp_kses_post filter in o2_Comment_List_Creator __construct
 		$this->user_can_edit_object = $this->current_user_can_edit_checklist( 'comment', $this->comment_ID );
 		return $this->parse_lists( $content );
