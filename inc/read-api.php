@@ -344,7 +344,7 @@ class o2_Read_API extends o2_API_Base {
 			ob_start();
 			wp_footer();
 			ob_end_clean();
-		} else if ( 0 != intval( $_REQUEST['postId'] ) ) {
+		} else if ( isset( $_REQUEST['postId'] ) && 0 != intval( $_REQUEST['postId'] ) ) {
 
 			/*
 			 * If WP_Query returned no posts and if currently on a single page, then
