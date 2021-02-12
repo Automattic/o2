@@ -22,7 +22,7 @@ class o2_Filter_Widget extends WP_Widget {
 			'filter-none.o2' => array(
 				'label' => __( 'Recent Updates', 'o2' ), // aka no filter
 				'is_active' => false,
-				'url' => esc_url( home_url() ),
+				'url' => esc_url( home_url( '/' ) ),
 				'priority' => 10,
 				'css_id' => 'o2-filter-recent-updates'
 			),
