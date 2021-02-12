@@ -29,14 +29,14 @@ class o2_Filter_Widget extends WP_Widget {
 			'filter-recent-comments.o2' => array(
 				'label' => __( 'Recent Comments', 'o2' ),
 				'is_active' => array( $this, 'is_recent_comments_filter_active' ),
-				'url' => esc_url( add_query_arg( 'o2_recent_comments', true, home_url() ) ),
+				'url' => esc_url( add_query_arg( 'o2_recent_comments', true, home_url( '/' ) ) ),
 				'priority' => 11,
 				'css_id' => 'o2-filter-recent-comments',
 			),
 			'filter-noreplies.o2' => array(
 				'label' => __( 'No Replies', 'o2' ),
 				'is_active' => array( $this, 'is_no_replies_filter_active' ),
-				'url' => esc_url( add_query_arg( 'replies', 'none', home_url() ) ),
+				'url' => esc_url( add_query_arg( 'replies', 'none', home_url( '/' ) ) ),
 				'priority' => 30,
 				'css_id' => 'o2-filter-no-replies'
 			)
@@ -47,14 +47,14 @@ class o2_Filter_Widget extends WP_Widget {
 			$this->filters['filter-mentionsMe.o2'] = array(
 				'label' => __( 'My @Mentions', 'o2' ),
 				'is_active' => array( $this, 'is_mentions_me_filter_active' ),
-				'url' => esc_url( add_query_arg( 'mentions', $user->user_login, home_url() ) ),
+				'url' => esc_url( add_query_arg( 'mentions', $user->user_login, home_url( '/' ) ) ),
 				'priority' => 15,
 				'css_id' => 'o2-filter-my-mentions'
 			);
 			$this->filters['filter-myPosts.o2'] = array(
 				'label' => __( 'My Posts', 'o2' ),
 				'is_active' => array( $this, 'is_my_posts_filter_active' ),
-				'url' => esc_url( home_url( '/author/' . $user->user_login ) ),
+				'url' => esc_url( home_url( '/author/' . $user->user_login . '/' ) ),
 				'priority' => 35,
 				'css_id' => 'o2-filter-my-posts'
 			);
