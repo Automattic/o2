@@ -1339,7 +1339,7 @@ class o2 {
 			$user_data = get_userdata( $user->ID );
 			$user_model = o2_Fragment::get_model_from_userdata( $user_data );
 			wp_send_json_success( $user_model );
-		} else {
+		} elseif ( isset( $_GET['userlogins'] ) ) {
 			// V2 userlogins (array of 1 or more)
 			$user_logins = $_GET['userlogins'];
 			$user_models = array();
@@ -1357,6 +1357,8 @@ class o2 {
 			}
 
 			wp_send_json_success( $user_models );
+		} else {
+			wp_send_json_error( array( 'errorText' => 'Invalid request' ) );
 		}
 	}
 
