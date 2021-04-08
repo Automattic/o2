@@ -25,8 +25,21 @@ class o2_Write_API extends o2_API_Base {
 
 			// Make sure we can decode the Message
 			$message = json_decode( stripslashes( $_REQUEST['message'] ) );
-			if ( null === $message ) {
+			if ( ! is_object( $message ) ) {
 				self::die_failure( 'invalid_message', __( 'Message could not be decoded', 'o2' ) );
+			}
+
+			// Sanitize data
+			if ( property_exists( $message, 'parentID' ) ) {
+				$message->parentID = (int) $message->parentID;
+			}
+
+			if ( property_exists( $message, 'postID' ) ) {
+				$message->postID = (int) $message->postID;
+			}
+
+			if ( property_exists( $message, 'id' ) ) {
+				$message->id = (int) $message->id;
 			}
 
 			// We only support post and comment messages (for now)
