@@ -167,12 +167,12 @@ o2Editor = {
 		editor = '<div class="o2-editor-wrapper"> \
 			<div class="o2-editor-toolbar-wrapper"> \
 				<div class="o2-editor-toolbar"> \
-					<button class="o2-editor-toolbar-button genericon genericon-bold" value="strong" title="' + o2.strings.bold + '"></button> \
-					<button class="o2-editor-toolbar-button genericon genericon-italic" value="em" title="' + o2.strings.italics + '"></button> \
-					<button class="o2-editor-toolbar-button genericon genericon-link" value="a" title="' + o2.strings.link + '"></button> \
-					<button class="o2-editor-toolbar-button genericon genericon-picture" value="img" title="' + o2.strings.image + '"></button> \
-					<button class="o2-editor-toolbar-button genericon genericon-quote" value="blockquote" title="' + o2.strings.blockquote + '"></button> \
-					<button class="o2-editor-toolbar-button genericon genericon-code" value="code" title="' + o2.strings.code + '"></button>';
+					<button class="o2-editor-toolbar-button genericon genericon-bold" value="strong" title="' + o2.strings.bold + '"><span class="o2-screen-reader-text">' + o2.strings.bold + '</span></button> \
+					<button class="o2-editor-toolbar-button genericon genericon-italic" value="em" title="' + o2.strings.italics + '"><span class="o2-screen-reader-text">' + o2.strings.italics + '</span></button> \
+					<button class="o2-editor-toolbar-button genericon genericon-link" value="a" title="' + o2.strings.link + '"><span class="o2-screen-reader-text">' + o2.strings.link + '</span></button> \
+					<button class="o2-editor-toolbar-button genericon genericon-picture" value="img" title="' + o2.strings.image + '"><span class="o2-screen-reader-text">' + o2.strings.image + '</span></button> \
+					<button class="o2-editor-toolbar-button genericon genericon-quote" value="blockquote" title="' + o2.strings.blockquote + '"><span class="o2-screen-reader-text">' + o2.strings.blockquote + '</span></button> \
+					<button class="o2-editor-toolbar-button genericon genericon-code" value="code" title="' + o2.strings.code + '"><span class="o2-screen-reader-text">' + o2.strings.code + '</span></button>';
 					if ( 'string' === typeof title ) {
 						editor += '<div class="o2-editor-format dashicon" title="' + o2.strings.addPostTitle + '">&#61969;</div>';
 					}
