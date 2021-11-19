@@ -356,7 +356,7 @@ class o2_Read_API extends o2_API_Base {
 			 */
 			$post = get_post( intval( $_REQUEST['postId'] ) );
 
-			if ( 'trash' == $post->post_status ) {
+			if ( $post && 'trash' == $post->post_status ) {
 				if ( self::is_ok_to_add( $post ) ) {
 					$posts[] = $post;
 				}
