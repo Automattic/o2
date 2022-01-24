@@ -195,7 +195,7 @@ class o2_Read_API extends o2_API_Base {
 								continue;
 
 							// Provide basic style data
-							$styles_data = array(
+							$style_data = array(
 								'handle' => $handle,
 								'media'  => 'all',
 							);
@@ -217,7 +217,7 @@ class o2_Read_API extends o2_API_Base {
 								$ver = $ver ? $ver . '&amp;' . $wp_styles->args[$handle] : $wp_styles->args[$handle];
 
 							// Full script source with version info
-							$script_data['src'] = add_query_arg( 'ver', $ver, $src );
+							$style_data['src'] = add_query_arg( 'ver', $ver, $src );
 
 							// @todo Handle parsing conditional comments
 
