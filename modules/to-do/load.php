@@ -554,7 +554,7 @@ class o2_ToDos extends o2_API_Base {
 	function page_title( $page_title ) {
 		global $wp_query;
 		$resolved_query = get_query_var( 'resolved' );
-		if ( ! empty( $resolved_query ) ) {
+		if ( ! empty( $resolved_query ) && is_scalar( $resolved_query ) ) {
 			$resolved_query = strip_tags( wp_kses_no_null( trim( $resolved_query ) ) );
 			$page_title = is_tag() && $page_title ? $page_title . " | " : '';
 			if ( 'unresolved' === $resolved_query ) {
