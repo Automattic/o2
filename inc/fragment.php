@@ -503,6 +503,13 @@ class o2_Fragment {
 	  */
 
 	public static function get_post_user_properties( $_post ) {
+		if ( ! $_post->post_author ) {
+			return array(
+				'userLogin' => '',
+				'userNicename' => ''
+			);
+		}
+
 		$user_id = $_post->post_author;
 		$user_data = get_userdata( $user_id );
 		self::add_to_user_bootstrap( $user_data );
