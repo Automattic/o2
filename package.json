@@ -24,7 +24,7 @@
 	"devDependencies": {
 		"@wordpress/eslint-plugin": "^6.0.0",
 		"eslint": "^7.1.0",
-		"grunt": "^0.4.5",
+		"grunt": "^1.5.3",
 		"grunt-contrib-jshint": "^1.0.0",
 		"grunt-phplint": "0.0.8",
 		"grunt-rtlcss": "2.0.1",
