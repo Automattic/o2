@@ -400,7 +400,7 @@ class o2_Fragment {
 
 	public static function get_depth_for_comment( $my_comment ) {
 		$depth = 1;
-		while ( 0 < $my_comment->comment_parent ) {
+		while ( $my_comment && 0 < $my_comment->comment_parent ) {
 			$depth = $depth + 1;
 			$my_comment = get_comment( $my_comment->comment_parent );
 		}
