@@ -7,6 +7,11 @@ o2.Utilities.phpToMoment = function( s ) {
 	var m = '';
 	var lookBehind = '';
 	for ( var i = 0; i < s.length; i++ ) {
+		// Handle PHP escaping
+		if ( '\\' === lookBehind ) {
+			m += '[' + s.charAt( i ) + ']';
+		}
+
 		switch ( s.charAt( i ) ) {
 			case 'd': // Day of the month with leading zeroes
 				m += 'DD';
@@ -110,6 +115,10 @@ o2.Utilities.phpToMoment = function( s ) {
 
 			// Handle with lookBehind to handle 'jS'
 			case 'j': // Day of the month without leading zeroes
+				break;
+
+			// Handle PHP escaping
+			case '\\':
 				break;
 
 			default:
