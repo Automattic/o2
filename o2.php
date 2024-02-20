@@ -942,6 +942,10 @@ class o2 {
 	 * @return string|array     - The translations object.
 	 */
 	function get_i18n_moment( $locale, $json_encode = true ) {
+		if ( ! $locale ) {
+			$locale = new WP_Locale;
+		}
+
 		$moment = array(
 			'months'         => array_values( $locale->month ),
 			'monthsShort'    => array_values( $locale->month_abbrev ),
