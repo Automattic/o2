@@ -721,10 +721,7 @@ o2Editor = {
 
 	firstLineIsProbablyATitle: function( text ) {
 		// Firefox isn't doesn't obey ::first-line in textareas,
-		// so let's disable auto title.
-		if ( o2Editor.isFirefox ) {
-			return false;
-		}
+		// This is not true. https://caniuse.com/#feat=css-first-line
 
 		var lines = text.split('\n');
 		if ( ! lines || 1 === lines.length && '' === lines[0] ) {
