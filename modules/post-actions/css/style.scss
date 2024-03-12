@@ -91,7 +91,7 @@ nav.o2-post-footer-actions {
 	div.jetpack-likes-widget-wrapper {
 		min-height: 0;
 		line-height: 0;
-		height: 27px;
+		height: 32px;
 		width: auto;
 		// We need the overflow and -webkit-overflow-scrolling styles on the
 		// iframe wrapper in order to avoid touch drag scrolling the likes iframe
@@ -104,6 +104,7 @@ nav.o2-post-footer-actions {
 		display: inline-block;
 	}
 
+	.o2-post-footer-action-row,
 	.o2-post-footer-action-likes {
 		padding-top: 7px;
 	}
