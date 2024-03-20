@@ -398,7 +398,7 @@ nav.o2-post-footer-actions ul li > a, nav.o2-post-footer-actions ul li > span > 
   text-align: right;
   text-decoration: none;
   color: #666666;
-  padding: 3px;
+  padding: 7px 5px 5px;
   padding-left: 10px;
   margin: 0;
   line-height: 1.5;
@@ -649,7 +649,7 @@ nav.o2-post-footer-actions .o2-follow.post-comments-subscribed:hover:after {
 .o2-post div.jetpack-likes-widget-wrapper {
   min-height: 0;
   line-height: 0;
-  height: 27px;
+  height: 32px;
   width: auto;
   overflow: hidden;
   -webkit-overflow-scrolling: none;
@@ -660,6 +660,7 @@ nav.o2-post-footer-actions .o2-follow.post-comments-subscribed:hover:after {
   display: inline-block;
 }
 /* line 107, style.scss */
+.o2-post .o2-post-footer-action-row,
 .o2-post .o2-post-footer-action-likes {
   padding-top: 7px;
 }

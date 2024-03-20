@@ -345,7 +345,7 @@ nav.o2-post-footer-actions {
       text-align: left;
       text-decoration: none;
       color: #666;
-      padding: 3px;
+      padding: 7px 5px 5px;
       padding-right: 10px;
       margin: 0;
       line-height: 1.5;
@@ -519,13 +519,14 @@ nav.o2-post-footer-actions .o2-follow.post-comments-subscribed:hover:after {
 .o2-post div.jetpack-likes-widget-wrapper {
   min-height: 0;
   line-height: 0;
-  height: 27px;
+  height: 32px;
   width: auto;
   overflow: hidden;
   -webkit-overflow-scrolling: none; }
 .o2-post .post-likes-widget-placeholder .loading {
   padding-top: 12px;
   display: inline-block; }
+.o2-post .o2-post-footer-action-row,
 .o2-post .o2-post-footer-action-likes {
   padding-top: 7px; }
 
