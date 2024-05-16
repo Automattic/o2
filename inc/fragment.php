@@ -154,9 +154,7 @@ class o2_Fragment {
 		} elseif ( isset( $args['the_content'] ) ) {
 			$filtered_content = make_clickable( $args['the_content'] );
 		} else {
-			add_filter( 'the_content', 'o2_Fragment::o2_make_clickable', 9 );
-			$filtered_content = apply_filters( 'the_content', $extended_content );
-			remove_filter( 'the_content', 'o2_Fragment::o2_make_clickable', 9 );
+			$filtered_content = make_clickable( apply_filters( 'the_content', $extended_content ) );
 		}
 		$filtered_content = apply_filters( 'o2_filtered_content', $filtered_content, $my_post );
 
@@ -728,33 +726,5 @@ class o2_Fragment {
 		}
 
 		return $url;
-	}
-
-	public static function o2_make_clickable( $content ) {
-		// make urls clickable, but exclude text within square brackets - we don't want make_clickable
-		// processing between brackets because it messes up not-yet-filtered shortcodes that have url
-		// attributes like googlemaps
-
-		$regex = '/(\[[^\]]*])/i';
-
-		$placeholders = $matches = array();
-
-		while ( preg_match( $regex, $content, $matches ) ) {
-			do {
-				$hash = wp_generate_password( 36, false );
-			} while( array_key_exists( $hash, $placeholders ) );
-			$placeholder = ":: o2-make-clickable-placeholder $hash ::";
-			$placeholders[ $hash ] = $matches[0];
-			$content = preg_replace( $regex, $placeholder, $content, 1 );
-		}
-
-		$content = make_clickable( $content );
-
-		foreach ( $placeholders as $hash => $original ) {
-			$placeholder = ":: o2-make-clickable-placeholder $hash ::";
-			$content = str_replace( $placeholder, $original, $content );
-		}
-
-		return wp_kses_post( $content );
 	}
 }
