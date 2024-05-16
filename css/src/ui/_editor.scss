@@ -504,6 +504,10 @@
 
 .o2-editor-content-wrapper {
 	margin-top: -100px;
+
+	@include breakpoint( handset-landscape ) {
+		margin-top: auto;
+	}
 }
 
 .ui-helper-hidden-accessible {
