@@ -7,6 +7,12 @@ o2.Utilities.phpToMoment = function( s ) {
 	var m = '';
 	var lookBehind = '';
 	for ( var i = 0; i < s.length; i++ ) {
+		if ( lookBehind === "\\" ) { // Escaping character
+			m += '[' + s.charAt( i ) + ']';
+			lookBehind = s.charAt( i );
+			continue;
+		}
+
 		switch ( s.charAt( i ) ) {
 			case 'd': // Day of the month with leading zeroes
 				m += 'DD';
@@ -106,6 +112,7 @@ o2.Utilities.phpToMoment = function( s ) {
 			case 'u': // Microseconds
 			case 'I': // Daylight savings time
 			case 'Z': // Timezone offset in seconds
+			case '\\': // Escaping character
 				break;
 
 			// Handle with lookBehind to handle 'jS'
