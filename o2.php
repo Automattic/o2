@@ -895,6 +895,10 @@ class o2 {
 		if ( ! is_page() && ! empty( $post->post_password ) ) {
 			return $content;
 		}
+		
+		if ( ! apply_filters( 'o2_process_the_content', true ) ) {
+			return $content;
+		}
 
 		$conversation = array();
 		if ( is_single() || is_category() || is_archive() || is_author() || is_home() || is_page() || is_search() ) {
