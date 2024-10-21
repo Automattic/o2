@@ -488,7 +488,7 @@ class o2_ToDos extends o2_API_Base {
 	function request( $qvs ) {
 		if ( !empty( $_GET['tags'] ) || !empty( $_GET['post_tag'] ) ) {
 			$filter_tags = ( !empty( $_GET['tags'] ) ) ? $_GET['tags'] : $_GET['post_tag'];
-			$filter_tags = (array)explode( ',', $filter_tags );
+			$filter_tags = (array) wp_parse_list( $filter_tags );
 	 		foreach( (array)$filter_tags as $filter_tag ) {
 	 			$filter_tag = sanitize_key( $filter_tag );
 	 			$new_tax_query = array(
