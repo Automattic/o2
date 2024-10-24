@@ -17,13 +17,23 @@
 		{{{ data.entryHeaderMeta }}}
 	</div>
 	<# if ( data.showTitle && ! data.titleWasGeneratedFromContent ) { #>
-		<h1 class="entry-title">
-			<# if ( data.linkTitle ) { #>
-				<a href="{{ data.permalink }}">{{{ data.titleFiltered }}}</a>
-			<# } else { #>
-				{{{ data.titleFiltered }}}
-			<# } #>
-		</h1>
+		<# if ( data.isSingle ) { #>
+			<h1 class="entry-title">
+				<# if ( data.linkTitle ) { #>
+					<a href="{{ data.permalink }}">{{{ data.titleFiltered }}}</a>
+				<# } else { #>
+					{{{ data.titleFiltered }}}
+				<# } #>
+			</h1>
+		<# } else { #>
+			<h2 class="entry-title">
+				<# if ( data.linkTitle ) { #>
+					<a href="{{ data.permalink }}">{{{ data.titleFiltered }}}</a>
+				<# } else { #>
+					{{{ data.titleFiltered }}}
+				<# } #>
+			</h2>
+		<# } #>
 	<# } #>
 </header>
 <div class="entry-content">
