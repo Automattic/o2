@@ -9,8 +9,8 @@
 	</span>
 <# } else { #>
 	<# if ( data.showTitle && data.pageTitle != '' ) { #>
-		<h2 class="o2-app-page-title">
+		<h1 class="o2-app-page-title">
 			{{{ data.pageTitle }}}
-		</h2>
+		</h1>
 	<# } #>
 <# } #>
