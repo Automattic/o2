@@ -461,20 +461,25 @@ class o2_Read_API extends o2_API_Base {
 	public static function preview() {
 		$response = '<p>' . __( 'Nothing to preview.', 'o2' ) . '</p>';
 
-		// Only users that can edit posts should be able to see the preview
-		if ( ! current_user_can( 'edit_posts' ) ) {
-			self::die_failure( 'cannot_edit_posts', __( 'Sorry, you are not allowed to edit posts on this site.', 'o2' ) );
-		}
-
 		if ( ! empty( $_REQUEST['data'] ) ) {
 			switch ( $_REQUEST['type'] ) {
 				case 'comment':
+					// Reserve Comment previews for logged in users if required.
+					if ( get_option( 'comment_registration' ) && ! is_user_logged_in() ) {
+						self::die_failure( 'cannot_comment', __( 'Sorry, you are not allowed to comment on this site.', 'o2' ) );
+					}
+
 					$response = apply_filters( 'o2_preview_comment', wp_unslash( $_REQUEST['data'] ) );
 					$response = wp_unslash( apply_filters( 'pre_comment_content', $response ) );
 					$response = trim( apply_filters( 'comment_text', $response ) );
 
 					break;
 				case 'post':
+					// Only users that can edit posts should be able to see the preview
+					if ( ! current_user_can( 'edit_posts' ) ) {
+						self::die_failure( 'cannot_edit_posts', __( 'Sorry, you are not allowed to edit posts on this site.', 'o2' ) );
+					}
+
 					$message = new stdClass;
 					$message->titleRaw = '';
 					$message->contentRaw = wp_unslash( $_REQUEST['data'] );
