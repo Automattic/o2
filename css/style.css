@@ -34,33 +34,27 @@ UI partials provide the higher-level styles required for o2 to function and disp
 li.o2-filter-widget-item {
   padding: 0px !important;
 }
-
 li.o2-filter-widget-item a {
   display: block;
   padding: 5px;
 }
-
 li.o2-filter-widget-item a.o2-filter-widget-selected {
   background: #f1f1f1;
   color: #222;
 }
-
 li.o2-filter-widget-item a.o2-filter-widget-selected:before {
   color: #222;
 }
-
 li.o2-filter-widget-item a:hover {
   color: #222;
   background: #fafafa;
 }
-
 li.o2-filter-widget-item a:hover:before {
   color: #222;
 }
-
 li.o2-filter-widget-item a:before {
   -webkit-font-smoothing: antialiased;
-  font: normal 16px/1 'Genericons';
+  font: normal 16px/1 "Genericons";
   display: inline-block;
   color: #ccc;
   -webkit-transition: all 0.1s ease-in-out;
@@ -70,33 +64,26 @@ li.o2-filter-widget-item a:before {
   position: relative;
   top: 3px;
 }
-
 li.o2-filter-widget-item#o2-filter-recent-updates a:before {
-  content: '\f409';
+  content: "\f409";
 }
-
 li.o2-filter-widget-item#o2-filter-recent-comments a:before {
-  content: '\f108';
+  content: "\f108";
 }
-
 li.o2-filter-widget-item#o2-filter-my-mentions a:before {
-  content: '\f300';
+  content: "\f300";
 }
-
 li.o2-filter-widget-item#o2-filter-unresolved-posts a:before {
-  content: '\f468';
+  content: "\f468";
 }
-
 li.o2-filter-widget-item#o2-filter-resolved-posts a:before {
-  content: '\f418';
+  content: "\f418";
 }
-
 li.o2-filter-widget-item#o2-filter-no-replies a:before {
-  content: '\f404';
+  content: "\f404";
 }
-
 li.o2-filter-widget-item#o2-filter-my-posts a:before {
-  content: '\f304';
+  content: "\f304";
 }
 
 .o2-permalink,
@@ -113,7 +100,6 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
   width: 32px;
   overflow: hidden;
 }
-
 .o2-permalink:after,
 .o2-post-reply:after,
 .o2-scroll-to-comments:after,
@@ -123,7 +109,7 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
 .o2-resolve-link:after,
 .o2-sticky-link:after {
   -webkit-font-smoothing: antialiased;
-  font: normal 16px/1 'Genericons';
+  font: normal 16px/1 "Genericons";
   display: inline-block;
   height: 20px;
   width: 32px;
@@ -147,23 +133,23 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
 }
 
 .o2-permalink:after {
-  content: '\f107';
+  content: "\f107";
 }
 
 .o2-post-reply:after {
-  content: '\f466';
+  content: "\f466";
 }
 
 .o2-edit.edit-post-link:after {
-  content: '\f411';
+  content: "\f411";
 }
 
 .o2-follow:after {
-  content: '\f463';
+  content: "\f463";
 }
 
 .o2-short-link:after {
-  content: '\f107';
+  content: "\f107";
 }
 
 .o2-scroll-to-comments {
@@ -171,24 +157,24 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
 }
 
 .o2-scroll-to-comments:after {
-  content: '\f300';
+  content: "\f300";
 }
 
 .o2-sticky-link:after {
-  content: '\f308';
+  content: "\f308";
 }
 
 .o2-resolve-link:after {
-  content: '\f468';
+  content: "\f468";
 }
 
 .post-comments-subscribed .o2-follow:after {
-  content: '\f465';
+  content: "\f465";
   color: #666;
 }
 
 .post-comments-subscribed .o2-follow:hover:after {
-  content: '\f464';
+  content: "\f464";
   color: #666;
 }
 
@@ -224,12 +210,11 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
   overflow: hidden;
   position: relative;
 }
-
 .o2-comment-edit:after,
 .o2-comment-reply:after {
-  content: '\f103';
+  content: "\f103";
   -webkit-font-smoothing: antialiased;
-  font: normal 16px/1 'Genericons';
+  font: normal 16px/1 "Genericons";
   display: inline-block;
   height: 20px;
   width: 20px;
@@ -244,11 +229,11 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
 }
 
 .o2-comment-reply:after {
-  content: '\f466';
+  content: "\f466";
 }
 
 .o2-comment-edit:after {
-  content: '\f411';
+  content: "\f411";
 }
 
 .comment-actions {
@@ -270,27 +255,22 @@ article.sticky .o2-sticky-link:after {
 .o2-editor {
   padding: 0;
 }
-
 @media (max-width: 640px) {
   .o2-editor {
     margin-left: 0 !important;
   }
 }
-
 .o2-editor .o2-editor-wrapper {
   border: 1px solid #ddd;
 }
-
 @media (max-width: 640px) {
   .o2-editor .o2-editor-wrapper {
     border: 1px solid #ddd;
   }
 }
-
 .o2-editor .markdown-mark {
   display: none;
 }
-
 .o2-editor .o2-editor-text {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -303,32 +283,26 @@ article.sticky .o2-sticky-link:after {
   clear: both;
   display: block;
 }
-
 .o2-editor .o2-editor-text:focus {
   outline: none;
 }
-
 .o2-editor .o2-editor-text.autocomplete-loading {
   background: #fff url("../img/o2-spinner.gif") no-repeat right 15px bottom 15px/16px;
 }
-
 .o2-editor .o2-editor-title-wrapper {
   border-bottom: 1px solid #ddd;
   padding: 0.8em;
   background: #fff;
 }
-
 .o2-editor .o2-editor-title {
   border: 0;
   width: 100%;
   font-size: 22px !important;
   padding: 0 0 0 3px;
 }
-
 .o2-editor .o2-editor-title:focus {
   outline: none;
 }
-
 .o2-editor .o2-editor-toolbar-button {
   display: inline-block;
   float: none;
@@ -336,11 +310,9 @@ article.sticky .o2-sticky-link:after {
   border: 0;
   padding: inherit 10px;
 }
-
 .o2-editor .o2-editor-toolbar-button:first-of-type {
   padding-left: 20px;
 }
-
 .o2-editor .o2-editor-text {
   border: 0;
   font-size: 1.1em;
@@ -351,24 +323,20 @@ article.sticky .o2-sticky-link:after {
   width: 100%;
   color: #000;
 }
-
 .o2-editor .o2-editor-signin {
   margin: 0.1em 0 0;
   overflow: hidden;
   padding: 0.8em 0;
 }
-
 .o2-editor .o2-editor-signin p {
   font-size: 12px;
   color: #999;
 }
-
 .o2-editor .o2-editor-signin input {
   width: 98%;
   margin: 0 0 0.5em 0;
   font-size: 12px;
 }
-
 .o2-editor .o2-editor-preview {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -380,36 +348,30 @@ article.sticky .o2-sticky-link:after {
   min-height: 171px;
   background: #fff;
 }
-
 .o2-editor .o2-app-controls {
   font-size: 0.5em;
   line-height: 2;
 }
-
 .o2-editor .o2-editor-footer {
   min-height: 4em;
   background: transparent;
   font-size: 1em;
 }
-
 .o2-editor .o2-editor-footer:after {
-  content: '';
+  content: "";
   display: table;
   clear: both;
 }
-
 .o2-editor .o2-editor-footer > a {
   float: right;
   display: block;
   margin: 0.8em 0 0.8em 0.4em;
 }
-
 @media (max-width: 640px) {
   .o2-editor .o2-editor-footer > a.o2-comment-save, .o2-editor .o2-editor-footer > a.o2-save {
     clear: both;
   }
 }
-
 .o2-editor .o2-editor-footer .o2-editor-tabs {
   list-style-type: none;
   float: left;
@@ -417,12 +379,10 @@ article.sticky .o2-sticky-link:after {
   padding: 0;
   margin-top: -1px;
 }
-
 .o2-editor .o2-editor-footer .o2-editor-tabs li {
   float: left;
   border-top: 1px #ddd solid;
 }
-
 .o2-editor .o2-editor-footer .o2-editor-tabs li:first-of-type {
   border-top: 1px #fff solid;
   border-left: 1px #ddd solid;
@@ -434,16 +394,13 @@ article.sticky .o2-sticky-link:after {
   border-bottom-right-radius: 3px;
   -webkit-background-clip: padding-box;
 }
-
 .o2-editor .o2-editor-footer .o2-editor-tabs li.selected {
   border-top: 1px #fff solid;
 }
-
 .o2-editor .o2-editor-footer .o2-editor-tabs li.selected a {
   border-top: 1px #fff solid;
   background: #fff;
 }
-
 .o2-editor .o2-editor-footer .o2-editor-tabs li a {
   float: none;
   display: block;
@@ -465,14 +422,12 @@ article.sticky .o2-sticky-link:after {
   font-size: 11px;
   border-left: 0px;
 }
-
 .o2-editor .o2-editor-footer .o2-editor-tabs li a span {
   display: none;
 }
-
 .o2-editor .o2-editor-footer .o2-editor-tabs li a:before {
   -webkit-font-smoothing: antialiased;
-  font: normal 16px/1 'Genericons';
+  font: normal 16px/1 "Genericons";
   width: 16px;
   height: 20px;
   margin-right: 5px;
@@ -490,7 +445,6 @@ article.sticky .o2-sticky-link:after {
   padding-right: 10px;
   margin-top: 13px;
 }
-
 @media (max-width: 640px) {
   .o2-post-form-options {
     float: none;
@@ -518,7 +472,6 @@ article.sticky .o2-sticky-link:after {
   position: relative;
   top: 0;
 }
-
 .o2-editor-toolbar.floated {
   box-shadow: 0px 0px 4px 0px #888;
 }
@@ -535,7 +488,6 @@ article.sticky .o2-sticky-link:after {
   background: transparent;
   box-shadow: none !important;
 }
-
 @media (max-width: 876px) {
   .o2-editor-toolbar-button {
     width: 50px;
@@ -568,7 +520,6 @@ article.sticky .o2-sticky-link:after {
   -webkit-background-clip: padding-box;
   font-family: "Open Sans", sans-serif;
 }
-
 .o2-save.primary,
 .o2-cancel.primary,
 .o2-comment-save.primary,
@@ -579,7 +530,6 @@ article.sticky .o2-sticky-link:after {
   background: -moz-linear-gradient(top, #fff, #f1f1f1);
   font-weight: bold;
 }
-
 .o2-save.primary:hover,
 .o2-cancel.primary:hover,
 .o2-comment-save.primary:hover,
@@ -587,7 +537,6 @@ article.sticky .o2-sticky-link:after {
 .o2-new-comment-cancel.primary:hover {
   border-color: #888;
 }
-
 .o2-save:hover,
 .o2-cancel:hover,
 .o2-comment-save:hover,
@@ -656,7 +605,7 @@ article.sticky .o2-sticky-link:after {
   outline: none;
 }
 
-.o2-post .post-password-form input[type="submit"] {
+.o2-post .post-password-form input[type=submit] {
   color: #3498db;
   font-family: "Open Sans", sans-serif;
 }
@@ -668,7 +617,6 @@ article.sticky .o2-sticky-link:after {
 #respond .o2-editor-footer .o2-editor-tabs li:first-of-type {
   border-left: 1px #ddd solid;
 }
-
 #respond .o2-editor .o2-editor-wrapper {
   border: 1px solid #ddd;
 }
@@ -680,24 +628,19 @@ article.sticky .o2-sticky-link:after {
   margin: 0.8em 0 1.2em 65px;
   padding: 0;
 }
-
 .o2-comment .o2-editor .o2-editor-footer .o2-editor-tabs li:first-of-type {
   border-left: 1px #ddd solid;
 }
-
 .o2-comment .o2-logged-out-editor {
   clear: none;
 }
-
 .o2-comment .o2-editor-toolbar {
   background: #fafafa;
 }
-
 .o2-comment .o2-actions {
   right: 0;
   position: absolute;
 }
-
 .o2-comment:empty {
   border-top: none 0;
   display: none;
@@ -711,7 +654,7 @@ article.sticky .o2-sticky-link:after {
 .o2-editor-format-standard,
 .o2-editor-format-aside,
 .o2-editor-format-status {
-  font-family: 'genericons';
+  font-family: "genericons";
   float: right;
   cursor: pointer;
   font-size: 16px;
@@ -723,23 +666,21 @@ article.sticky .o2-sticky-link:after {
   right: 5px;
   top: 3px;
 }
-
 .o2-editor-format:hover,
 .o2-editor-format-standard:hover,
 .o2-editor-format-aside:hover,
 .o2-editor-format-status:hover {
   opacity: 1;
 }
-
 .o2-editor-format:before,
 .o2-editor-format-standard:before,
 .o2-editor-format-aside:before,
 .o2-editor-format-status:before {
-  content: '\f100';
+  content: "\f100";
   display: block;
   -webkit-font-smoothing: antialiased;
   line-height: 1;
-  font-family: 'genericons';
+  font-family: "genericons";
   padding: 10px 0 5px 0;
   text-align: center;
   width: 32px;
@@ -748,7 +689,7 @@ article.sticky .o2-sticky-link:after {
 
 .o2-editor-format-aside:before,
 .o2-editor-format-status:before {
-  content: '\f100';
+  content: "\f100";
 }
 
 .o2-editor-toolbar-wrapper {
@@ -757,7 +698,6 @@ article.sticky .o2-sticky-link:after {
   position: -webkit-sticky;
   margin-bottom: 100px;
 }
-
 @media (max-width: 640px) {
   .o2-editor-toolbar-wrapper {
     display: none;
@@ -782,7 +722,6 @@ article.sticky .o2-sticky-link:after {
 .o2 .o2-editor-wrapper.dragging {
   outline: 3px dashed #028DB9;
 }
-
 .o2 .o2-editor-wrapper.dragging .o2-editor-toolbar {
   background: #fafafa !important;
 }
@@ -823,11 +762,9 @@ article.sticky .o2-sticky-link:after {
     margin-bottom: 0.5em;
   }
 }
-
 .o2-app-new-post .o2-editor {
   border: none 0;
 }
-
 .o2-app-new-post .o2-save {
   float: right;
 }
@@ -852,12 +789,10 @@ article.sticky .o2-sticky-link:after {
   margin: 0;
   padding: 0;
 }
-
 .o2-app-new-post .entry-header {
   padding: 0.8em 0.8em 0 0.8em;
   background: #fff;
 }
-
 .o2-app-new-post h2 {
   font-size: 1.25em;
   margin-bottom: 0.4em;
@@ -926,7 +861,6 @@ article.sticky .o2-sticky-link:after {
     margin: -1px 0 0 -1px;
   }
 }
-
 .o2-new-content {
   width: 100%;
 }
@@ -974,20 +908,16 @@ article.sticky .o2-sticky-link:after {
   box-shadow: 0 0 1px rgba(255, 255, 255, 0.25);
   font-family: inherit;
 }
-
 .o2-notification a:link, .o2-notification a:visited, .o2-notification a:active {
   color: #eee;
 }
-
 .o2-notification a:hover {
   color: #fff;
 }
-
 .o2-notification table {
   padding: 10px;
   margin: 0;
 }
-
 .o2-notification table,
 .o2-notification tr,
 .o2-notification td {
@@ -1009,16 +939,15 @@ article.sticky .o2-sticky-link:after {
   vertical-align: middle;
   width: 80px;
   -webkit-font-smoothing: antialiased;
-  font: normal 32px/1 'Genericons';
+  font: normal 32px/1 "Genericons";
 }
 
 .o2-notification-close {
   float: right;
   vertical-align: top;
   -webkit-font-smoothing: antialiased;
-  font: normal 20px/1 'Genericons';
+  font: normal 20px/1 "Genericons";
 }
-
 .o2-notification-close a:hover {
   border-bottom: none;
   text-decoration: none;
@@ -1044,13 +973,11 @@ article.sticky .o2-sticky-link:after {
   z-index: 10000;
   width: 60%;
 }
-
 #help dl {
   margin: 0;
   padding: 0;
   font-size: 2em;
 }
-
 #help dd,
 #help dt {
   display: block;
@@ -1058,7 +985,6 @@ article.sticky .o2-sticky-link:after {
   margin: 0;
   padding: 0;
 }
-
 #help dt {
   clear: left;
   color: #3478e3;
@@ -1067,7 +993,6 @@ article.sticky .o2-sticky-link:after {
   text-align: right;
   width: 25%;
 }
-
 #help dd {
   width: 70%;
   font-family: inherit;

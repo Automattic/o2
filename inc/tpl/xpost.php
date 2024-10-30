@@ -3,13 +3,13 @@
 	<img src="{{ data.author.avatar }}" width="{{ data.author.avatarSize }}" height="{{ data.author.avatarSize }}" class="avatar {{ data.author.modelClass }}" />
 </a>
 <# } #>
-<h4 class="o2-xpost-author">
+<div class="o2-xpost-author">
 	<a href="{{ data.author.url }}" title="{{ data.author.urlTitle }}" class="entry-author {{ data.author.modelClass }}">
 		{{ data.author.displayName }}
 	</a>
 	<a href="{{ data.permalink }}" class="entry-date o2-xpost-entry-date o2-timestamp" data-unixtime="{{ data.unixtime }}">
 	</a>
-</h4>
-<div class="post-content o2-xpost-content">
-	{{{ data.contentFiltered }}}
 </div>
+<h2 class="post-content o2-xpost-content">
+	{{{ data.contentFiltered }}}
+</h2>

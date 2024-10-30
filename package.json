@@ -1,6 +1,6 @@
 {
 	"name": "o2",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"description": "Front-page editing and live-updating posts/comments for your site.",
 	"main": "o2.php",
 	"scripts": {
@@ -28,8 +28,10 @@
 		"grunt-contrib-jshint": "^1.0.0",
 		"grunt-phplint": "0.0.8",
 		"grunt-rtlcss": "2.0.1",
-		"grunt-sass": "^1.0.0",
+		"grunt-sass": "^3.1.0",
 		"grunt-wp-i18n": "^0.5.4",
-		"prettier": "npm:wp-prettier@2.0.5"
+		"node-sass": "^7.0.0",
+		"prettier": "npm:wp-prettier@2.0.5",
+		"sass": "^1.32.8"
 	}
 }

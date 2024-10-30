@@ -42,7 +42,8 @@ o2.Models.Post = ( function() {
 				'postMeta': {},
 				'postTerms': {},
 				'pluginData': {},
-				'isPage': false
+				'isPage': false,
+				'isSingle': 'single' === o2.options.viewType
 			};
 		},
 
