@@ -855,9 +855,9 @@ article.sticky .o2-sticky-link:after {
   }
   #o2-expand-editor span {
     font-size: 32px;
-    width: 44px;
+    width: 35px;
     text-align: center;
-    line-height: 44px;
+    line-height: 33px;
     margin: -1px 0 0 -1px;
   }
 }
