@@ -2,7 +2,7 @@
 	<div class="entry-meta">
 	<# if ( ! data.isPage && o2.options.showAvatars && data.author.avatar ) { #>
 		<a href="{{ data.author.url }}" title="{{ data.author.urlTitle }}" class="author-avatar {{ data.author.modelClass }}">
-			<img src="{{ data.author.avatar }}" alt="" width="{{ data.author.avatarSize }}" height="{{ data.author.avatarSize }}" class="avatar {{ data.author.modelClass }}" />
+			<img src="{{ data.author.avatar }}" alt="{{ data.author.urlTitle }}" width="{{ data.author.avatarSize }}" height="{{ data.author.avatarSize }}" class="avatar {{ data.author.modelClass }}" />
 		</a>
 	<# } #>
 	<# if ( ! data.isPage ) { #>
