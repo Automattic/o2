@@ -413,7 +413,7 @@ class o2 {
 				'previewPlaceholder'                   => __( 'Generating preview...', 'o2' ),
 				'bold'                                 => __( 'Bold (ctrl/⌘-b)', 'o2' ),
 				'italics'                              => __( 'Italics (ctrl/⌘-i)', 'o2' ),
-				'link'                                 => __( 'Link (⌘-shift-a)', 'o2' ),
+				'link'                                 => __( 'Link (⌘/alt-shift-a)', 'o2' ),
 				'image'                                => __( 'Image', 'o2' ),
 				'blockquote'                           => __( 'Blockquote', 'o2' ),
 				'code'                                 => __( 'Code', 'o2' ),
