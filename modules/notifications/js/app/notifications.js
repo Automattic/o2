@@ -77,7 +77,5 @@ jQuery( document ).on( 'preload.o2', function( bootstrap ) {
 } );
 
 jQuery( document ).on( 'ready.o2', function() {
-	if ( 'undefined' !== typeof o2.Notifications ) {
-		o2.Notifications.open();
-	}
+	o2.Notifications?.open();
 } );
