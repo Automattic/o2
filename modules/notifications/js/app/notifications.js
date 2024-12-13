@@ -77,5 +77,5 @@ jQuery( document ).on( 'preload.o2', function( bootstrap ) {
 } );
 
 jQuery( document ).on( 'ready.o2', function() {
-	o2.Notifications.open();
+	o2.Notifications?.open();
 } );
