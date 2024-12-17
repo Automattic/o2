@@ -3,7 +3,7 @@
 Plugin Name: o2
 Plugin URI: http://geto2.com
 Description: Front-page editing and live-updating posts/comments for your site.
-Version: 0.2.2
+Version: 0.2.3
 Author: Automattic
 Author URI: http://wordpress.com/
 License: GNU General Public License v2 or later
