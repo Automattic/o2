@@ -1,5 +1,5 @@
 <div class="o2-post"></div>
-<div class="o2-post-comments"></div>
+<div class="o2-post-comments" id="comments"></div>
 <div class="o2-post-comment-controls"></div>
 
 <# if ( data.showNavigation ) { #>
