@@ -483,6 +483,7 @@ class o2_Fragment {
 			'displayName' => $user_data->display_name,
 			'firstName' => $user_data->user_firstname,
 			'lastName' => $user_data->user_lastname,
+			'localAvatar' => self::get_local_avatar_url( $user_data->ID ),
 			'url' => get_author_posts_url( $user_data->ID ),
 			'urlTitle' => sprintf( __( 'Posts by %1$s (%2$s)', 'o2' ), $user_data->display_name, '@' . $user_data->user_nicename ),
 			'hash' => md5( strtolower( trim( $user_data->user_email ) ) ),
@@ -495,6 +496,25 @@ class o2_Fragment {
 		$bootstrap_model = self::to_utf8( $bootstrap_model );
 
 		return $bootstrap_model;
+	}
+
+	/**
+	 * This function is used to get the source attribute for a local avatar.
+	 *
+	 * @see filter get_avatar_url in wp-includes/link-template.php
+	 * @see filter get_avatar_data in wp-includes/link-template.php
+	 *
+	 * @param  mixed $user_id (Required) Accepts a user_id, gravatar md5 hash, user email, WP_User object, WP_Post object, or WP_Comment object.
+	 * @return string|boolean $source Returns the source attribute of the avatar. Or false if not a local avatar.
+	 */
+	public static function get_local_avatar_url( $user_id ) {
+		$avatar_url = get_avatar_url( $user_id, array( 'size' => 48 ) );
+
+		if ( false !== strpos( $source, 'gravatar.com' ) ) {
+			return false;
+		}
+
+		return $avatar_url;
 	}
 
 	/**

@@ -66,10 +66,16 @@ o2.Collections.Users = ( function( $, Backbone ) {
 
 			var userAttributes = _.clone( user.attributes );
 
-			// Add the avatar info
-			var defaultAvatar = ( 'undefined' !== typeof o2.options.defaultAvatar ) ? o2.options.defaultAvatar : 'identicon';
-			userAttributes.avatar = 'https://gravatar.com/avatar/' + userAttributes.hash + '?d=' + defaultAvatar;
-			userAttributes.avatarSize = avatarSize;
+			// Add the avatar info. If there is a local avatar in use, override user gravatar.
+			if ( false !== userAttributes.localAvatar ) {
+				userAttributes.avatar = userAttributes.localAvatar;
+				userAttributes.avatarSize = avatarSize;
+			} else {
+				// Add the avatar info
+				var defaultAvatar = ( 'undefined' !== typeof o2.options.defaultAvatar ) ? o2.options.defaultAvatar : 'identicon';
+				userAttributes.avatar = 'https://gravatar.com/avatar/' + userAttributes.hash + '?d=' + defaultAvatar;
+				userAttributes.avatarSize = avatarSize;
+			}
 
 			return userAttributes;
 		},
@@ -139,4 +145,3 @@ o2.Collections.Users = ( function( $, Backbone ) {
 
 	} );
 } )( jQuery, Backbone );
-
