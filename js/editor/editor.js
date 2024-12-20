@@ -35,6 +35,7 @@ o2Editor = {
 		$doc.on( 'drop',      '.o2-editor-wrapper', this.onDrop );
 
 		$doc.on( 'keydown', '.o2-editor-text', 'meta+shift+a', this.shortcutKey ); // Link, a la wp-admin
+		$doc.on( 'keydown', '.o2-editor-text', 'alt+shift+a',  this.shortcutKey ); // Link, a la wp-admin
 		$doc.on( 'keydown', '.o2-editor-text', 'ctrl+b',       this.shortcutKey ); // Bold (strong)
 		$doc.on( 'keydown', '.o2-editor-text', 'meta+b',       this.shortcutKey ); // Bold (strong)
 		$doc.on( 'keydown', '.o2-editor-text', 'ctrl+i',       this.shortcutKey ); // Italic (em)
@@ -402,7 +403,7 @@ o2Editor = {
 			e.preventDefault();
 			$( e.target ).parent().find( '.insert-media' ).click(); // cheap and dirty, but the handle to media gallery isn't otherwise clean
 			return;
-		} else if ( e.metaKey && e.shiftKey && 65 === e.which ) {
+		} else if ( ( e.metaKey || e.altKey ) && e.shiftKey && 65 === e.which ) {
 			tag = 'a';
 		} else if ( ( e.ctrlKey || e.metaKey ) && 66 === e.which ) {
 			tag = 'strong';
