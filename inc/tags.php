@@ -369,7 +369,7 @@ class o2_Tags extends o2_Terms_In_Comments {
 
 		$tags = $this->gather_all_tags( $post );
 
-		wp_set_post_tags( $post->ID, $tags, false );
+		wp_set_post_tags( $post->ID, $tags, true );
 	}
 
 	function gather_all_tags( $post ) {
