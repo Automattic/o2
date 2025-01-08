@@ -87,7 +87,7 @@ class o2_Tags extends o2_Terms_In_Comments {
 	 * @param int $post_id The post ID that the content belongs to
 	 * @return string The raw content, with tags appended
 	 */
-	function append_old_tags_raw( $content, $post_id ) {
+	static function append_old_tags_raw( $content, $post_id ) {
 		$content_tags = o2_Tags::find_tags( $content, true );
 		$content_tags = array_map( 'strtolower', $content_tags );
 		$content_tags = array_unique( $content_tags );
@@ -117,7 +117,7 @@ class o2_Tags extends o2_Terms_In_Comments {
 	 * @return string The fragment with any old tags appended to contentRaw
 	 */
 	function append_old_tags_to_fragment( $fragment ) {
-		$fragment['contentRaw'] = $this->append_old_tags_raw( $fragment['contentRaw'], $fragment['id'] );
+		$fragment['contentRaw'] = o2_Tags::append_old_tags_raw( $fragment['contentRaw'], $fragment['id'] );
 		return $fragment;
 	}
 
