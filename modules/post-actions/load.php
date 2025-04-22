@@ -91,7 +91,8 @@ class o2_Post_Actions {
 			return $content;
 		}
 
-		$actions = apply_filters( 'o2_filter_post_actions', array(), $post->ID );
+		$post_id = ! empty( $post->ID ) ? $post->ID : 0;
+		$actions = apply_filters( 'o2_filter_post_actions', array(), $post_id );
 
 		$content .= "<nav class='o2-post-footer-actions'>";
 
@@ -123,7 +124,8 @@ class o2_Post_Actions {
 			return $content;
 		}
 
-		$actions = apply_filters( 'o2_filter_post_actions', array(), $post->ID );
+		$post_id = ! empty( $post->ID ) ? $post->ID : 0;
+		$actions = apply_filters( 'o2_filter_post_actions', array(), $post_id );
 
 		$content .= "</div>";
 		$content .= "<ul class='o2-post-footer-action-row'>";
