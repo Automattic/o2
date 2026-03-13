@@ -32,6 +32,14 @@ define( 'O2__FILE__', __FILE__ );
 define( 'O2__DIR__', dirname( O2__FILE__ ) );
 
 class o2 {
+	public $xposts;
+	public $tags;
+	public $keyboard;
+	public $templates;
+	public $search;
+	public $post_list_creator;
+	public $comment_list_creator;
+
 	private $editor;
 	/**
 	 * Initializes the plugin by setting localization, filters, and administration functions.
