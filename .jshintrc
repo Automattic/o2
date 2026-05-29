@@ -3,7 +3,6 @@
 	"curly": true,
 	"eqeqeq": true,
 	"eqnull": true,
-	"es3": true,
 	"expr": true,
 	"immed": true,
 	"noarg": true,
@@ -13,6 +12,7 @@
 	"trailing": true,
 	"undef": true,
 	"unused": true,
+	"esversion": 11,
 
 	"browser": true,
 

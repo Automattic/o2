@@ -1,5 +1,6 @@
 /* global module */
 module.exports = function(grunt) {
+	var childProcess = require('child_process');
 	var cfg = {
 			pkg: grunt.file.readJSON('package.json'),
 			phplint: {
@@ -83,11 +84,38 @@ module.exports = function(grunt) {
 
 	grunt.initConfig( cfg );
 
-	grunt.loadNpmTasks('grunt-phplint');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-wp-i18n');
 	grunt.loadNpmTasks('grunt-rtlcss');
+
+	grunt.registerTask( 'phplint', 'Runs PHP syntax checks.', function() {
+		var failures = [];
+		var files = grunt.file.expand( { filter: 'isFile' }, cfg.phplint.files );
+
+		files.forEach( function( file ) {
+			var result = childProcess.spawnSync( 'php', [ '-l', file ], {
+				encoding: 'utf8'
+			} );
+
+			if ( result.error ) {
+				grunt.log.error( result.error.message );
+				failures.push( file );
+				return;
+			}
+
+			if ( result.status !== 0 ) {
+				grunt.log.error( result.stdout || result.stderr );
+				failures.push( file );
+			}
+		} );
+
+		if ( failures.length ) {
+			grunt.fail.warn( 'PHP syntax check failed for ' + failures.length + ' file(s).' );
+		}
+
+		grunt.log.ok( 'No syntax errors detected in ' + files.length + ' PHP files.' );
+	} );
 
 	grunt.registerTask('default', [
 		'phplint',
