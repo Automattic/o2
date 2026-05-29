@@ -86,20 +86,6 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
   content: "\f304";
 }
 
-.o2-permalink,
-.o2-post-reply,
-.o2-scroll-to-comments,
-.o2-edit.edit-post-link,
-.o2-follow,
-.o2-short-link,
-.o2-resolve-link,
-.o2-sticky-link {
-  display: inline-block;
-  text-indent: -9999px;
-  height: 32px;
-  width: 32px;
-  overflow: hidden;
-}
 .o2-permalink:after,
 .o2-post-reply:after,
 .o2-scroll-to-comments:after,
@@ -120,6 +106,20 @@ li.o2-filter-widget-item#o2-filter-my-posts a:before {
   padding-right: 8px;
   padding-left: 8px;
   opacity: 0.4;
+}
+.o2-permalink,
+.o2-post-reply,
+.o2-scroll-to-comments,
+.o2-edit.edit-post-link,
+.o2-follow,
+.o2-short-link,
+.o2-resolve-link,
+.o2-sticky-link {
+  display: inline-block;
+  text-indent: -9999px;
+  height: 32px;
+  width: 32px;
+  overflow: hidden;
 }
 
 .o2-post:hover .o2-actions a:after,
