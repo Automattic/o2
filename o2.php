@@ -32,6 +32,14 @@ define( 'O2__FILE__', __FILE__ );
 define( 'O2__DIR__', dirname( O2__FILE__ ) );
 
 class o2 {
+	const O2_QUERY_VARS = array(
+		'author', 'author_name',                                           // Author
+		'cat', 'category_name', 'tag', 'tag_id', 'tax_query',              // Taxonomy
+		'year', 'monthnum', 'day', 'hour', 'minute', 'second', 'm', 'w',   // Time
+		'p', 'name', 'page_id', 'pagename', 'page', 'paged',               // Post
+		's',                                                               // Search
+	);
+
 	public $xposts;
 	public $tags;
 	public $keyboard;
@@ -307,13 +315,7 @@ class o2 {
 		global $wp_query;
 		$query_vars = $wp_query->query_vars;
 		$sanitized_query_vars = array();
-		$allowed_query_vars = apply_filters( 'o2_query_vars', array(
-			'author', 'author_name',                                           // Author
-			'cat', 'category_name', 'tag', 'tag_id', 'tax_query',              // Taxonomy
-			'year', 'monthnum', 'day', 'hour', 'minute', 'second', 'm', 'w',   // Time
-			'p', 'name', 'page_id', 'pagename', 'page', 'paged',               // Post
-			's',                                                               // Search
-		) );
+		$allowed_query_vars = apply_filters( 'o2_query_vars', o2::O2_QUERY_VARS );
 		foreach ( $query_vars as $query_var => $value ) {
 			if ( in_array( $query_var, $allowed_query_vars ) && ! empty( $value ) )
 				$sanitized_query_vars[ $query_var ] = $value;

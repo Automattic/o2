@@ -287,8 +287,14 @@ class o2_Read_API extends o2_API_Base {
 
 		// Override post stati on $args as read is unauthenticated
 		$args = array();
-		if ( isset( $_REQUEST['queryVars'] ) ) {
-			$args = $_REQUEST['queryVars'];
+		if ( isset( $_REQUEST['queryVars'] ) && is_array( $_REQUEST['queryVars'] ) ) {
+			// This endpoint is unauthenticated, so only the query vars o2 itself
+			// bootstraps to the client may be honoured; anything else is attacker
+			// supplied. Same allow list as o2::register_plugin_scripts().
+			$query_vars         = wp_unslash( $_REQUEST['queryVars'] );
+			$allowed_query_vars = apply_filters( 'o2_query_vars', o2::O2_QUERY_VARS );
+			$allowed            = array_intersect_key( $query_vars, array_flip( $allowed_query_vars ) );
+			$args               = array_filter( apply_filters( 'o2_sanitized_query_vars', $allowed ) );
 		}
 
 		$args['post_status'] = $post_stati;
@@ -301,6 +307,11 @@ class o2_Read_API extends o2_API_Base {
 			'suppress_filters'    => false,
 		);
 		$query_args = wp_parse_args( $args, $defaults );
+
+		// The recency bound is enforced by the posts_where filter above, and core
+		// skips every posts_* filter when suppress_filters is true. Never let the
+		// request turn it on.
+		$query_args['suppress_filters'] = false;
 
 		// If we are on a page, change the query post_type to page, otherwise
 		// we will get no data (and updates to pages will not be sent to polling

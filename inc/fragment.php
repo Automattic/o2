@@ -36,6 +36,20 @@ class o2_Fragment {
 	 */
 	public static function get_fragment_from_post( $my_post, $args = array() ) {
 
+		// Trashed posts reach this unauthenticated poll; anyone who cannot edit one
+		// gets its ID and nothing else. Must stay the first statement in this function:
+		// the filter swaps below are restored further down. unixtime is required by the
+		// poll's o2_date_sort comparator, and is deliberately 0 rather than the real value.
+		if ( 'trash' === get_post_status( $my_post->ID ) && ! current_user_can( 'edit_post', $my_post->ID ) ) {
+			return array(
+				'type'      => 'post',
+				'id'        => $my_post->ID,
+				'postID'    => $my_post->ID,
+				'isTrashed' => true,
+				'unixtime'  => 0,
+			);
+		}
+
 		remove_filter( 'the_content', array( 'o2', 'add_json_data' ), 999999 ); // Avoid infinite loops
 		remove_filter( 'the_excerpt', array( 'o2', 'add_json_data' ), 999999 ); // Avoid infinite loops
 
