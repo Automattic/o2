@@ -28,7 +28,7 @@ o2.Offline = {
 			o2.Offline.onWindowUnloading();
 		} );
 
-		jQuery( window ).unload( function() {
+		jQuery( window ).on( 'unload', function() {
 			o2.Offline.onWindowUnloading();
 		} );
 	},
