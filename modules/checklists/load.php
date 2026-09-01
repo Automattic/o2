@@ -95,12 +95,6 @@ class o2_List_Creator {
 			return true;
 		}
 
-		// o2 also allows authors to do checklist things
-		$user_data = get_userdata( $current_user_id );
-		if ( in_array( 'author', $user_data->roles ) ) {
-			return true;
-		}
-
 		return false;
 	}
 
