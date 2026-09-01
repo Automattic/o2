@@ -167,7 +167,7 @@ var ChecklistsExtendsCommon = ( function( $ ) {
 			this.options.ignoreTaskBlur = false;
 
 			if ( newItemText.length ) {
-				containingItem.find( '.o2-task-item-text' ).html( newItemText ).show();
+				containingItem.find( '.o2-task-item-text' ).text( newItemText ).show();
 				var command = containingItem.hasClass( 'o2-task-new' ) ? 'add' : 'update';
 				this.sendChecklistRequest( containingItem, command, newItemText, 0 );
 				this.checkListResumeUpdates();
