@@ -8,6 +8,7 @@
 
 		<!-- General Dependencies -->
 		<script src="../../../../../wp-includes/js/jquery/jquery.js"></script>
+		<script src="../../../../../wp-includes/js/underscore.min.js"></script>
 
 		<!-- 
 		These other ones aren't needed yet, but may be down the line
@@ -19,6 +20,24 @@
 		-->
 
 		<!-- Plugin Dependencies -->
+		<script>
+			window.o2 = {
+				strings: {
+					bold: 'Bold',
+					italics: 'Italics',
+					link: 'Link',
+					image: 'Image',
+					blockquote: 'Blockquote',
+					code: 'Code',
+					addPostTitle: 'Add title',
+					enterTitleHere: 'Enter title here'
+				},
+				options: {
+					appContainer: '#qunit-fixture'
+				}
+			};
+		</script>
+		<script src="../../js/editor/editor.js"></script>
 		<script src="../../modules/time-shortcode/js/time-shortcode.js"></script>
 
 	</head>
@@ -31,6 +50,7 @@
 		<script>QUnit.config.hidepassed = false;</script>
 
 		<!-- Test Suites -->
+		<script src="editor.js"></script>
 		<script src="modules/time-shortcode.js"></script>
 	</body>
 </html>

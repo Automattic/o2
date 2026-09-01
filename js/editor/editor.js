@@ -188,10 +188,13 @@ o2Editor = {
 						<input type="text" class="o2-title o2-editor-title" value="' + title + '" placeholder="' + o2.strings.enterTitleHere + '" /> \
 					</div>';
 					}
-				editor += '<textarea class="o2-editor-text" placeholder="' + prompt + '">' + content + '</textarea> \
+				editor += '<textarea class="o2-editor-text"></textarea> \
 				<div class="o2-editor-preview"></div> \
 			</div> \
 		</div>';
+
+		editor = $( editor );
+		editor.find( '.o2-editor-text' ).attr( 'placeholder', prompt ).val( content );
 
 		return editor;
 	},
