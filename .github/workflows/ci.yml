@@ -35,15 +35,12 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          extensions: mysqli
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
       - run: composer install --no-interaction
       - run: npm ci
-      - name: Install Subversion, which bin/install-wp-tests.sh uses to fetch the WordPress test library
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq subversion
       - run: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:3306 latest
       - run: npx grunt travis:phpunit
 

@@ -78,7 +78,10 @@ install_test_suite() {
 	if [ ! -d $WP_TESTS_DIR ]; then
 		# set up testing suite
 		mkdir -p $WP_TESTS_DIR
-		svn co --quiet https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/includes/ $WP_TESTS_DIR/includes
+		git clone --quiet --depth 1 --filter=blob:none --sparse --branch "${WP_TESTS_TAG#tags/}" https://github.com/WordPress/wordpress-develop.git $WP_TESTS_DIR/wordpress-develop
+		git -C $WP_TESTS_DIR/wordpress-develop sparse-checkout set --no-cone /tests/phpunit/includes
+		mv $WP_TESTS_DIR/wordpress-develop/tests/phpunit/includes $WP_TESTS_DIR/includes
+		rm -rf $WP_TESTS_DIR/wordpress-develop
 	fi
 
 	if [ ! -f wp-tests-config.php ]; then
