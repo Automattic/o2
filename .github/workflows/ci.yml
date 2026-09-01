@@ -21,7 +21,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npx grunt travis:lint
+      - run: npx grunt lint
 
   phpunit:
     runs-on: ubuntu-latest
