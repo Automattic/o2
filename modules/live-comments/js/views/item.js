@@ -41,7 +41,7 @@ o2.Views.LiveCommentsWidgetItemView = ( function( $ ) {
 				titleTemplate = o2.Utilities.Template( 'live-comment-title-template' );
 				titleForItem = titleTemplate( jsonifiedModel );
 			}
-			jsonifiedModel.title = titleForItem;
+			jsonifiedModel.title = _.unescape( titleForItem );
 
 			var template = o2.Utilities.Template( 'live-item-template' );
 
