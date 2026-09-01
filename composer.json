@@ -1,0 +1,9 @@
+{
+	"name": "automattic/o2",
+	"description": "Front-page editing and live-updating posts/comments for your site.",
+	"license": "GPL-2.0-or-later",
+	"require-dev": {
+		"phpunit/phpunit": "^9.6",
+		"yoast/phpunit-polyfills": "^1.1"
+	}
+}

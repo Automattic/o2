@@ -4,7 +4,7 @@
 	"description": "Front-page editing and live-updating posts/comments for your site.",
 	"main": "o2.php",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "grunt travis:lint travis:phpunit qunit"
 	},
 	"repository": {
 		"type": "git",
@@ -24,6 +24,7 @@
 	"devDependencies": {
 		"grunt": "^1.6.2",
 		"grunt-contrib-jshint": "^3.2.0",
+		"grunt-contrib-qunit": "^10.2.0",
 		"grunt-rtlcss": "^2.0.2",
 		"grunt-sass": "^4.1.0",
 		"grunt-wp-i18n": "^1.0.4",
