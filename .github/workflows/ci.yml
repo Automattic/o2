@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx grunt travis:lint
+
+  phpunit:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping -proot" --health-interval=10s --health-timeout=5s --health-retries=5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+      - run: composer install --no-interaction
+      - run: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:3306 latest
+      - run: vendor/bin/phpunit -c phpunit.xml.dist
+
+  qunit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: wp-content/plugins/o2
+      - name: Unpack WordPress core for the jQuery and Underscore the test page loads
+        run: curl -sL https://wordpress.org/latest.tar.gz | tar -xz --strip-components=1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: wp-content/plugins/o2/package-lock.json
+      - run: npm ci
+        working-directory: wp-content/plugins/o2
+      - run: npx grunt qunit
+        working-directory: wp-content/plugins/o2

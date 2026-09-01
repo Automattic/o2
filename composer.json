@@ -1,0 +1,8 @@
+{
+	"name": "automattic/o2",
+	"license": "GPL-2.0-or-later",
+	"require-dev": {
+		"phpunit/phpunit": "^9.6",
+		"yoast/phpunit-polyfills": "^1.1"
+	}
+}

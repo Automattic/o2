@@ -62,8 +62,6 @@ install_wp() {
 		download https://wordpress.org/${ARCHIVE_NAME}.tar.gz  /tmp/wordpress.tar.gz
 		tar --strip-components=1 -zxmf /tmp/wordpress.tar.gz -C $WP_CORE_DIR
 	fi
-
-	download https://raw.github.com/markoheijnen/wp-mysqli/master/db.php $WP_CORE_DIR/wp-content/db.php
 }
 
 install_test_suite() {
@@ -78,7 +76,10 @@ install_test_suite() {
 	if [ ! -d $WP_TESTS_DIR ]; then
 		# set up testing suite
 		mkdir -p $WP_TESTS_DIR
-		svn co --quiet https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/includes/ $WP_TESTS_DIR/includes
+		git clone --quiet --depth 1 --filter=blob:none --sparse --branch "${WP_TESTS_TAG#tags/}" https://github.com/WordPress/wordpress-develop.git $WP_TESTS_DIR/wordpress-develop
+		git -C $WP_TESTS_DIR/wordpress-develop sparse-checkout set --no-cone /tests/phpunit/includes
+		mv $WP_TESTS_DIR/wordpress-develop/tests/phpunit/includes $WP_TESTS_DIR/includes
+		rm -rf $WP_TESTS_DIR/wordpress-develop
 	fi
 
 	if [ ! -f wp-tests-config.php ]; then

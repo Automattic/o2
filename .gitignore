@@ -7,3 +7,6 @@ sftp-config.json
 node_modules
 .idea/*
 *~
+vendor
+composer.lock
+.phpunit.result.cache

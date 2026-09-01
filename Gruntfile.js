@@ -6,7 +6,9 @@ module.exports = function(grunt) {
 			phplint: {
 				files: [
 					'*.php',
-					'**/*.php'
+					'**/*.php',
+					'!node_modules/**',
+					'!vendor/**'
 				]
 			},
 			jshint: {
@@ -76,15 +78,19 @@ module.exports = function(grunt) {
 			},
 			phpunit: {
 				'default': {
-					cmd: 'phpunit',
+					cmd: 'vendor/bin/phpunit',
 					args: ['-c', 'phpunit.xml.dist']
 				}
+			},
+			qunit: {
+				all: [ 'tests/qunit/index.html' ]
 			}
 		};
 
 	grunt.initConfig( cfg );
 
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-wp-i18n');
 	grunt.loadNpmTasks('grunt-rtlcss');
