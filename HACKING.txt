@@ -53,3 +53,10 @@ There are a number of core modules provided, which will give you an idea on how 
 ## Development/Build
 * Run 'npm install' to initially setup the development environment
 * Run 'grunt sass' in the root of o2 to rebuild Sass files into CSS
+
+## Testing
+* Run 'composer install' to get PHPUnit and the polyfills the WordPress test library needs
+* Run 'bash bin/install-wp-tests.sh <db-name> <db-user> <db-pass> [db-host] [wp-version]' once to install WordPress and its test library into /tmp (needs git and a MySQL server)
+* Run 'vendor/bin/phpunit' (or 'grunt travis:phpunit') for the PHP tests
+* Run 'grunt qunit' for the JavaScript tests. The test page loads jQuery and Underscore from WordPress core, so the plugin has to sit at wp-content/plugins/o2 inside a WordPress install
+* 'npm test' runs lint, PHPUnit, and QUnit together

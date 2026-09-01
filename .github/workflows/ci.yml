@@ -5,6 +5,9 @@ on:
     branches: [ master ]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -35,14 +38,9 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
       - run: composer install --no-interaction
-      - run: npm ci
       - run: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:3306 latest
-      - run: npx grunt travis:phpunit
+      - run: vendor/bin/phpunit -c phpunit.xml.dist
 
   qunit:
     runs-on: ubuntu-latest

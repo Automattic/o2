@@ -6,7 +6,9 @@ module.exports = function(grunt) {
 			phplint: {
 				files: [
 					'*.php',
-					'**/*.php'
+					'**/*.php',
+					'!node_modules/**',
+					'!vendor/**'
 				]
 			},
 			jshint: {
