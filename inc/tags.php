@@ -183,7 +183,9 @@ class o2_Tags extends o2_Terms_In_Comments {
 				$parent = $parent->parentNode;
 			}
 
-			$text = $textNode->nodeValue;
+			// DOMDocument decodes entities in nodeValue. Re-escape the text before
+			// adding trusted link markup and parsing the combined fragment again.
+			$text = htmlspecialchars( $textNode->nodeValue, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8' );
 
 			$totalCount = 0;
 			foreach ( $tags as $tag ) {
@@ -203,7 +205,7 @@ class o2_Tags extends o2_Terms_In_Comments {
 				}
 
 				$count = 0;
-				$text = preg_replace( "/(^|\s|>|\()#$tag(($|\b|\s|<|\)))/", '$1' . $replacement . '$2', $text, -1, $count );
+				$text = preg_replace( "/(^|\s|>|&gt;|\()#$tag(($|\b|\s|<|\)))/", '$1' . $replacement . '$2', $text, -1, $count );
 				$totalCount += $count;
 			}
 
