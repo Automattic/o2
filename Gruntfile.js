@@ -138,6 +138,5 @@ module.exports = function(grunt) {
 		}, this.async());
 	});
 
-	grunt.registerTask( 'travis:lint', 'Runs code linting Travis CI tasks', [ 'phplint', 'jshint' ] );
-	grunt.registerTask( 'travis:phpunit', 'Runs PHPUnit Travis CI tasks.', 'phpunit' );
+	grunt.registerTask( 'lint', 'Runs PHP and JavaScript lint checks.', [ 'phplint', 'jshint' ] );
 };

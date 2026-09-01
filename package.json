@@ -4,7 +4,7 @@
 	"description": "Front-page editing and live-updating posts/comments for your site.",
 	"main": "o2.php",
 	"scripts": {
-		"test": "grunt travis:lint travis:phpunit qunit"
+		"test": "grunt lint phpunit qunit"
 	},
 	"repository": {
 		"type": "git",
