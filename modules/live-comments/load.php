@@ -40,7 +40,7 @@ class o2_Live_Comments_Widget extends WP_Widget {
 					<# if ( 'comment' === data.type ) { #>
 						data-postid="{{ data.postID }}"
 					<# } #>
-					>{{{ data.title }}}</a>
+					>{{ data.title }}</a>
 					<br/>
 					<span class="entry-date o2-timestamp" data-unixtime="{{ data.unixtime }}" data-domref="{{ data.domRef }}"
 						<# if ( 'comment' === data.type ) { #>
