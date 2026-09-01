@@ -72,6 +72,10 @@ class o2_Read_API extends o2_API_Base {
 			}
 			if ( count( $comments ) ) {
 				foreach ( $comments as $comment ) {
+					if ( ! self::current_user_can_read_post( $comment->comment_post_ID ) ) {
+						continue;
+					}
+
 					$data[] = o2_Fragment::get_fragment( $comment );
 				}
 			}
@@ -447,6 +451,33 @@ class o2_Read_API extends o2_API_Base {
 		}
 
 		return $comments;
+	}
+
+	/**
+	 * Whether the current user may see a given post through the read API.
+	 *
+	 * @param int $post_id Post ID.
+	 * @return bool
+	 */
+	private static function current_user_can_read_post( $post_id ) {
+		if ( empty( $post_id ) ) {
+			return false;
+		}
+
+		$post = get_post( $post_id );
+		if ( ! $post ) {
+			return false;
+		}
+
+		if ( current_user_can( 'edit_post', $post->ID ) ) {
+			return true;
+		}
+
+		if ( ! empty( $post->post_password ) ) {
+			return false;
+		}
+
+		return is_post_publicly_viewable( $post ) || current_user_can( 'read_post', $post->ID );
 	}
 
 	/**

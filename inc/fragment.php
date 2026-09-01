@@ -296,6 +296,21 @@ class o2_Fragment {
 	}
 
 	public static function get_fragment_from_comment( $my_comment ) {
+		// Return only the fields the client needs to remove a trashed comment from the UI.
+		if ( 'trash' === $my_comment->comment_approved && ! current_user_can( 'edit_comment', $my_comment->comment_ID ) ) {
+			return array(
+				'type'            => 'comment',
+				'id'              => $my_comment->comment_ID,
+				'postID'          => $my_comment->comment_post_ID,
+				'parentID'        => $my_comment->comment_parent,
+				'contentFiltered' => '',
+				'unixtime'        => 0,
+				'approved'        => false,
+				'isTrashed'       => true,
+				'hasChildren'     => (bool) get_comment_meta( $my_comment->comment_ID, 'o2_comment_has_children', true ),
+			);
+		}
+
 		add_filter( 'home_url', array( 'o2_Fragment', 'home_url' ), 10, 4 );
 
 		// Update the global comment variable for methods like get_comment_ID used by comment_like_current_user_likes

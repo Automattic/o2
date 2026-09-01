@@ -263,6 +263,64 @@ class FragmentTest extends WP_UnitTestCase {
 		);
 	}
 
+	function test_trashed_comment_fragment_withholds_content_from_unauthorized_users() {
+		wp_set_current_user( 0 );
+
+		$post = $this->factory->post->create_and_get( array(
+			'post_title'  => 'Private fragment details',
+			'post_status' => 'publish',
+		) );
+
+		$comment = $this->factory->comment->create_and_get( array(
+			'comment_content'  => 'Sensitive trashed comment content',
+			'comment_approved' => 'trash',
+			'comment_post_ID'  => $post->ID,
+			'comment_parent'   => 17,
+		) );
+
+		update_comment_meta( $comment->comment_ID, 'o2_comment_has_children', true );
+
+		$this->assertSame(
+			array(
+				'type'            => 'comment',
+				'id'              => $comment->comment_ID,
+				'postID'          => $comment->comment_post_ID,
+				'parentID'        => $comment->comment_parent,
+				'contentFiltered' => '',
+				'unixtime'        => 0,
+				'approved'        => false,
+				'isTrashed'       => true,
+				'hasChildren'     => true,
+			),
+			o2_Fragment::get_fragment_from_comment( $comment )
+		);
+	}
+
+	function test_trashed_comment_fragment_retains_content_for_authorized_users() {
+		$author_id = $this->factory->user->create( array(
+			'role' => 'administrator',
+		) );
+		wp_set_current_user( $author_id );
+
+		$post = $this->factory->post->create_and_get( array(
+			'post_author' => $author_id,
+			'post_status' => 'publish',
+		) );
+
+		$comment = $this->factory->comment->create_and_get( array(
+			'comment_content'  => 'Authorized trashed comment content',
+			'comment_approved' => 'trash',
+			'comment_post_ID'  => $post->ID,
+		) );
+
+		$fragment = o2_Fragment::get_fragment_from_comment( $comment );
+
+		$this->assertSame( $comment->comment_content, $fragment['contentRaw'] );
+		$this->assertTrue( $fragment['isTrashed'] );
+
+		wp_set_current_user( 0 );
+	}
+
 	function test_get_depth_for_comment() {
 
 		$grandparent = $this->factory->comment->create_and_get( array(
