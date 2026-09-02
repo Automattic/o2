@@ -55,6 +55,19 @@ class o2ChecklistsTest extends WP_UnitTestCase {
 		$this->assertStringNotContainsString( 'o2-task-tools', $rendered, 'The task tools should not be rendered' );
 	}
 
+	function test_editor_can_edit_checklist_in_another_users_comment() {
+		$editor_id = $this->factory->user->create( array( 'role' => 'editor' ) );
+		$author_id = $this->factory->user->create( array( 'role' => 'author' ) );
+		$comment_id = $this->create_comment_on_another_authors_post( $author_id );
+
+		wp_set_current_user( $editor_id );
+
+		$this->assertTrue(
+			$this->list_creator->current_user_can_edit_checklist( 'comment', $comment_id ),
+			'An editor should be able to edit checklists in any comment'
+		);
+	}
+
 	function test_logged_out_user_cannot_edit_checklist_in_comment() {
 		$author_id = $this->factory->user->create( array( 'role' => 'author' ) );
 		$comment_id = $this->create_comment_on_another_authors_post( $author_id );
