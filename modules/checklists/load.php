@@ -81,7 +81,7 @@ class o2_List_Creator {
 		return $this->parse_lists( $content );
 	}
 
-	function current_user_can_edit_checklist( $object_type, $object_ID ) {
+	public function current_user_can_edit_checklist( $object_type, $object_id ) {
 		// no logged out edits, evar
 		$current_user_id = get_current_user_id();
 		if ( 0 == $current_user_id ) {
@@ -89,10 +89,14 @@ class o2_List_Creator {
 		}
 
 		// try default post and comment capabilities
-		if ( ( 'post' == $object_type ) && ( current_user_can( 'edit_post', $object_ID ) ) ) {
+		if ( ( 'post' == $object_type ) && ( current_user_can( 'edit_post', $object_id ) ) ) {
 			return true;
-		} else if ( ( 'comment' == $object_type ) && ( current_user_can( 'edit_comment', $object_ID ) ) ) {
-			return true;
+		} else if ( 'comment' == $object_type ) {
+			// Apply o2's comment rule: authors always edit their own comments
+			add_filter( 'map_meta_cap', array( 'o2_Write_API', 'restrict_comment_editing' ), 10, 4 );
+			$user_can_edit_comment = current_user_can( 'edit_comment', $object_id );
+			remove_filter( 'map_meta_cap', array( 'o2_Write_API', 'restrict_comment_editing' ), 10 );
+			return $user_can_edit_comment;
 		}
 
 		return false;
