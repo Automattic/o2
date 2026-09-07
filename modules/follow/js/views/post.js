@@ -14,6 +14,16 @@ var FollowExtendsPost = ( function() {
 			'touchend a.o2-follow':   'updateFollow'
 		},
 
+		// True when a url resolves to the origin the page was served from.
+		// Assigning to an anchor lets the browser normalise relative and
+		// protocol-relative forms before the comparison.
+		isSameOrigin: function( url ) {
+			var resolver = document.createElement( 'a' );
+			resolver.href = url;
+			return resolver.protocol + '//' + resolver.host ===
+				window.location.protocol + '//' + window.location.host;
+		},
+
 		updateFollow: function( event ) {
 			if ( 'undefined' !== typeof event ) {
 				event.preventDefault();
@@ -24,9 +34,20 @@ var FollowExtendsPost = ( function() {
 				return; // we don't allow them to unfollow all with this ui
 			}
 
-			// Get the current AJAX link
-			var link = this.$( '.o2-follow' );
+			// Get the current AJAX link. The article this view owns also holds
+			// the comment list, and comment bodies are author-supplied HTML,
+			// so look the control up inside the post rather than across the
+			// whole view.
+			var link = this.$post().find( '.o2-follow' );
 			var href = link.attr( 'href' );
+
+			// The model's sync() sends the o2 nonce, with credentials, to
+			// whatever url it is handed. The rendered control is built from
+			// home_url(), so anything pointing off-origin did not come from
+			// our own markup and must not receive that request.
+			if ( ! href || ! this.isSameOrigin( href ) ) {
+				return;
+			}
 
 			// Update the model
 			this.model.changeFollow();
