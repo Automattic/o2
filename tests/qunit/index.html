@@ -9,13 +9,12 @@
 		<!-- General Dependencies -->
 		<script src="../../../../../wp-includes/js/jquery/jquery.js"></script>
 		<script src="../../../../../wp-includes/js/underscore.min.js"></script>
+		<script src="../../../../../wp-includes/js/backbone.min.js"></script>
+		<script src="../../../../../wp-includes/js/wp-backbone.js"></script>
 
 		<!-- 
 		These other ones aren't needed yet, but may be down the line
 		<script src="../../../../../wp-includes/js/jquery/ui/core.js"></script>
-		<script src="../../../../../wp-includes/js/underscore.min.js"></script>
-		<script src="../../../../../wp-includes/js/backbone.min.js"></script>
-		<script src="../../../../../wp-includes/js/wp-backbone.js"></script>
 		<script src="../../../../../wp-includes/js/wp-util.js"></script>
 		-->
 
@@ -34,11 +33,20 @@
 				},
 				options: {
 					appContainer: '#qunit-fixture'
-				}
+				},
+				// The views read these when Backbone extends them.
+				Models: {},
+				Collections: {}
 			};
 		</script>
 		<script src="../../js/editor/editor.js"></script>
 		<script src="../../modules/time-shortcode/js/time-shortcode.js"></script>
+		<script src="../../js/views/post.js"></script>
+		<script src="../../js/views/comment.js"></script>
+		<script src="../../js/utils/cocktail.js"></script>
+		<script src="../../modules/sticky-posts/js/views/extend-post.js"></script>
+		<script src="../../modules/to-do/js/views/extend-post.js"></script>
+		<script src="../../modules/follow/js/views/post.js"></script>
 
 	</head>
 
@@ -52,5 +60,6 @@
 		<!-- Test Suites -->
 		<script src="editor.js"></script>
 		<script src="modules/time-shortcode.js"></script>
+		<script src="views/comment-boundary.js"></script>
 	</body>
 </html>
