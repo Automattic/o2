@@ -14,14 +14,19 @@ var FollowExtendsPost = ( function() {
 			'touchend a.o2-follow':   'updateFollow'
 		},
 
-		// True when a url resolves to the origin the page was served from.
-		// Assigning to an anchor lets the browser normalise relative and
-		// protocol-relative forms before the comparison.
-		isSameOrigin: function( url ) {
+		// True when a url resolves to the host the page was served from.
+		// Assigning to an anchor lets the browser normalise relative,
+		// protocol-relative and percent-encoded forms, and resolve any
+		// userinfo, before the comparison.
+		//
+		// Host rather than full origin: the endpoint is allowed to differ in
+		// protocol from the page. o2 upgrades http to https for permalinks
+		// generated during ajax calls (o2_Fragment::home_url), and the
+		// withCredentials note in js/models/base.js records the same case.
+		isSameHost: function( url ) {
 			var resolver = document.createElement( 'a' );
 			resolver.href = url;
-			return resolver.protocol + '//' + resolver.host ===
-				window.location.protocol + '//' + window.location.host;
+			return !! resolver.host && resolver.host === window.location.host;
 		},
 
 		updateFollow: function( event ) {
@@ -40,12 +45,18 @@ var FollowExtendsPost = ( function() {
 			// whole view.
 			var link = this.$post().find( '.o2-follow' );
 			var href = link.attr( 'href' );
+			if ( ! href ) {
+				return;
+			}
+
+			// Check the url we are actually going to send, not the href we
+			// started from: appending to a href that carries no query string
+			// extends its host rather than its query.
+			var requestURL = href + '&ajax';
 
 			// The model's sync() sends the o2 nonce, with credentials, to
-			// whatever url it is handed. The rendered control is built from
-			// home_url(), so anything pointing off-origin did not come from
-			// our own markup and must not receive that request.
-			if ( ! href || ! this.isSameOrigin( href ) ) {
+			// whatever url it is handed, so only send to our own host.
+			if ( ! this.isSameHost( requestURL ) ) {
 				return;
 			}
 
@@ -62,7 +73,7 @@ var FollowExtendsPost = ( function() {
 			this.model.save( {}, {
 				patch: true,
 				silent: true,
-				url: href + '&ajax',
+				url: requestURL,
 				success: this.saveFollowSuccess,
 				error: this.saveFollowError
 			} );
@@ -94,7 +105,7 @@ var FollowExtendsPost = ( function() {
 		},
 
 		updateFollowView: function() {
-			var link = this.$( '.o2-follow' );
+			var link = this.$post().find( '.o2-follow' );
 			if ( ! link.length ) {
 				return;
 			}
