@@ -22,6 +22,10 @@ var FollowExtendsPost = ( function() {
 		},
 
 		updateFollow: function( event ) {
+			if ( event && ! this.isPostControl( event ) ) {
+				return;
+			}
+
 			if ( 'undefined' !== typeof event ) {
 				event.preventDefault();
 				event.stopPropagation();

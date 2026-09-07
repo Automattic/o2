@@ -15,6 +15,10 @@ var StickyPostExtendsPost = ( function( $ ) {
 		},
 
 		onClickStickyPost: function( event ) {
+			if ( ! this.isPostControl( event ) ) {
+				return;
+			}
+
 			event.preventDefault();
 			event.stopPropagation();
 
