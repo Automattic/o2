@@ -112,6 +112,21 @@ o2.Views.Post = ( function( $ ) {
 			'touchend .o2-short-link':           'onShortLinkClick'
 		},
 
+		// The article this view owns is made of two containers: `.o2-post`
+		// holds the post, `.o2-post-comments` holds the comment list. Comment
+		// bodies are author-supplied HTML, so anything this view looks up or
+		// acts on for the post itself has to be scoped to `.o2-post` rather
+		// than searched for across the whole article.
+		$post: function() {
+			return this.$el.find( '.o2-post' ).first();
+		},
+
+		// True when a delegated control belongs to the post rather than to
+		// something inside the comment list.
+		isPostControl: function( event ) {
+			return 0 === $( event.currentTarget ).closest( '.o2-post-comments' ).length;
+		},
+
 		// keep track of whether a drag is in progress
 		onTouchStart: function() {
 			this.options.isDragging = false;
@@ -155,6 +170,10 @@ o2.Views.Post = ( function( $ ) {
 		},
 
 		onEdit: function( event ) {
+			if ( ! this.isPostControl( event ) ) {
+				return;
+			}
+
 			event.preventDefault();
 			event.stopPropagation();
 			if ( this.options.ignoreEdit ) {
@@ -167,6 +186,10 @@ o2.Views.Post = ( function( $ ) {
 		},
 
 		onTrash: function( event ) {
+			if ( ! this.isPostControl( event ) ) {
+				return;
+			}
+
 			event.preventDefault();
 			event.stopPropagation();
 
@@ -293,6 +316,10 @@ o2.Views.Post = ( function( $ ) {
 		},
 
 		onCancel: function( event ) {
+			if ( ! this.isPostControl( event ) ) {
+				return;
+			}
+
 			if ( this.options.isDragging ) {
 				return false;
 			}
@@ -312,6 +339,10 @@ o2.Views.Post = ( function( $ ) {
 		},
 
 		onSave: function( event ) {
+			if ( ! this.isPostControl( event ) ) {
+				return;
+			}
+
 			if ( this.options.isDragging ) {
 				return false;
 			}
@@ -328,15 +359,15 @@ o2.Views.Post = ( function( $ ) {
 			// Assemble a new, temporary model from the form content
 			// Grab the content from the actual textarea (the last one), not the autosize hidden one
 			var modelToSave = {};
-			modelToSave.contentRaw = this.$el.find( '.o2-editor-text' ).last().val();
+			modelToSave.contentRaw = this.$post().find( '.o2-editor-text' ).last().val();
 
 			modelToSave.contentFiltered = o2.Utilities.rawToFiltered( modelToSave.contentRaw, 'post' );
-			modelToSave.titleRaw = this.$el.find( '.o2-title' ).val();
+			modelToSave.titleRaw = this.$post().find( '.o2-title' ).val();
 			modelToSave.titleFiltered = modelToSave.titleRaw;
 			modelToSave.postFormat = this.options.viewFormat; // retrieve from the view
 
 			if ( modelToSave.contentRaw.length < 1 ) {
-				this.$el.find( '.o2-editor-text' ).addClass( 'o2-error' );
+				this.$post().find( '.o2-editor-text' ).addClass( 'o2-error' );
 				requiredInputMissing  = true;
 			}
 
@@ -389,6 +420,10 @@ o2.Views.Post = ( function( $ ) {
 		},
 
 		onFormat: function( event ) {
+			if ( ! this.isPostControl( event ) ) {
+				return;
+			}
+
 			event.preventDefault();
 
 			// get the current view format and switch to the opposite
@@ -637,8 +672,8 @@ o2.Views.Post = ( function( $ ) {
 
 			if ( this.options.isEditing ) {
 				// If the post is now being edited, fire up the editor and point it at the post
-				o2Editor.detectAndRender( this.$el );
-				o2Editor.create( this.$el.find( '.o2-editor-text' ), postID, 0 );
+				o2Editor.detectAndRender( this.$post() );
+				o2Editor.create( this.$post().find( '.o2-editor-text' ), postID, 0 );
 			}
 
 			// Format unixtime dates to localized date and time
