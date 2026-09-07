@@ -187,6 +187,13 @@ o2.Views.Comment = ( function( $ ) {
 			o2Editor.finished( this.model.get( 'postID' ), this.model.get( 'parentID' ), args );
 		},
 
+		// This comment's own content, excluding replies nested inside it.
+		$ownFind: function( selector ) {
+			return this.$el
+				.find( selector )
+				.not( this.$el.children( '.o2-child-comments' ).find( selector ) );
+		},
+
 		onSave: function( event ) {
 			o2.Events.doAction( 'pre-comment-save.o2' );
 			event.preventDefault();
@@ -200,21 +207,21 @@ o2.Views.Comment = ( function( $ ) {
 			// Grab the content from the actual textarea (the last one), not the autosize hidden one
 			var modelToSave = {};
 			modelToSave.author = {};
-			modelToSave.contentRaw = this.$el.find( '.o2-editor-text' ).last().val();
+			modelToSave.contentRaw = this.$ownFind( '.o2-editor-text' ).last().val();
 
-			if ( this.$el.find( '#subscribe_blog' ).prop( 'checked' ) ) {
+			if ( this.$ownFind( '#subscribe_blog' ).prop( 'checked' ) ) {
 				o2.options.followingBlog = true;
 			}
 
 			if ( modelToSave.contentRaw.length < 1 ) {
-				this.$el.find( '.o2-editor-text' ).addClass( 'o2-error' );
+				this.$ownFind( '.o2-editor-text' ).addClass( 'o2-error' );
 				requiredInputMissing  = true;
 			}
 
 			if ( ! this.options.currentUser.userLogin.length ) {
-				var commentName = this.$el.find( '.o2-comment-name' ).val();
-				var commentEmail = this.$el.find( '.o2-comment-email' ).val();
-				var commentUrl = this.$el.find( '.o2-comment-url' ).val();
+				var commentName = this.$ownFind( '.o2-comment-name' ).val();
+				var commentEmail = this.$ownFind( '.o2-comment-email' ).val();
+				var commentUrl = this.$ownFind( '.o2-comment-url' ).val();
 
 				if ( this.options.requireUserNameAndEmailIfNotLoggedIn ) {
 					if ( commentName.length < 1 ) {
@@ -405,9 +412,9 @@ o2.Views.Comment = ( function( $ ) {
 			this.$el.prepend( template( jsonifiedModel ) );
 
 			if ( this.options.isEditing ) {
-				o2Editor.detectAndRender( this.$el );
+				o2Editor.detectAndRender( this.$el.children().not( '.o2-child-comments' ) );
 
-				var editor = this.$el.find( '.o2-editor-text' );
+				var editor = this.$ownFind( '.o2-editor-text' );
 				editor.data( 'autoTitleDisabled', true );
 
 				o2Editor.create(
