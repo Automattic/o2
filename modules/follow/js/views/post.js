@@ -14,6 +14,13 @@ var FollowExtendsPost = ( function() {
 			'touchend a.o2-follow':   'updateFollow'
 		},
 
+		// Host, not origin: the endpoint may differ in protocol from the page.
+		isSameHost: function( url ) {
+			var resolver = document.createElement( 'a' );
+			resolver.href = url;
+			return !! resolver.host && resolver.host === window.location.host;
+		},
+
 		updateFollow: function( event ) {
 			if ( 'undefined' !== typeof event ) {
 				event.preventDefault();
@@ -24,9 +31,17 @@ var FollowExtendsPost = ( function() {
 				return; // we don't allow them to unfollow all with this ui
 			}
 
-			// Get the current AJAX link
-			var link = this.$( '.o2-follow' );
+			var link = this.$post().find( '.o2-follow' );
 			var href = link.attr( 'href' );
+			if ( ! href ) {
+				return;
+			}
+
+			// sync() sends the o2 nonce with credentials to whatever url it gets.
+			var requestURL = href + '&ajax';
+			if ( ! this.isSameHost( requestURL ) ) {
+				return;
+			}
 
 			// Update the model
 			this.model.changeFollow();
@@ -41,7 +56,7 @@ var FollowExtendsPost = ( function() {
 			this.model.save( {}, {
 				patch: true,
 				silent: true,
-				url: href + '&ajax',
+				url: requestURL,
 				success: this.saveFollowSuccess,
 				error: this.saveFollowError
 			} );
@@ -73,7 +88,7 @@ var FollowExtendsPost = ( function() {
 		},
 
 		updateFollowView: function() {
-			var link = this.$( '.o2-follow' );
+			var link = this.$post().find( '.o2-follow' );
 			if ( ! link.length ) {
 				return;
 			}
