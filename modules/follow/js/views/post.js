@@ -14,15 +14,7 @@ var FollowExtendsPost = ( function() {
 			'touchend a.o2-follow':   'updateFollow'
 		},
 
-		// True when a url resolves to the host the page was served from.
-		// Assigning to an anchor lets the browser normalise relative,
-		// protocol-relative and percent-encoded forms, and resolve any
-		// userinfo, before the comparison.
-		//
-		// Host rather than full origin: the endpoint is allowed to differ in
-		// protocol from the page. o2 upgrades http to https for permalinks
-		// generated during ajax calls (o2_Fragment::home_url), and the
-		// withCredentials note in js/models/base.js records the same case.
+		// Host, not origin: the endpoint may differ in protocol from the page.
 		isSameHost: function( url ) {
 			var resolver = document.createElement( 'a' );
 			resolver.href = url;
@@ -39,23 +31,14 @@ var FollowExtendsPost = ( function() {
 				return; // we don't allow them to unfollow all with this ui
 			}
 
-			// Get the current AJAX link. The article this view owns also holds
-			// the comment list, and comment bodies are author-supplied HTML,
-			// so look the control up inside the post rather than across the
-			// whole view.
 			var link = this.$post().find( '.o2-follow' );
 			var href = link.attr( 'href' );
 			if ( ! href ) {
 				return;
 			}
 
-			// Check the url we are actually going to send, not the href we
-			// started from: appending to a href that carries no query string
-			// extends its host rather than its query.
+			// sync() sends the o2 nonce with credentials to whatever url it gets.
 			var requestURL = href + '&ajax';
-
-			// The model's sync() sends the o2 nonce, with credentials, to
-			// whatever url it is handed, so only send to our own host.
 			if ( ! this.isSameHost( requestURL ) ) {
 				return;
 			}
