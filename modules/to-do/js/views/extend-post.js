@@ -25,6 +25,10 @@ var ResolvedPostExtendsPost = ( function( $ ) {
 		},
 
 		onClickResolvedPosts: function( event ) {
+			if ( ! this.isPostControl( event ) ) {
+				return;
+			}
+
 			event.preventDefault();
 			event.stopPropagation();
 

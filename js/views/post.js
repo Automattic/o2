@@ -220,6 +220,10 @@ o2.Views.Post = ( function( $ ) {
 		},
 
 		onShortLinkClick: function( event ) {
+			if ( ! this.isPostControl( event ) ) {
+				return;
+			}
+
 			var shortLink = event.target.href;
 			event.preventDefault();
 			event.stopPropagation();
