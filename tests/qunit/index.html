@@ -6,17 +6,11 @@
 		<title>o2 QUnit Test Suite</title>
 		<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.26.0.css">
 
-		<!-- General Dependencies -->
-		<script src="../../../../../wp-includes/js/jquery/jquery.js"></script>
-		<script src="../../../../../wp-includes/js/underscore.min.js"></script>
-		<script src="../../../../../wp-includes/js/backbone.min.js"></script>
-		<script src="../../../../../wp-includes/js/wp-backbone.js"></script>
-
-		<!-- 
-		These other ones aren't needed yet, but may be down the line
-		<script src="../../../../../wp-includes/js/jquery/ui/core.js"></script>
-		<script src="../../../../../wp-includes/js/wp-util.js"></script>
-		-->
+		<!-- General Dependencies. Run bin/install-qunit-deps.sh to populate vendor/. -->
+		<script src="vendor/jquery.js"></script>
+		<script src="vendor/underscore.min.js"></script>
+		<script src="vendor/backbone.min.js"></script>
+		<script src="vendor/wp-backbone.js"></script>
 
 		<!-- Plugin Dependencies -->
 		<script>
