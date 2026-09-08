@@ -127,6 +127,14 @@ o2.Views.Post = ( function( $ ) {
 			return 0 === $( event.currentTarget ).closest( '.o2-post-comments' ).length;
 		},
 
+		// True when a delegated control sits in author-supplied comment HTML,
+		// which is everything inside `.comment-content`. Comment actions render
+		// into `.o2-comment-header`, outside it, so a handler shared by post and
+		// comment controls uses this rather than `isPostControl`.
+		isCommentContent: function( event ) {
+			return 0 < $( event.currentTarget ).closest( '.comment-content' ).length;
+		},
+
 		// keep track of whether a drag is in progress
 		onTouchStart: function() {
 			this.options.isDragging = false;
@@ -220,7 +228,7 @@ o2.Views.Post = ( function( $ ) {
 		},
 
 		onShortLinkClick: function( event ) {
-			if ( ! this.isPostControl( event ) ) {
+			if ( this.isCommentContent( event ) ) {
 				return;
 			}
 

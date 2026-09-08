@@ -58,6 +58,7 @@ function o2PostUnderTest( fixture ) {
 			$: function( selector ) { return this.$el.find( selector ); },
 			options: { isDragging: false, viewFormat: 'standard' },
 			isPostControl: o2.Views.Post.prototype.isPostControl,
+			isCommentContent: o2.Views.Post.prototype.isCommentContent,
 			$post: o2.Views.Post.prototype.$post,
 			isSameHost: function() { return true; },
 			renderPost: function() {},
@@ -90,7 +91,9 @@ function o2PostUnderTest( fixture ) {
 		var fixture = jQuery( '#qunit-fixture' ).html(
 				'<div class="o2-post"><a class="' + subject.control + '" href="http://own.test/x">Do it</a></div>' +
 				'<div class="o2-post-comments"><div class="o2-comment">' +
+				'<div class="comment-content">' +
 				'<a class="' + subject.control + '" id="planted" href="http://evil.test/x">Do it</a>' +
+				'</div>' +
 				'</div></div>'
 			),
 			underTest = o2PostUnderTest( fixture );
@@ -102,6 +105,73 @@ function o2PostUnderTest( fixture ) {
 
 		assert.deepEqual( underTest.did, [], 'the planted control does nothing' );
 	} );
+} );
+
+// `.o2-short-link` is a post action here, but `o2_comment_actions` lets a site register the
+// same control on a comment, and o2 has no separate comment-side handler for it. So this one
+// handler answers to both, and the line it draws is author-supplied HTML rather than the
+// comment list. A wrapper class cannot be used instead: comment content is filtered with
+// `wp_filter_post_kses` wherever a site allows post HTML in comments, which permits `div` and
+// the global `class` attribute, so an author could wrap a planted control to match. Ancestry
+// is not forgeable in the same way.
+QUnit.test( 'onShortLinkClick copies from a control rendered as a comment action', function( assert ) {
+	var fixture = jQuery( '#qunit-fixture' ).html(
+			'<div class="o2-post"></div>' +
+			'<div class="o2-post-comments"><div class="o2-comment">' +
+			'<div class="o2-comment-header"><nav class="o2-comment-actions">' +
+			'<a class="o2-short-link" id="own" href="http://own.test/?p=1#comment-9">Copy shortlink</a>' +
+			'</nav></div>' +
+			'<div class="comment-content">A comment body.</div>' +
+			'</div></div>'
+		),
+		underTest = o2PostUnderTest( fixture );
+
+	o2.Views.Post.prototype.onShortLinkClick.call(
+		underTest.view,
+		o2ClickOn( fixture.find( '#own' )[ 0 ] )
+	);
+
+	assert.deepEqual(
+		underTest.did,
+		[ 'http://own.test/?p=1#comment-9' ],
+		'a comment action outside .comment-content still copies'
+	);
+} );
+
+QUnit.test( 'onShortLinkClick ignores a control wrapped to look like a comment action', function( assert ) {
+	var fixture = jQuery( '#qunit-fixture' ).html(
+			'<div class="o2-post"></div>' +
+			'<div class="o2-post-comments"><div class="o2-comment">' +
+			'<div class="comment-content"><nav class="o2-comment-actions">' +
+			'<a class="o2-short-link" id="planted" href="http://evil.test/x">Copy shortlink</a>' +
+			'</nav></div>' +
+			'</div></div>'
+		),
+		underTest = o2PostUnderTest( fixture );
+
+	o2.Views.Post.prototype.onShortLinkClick.call(
+		underTest.view,
+		o2ClickOn( fixture.find( '#planted' )[ 0 ] )
+	);
+
+	assert.deepEqual( underTest.did, [], 'the wrapper class does not buy its way out of .comment-content' );
+} );
+
+QUnit.test( 'onShortLinkClick still copies the post\'s own shortlink', function( assert ) {
+	var fixture = jQuery( '#qunit-fixture' ).html(
+			'<div class="o2-post">' +
+			'<a class="o2-short-link" id="own" href="http://own.test/?p=1">Copy shortlink</a>' +
+			'</div>' +
+			'<div class="o2-post-comments"></div>'
+		),
+		underTest = o2PostUnderTest( fixture );
+
+	o2.Views.Post.prototype.onShortLinkClick.call(
+		underTest.view,
+		o2ClickOn( fixture.find( '#own' )[ 0 ] )
+	);
+
+	assert.deepEqual( underTest.did, [ 'http://own.test/?p=1' ], 'the post\'s own control still works' );
 } );
 
 QUnit.test( 'onTrash still trashes the post from its own control', function( assert ) {

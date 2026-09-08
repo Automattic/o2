@@ -34,6 +34,12 @@
 				options: {
 					appContainer: '#qunit-fixture'
 				},
+				// Handlers that reach the notification path keep firing on a timer
+				// after a test ends, so this has to outlive any per-test stub.
+				Notifications: {
+					add: function() {},
+					notifications: { findFirstAndDestroy: function() {} }
+				},
 				// The views read these when Backbone extends them.
 				Models: {},
 				Collections: {}
