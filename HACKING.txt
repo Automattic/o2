@@ -58,5 +58,6 @@ There are a number of core modules provided, which will give you an idea on how 
 * Run 'composer install' to get PHPUnit and the polyfills the WordPress test library needs
 * Run 'bash bin/install-wp-tests.sh <db-name> <db-user> <db-pass> [db-host] [wp-version]' once to install WordPress and its test library into /tmp (needs git and a MySQL server)
 * Run 'vendor/bin/phpunit' (or 'grunt phpunit') for the PHP tests
-* Run 'grunt qunit' for the JavaScript tests. The test page loads jQuery and Underscore from WordPress core, so the plugin has to sit at wp-content/plugins/o2 inside a WordPress install
+* Run 'grunt qunit' for the JavaScript tests. It works from a plain checkout anywhere on disk
+* The QUnit page runs against the jQuery, Underscore and Backbone that WordPress ships rather than npm builds of them, so a failure means something about o2 and not about a version WordPress never serves. 'grunt qunit' fetches them into tests/qunit/vendor on first run; 'bash bin/install-qunit-deps.sh [wp-version]' does it by hand, and takes a version to test against an older WordPress
 * 'npm test' runs lint, PHPUnit, and QUnit together

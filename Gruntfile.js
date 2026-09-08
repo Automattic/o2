@@ -82,7 +82,7 @@ module.exports = function(grunt) {
 					args: ['-c', 'phpunit.xml.dist']
 				}
 			},
-			qunit: {
+			'contrib-qunit': {
 				all: [ 'tests/qunit/index.html' ]
 			}
 		};
@@ -91,6 +91,7 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
+	grunt.renameTask( 'qunit', 'contrib-qunit' );
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-wp-i18n');
 	grunt.loadNpmTasks('grunt-rtlcss');
@@ -137,6 +138,28 @@ module.exports = function(grunt) {
 			opts: {stdio: 'inherit'}
 		}, this.async());
 	});
+
+	grunt.registerTask( 'qunit-deps', 'Fetches the WordPress core scripts the QUnit page loads.', function() {
+		if ( grunt.file.exists( 'tests/qunit/vendor/.wp-version' ) ) {
+			return;
+		}
+
+		var done = this.async();
+
+		grunt.log.writeln( 'tests/qunit/vendor is empty, fetching WordPress core scripts.' );
+
+		grunt.util.spawn( {
+			cmd: 'bin/install-qunit-deps.sh',
+			opts: { stdio: 'inherit' }
+		}, function( error ) {
+			if ( error ) {
+				grunt.log.error( 'Could not fetch them. Run bin/install-qunit-deps.sh by hand to see why.' );
+			}
+			done( ! error );
+		} );
+	} );
+
+	grunt.registerTask( 'qunit', 'Runs the QUnit suite.', [ 'qunit-deps', 'contrib-qunit' ] );
 
 	grunt.registerTask( 'lint', 'Runs PHP and JavaScript lint checks.', [ 'phplint', 'jshint' ] );
 };

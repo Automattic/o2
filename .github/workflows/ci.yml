@@ -46,16 +46,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          path: wp-content/plugins/o2
-      - name: Unpack WordPress core for the jQuery and Underscore the test page loads
-        run: curl -sL https://wordpress.org/latest.tar.gz | tar -xz --strip-components=1
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: wp-content/plugins/o2/package-lock.json
       - run: npm ci
-        working-directory: wp-content/plugins/o2
+      # Fetches the WordPress core scripts the test page loads. Kept as its own
+      # step so a WordPress.org outage reads as itself, not as a test failure.
+      - run: bin/install-qunit-deps.sh
       - run: npx grunt qunit
-        working-directory: wp-content/plugins/o2
