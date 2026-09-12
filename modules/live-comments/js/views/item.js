@@ -15,7 +15,14 @@ o2.Views.LiveCommentsWidgetItemView = ( function( $ ) {
 		initialize: function() {
 		},
 
-		makeLongWordsShort: function( content, limit ) {
+		makeLongWordsShort: function( content, limit, stripHTML ) {
+			if ( stripHTML ) {
+				// Rendering the content in a div is safe here, as we'll add it to the DOM later anyway, and we trust WordPress to have sanitized it.
+				var div = document.createElement( 'div' );
+				div.innerHTML = content;
+				content = div.textContent || div.innerText || content;
+			}
+
 			var contentArray = content.split( ' ' );
 			for ( var i=0; i < contentArray.length; i++ ) {
 				if ( contentArray[i].length > limit ) {
@@ -29,7 +36,7 @@ o2.Views.LiveCommentsWidgetItemView = ( function( $ ) {
 		render: function() {
 			var jsonifiedModel = this.model.toJSON();
 
-			jsonifiedModel.title = this.makeLongWordsShort( jsonifiedModel.title, 15 );
+			jsonifiedModel.title = this.makeLongWordsShort( jsonifiedModel.title, 15, true );
 			jsonifiedModel.author = o2.UserCache.getUserFor( this.model.attributes, 32 );
 
 			var titleForItem = jsonifiedModel.title,
