@@ -26,12 +26,12 @@ class o2_NoPriv_Write_API extends o2_API_Base {
 
 			// Make sure we can decode the Message
 			$message = json_decode( stripslashes( $_REQUEST['message'] ) );
-			if ( null === $message ) {
+			if ( ! is_object( $message ) ) {
 				self::die_failure( 'invalid_message', __( 'Message could not be decoded', 'o2' ) );
 			}
 
 			// We only support comment messages (for now)
-			if ( !in_array( $message->type, apply_filters( 'o2_supported_nopriv_message_types', array( 'comment' ) ) ) ) {
+			if ( ! isset( $message->type ) || !in_array( $message->type, apply_filters( 'o2_supported_nopriv_message_types', array( 'comment' ) ) ) ) {
 				self::die_failure( 'unknown_message_type', __( 'Unknown message type passed', 'o2' ) );
 			}
 
@@ -78,22 +78,19 @@ class o2_NoPriv_Write_API extends o2_API_Base {
 		// Posting a new comment. We use the core-provided file to
 		// avoid re-implementing a bunch of logic
 
-		if ( function_exists( 'is_email_wp_emails' ) && is_email_wp_emails( $message->author->email ) ) {
+		// The client only sends a userLogin when it thinks the user is logged in,
+		// so the session expired (or they logged out elsewhere) since the page loaded.
+		if ( ! empty( $message->author->userLogin ) ) {
+			self::die_failure( 'logged_out', __( 'You have been logged out. Please log in again to comment.', 'o2' ), 403 );
+		}
+
+		$_POST = array_merge( $_POST, self::get_comment_fields( $message ) );
+
+		if ( function_exists( 'is_email_wp_emails' ) && is_email_wp_emails( $_POST['email'] ) ) {
 			self::die_failure( 'email_associated_with_account_error',
 				__( 'The email you specified is associated with a WordPress.com account.  Please login first or use a different email address.', 'o2' )
 			);
 		}
-
-		// Re-map some incoming data to match the expected _POST elements
-		$remap = array(
-			'comment_post_ID' => $message->postID,
-			'comment'         => $message->contentRaw,
-			'comment_parent'  => $message->parentID,
-			'author'          => $message->author->name,
-			'email'           => $message->author->email,
-			'url'             => $message->author->url
-		);
-		$_POST = array_merge( $_POST, $remap );
 
 		// Let the core comment handler take it from here
 		global $wpdb;
@@ -102,6 +99,23 @@ class o2_NoPriv_Write_API extends o2_API_Base {
 		// If we get here, it means the core actions weren't fired, so
 		// something most likely went wrong
 		self::die_failure( 'unknown_comment_error', __( 'Failed to post comment.', 'o2' ) );
+	}
+
+	/**
+	 * Re-map the incoming message to the _POST elements wp-comments-post.php expects.
+	 * Fields can be missing from hand-crafted requests, so default them.
+	 */
+	public static function get_comment_fields( $message ) {
+		$author = isset( $message->author ) && is_object( $message->author ) ? $message->author : new stdClass();
+
+		return array(
+			'comment_post_ID' => $message->postID ?? 0,
+			'comment'         => $message->contentRaw ?? '',
+			'comment_parent'  => $message->parentID ?? 0,
+			'author'          => $author->name ?? '',
+			'email'           => $author->email ?? '',
+			'url'             => $author->url ?? '',
+		);
 	}
 
 	/**
