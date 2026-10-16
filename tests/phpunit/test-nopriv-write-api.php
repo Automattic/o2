@@ -40,11 +40,18 @@ class NoPrivWriteAPITest extends WP_UnitTestCase {
 		add_filter( 'wp_doing_ajax', '__return_true' );
 		add_filter( 'wp_die_ajax_handler', array( $this, 'get_die_handler' ) );
 
+		// If the guard regresses, wp-comments-post.php is reached, and it exits on anything but POST,
+		// silently ending the test run.
+		$request_method            = $_SERVER['REQUEST_METHOD'] ?? null;
+		$_SERVER['REQUEST_METHOD'] = 'POST';
+
 		ob_start();
 		try {
 			o2_NoPriv_Write_API::create_comment( $message );
 		} catch ( WPDieException $e ) {
 			// Expected, die_failure() ends the request.
+		} finally {
+			$_SERVER['REQUEST_METHOD'] = $request_method;
 		}
 		$response = json_decode( ob_get_clean(), true );
 
