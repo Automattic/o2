@@ -155,7 +155,7 @@ o2Editor = {
 	getEditor: function( elem ) {
 		// Prime details from the <textarea> we're replacing
 		var $holder = $( elem ),
-				prompt  = $holder.attr( 'placeholder' ) || '',
+				prompt  = $( '<textarea>' ).html( $holder.attr( 'placeholder' ) || '' ).text(), // Stored prompts may be entity-encoded.
 				title   = $holder.attr( 'title' ), // Leave attribute off <textarea> completely to remove title controls
 				content = $holder.val(),
 				editor;
