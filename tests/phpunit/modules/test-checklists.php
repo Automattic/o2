@@ -76,4 +76,16 @@ class o2ChecklistsTest extends WP_UnitTestCase {
 
 		$this->assertFalse( $this->list_creator->current_user_can_edit_checklist( 'comment', $comment_id ) );
 	}
+
+	function test_checklist_in_a_comment_that_is_not_saved_yet_is_not_editable() {
+		$author_id = $this->factory->user->create( array( 'role' => 'author' ) );
+
+		wp_set_current_user( $author_id );
+
+		// The write API renders a new comment's content before the comment exists.
+		$rendered = $this->list_creator->parse_lists_in_comment( 'o my task' );
+
+		$this->assertStringContainsString( 'disabled', $rendered, 'The checkbox should be disabled' );
+		$this->assertFalse( $this->list_creator->current_user_can_edit_checklist( 'comment', '' ) );
+	}
 }

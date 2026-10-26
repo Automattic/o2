@@ -305,6 +305,9 @@ class o2_Write_API extends o2_API_Base {
 	public static function restrict_comment_editing( $caps, $cap, $user_id, $args ) {
 		if ( 'edit_comment' === $cap ) {
 			$comment = get_comment( $args[0] );
+			if ( ! $comment ) {
+				return $caps; // Core already denies a missing comment.
+			}
 
 			if ( $comment->user_id != $user_id ) {
 				// Only Editors can edit all comments
