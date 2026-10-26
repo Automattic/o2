@@ -58,3 +58,29 @@ QUnit.test( 'rebuild decodes an entity-encoded placeholder without parsing marku
 	assert.strictEqual( editors.eq( 2 ).attr( 'placeholder' ), '<img id="o2-placeholder-proof">', 'raw markup in the attribute stays text' );
 	assert.strictEqual( fixture.find( '#o2-placeholder-proof' ).length, 0, 'the prompt does not create elements' );
 } );
+
+QUnit.test( 'rebuild does not run markup from a placeholder that jQuery would parse as HTML', function( assert ) {
+	var done = assert.async(),
+		fixture = jQuery( '#qunit-fixture' );
+
+	window.o2PlaceholderMarkupRan = false;
+
+	// jQuery's .html() appends these instead of setting innerHTML, which builds live elements.
+	fixture.html(
+		'<textarea class="o2-editor" placeholder="&lt;style&gt;&lt;/style&gt;&lt;img src=&quot;x&quot; onerror=&quot;window.o2PlaceholderMarkupRan = true&quot;&gt;"></textarea>'
+	);
+
+	o2Editor.detectAndRender( fixture );
+
+	assert.strictEqual(
+		fixture.find( '.o2-editor-text' ).attr( 'placeholder' ),
+		'<style></style><img src="x" onerror="window.o2PlaceholderMarkupRan = true">',
+		'the prompt stays text'
+	);
+
+	setTimeout( function() {
+		assert.false( window.o2PlaceholderMarkupRan, 'markup in the prompt does not run' );
+		delete window.o2PlaceholderMarkupRan;
+		done();
+	}, 500 );
+} );
