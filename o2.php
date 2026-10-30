@@ -901,6 +901,10 @@ class o2 {
 			return $content;
 		}
 
+		if ( ! apply_filters( 'o2_process_the_content', true ) ) {
+			return $content;
+		}
+
 		// password protected post? return immediately (password protected pages are OK)
 		if ( ! is_page() && ! empty( $post->post_password ) ) {
 			return $content;
