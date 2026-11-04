@@ -30,9 +30,17 @@ function o2BlurAvatarFor( defaultAvatar ) {
 	return el.find( 'img' ).attr( 'src' );
 }
 
-QUnit.test( 'getUserFor omits d for gravatar_default', function( assert ) {
-	assert.strictEqual( o2AvatarFor( 'gravatar_default' ), 'https://gravatar.com/avatar/' + o2TestHash );
-	assert.strictEqual( o2AvatarFor( 'identicon' ), 'https://gravatar.com/avatar/' + o2TestHash + '?d=identicon' );
+// logged-out-create-comment.php appends `&s=` to this URL.
+QUnit.test( 'getUserFor omits d for gravatar_default and keeps appended params in the query', function( assert ) {
+	var url = new URL( o2AvatarFor( 'gravatar_default' ) + '&s=32' );
+	assert.strictEqual( url.pathname, '/avatar/' + o2TestHash );
+	assert.strictEqual( url.searchParams.get( 's' ), '32' );
+	assert.false( url.searchParams.has( 'd' ) );
+
+	url = new URL( o2AvatarFor( 'identicon' ) + '&s=32' );
+	assert.strictEqual( url.pathname, '/avatar/' + o2TestHash );
+	assert.strictEqual( url.searchParams.get( 's' ), '32' );
+	assert.strictEqual( url.searchParams.get( 'd' ), 'identicon' );
 } );
 
 QUnit.test( 'onBlurCommentorEmail omits d for gravatar_default', function( assert ) {
