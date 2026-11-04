@@ -68,7 +68,7 @@ o2.Collections.Users = ( function( $, Backbone ) {
 
 			// Add the avatar info
 			var defaultAvatar = ( 'undefined' !== typeof o2.options.defaultAvatar ) ? o2.options.defaultAvatar : 'identicon';
-			userAttributes.avatar = 'https://gravatar.com/avatar/' + userAttributes.hash + '?d=' + defaultAvatar;
+			userAttributes.avatar = 'https://gravatar.com/avatar/' + userAttributes.hash + ( 'gravatar_default' === defaultAvatar ? '' : '?d=' + defaultAvatar );
 			userAttributes.avatarSize = avatarSize;
 
 			return userAttributes;
