@@ -333,7 +333,7 @@ o2.Views.Comment = ( function( $ ) {
 
 				// Fetch the gravatar
 				var gravatarBase = ( 'https:' === location.protocol ? 'https://secure' : 'http://www' ) + '.gravatar.com/';
-				var gravatarSrc = gravatarBase + 'avatar/' + Gravatar.md5( emailAddress ) + '?s=32&d=' + encodeURIComponent( o2.options.defaultAvatar );
+				var gravatarSrc = gravatarBase + 'avatar/' + Gravatar.md5( emailAddress ) + '?s=32' + ( 'gravatar_default' === o2.options.defaultAvatar ? '' : '&d=' + encodeURIComponent( o2.options.defaultAvatar ) );
 				this.$el.find( 'img.avatar' ).attr( 'src', gravatarSrc );
 			}
 		},
