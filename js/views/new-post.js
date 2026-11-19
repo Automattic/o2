@@ -106,7 +106,7 @@ o2.Views.FrontSidePost = ( function( $ ) {
 				titleFiltered: titleRaw,
 				contentFiltered: contentFiltered,
 				isFollowing: isFollowing,
-				disableAutoTitle: o2Editor.isFirefox, // Force auto-title off in Firefox
+				disableAutoTitle: false,
 				postFormat: this.options.viewFormat // retrieve from the view
 			} );
 			o2.App.posts.add( clientModel ); // @todo we've made the view coupled to the app here - could we use an event?
