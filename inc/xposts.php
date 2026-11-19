@@ -39,6 +39,9 @@ class o2_Xposts extends o2_Terms_In_Comments {
 		// Don't let xposts participate in resolved/unresolved
 		add_filter( 'o2_resolved_posts_maybe_mark_new_as_unresolved', array( $this, 'o2rpx_dont_mark_xposts' ), 10, 2 );
 
+		// Duplicate Posts: don't copy xpost metadata with the post.
+		add_filter( 'duplicate_post_excludelist_filter', array( $this, 'duplicate_post_excludelist_filter' ) );
+
 		parent::__construct( 'xposts' );
 	}
 
@@ -605,6 +608,15 @@ class o2_Xposts extends o2_Terms_In_Comments {
 		}
 
 		return $true;
+	}
+
+	/* Don't copy xpost-related metadata when cloning posts. */
+	function duplicate_post_excludelist_filter( $metadata ) {
+		// Don't copy xpost metadata with the post.
+		$metadata[] = 'xpost-*';
+		$metadata[] = 'xcomment-*';
+
+		return $metadata;
 	}
 }
 
