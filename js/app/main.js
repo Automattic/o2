@@ -219,7 +219,10 @@ o2.Routers.App = ( function( $, Backbone ) {
 				// Scroll to the fragment identifer
 				setTimeout( function () {
 					var fragment = $( document.body ).find( window.location.hash );
-					if ( fragment.length ) {
+					if ( fragment.is( ':hidden' ) && '#comment-' === window.location.hash.substring( 0, 9 ) ) {
+						// Comments start collapsed on mobile and narrow screens, so expand them first.
+						o2.App.postsView.scrollTo( window.location.hash );
+					} else if ( fragment.length ) {
 						var scrollY = fragment.offset().top - 30;
 						window.scrollTo( 0, scrollY );
 					}
