@@ -695,6 +695,11 @@ o2.Views.Post = ( function( $ ) {
 
 			this.updateFormattedControls();
 
+			// SyntaxHighlighter only runs on page load and `post-load`, so re-rendered code blocks need another pass.
+			if ( window.SyntaxHighlighter ) {
+				window.SyntaxHighlighter.highlight();
+			}
+
 			// Events
 			this.model.trigger( 'o2-post-rendered' );
 			o2.$body.trigger( 'pd-script-load' );
