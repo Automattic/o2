@@ -599,5 +599,25 @@ class o2BaseTest extends WP_UnitTestCase {
 		);
 	}
 
-}
+	function test_page_title_for_author_query_without_a_user() {
+		global $o2;
 
+		// Core strips `?author=` down to digits, commas and dashes, so junk becomes `-`.
+		// That still sets is_author() and matches every post, but there is no user to query.
+		self::factory()->post->create( array( 'post_author' => self::factory()->user->create() ) );
+		$this->go_to( home_url( '/?author=-' ) );
+
+		$this->assertTrue( is_author() );
+		$this->assertNull( get_queried_object() );
+		$this->assertSame( 'Post Archives', $o2->get_current_page_title() );
+	}
+
+	function test_page_title_for_author_archive() {
+		global $o2;
+
+		$user_id = self::factory()->user->create( array( 'display_name' => 'Jane Doe' ) );
+		$this->go_to( get_author_posts_url( $user_id ) );
+
+		$this->assertSame( 'Posts by Jane Doe', $o2->get_current_page_title() );
+	}
+}

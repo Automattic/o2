@@ -719,7 +719,7 @@ class o2 {
 			$page_title = get_bloginfo( 'name', 'display' );
 		else if ( is_page() )
 			$page_title = the_title( '', '', false );
-		elseif ( is_author() ) {
+		elseif ( is_author() && $obj instanceof WP_User ) {
 			$page_title = sprintf( __( 'Posts by %s', 'o2' ), $obj->display_name );
 			$current_user = wp_get_current_user();
 			if ( $current_user instanceof WP_User ) {
